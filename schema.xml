@@ -4,6 +4,7 @@
     <field name="authoritative_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="title" type="text_general" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="iso" type="string" indexed="false" stored="true" />
   </fields>
   <uniqueKey>
     authoritative_id
