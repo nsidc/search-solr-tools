@@ -10,14 +10,14 @@ SOLR_ENVIRONMENTS = {
 SOLR_START_JAR = 'start.jar'
 SOLR_PID_FILE = 'solr.pid'
 
-task :update_index, :environemnt do |t, args|
+task :update_index, :environment do |t, args|
   copy_index_file args
 end
 
-task :start_solr, :environemnt do |t, args|
+task :start_solr, :environment do |t, args|
   copy_index_file args
 
-  env = SOLR_ENVIRONMENTS[args[:environemnt].to_sym]
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   pid_file = pid_path env
   stop(pid_file)
 
@@ -31,8 +31,8 @@ task :start_solr, :environemnt do |t, args|
   sh "sudo sh -c \"echo '#{pid}' > #{pid_file}\""
 end
 
-task :stop_solr, :environemnt do |t, args|
-  env = SOLR_ENVIRONMENTS[args[:environemnt].to_sym]
+task :stop_solr, :environment do |t, args|
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   pid_file = pid_path env
 
   if !stop(pid_file)
@@ -41,7 +41,7 @@ task :stop_solr, :environemnt do |t, args|
 end
 
 def copy_index_file(args)
-  env = SOLR_ENVIRONMENTS[args[:environemnt].to_sym]
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   sh "sudo cp schema.xml #{env[:install_dir]}/#{env[:conf_dir]}"
 end
 
