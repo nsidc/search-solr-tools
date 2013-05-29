@@ -12,7 +12,7 @@ SOLR_ENVIRONMENTS = {
     },
     :integration => {
       :setup_dir => './solr/example',
-      :deployment_target => '/disks/integration/live/apps/nsidc-open-search-solr/',
+      :deployment_target => '/diskintegration/live/apps/nsidc-open-search-solr/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
       :port => '9283',
@@ -27,7 +27,7 @@ desc "Harvest NSIDC_OAI data"
 task :harvest_oai, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   sh "curl -s '#{env[:oai_url]}' | xsltproc ./nsidc_oai_iso.xslt - > oai_output.xml"
-  sh "curl 'http://localhost:#{env[:port]}/solr/update/xslt?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @oai_output.xml"
+  sh "curl 'http://localhost:#{env[:port]}/solr/update?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @oai_output.xml"
 end
 
 desc "Setup unconfigured solr instance"
