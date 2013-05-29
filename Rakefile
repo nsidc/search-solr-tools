@@ -7,7 +7,8 @@ SOLR_ENVIRONMENTS = {
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
       :port => '9283',
-      :repo_dir => '/home/vagrant/workspace/nsidc-solr/repo/'
+      :repo_dir => '/home/vagrant/workspace/nsidc-solr/repo/',
+      :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso'
     },
     :integration => {
       :setup_dir => './solr/example',
@@ -15,12 +16,19 @@ SOLR_ENVIRONMENTS = {
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
       :port => '9283',
-      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
+      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
+      :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso'
     }
 }
 SOLR_START_JAR = 'start.jar'
 SOLR_PID_FILE = 'solr.pid'
 
+desc "Harvest NSIDC_OAI data"
+task :harvest_oai, :environment do |t, args|
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+  sh "curl -s '#{env[:oai_url]}' | xsltproc ./nsidc_oai_iso.xslt - > oai_output.xml"
+  sh "curl 'http://localhost:#{env[:port]}/solr/update/xslt?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @oai_output.xml"
+end
 
 desc "Setup unconfigured solr instance"
 task :setup, :environment do |t, args|
@@ -74,13 +82,19 @@ task :build_artifact, :environment do |t, args|
   create_tarball(args, env)
 end
 
+desc "Clean deployment"
+task :clean, :environment do |t, args|
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+  sh "#{env[:prefix]} rm -Rf #{env[:deployment_target]}/solr/*"
+end
+
 desc "Deploy artifact"
-task :deploy_artifact, :environment do |t, args|
+task :deploy, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   sh "cd #{env[:deployment_target]}; #{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar"
 end
 
-def generate_version_id()
+def generate_version_id
   "#{ENV['BUILD_NUMBER']}"
 end
 
@@ -88,6 +102,7 @@ def create_tarball(args, env)
   version_id = generate_version_id
   sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr-4.3.0 solr"
 end
+
 def setup_solr(args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   sh "#{env[:prefix]} mv #{env[:setup_dir]}/solr/collection1 #{env[:setup_dir]}/#{env[:collection_dir]}"
@@ -104,7 +119,7 @@ def configure_collection(collection, target)
 end
 
 def run(env)
-  exec "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]} >> output.log 2>&1"
+  exec "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
 end
 
 def stop(pid_file, args)
