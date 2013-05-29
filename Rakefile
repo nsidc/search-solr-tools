@@ -2,8 +2,7 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
-      #:install_dir => '/opt/solr/dev',
-      :install_dir => './solr',
+      :install_dir => '/opt/solr/dev',
       :collection_dir => 'solr/local_collection',
       :prefix => 'sudo',
       :port => '8983',
@@ -12,7 +11,7 @@ SOLR_ENVIRONMENTS = {
     },
     :integration => {
       :install_dir => "./solr",
-      :collection_dir => "solr/#{ENV["collection"]}",
+      :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
       :port => '8983',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
@@ -88,20 +87,23 @@ def create_tarball(args, env)
   version_id = generate_version_id
   sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr"
 end
-
 def setup_solr(args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "#{env[:prefix]} mv ./solr-*/example #{env[:install_dir]}"
-  sh "#{env[:prefix]} mv #{env[:install_dir]}/solr/collection1 #{env[:install_dir]}/#{env[:collection_dir]}"
-  sh "#{env[:prefix]} cp schema.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/schema.xml"
-  sh "#{env[:prefix]} cp solrconfig.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
-  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:install_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
-  sh "#{env[:prefix]} cp solr.xml #{env[:install_dir]}/#{env[:collection_dir]}/solr.xml"
-  sh "#{env[:prefix]} rm -rf solr-*"
+  sh "#{env[:prefix]} mv #{env[:install_dir]}/example/solr/collection1 #{env[:install_dir]}/example/#{env[:collection_dir]}"
+  sh "#{env[:prefix]} cp schema.xml #{env[:install_dir]}/example/#{env[:collection_dir]}/conf/schema.xml"
+  sh "#{env[:prefix]} cp solrconfig.xml #{env[:install_dir]}/example/#{env[:collection_dir]}/conf/solrconfig.xml"
+  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:install_dir]}/example/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
+  configure_collection("#{ENV['collection']}", "#{env[:install_dir]}/example/solr")
+end
+
+def configure_collection(collection, target)
+  text = File.read('solr.xml')
+  replace = text.gsub(/collection1/, collection)
+  File.open("#{target}/solr.xml", "w") {|file| file.puts replace}
 end
 
 def run(env)
-  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR}"
+  exec "cd #{env[:install_dir]}/example; #{env[:prefix]} java -jar #{SOLR_START_JAR} >> output.log 2>&1"
 end
 
 def stop(pid_file, args)
