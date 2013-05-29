@@ -53,7 +53,7 @@ task :stop_solr, :environment do |t, args|
 end
 
 desc "Add build version to successfully deployed artifacts log"
-task :add_build_version_to_log, :version_id, :environment do |t, args|
+task :add_build_version_to_log, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   version_id = generate_version_id
   deployment_log = "#{env[:deploy_dir]}/deployable_version_#{env}"
