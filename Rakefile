@@ -47,9 +47,8 @@ desc "Stop the currently running solr instance"
 task :stop_solr, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   pid_file = pid_path env
-
   if !stop(pid_file, args)
-    raise "No PID file at #{pid_file}"
+    warn "No PID file at #{pid_file}"
   end
 end
 
