@@ -14,7 +14,7 @@ SOLR_ENVIRONMENTS = {
       :collection_dir => "solr/#{ENV["collection"]}",
       :prefix => '',
       :port => '8983',
-      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
+      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
       :deploy_dir => './'
     }
 }
