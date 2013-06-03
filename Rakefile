@@ -2,27 +2,31 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :local => {
-      :install_dir => '/opt/solr/dev',
-      :collection_dir => 'solr/collection1/',
-      :prefix => 'sudo'
+      :install_dir => './solr',
+      #:install_dir => '/opt/solr/dev',
+      :collection_dir => 'solr/local_collection',
+      :prefix => 'sudo',
+      :port => '8983',
+      :deploy_dir => './'
     },
     :integration => {
       :install_dir => "./solr",
       :collection_dir => "solr/#{ENV["collection"]}",
-      :prefix => ''
+      :prefix => '',
+      :port => '8983',
+      :deploy_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
     }
 }
 SOLR_START_JAR = 'start.jar'
 SOLR_PID_FILE = 'solr.pid'
 
+
+desc "Setup unconfigured solr instance"
 task :setup, :environment do |t, args|
   setup_solr args
 end
 
-task :update_index, :environment do |t, args|
-  copy_index_file args
-end
-
+desc "Start a configured solr instance"
 task :start_solr, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   pid_file = pid_path env
@@ -38,12 +42,45 @@ task :start_solr, :environment do |t, args|
   sh "#{env[:prefix]} sh -c \"echo '#{pid}' > #{pid_file}\""
 end
 
+desc "Stop the currently running solr instance"
 task :stop_solr, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   pid_file = pid_path env
+
   if !stop(pid_file, args)
     raise "No PID file at #{pid_file}"
   end
+end
+
+desc "Add build version to successfully deployed artifacts log"
+task :add_build_version_to_log, :version_id, :environment do |t, args|
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+  version_id = generate_version_id
+  deployment_log = "#{env[:install_dir]}/deployable_version_#{env}"
+
+  if(!File.exists?(deployment_log))
+    File.open(deployment_log, 'w') { |f| f.write('buildVersion=') }
+  end
+  if(File.open(deployment_log, 'r') { |f| !f.read.include?(version_id) })
+    `sed -i "s/buildVersion=/buildVersion=#{version_id},/" #{deployment_log}`
+  end
+end
+
+desc "Build artifact"
+task :build_artifact, :environment do |t, args|
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+  setup_solr(args)
+  create_tarball(args, env)
+end
+
+def generate_version_id()
+  "#{ENV['BUILD_NUMBER']}"
+
+end
+
+def create_tarball(args, env)
+  version_id = generate_version_id
+  sh "tar -cvzf #{env[:deploy_dir]}/nsidc_solr_search#{version_id}.tar solr"
 end
 
 def setup_solr(args)
@@ -54,16 +91,11 @@ def setup_solr(args)
   sh "#{env[:prefix]} cp solrconfig.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
   sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:install_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
   sh "#{env[:prefix]} cp solr.xml #{env[:install_dir]}/#{env[:collection_dir]}/solr.xml"
-end
-
-def copy_index_file(args)
-  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "#{env[:prefix]} cp schema.xml #{env[:install_dir]}/#{env[:conf_dir]}"
-
+  sh "#{env[:prefix]} rm -rf solr-*"
 end
 
 def run(env)
-  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR}"
+  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
 end
 
 def stop(pid_file, args)
