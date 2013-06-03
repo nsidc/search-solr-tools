@@ -1,9 +1,9 @@
 require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
-    :local => {
-      :install_dir => './solr',
-      #:install_dir => '/opt/solr/dev',
+    :development => {
+      #:install_dir => './solr',
+      :install_dir => '/opt/solr/dev',
       :collection_dir => 'solr/local_collection',
       :prefix => 'sudo',
       :port => '8983',
