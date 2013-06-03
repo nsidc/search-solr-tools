@@ -2,19 +2,20 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
-      #:install_dir => './solr',
       :install_dir => '/opt/solr/dev',
       :collection_dir => 'solr/local_collection',
       :prefix => 'sudo',
       :port => '8983',
-      :deploy_dir => './'
+      :repo_dir => './',
+      :deploy_dir => './deploy'
     },
     :integration => {
       :install_dir => "./solr",
       :collection_dir => "solr/#{ENV["collection"]}",
       :prefix => '',
       :port => '8983',
-      :deploy_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
+      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
+      :deploy_dir => './'
     }
 }
 SOLR_START_JAR = 'start.jar'
@@ -56,7 +57,7 @@ desc "Add build version to successfully deployed artifacts log"
 task :add_build_version_to_log, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   version_id = generate_version_id
-  deployment_log = "#{env[:deploy_dir]}/deployable_version_" + [args[:environment]][0]
+  deployment_log = "#{env[:repo_dir]}/deployable_version_" + [args[:environment]][0]
 
   if(!File.exists?(deployment_log))
     File.open(deployment_log, 'w') { |f| f.write('buildVersion=') }
@@ -73,13 +74,19 @@ task :build_artifact, :environment do |t, args|
   create_tarball(args, env)
 end
 
+desc "Deploy artifact"
+task :deploy_artifact, :environment do |t, args|
+  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+  sh "#{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION'].tar}"
+end
+
 def generate_version_id()
   "#{ENV['BUILD_NUMBER']}"
 end
 
 def create_tarball(args, env)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:deploy_dir]}/nsidc_solr_search#{version_id}.tar solr"
+  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr"
 end
 
 def setup_solr(args)
