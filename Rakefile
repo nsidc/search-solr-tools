@@ -100,7 +100,9 @@ def setup_solr(args)
 end
 
 def run(env)
-  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
+  puts "Running SOLR server"
+  puts "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -D jetty.port=#{env[:port]}"
+  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -D jetty.port=#{env[:port]}"
 end
 
 def stop(pid_file, args)
