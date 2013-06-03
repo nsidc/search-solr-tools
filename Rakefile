@@ -40,7 +40,6 @@ task :start_solr, :environment do |t, args|
     STDERR.reopen(STDOUT)
     run env
   end
-  sh "echo cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -D jetty.port=#{env[:port]}
   sh "#{env[:prefix]} sh -c \"echo '#{pid}' > #{pid_file}\""
 end
 
