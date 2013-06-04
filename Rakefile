@@ -10,7 +10,7 @@ SOLR_ENVIRONMENTS = {
       :deploy_dir => './deploy'
     },
     :integration => {
-      :install_dir => "./solr",
+      :install_dir => "./solr/example",
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
       :port => '8983',
@@ -89,11 +89,11 @@ def create_tarball(args, env)
 end
 def setup_solr(args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "#{env[:prefix]} mv #{env[:install_dir]}/example/solr/collection1 #{env[:install_dir]}/example/#{env[:collection_dir]}"
-  sh "#{env[:prefix]} cp schema.xml #{env[:install_dir]}/example/#{env[:collection_dir]}/conf/schema.xml"
-  sh "#{env[:prefix]} cp solrconfig.xml #{env[:install_dir]}/example/#{env[:collection_dir]}/conf/solrconfig.xml"
-  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:install_dir]}/example/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
-  configure_collection("#{ENV['collection']}", "#{env[:install_dir]}/example/solr")
+  sh "#{env[:prefix]} mv #{env[:install_dir]}/solr/collection1 #{env[:install_dir]}/#{env[:collection_dir]}"
+  sh "#{env[:prefix]} cp schema.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/schema.xml"
+  sh "#{env[:prefix]} cp solrconfig.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
+  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:install_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
+  configure_collection("#{ENV['collection']}", "#{env[:install_dir]}/solr")
 end
 
 def configure_collection(collection, target)
@@ -103,14 +103,13 @@ def configure_collection(collection, target)
 end
 
 def run(env)
-  exec "cd #{env[:install_dir]}/example; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djettyport=#{env[:port]} >> output.log 2>&1"
+  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djettyport=#{env[:port]} >> output.log 2>&1"
 end
 
 def stop(pid_file, args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
   if File.exist?(pid_file)
     pid = IO.read(pid_file).to_i
-
     begin
       sh "#{env[:prefix]}  kill -15 -#{pid}"
       true
