@@ -167,7 +167,7 @@
      <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10000"/>
     -->
     <!-- Maximum time to wait for a write lock (ms) for an IndexWriter. Default: 1000 -->
-    <!-- <writeLockTimeout>1000</writeLockTimeout>  -->
+    <writeLockTimeout>10000</writeLockTimeout>
 
     <!-- The maximum number of simultaneous threads that may be
          indexing documents at once in IndexWriter; if more than this
