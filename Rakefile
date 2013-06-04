@@ -2,6 +2,7 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
+      #:install_dir => '/opt/solr/dev',
       :install_dir => './solr',
       :collection_dir => 'solr/local_collection',
       :prefix => 'sudo',
@@ -100,7 +101,7 @@ def setup_solr(args)
 end
 
 def run(env)
-  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
+  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR}"
 end
 
 def stop(pid_file, args)
