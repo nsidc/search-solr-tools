@@ -118,6 +118,7 @@ def stop(pid_file, args)
       warn "Process with PID #{pid} is no longer running"
     ensure
       sh "#{env[:prefix]} rm #{pid_file}"
+      sh "#{evn[:prefix]} rm #{env[:deployment_target]}/#{env[:setup_dir]}/#{env[:collection_dir]}/data/index/write.lock"
     end
   else
     false
