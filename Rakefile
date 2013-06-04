@@ -85,7 +85,7 @@ end
 
 def create_tarball(args, env)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr"
+  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar *"
 end
 def setup_solr(args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
