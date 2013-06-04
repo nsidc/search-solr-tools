@@ -104,7 +104,7 @@ def configure_collection(collection, target)
 end
 
 def run(env)
-  exec "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
+  exec "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]} >> output.log 2>&1"
 end
 
 def stop(pid_file, args)
