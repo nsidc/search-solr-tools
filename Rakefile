@@ -2,20 +2,21 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
-      :install_dir => '/opt/solr/dev',
-      :collection_dir => 'solr/local_collection',
+      :setup_dir => '/opt/solr/dev',
+      :deployment_target => "./install",
+      :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
       :port => '8983',
-      :repo_dir => './',
-      :deploy_dir => './deploy'
+      :repo_dir => './'
     },
     :integration => {
-      :install_dir => "./solr/example",
+      :setup_dir => "./solr/example",
+      :deployment_target => "./install",
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
       :port => '8983',
-      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :deploy_dir => './'
+      #:repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
+      :repo_dir => '/home/vagrant/workspace/nsidc-solr/repo'
     }
 }
 SOLR_START_JAR = 'start.jar'
@@ -76,7 +77,7 @@ end
 desc "Deploy artifact"
 task :deploy_artifact, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "#{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar"
+  sh "cd #{env[:deployment_target]}; #{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar"
 end
 
 def generate_version_id()
@@ -85,15 +86,15 @@ end
 
 def create_tarball(args, env)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar *"
+  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr-4.3.0 solr"
 end
 def setup_solr(args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "#{env[:prefix]} mv #{env[:install_dir]}/solr/collection1 #{env[:install_dir]}/#{env[:collection_dir]}"
-  sh "#{env[:prefix]} cp schema.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/schema.xml"
-  sh "#{env[:prefix]} cp solrconfig.xml #{env[:install_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
-  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:install_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
-  configure_collection("#{ENV['collection']}", "#{env[:install_dir]}/solr")
+  sh "#{env[:prefix]} mv #{env[:setup_dir]}/solr/collection1 #{env[:setup_dir]}/#{env[:collection_dir]}"
+  sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/schema.xml"
+  sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
+  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
+  configure_collection("#{ENV['collection']}", "#{env[:setup_dir]}/solr")
 end
 
 def configure_collection(collection, target)
@@ -103,7 +104,7 @@ def configure_collection(collection, target)
 end
 
 def run(env)
-  exec "cd #{env[:install_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djettyport=#{env[:port]} >> output.log 2>&1"
+  exec "cd #{env[:deployment_target]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} >> output.log 2>&1"
 end
 
 def stop(pid_file, args)
@@ -124,5 +125,5 @@ def stop(pid_file, args)
 end
 
 def pid_path(env)
-  File.join env[:install_dir], SOLR_PID_FILE
+  File.join env[:deployment_target], SOLR_PID_FILE
 end
