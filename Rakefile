@@ -35,8 +35,8 @@ task :start_solr, :environment do |t, args|
 
   pid = fork do
     Process.setsid
-    STDIN.reopen('/dev/null')
-    STDOUT.reopen('/dev/null')
+    STDIN.reopen('output.log')
+    STDOUT.reopen('output.log')
     STDERR.reopen(STDOUT)
     run env
   end
@@ -103,9 +103,7 @@ def configure_collection(collection, target)
 end
 
 def run(env)
-  output = `cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} >> output.log 2>&1`
-  puts "Output is:"
-  puts output
+  exec "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} >> output.log 2>&1"
 end
 
 def stop(pid_file, args)
