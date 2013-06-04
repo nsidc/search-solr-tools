@@ -6,7 +6,7 @@ SOLR_ENVIRONMENTS = {
       :deployment_target => "/opt/solr/dev/",
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
-      :port => '8983',
+      :port => '9283',
       :repo_dir => '/home/vagrant/workspace/nsidc-solr/repo/'
     },
     :integration => {
@@ -14,7 +14,7 @@ SOLR_ENVIRONMENTS = {
       :deployment_target => '/disks/integration/live/apps/nsidc-open-search-solr/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
-      :port => '8983',
+      :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
     }
 }
