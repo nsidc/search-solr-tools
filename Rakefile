@@ -103,7 +103,9 @@ def configure_collection(collection, target)
 end
 
 def run(env)
-  sh "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} >> output.log 2>&1"
+  output = `cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} >> output.log 2>&1`
+  puts "Output is:"
+  puts output
 end
 
 def stop(pid_file, args)
