@@ -35,8 +35,8 @@ task :start_solr, :environment do |t, args|
 
   pid = fork do
     Process.setsid
-    STDIN.reopen('output.log')
-    STDOUT.reopen('output.log')
+    #STDIN.reopen('/dev/null')
+    #STDOUT.reopen('/dev/null')
     STDERR.reopen(STDOUT)
     run env
   end
