@@ -10,13 +10,12 @@ SOLR_ENVIRONMENTS = {
       :repo_dir => './'
     },
     :integration => {
-      :setup_dir => "./solr/example",
-      :deployment_target => "./install",
+      :setup_dir => './solr/example'
+      :deployment_target => '/disks/integration/live/apps/nsidc-open-search-solr/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
       :port => '8983',
-      #:repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
-      :repo_dir => '/home/vagrant/workspace/nsidc-solr/repo'
+      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/'
     }
 }
 SOLR_START_JAR = 'start.jar'
