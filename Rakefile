@@ -10,7 +10,7 @@ SOLR_ENVIRONMENTS = {
       :repo_dir => './'
     },
     :integration => {
-      :setup_dir => './solr/example'
+      :setup_dir => './solr/example',
       :deployment_target => '/disks/integration/live/apps/nsidc-open-search-solr/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => '',
