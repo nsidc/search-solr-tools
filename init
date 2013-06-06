@@ -19,7 +19,7 @@ LOCATION=/live/apps/nsidc-open-search-solr
 export RUBY_BIN=/opt/ruby19-local/bin/
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
-export PATH=$GEM_HOME:$PATH
+export PATH=$GEM_HOME:$GE:$PATH
 
 gem install bundler
 bundle install
