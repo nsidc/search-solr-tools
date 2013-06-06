@@ -22,7 +22,7 @@ elif [["$2" eq "qa"]] || ["$2" eq "staging"] || ["$2" eq "production"]]
 then
   ENV="$2"
 else
-  echo "Invalid envorinment $2 specified, please try again"
+  echo "Invalid environment $2 specified, please try again"
   usage
 fi
 
