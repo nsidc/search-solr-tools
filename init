@@ -15,25 +15,25 @@ cd $SCRIPT_PATH
 set -x
 set -e
 
-if [ -z "$2" ]
+if [[ -z "$2" ]]
 then
-  ENV="integration"
-elif [["$2" eq "qa"]] || ["$2" eq "staging"] || ["$2" eq "production"]]
+  env="integration"
+elif [[ "$2" -eq "integration" || "$2" -eq "qa" || "$2" -eq "staging"  || "$2" -eq "production" ]]
 then
-  ENV="$2"
+  env="$2"
 else
+  echo "|$2|"
   echo "Invalid environment $2 specified, please try again"
   usage
 fi
 
-
-if [["$1" eq "start"] || ["$1" eq "restart"]]
+if [[ "$1" -eq "start" || "$1" -eq "restart" ]]
 then
-   bundle exec rake stop_solr[$ENV]
-   bundle exec rake start_solr[$ENV]
-elif ["$1" eq "stop"]
+   bundle exec rake stop_solr[$env]
+   bundle exec rake start_solr[$env]
+elif [ "$1" eq "stop" ]
 then
-   bundle exec rake stop_solr[$ENV]
+   bundle exec rake stop_solr[$env]
 else
    usage
 fi
