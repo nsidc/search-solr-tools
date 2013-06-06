@@ -15,6 +15,7 @@ cd $SCRIPT_PATH
 set -x
 set -e
 
+gem install bundler
 bundle install
 
 if [[ -z "$2" ]]
