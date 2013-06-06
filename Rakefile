@@ -91,8 +91,7 @@ end
 desc "Deploy artifact"
 task :deploy, :environment do |t, args|
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "cd #{env[:deployment_target]}; #{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar"
-  sh "chmod u+x init"
+  sh "cd #{env[:deployment_target]}; #{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar; chmod u+x init"
 end
 
 def generate_version_id
