@@ -29,7 +29,7 @@ export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 if [[ -z "$2" ]]
 then
   env="integration"
-elif [[ "$2" -eq "integration" || "$2" -eq "qa" || "$2" -eq "staging"  || "$2" -eq "production" ]]
+elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ]
 then
   env="$2"
 else
@@ -38,17 +38,19 @@ else
   usage
 fi
 
-if [[ "$1" -eq "restart" ]]
+if [ "$1" = "restart" ]
 then
+   echo "RESTART"
+   echo $1
    bundle exec rake stop_solr[$env]
    bundle exec rake start_solr[$env]
-elif [[ "$1" -eq "stop" ]]
+elif [ "$1" == "stop" ]
 then
    bundle exec rake stop_solr[$env]
-elif [[ "$1" -eq "start" ]]
+elif [ "$1" == "start" ]
 then
    bundle exec rake start_solr[$env]
-elif [[ "$1" -eq "environment" ]]
+elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
 else
