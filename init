@@ -23,8 +23,8 @@ export PATH=$GEM_HOME:$GEM_PATH:$PATH
 export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 
 #gem install bundler
-which bundle
-bundle install
+#which bundle
+#bundle install
 
 if [[ -z "$2" ]]
 then
@@ -42,13 +42,13 @@ if [ "$1" -eq "restart" ]
 then
    bundle exec rake stop_solr[$env]
    bundle exec rake start_solr[$env]
-elif [ "$1" -eq "stop" ]
+elif [[ "$1" -eq "stop" ]]
 then
    bundle exec rake stop_solr[$env]
-elif [ "$1" -eq "start" ]
+elif [[ "$1" -eq "start" ]]
 then
    bundle exec rake start_solr[$env]
-elif [ "$1" -eq "environment" ]
+elif [[ "$1" -eq "environment" ]]
 then
   echo "Environment setup complete"
 else
