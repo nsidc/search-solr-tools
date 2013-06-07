@@ -38,7 +38,7 @@ else
   usage
 fi
 
-if [ "$1" -eq "restart" ]
+if [[ "$1" -eq "restart" ]]
 then
    bundle exec rake stop_solr[$env]
    bundle exec rake start_solr[$env]
