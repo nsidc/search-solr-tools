@@ -20,6 +20,7 @@ export RUBY_BIN=/opt/ruby19-local/bin/
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$GEM_HOME:$GEM_PATH:$PATH
+export PATH=/opt/jdk/bin/java:$PATH   #Adding Java to the path
 
 gem install bundler
 which bundle
