@@ -17,7 +17,7 @@ SOLR_ENVIRONMENTS = {
       :prefix => '',
       :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso'
+      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso'
     }
 }
 SOLR_START_JAR = 'start.jar'
@@ -100,7 +100,7 @@ end
 
 def create_tarball(args, env)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr-4.3.0 solr Rakefile Gemfile* init"
+  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr-4.3.0 solr/contrib solr/dist solr/example Rakefile Gemfile* init"
 end
 
 def setup_solr(args)
@@ -136,6 +136,23 @@ def stop(pid_file, args)
       sh "#{env[:prefix]} rm -f #{env[:deployment_target]}/#{env[:setup_dir]}/#{env[:collection_dir]}/data/index/write.lock"
     end
   else
+    false
+  end
+end
+
+def server_status(pid_file)
+  pid = IO.read(pid_file).to_i
+  begin
+    Process.kill(0, pid)
+    true
+  rescue Errno::EPERM
+    puts "No permission to query #{pid}!";
+    false
+  rescue Errno::ESRCH
+    puts "#{pid} is NOT running.";
+    false
+  rescue
+    puts "Unable to determine status for #{pid} : #{$!}"
     false
   end
 end
