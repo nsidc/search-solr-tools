@@ -2,7 +2,7 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
-      :setup_dir => '/opt/solr/dev'/,
+      :setup_dir => '/opt/solr/dev/',
       :deployment_target => '/opt/solr/dev/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
