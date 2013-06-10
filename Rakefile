@@ -2,12 +2,12 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
-      :setup_dir => './solr/example',
-      :deployment_target => "/opt/solr/dev/",
+      :setup_dir => '/opt/solr/dev',
+      :deployment_target => '/opt/solr/dev/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
       :port => '9283',
-      :repo_dir => '/home/vagrant/workspace/nsidc-solr/repo/',
+      :repo_dir => '~/solr_repo/',
       :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso'
     },
     :integration => {
