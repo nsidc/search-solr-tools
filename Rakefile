@@ -2,7 +2,7 @@ require 'fileutils'
 
 SOLR_ENVIRONMENTS = {
     :development => {
-      :setup_dir => '/opt/solr/dev',
+      :setup_dir => '/opt/solr/dev/solr/example',
       :deployment_target => '/opt/solr/dev/',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
@@ -17,6 +17,15 @@ SOLR_ENVIRONMENTS = {
       :prefix => '',
       :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
+      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso'
+    },
+    :qa => {
+      :setup_dir => './solr/example',
+      :deployment_target => '/disks/qa/live/apps/nsidc-open-search-solr/',
+      :collection_dir => "solr/#{ENV['collection']}",
+      :prefix => '',
+      :port => '9283',
+      :repo_dir => '/disks/qa/san/INTRANET/REPO/nsidc_search_solr/',
       :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso'
     }
 }
@@ -109,12 +118,15 @@ def setup_solr(args)
   sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/schema.xml"
   sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
   sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
-  configure_collection("#{ENV['collection']}", "#{env[:setup_dir]}/solr")
+  configure_collection("#{ENV['collection']}", "#{env[:setup_dir]}/solr", "#{args[:environment]}")
 end
 
-def configure_collection(collection, target)
+def configure_collection(collection, target, environment )
   text = File.read('solr.xml')
   replace = text.gsub(/collection1/, collection)
+  if(environment == "development")
+    sh "sudo chgrp vagrant #{target}/solr.xml;sudo chmod 775 #{target}/solr.xml"
+  end
   File.open("#{target}/solr.xml", "w") {|file| file.puts replace}
 end
 
