@@ -5,7 +5,12 @@
     <field name="title" type="text_general" indexed="true" stored="true" />
     <field name="_version_" type="float" indexed="true" stored="true"/>
     <field name="iso" type="string" indexed="false" stored="true" />
+
+    <!-- catchall field, containing all other searchable text fields (implemented
+        via copyField further on in this schema  -->
+    <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
   </fields>
+  <copyField source="title" dest="text"/>
   <uniqueKey>
     authoritative_id
   </uniqueKey>
