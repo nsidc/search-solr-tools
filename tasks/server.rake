@@ -3,7 +3,7 @@ namespace :server do
   task :start, :environment do |t, args|
     env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
     pid_file = pid_path env
-    stop(pid_file, args)
+    stop(pid_file, args, env)
 
     pid = fork do
       Process.setsid
@@ -20,7 +20,7 @@ namespace :server do
   task :stop, :environment do |t, args|
     env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
     pid_file = pid_path env
-    if !stop(pid_file, args)
+    if !stop(pid_file, args, env)
       warn "No PID file at #{pid_file}"
     end
   end

@@ -7,12 +7,17 @@ def generate_version_id
   "#{ENV['BUILD_NUMBER']}"
 end
 
-def run(env)
-  exec "cd #{env[:deployment_target]}/#{env[:setup_dir]}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]} > output.log 2>&1"
+def build_run_dir(env)
+  env[:run_dir].nil? ? "#{env[:deployment_target]}/#{env[:setup_dir]}" : "#{env[:run_dir]}"
 end
 
-def stop(pid_file, args)
-  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+def run(env)
+  run_dir = build_run_dir(env)
+  exec "cd #{run_dir}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]} > output.log 2>&1"
+end
+
+def stop(pid_file, args, env)
+  run_dir = build_run_dir(env)
   if File.exist?(pid_file)
     pid = IO.read(pid_file).to_i
     begin
@@ -22,7 +27,7 @@ def stop(pid_file, args)
       warn "Process with PID #{pid} is no longer running"
     ensure
       sh "#{env[:prefix]} rm #{pid_file}"
-      sh "#{env[:prefix]} rm -f #{env[:deployment_target]}/#{env[:setup_dir]}/#{env[:collection_dir]}/data/index/write.lock"
+      sh "#{env[:prefix]} rm -f #{run_dir}/#{env[:collection_dir]}/data/index/write.lock"
     end
   else
     false
