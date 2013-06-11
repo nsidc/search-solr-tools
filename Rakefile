@@ -1,12 +1,14 @@
 require 'fileutils'
 
+ENV['collection'] ||= 'collection1'
+
 SOLR_ENVIRONMENTS = {
     :development => {
-      :setup_dir => '/opt/solr/dev/',
-      :deployment_target => '~/solr_deployment',
+      :setup_dir => '/opt/solr/dev',
+      :deployment_target => '',
       :collection_dir => "solr/#{ENV['collection']}",
       :prefix => 'sudo',
-      :port => '9283',
+      :port => '8983',
       :repo_dir => '~/solr_repo/',
       :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso'
     },

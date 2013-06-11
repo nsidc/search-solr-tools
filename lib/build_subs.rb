@@ -31,7 +31,11 @@ end
 
 def setup_solr(args)
   env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
-  sh "#{env[:prefix]} mv #{env[:setup_dir]}/solr/collection1 #{env[:setup_dir]}/#{env[:collection_dir]}"
+  src_collection = "#{env[:setup_dir]}/solr/collection1"
+  target_collection = "#{env[:setup_dir]}/#{env[:collection_dir]}"
+  unless src_collection.eql?(target_collection)
+    sh "#{env[:prefix]} mv #{src_collection} #{target_collection}"
+  end
   sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/schema.xml"
   sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
   sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
