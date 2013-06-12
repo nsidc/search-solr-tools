@@ -12,7 +12,7 @@ def build_run_dir(env)
 end
 
 def run(env)
-  exec "cd #{build_run_dir(env)}; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]} > output.log 2>&1"
+  exec  "cd '#{build_run_dir(env)}'; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
 end
 
 def stop(pid_file, args, env)
