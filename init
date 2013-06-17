@@ -43,12 +43,14 @@ then
    echo $1
    bundle exec rake server:stop[$env]
    bundle exec rake server:start[$env]
+   bundle exec rake server:status[$env]
 elif [ "$1" == "stop" ]
 then
    bundle exec rake server:stop[$env]
 elif [ "$1" == "start" ]
 then
    bundle exec rake server:start[$env]
+   bundle exec rake server:status[$env]
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
