@@ -15,7 +15,6 @@ cd $SCRIPT_PATH
 set -x
 set -e
 
-rvm install 1.9.3
 rvm use 1.9.3
 
 LOCATION=/live/appsen-search-solr
