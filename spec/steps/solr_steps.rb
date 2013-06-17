@@ -8,7 +8,7 @@ module SolrSteps
   end
 
   step 'I search for :terms' do |terms|
-    @page = SolrSearchPage.new(@environment[:host], @environment[:port], @environment[:collection_dir])
+    @page = SolrSearchPage.new(@environment[:host], @environment[:port], @environment[:collection_path], @environment[:collection_name])
     @page.query terms
   end
 

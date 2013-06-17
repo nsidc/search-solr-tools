@@ -1,6 +1,10 @@
 
+def collection_dir(env)
+  File.join env[:collection_path], env[:collection_name]
+end
+
 def pid_path(env)
-  File.join "#{build_run_dir(env)}", SolrEnvironments.PidFile
+  File.join build_run_dir(env), SolrEnvironments.PidFile
 end
 
 def generate_version_id
@@ -32,14 +36,14 @@ end
 def setup_solr(args)
   env = SolrEnvironments[args[:environment]]
   src_collection = "#{env[:setup_dir]}/solr/collection1"
-  target_collection = "#{env[:setup_dir]}/#{env[:collection_dir]}"
+  target_collection = "#{env[:setup_dir]}/#{collection_dir(env)}"
   unless src_collection.eql?(target_collection)
     sh "#{env[:prefix]} mv #{src_collection} #{target_collection}"
   end
-  sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/schema.xml"
-  sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{env[:collection_dir]}/conf/solrconfig.xml"
-  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{env[:collection_dir]}/conf/xslt/nsidc_oai_iso.xslt"
-  configure_collection("#{ENV['collection']}", "#{env[:setup_dir]}/solr", "#{args[:environment]}")
+  sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{collection_dir(env)}/conf/schema.xml"
+  sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{collection_dir(env)}/conf/solrconfig.xml"
+  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{collection_dir(env)}/conf/xslt/nsidc_oai_iso.xslt"
+  configure_collection(env[:collection_name], "#{env[:setup_dir]}/solr", "#{args[:environment]}")
 end
 
 def create_tarball(args, env)

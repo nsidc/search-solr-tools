@@ -2,8 +2,8 @@ require 'rest_client'
 require 'nokogiri'
 
 class SolrSearchPage
-  def initialize(host, port, collection_path)
-    @url = "http://#{host}:#{port}/#{collection_path}"
+  def initialize(host, port, collection_path, collection)
+    @url = "http://#{host}:#{port}/#{collection_path}/#{collection}"
   end
 
   def query(terms)

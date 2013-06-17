@@ -16,7 +16,8 @@ module SolrEnvironments
 
   COMMON = {
       :setup_dir => './solr/example',
-      :collection_dir => 'solr/nsidc_oai',
+      :collection_name => 'nsidc_oai',
+      :collection_path => 'solr',
       :prefix => '',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
       :port => '9283'
@@ -27,7 +28,8 @@ module SolrEnvironments
           :setup_dir => '/opt/solr/dev',
           :deployment_target => '~/solr_deploy/',
           :run_dir => '/opt/solr/dev',
-          :collection_dir => 'solr/collection1',
+          :collection_name => 'collection1',
+          :collection_path => 'solr',
           :prefix => 'sudo',
           :port => '8983',
           :repo_dir => '~/solr_repo/',
