@@ -15,9 +15,10 @@ cd $SCRIPT_PATH
 set -x
 set -e
 
-rvm info
+rvm install 1.9.3
+rvm use 1.9.3
 
-LOCATION=/live/apps/nsidc-open-search-solr
+LOCATION=/live/appsen-search-solr
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$GEM_HOME:$GEM_PATH:$PATH
