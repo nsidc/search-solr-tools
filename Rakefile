@@ -7,6 +7,7 @@ Dir.glob('./tasks/*.rake').each { |r| import r }
 
 namespace :spec do
   RSpec::Core::RakeTask.new(:acceptance) do |t|
+    t.rspec_opts = %w[-f progress -f JUnit -o results.xml]
     t.pattern = './spec/*{.feature}'
   end
 end
