@@ -15,12 +15,7 @@ cd $SCRIPT_PATH
 set -x
 set -e
 
-rvm list
-which ruby
-ruby -v
-rvm use 1.9.3
-ruby -v
-
+rvm info
 
 LOCATION=/live/apps/nsidc-open-search-solr
 export GEM_HOME=$LOCATION/gem
