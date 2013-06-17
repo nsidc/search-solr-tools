@@ -58,3 +58,20 @@ def configure_collection(collection, target, environment )
   end
   File.open("#{target}/solr.xml", "w") {|file| file.puts replace}
 end
+
+def server_status(pid_file, args, env)
+  if File.exists?(pid_file)
+    pid = IO.read(pid_file).to_i
+    begin
+      Process.kill(0, Integer(pid))
+    rescue                      # changed uid
+      warn "Process #{pid} has ceased, changed uid or another error has prevented evaluation"
+      stop(pid_file, args, env)
+      false
+    end
+    puts "Server is up running as pid #{pid}"
+    true
+  else
+    false
+  end
+end

@@ -24,21 +24,9 @@ namespace :server do
       warn "No PID file at #{pid_file}"
     end
   end
-
-  def server_status(pid_file)
-    pid = IO.read(pid_file).to_i
-    begin
-      Process.kill(0, pid)
-      true
-    rescue Errno::EPERM
-      puts "No permission to query #{pid}!";
-      false
-    rescue Errno::ESRCH
-      puts "#{pid} is NOT running.";
-      false
-    rescue
-      puts "Unable to determine status for #{pid} : #{$!}"
-      false
-    end
+  task :status, :environment do |t, args|
+    env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+    pid_file = pid_path env
+    server_status(pid_file, args, env)
   end
 end
