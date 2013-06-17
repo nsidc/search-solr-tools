@@ -16,7 +16,6 @@ set -x
 set -e
 
 LOCATION=/live/apps/nsidc-open-search-solr
-export RUBY_BIN=/opt/ruby19-local/bin/
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$GEM_HOME:$GEM_PATH:$PATH
@@ -41,6 +40,7 @@ if [ "$1" = "restart" ]
 then
    echo "RESTART"
    echo $1
+   bundle install
    bundle exec rake server:stop[$env]
    bundle exec rake server:start[$env]
    bundle exec rake server:status[$env]
