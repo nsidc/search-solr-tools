@@ -19,7 +19,7 @@ def stop(pid_file, args, env)
   if File.exist?(pid_file)
     pid = IO.read(pid_file).to_i
     begin
-      sh "#{env[:prefix]}  kill -15 -#{pid}"
+      sh "#{env[:prefix]} kill -9 #{pid}"
       true
     rescue
       warn "Process with PID #{pid} is no longer running"
