@@ -34,6 +34,17 @@ SOLR_ENVIRONMENTS = {
       :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
       :host => 'brash.colorado.edu'
     }
+    :staging => {
+      :setup_dir => './solr/example',
+      :deployment_target => '/disks/staging/live/apps/nsidc-open-search-solr/',
+      :collection_dir => "solr/#{ENV['collection']}",
+      :prefix => '',
+      :port => '9283',
+      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
+      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+      :host => 'freeze.colorado.edu'
+    }
+
 }
 SOLR_START_JAR = 'start.jar'
 SOLR_PID_FILE = 'solr.pid'
