@@ -9,7 +9,8 @@ usage()
 SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_PATH
 
-#load RVM and .rvmrc filsource "/usr/local/rvm/scripts/rvm"
+#load RVM and .rvmrc file
+source "/usr/local/rvm/scripts/rvm"
 #[[ -s "./.rvmrc" ]] && source "./.rvmrc"
 set -x
 set -e
