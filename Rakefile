@@ -33,7 +33,7 @@ SOLR_ENVIRONMENTS = {
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
       :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
       :host => 'brash.colorado.edu'
-    }
+    },
     :staging => {
       :setup_dir => './solr/example',
       :deployment_target => '/disks/staging/live/apps/nsidc-open-search-solr/',
