@@ -10,13 +10,12 @@ SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_PATH
 
 #load RVM and .rvmrc file
-#[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
-#[[ -s "./.rvmrc" ]] && source "./.rvmrc"
+[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
+[[ -s "./.rvmrc" ]] && source "./.rvmrc"
 set -x
 set -e
 
-alias ruby=/usr/bin/ruby1.9
-LOCATION=/live/appsen-search-solr
+LOCATION=/live/apps/nsidc-open-search-solr
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$GEM_HOME:$GEM_PATH:$PATH
