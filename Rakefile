@@ -31,7 +31,7 @@ SOLR_ENVIRONMENTS = {
       :prefix => '',
       :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+      :oai_url => 'http://brash.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
       :host => 'brash.colorado.edu'
     },
     :staging => {
@@ -41,7 +41,7 @@ SOLR_ENVIRONMENTS = {
       :prefix => '',
       :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+      :oai_url => 'http://freeze.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
       :host => 'freeze.colorado.edu'
     }
 
