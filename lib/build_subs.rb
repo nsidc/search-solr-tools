@@ -27,7 +27,6 @@ def stop(pid_file, args, env)
       sh "#{env[:prefix]} rm #{pid_file}"
     end
   end
-  sh "#{env[:prefix]} rm -f #{build_run_dir(env)}/solr/*/data/index/write.lock"
 end
 
 def setup_solr(args)
