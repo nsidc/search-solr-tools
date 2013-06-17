@@ -1,7 +1,8 @@
 
 module SolrEnvironments
   def self.[] (key)
-    SOLR_ENVIRONMENTS[key.to_sym]
+    key_sym = (key || 'development').to_sym
+    SOLR_ENVIRONMENTS[key_sym]
   end
 
   def self.JarFile
