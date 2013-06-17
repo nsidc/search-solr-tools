@@ -1,10 +1,7 @@
 require 'fileutils'
 require 'rspec/core/rake_task'
 require './lib/build_subs.rb'
-require './config/environments'
-
-SOLR_START_JAR = 'start.jar'
-SOLR_PID_FILE = 'solr.pid'
+require File.join('.', 'config', 'environments.rb')
 
 Dir.glob('./tasks/*.rake').each { |r| import r }
 

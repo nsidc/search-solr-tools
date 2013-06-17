@@ -3,8 +3,8 @@ require File.join('page_objects', 'solr_search_page')
 
 module SolrSteps
   step 'I am using the current environment settings' do
-    @target_env = (ENV['TARGET_ENVIRONMENT'] || 'development').to_sym
-    @environment = SOLR_ENVIRONMENTS[@target_env]
+    @target_env = ENV['TARGET_ENVIRONMENT'] || 'development'
+    @environment = SolrEnvironments[@target_env]
   end
 
   step 'I search for :terms' do |terms|

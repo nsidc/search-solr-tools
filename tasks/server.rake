@@ -1,7 +1,7 @@
 namespace :server do
   desc "Start a configured solr instance"
   task :start, :environment do |t, args|
-    env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+    env = SolrEnvironments[args[:environment]]
     pid_file = pid_path env
     stop(pid_file, args, env)
 
@@ -18,14 +18,14 @@ namespace :server do
 
   desc "Stop the currently running solr instance"
   task :stop, :environment do |t, args|
-    env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+    env = SolrEnvironments[args[:environment]]
     pid_file = pid_path env
     if !stop(pid_file, args, env)
       warn "No PID file at #{pid_file}"
     end
   end
   task :status, :environment do |t, args|
-    env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+    env = SolrEnvironments[args[:environment]]
     pid_file = pid_path env
     server_status(pid_file, args, env)
   end
