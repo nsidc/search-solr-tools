@@ -26,8 +26,6 @@ export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 gem install bundler
 bundle install
 
-rvm list
-which ruby
 
 if [[ -z "$2" ]]
 then
