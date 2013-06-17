@@ -25,11 +25,9 @@ def stop(pid_file, args, env)
       warn "Process with PID #{pid} is no longer running"
     ensure
       sh "#{env[:prefix]} rm #{pid_file}"
-      sh "#{env[:prefix]} rm -f #{build_run_dir(env)}/#{env[:collection_dir]}/data/index/write.lock"
     end
-  else
-    false
   end
+  sh "#{env[:prefix]} rm -f #{build_run_dir(env)}/#{env[:collection_dir]}/data/index/write.lock"
 end
 
 def setup_solr(args)
