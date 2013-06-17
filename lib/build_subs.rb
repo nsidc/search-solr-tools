@@ -72,6 +72,7 @@ def server_status(pid_file, args, env)
     puts "Server is up running as pid #{pid}"
     true
   else
+    warn "No pid file detected, server is not running"
     false
   end
 end
