@@ -11,7 +11,8 @@ SOLR_ENVIRONMENTS = {
       :prefix => 'sudo',
       :port => '8983',
       :repo_dir => '~/solr_repo/',
-      :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso'
+      :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso',
+      :host => 'localhost'
     },
     :integration => {
       :setup_dir => './solr/example',
@@ -20,7 +21,8 @@ SOLR_ENVIRONMENTS = {
       :prefix => '',
       :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso'
+      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+      :host => 'liquid.colorado.edu'
     },
     :qa => {
       :setup_dir => './solr/example',
@@ -29,7 +31,8 @@ SOLR_ENVIRONMENTS = {
       :prefix => '',
       :port => '9283',
       :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso'
+      :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+      :host => 'brash.colorado.edu'
     }
 }
 SOLR_START_JAR = 'start.jar'
