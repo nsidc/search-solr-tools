@@ -1,6 +1,6 @@
 
 def pid_path(env)
-  File.join "#{build_run_dir(env)}", SOLR_PID_FILE
+  File.join "#{build_run_dir(env)}", SolrEnvironments.PidFile
 end
 
 def generate_version_id
@@ -12,7 +12,7 @@ def build_run_dir(env)
 end
 
 def run(env)
-  exec  "cd '#{build_run_dir(env)}'; #{env[:prefix]} java -jar #{SOLR_START_JAR} -Djetty.port=#{env[:port]}"
+  exec  "cd '#{build_run_dir(env)}'; #{env[:prefix]} java -jar #{SolrEnvironments.JarFile} -Djetty.port=#{env[:port]}"
 end
 
 def stop(pid_file, args, env)
@@ -30,7 +30,7 @@ def stop(pid_file, args, env)
 end
 
 def setup_solr(args)
-  env = SOLR_ENVIRONMENTS[args[:environment].to_sym]
+  env = SolrEnvironments[args[:environment]]
   src_collection = "#{env[:setup_dir]}/solr/collection1"
   target_collection = "#{env[:setup_dir]}/#{env[:collection_dir]}"
   unless src_collection.eql?(target_collection)
