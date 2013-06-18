@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 require './lib/build_subs.rb'
 require File.join('.', 'config', 'environments.rb')
 
-Dir.glob('./tasks/*.rake').each { |r| import r }
+Dir.glob('./tasks/*.rake').each { |r| import r }                                         x
 
 namespace :spec do
   RSpec::Core::RakeTask.new(:acceptance) do |t|

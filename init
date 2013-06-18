@@ -52,11 +52,14 @@ elif [ "$1" == "start" ]
 then
    bundle exec rake server:start[$env]
    bundle exec rake server:status[$env]
+elif [ "$1" == "harvest" ]
+then
+   bundle exec rake harvest:nsidc_oai_iso[$env]
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
 else
-   usage
+   usage;
 fi
 
 
