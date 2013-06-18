@@ -10,7 +10,7 @@ SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_PATH
 
 #load RVM and .rvmrc file
-if [[ -s "/usr/local/rvm/scripts/rvm"
+if [[ -s "/usr/local/rvm/scripts/rvm" ]]
 then
   source "/usr/local/rvm/scripts/rvm"
 else
