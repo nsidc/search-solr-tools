@@ -16,6 +16,7 @@ then
 else
   alias ruby=/usr/bin/ruby1.9
   alias rake=/usr/bin/rake1.9
+  alias gem=/usr/bin/gem1.9
 fi
 [[ -s "./.rvmrc" ]] && source "./.rvmrc"
 set -x
