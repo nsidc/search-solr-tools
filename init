@@ -11,14 +11,14 @@ cd $SCRIPT_PATH
 
 set -x
 set -e
-
-LOCATION=/live/apps/nsidc-open-search-solr
+export RUBY_BIN=/opt/ruby19-local/bin/
+export LOCATION=/live/apps/nsidc-open-search-solr
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
-export PATH=$GEM_HOME:$GEM_PATH:$PATH
+export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
 export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 
-gem1.9 install bundler
+gem install bundler
 bundle install
 
 if [[ -z "$2" ]]
@@ -38,19 +38,19 @@ then
    echo "RESTART"
    echo $1
    bundle install
-   bundle exec rake1.9 server:stop[$env]
-   bundle exec rake1.9 server:start[$env]
-   bundle exec rake1.9 server:status[$env]
+   bundle exec rake server:stop[$env]
+   bundle exec rake server:start[$env]
+   bundle exec rake server:status[$env]
 elif [ "$1" == "stop" ]
 then
    bundle exec rake server:stop[$env]
 elif [ "$1" == "start" ]
 then
-   bundle exec rake1.9 server:start[$env]
-   bundle exec rake1.9 server:status[$env]
+   bundle exec rake server:start[$env]
+   bundle exec rake server:status[$env]
 elif [ "$1" == "harvest" ]
 then
-   bundle exec rake1.9 harvest:nsidc_oai_iso[$env]
+   bundle exec rake harvest:nsidc_oai_iso[$env]
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
