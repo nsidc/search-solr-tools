@@ -22,7 +22,7 @@ fi
 set -x
 set -e
 
-ruby --version
+ruby -version
 
 LOCATION=/live/apps/nsidc-open-search-solr
 export GEM_HOME=$LOCATION/gem
