@@ -10,8 +10,14 @@ SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_PATH
 
 #load RVM and .rvmrc file
-source "/usr/local/rvm/scripts/rvm"
-#[[ -s "./.rvmrc" ]] && source "./.rvmrc"
+if [[ -s "/usr/local/rvm/scripts/rvm"
+then
+  source "/usr/local/rvm/scripts/rvm"
+else
+  alias ruby=/usr/bin/ruby1.9
+  alias rake=/usr/bin/rake1.9
+fi
+[[ -s "./.rvmrc" ]] && source "./.rvmrc"
 set -x
 set -e
 
