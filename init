@@ -16,7 +16,7 @@ set -e
 echo "RESTART"
 cd solr/example
 
-if [ "$1" = "restart" ]
+if [ "$1" == "restart" ]
 then
   java -jar start.jar -stop -Djetty.port=9283
   java -jar start.jar -daemon -Djetty.port=9283
