@@ -16,6 +16,7 @@
     <field name="last_revision_date" type="text_general" indexed="false" stored="true" />
     <field name="dataset_url" type="text_general" indexed="false" stored="true" />
     <field name="data_access_url" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="distribution_format" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
 
     <!-- catchall field, containing all other searchable text fields (implemented

@@ -84,6 +84,11 @@
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
+          <xsl:for-each select=".//gmd:MD_Format/gmd:name/gco:CharacterString">
+            <field name="distribution_format">
+              <xsl:value-of select="."/>
+            </field>
+          </xsl:for-each>
         </doc>
       </xsl:for-each>
     </add>
