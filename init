@@ -2,60 +2,31 @@
 
 usage()
 {
-    echo "Usage: ${0##*/} {start|stop|restart} {integration|qa|staging|production}"
+    echo "Usage: ${0##*/} {start|stop|restart}"
     exit 1
 }
 # absolute path to this script directory (without script name)
-SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd $SCRIPT_PATH
+APP_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $APP_HOME
 
 set -x
 set -e
-export RUBY_BIN=/opt/ruby19-local/bin/
-export LOCATION=/live/apps/nsidc-open-search-solr
-export GEM_HOME=$LOCATION/gem
-export GEM_PATH=$GEM_HOME/bin
-export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
-export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 
-gem install bundler
-bundle install
-
-if [[ -z "$2" ]]
-then
-  env="integration"
-elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ]
-then
-  env="$2"
-else
-  echo "|$2|"
-  echo "Invalid environment $2 specified, please try again"
-  usage
-fi
+echo "RESTART"
+cd solr/example
 
 if [ "$1" = "restart" ]
 then
-   echo "RESTART"
-   echo $1
-   bundle install
-   bundle exec rake server:stop[$env]
-   bundle exec rake server:start[$env]
-   bundle exec rake server:status[$env]
+  java -jar start.jar --stop
+  java -jar start.jar -Djetty.port=9283
 elif [ "$1" == "stop" ]
 then
-   bundle exec rake server:stop[$env]
+  java -jar start.jar --stop
 elif [ "$1" == "start" ]
 then
-   bundle exec rake server:start[$env]
-   bundle exec rake server:status[$env]
-elif [ "$1" == "harvest" ]
-then
-   bundle exec rake harvest:nsidc_oai_iso[$env]
-elif [ "$1" == "environment" ]
-then
-  echo "Environment setup complete"
+  java -jar start.jar -Djetty.port=9283
 else
-   usage;
+  usage;
 fi
 
 
