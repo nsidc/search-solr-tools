@@ -22,27 +22,27 @@
             <xsl:value-of select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString"/>
           </field>
           <xsl:for-each select=".//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode='discipline']//gmd:keyword/gco:CharacterString">
-            <field name="parameter">
+            <field name="parameters">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmd:MD_TopicCategoryCode">
-            <field name="topic">
+            <field name="topics">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode='theme' and not(.//gmd:thesaurusName)]//gmd:keyword/gco:CharacterString">
-            <field name="keyword">
+            <field name="keywords">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmi:MI_Platform/gmi:identifier/gmd:MD_Identifier/gmd:code/gco:CharacterString">
-            <field name="platform">
+            <field name="platforms">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmi:MI_Instrument/gmi:identifier/gmd:MD_Identifier/gmd:code/gco:CharacterString">
-            <field name="sensor">
+            <field name="sensors">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
@@ -54,22 +54,22 @@
 
           <!-- non-indexed fields -->
           <xsl:for-each select=".//gmd:EX_GeographicBoundingBox">
-            <field name="spatial_coverage">
+            <field name="spatial_coverages">
               <xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/>,<xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/>
             </field>
           </xsl:for-each>
           <xsl:for-each select="gmd:EX_TemporalExtent">
-            <field name="temporal_coverage">
+            <field name="temporal_coverages">
               <xsl:value-of select=".//gml:beginPosition"/>,<xsl:value-of select=".//gml:endPosition"/>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode='custodian']/gmd:organisationName/gco:CharacterString">
-            <field name="supporting_program">
+            <field name="supporting_programs">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <xsl:for-each select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:citedResponsibleParty[.//gmd:CI_RoleCode='principalInvestigator']//gmd:individualName/gco:CharacterString">
-            <field name="author">
+            <field name="authors">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
@@ -80,12 +80,12 @@
             <xsl:value-of select=".//gmd:dataSetURI"/>
           </field>
           <xsl:for-each select=".//gmd:MD_Distribution/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='download']//gmd:URL/gco:CharacterString">
-            <field name="data_access_url">
+            <field name="data_access_urls">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmd:MD_Format/gmd:name/gco:CharacterString">
-            <field name="distribution_format">
+            <field name="distribution_formats">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>

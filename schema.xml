@@ -4,19 +4,19 @@
     <field name="authoritative_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="title" type="text_general" indexed="true" stored="true" />
     <field name="summary" type="text_general" indexed="true" stored="true" />
-    <field name="topic" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="parameter" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="keyword" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="platform" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="sensor" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="spatial_coverage" type="text_general" indexed="false" stored="true" multiValued="true" />
-    <field name="temporal_coverage" type="text_general" indexed="false" stored="true" multiValued="true" />
-    <field name="supporting_program" type="text_general" indexed="false" stored="true" multiValued="true" />
-    <field name="author" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="topics" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="parameters" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="keywords" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="platforms" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="sensors" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="spatial_coverages" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="temporal_coverages" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="supporting_programs" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="authors" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="last_revision_date" type="text_general" indexed="false" stored="true" />
     <field name="dataset_url" type="text_general" indexed="false" stored="true" />
-    <field name="data_access_url" type="text_general" indexed="false" stored="true" multiValued="true" />
-    <field name="distribution_format" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="data_access_urls" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="distribution_formats" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
 
     <!-- catchall field, containing all other searchable text fields (implemented
@@ -25,10 +25,11 @@
   </fields>
   <copyField source="title" dest="text"/>
   <copyField source="summary" dest="text"/>
-  <copyField source="topic" dest="text"/>
-  <copyField source="parameter" dest="text"/>
-  <copyField source="keyword" dest="text"/>
-  <copyField source="sensor" dest="text"/>
+  <copyField source="topics" dest="text"/>
+  <copyField source="parameters" dest="text"/>
+  <copyField source="keywords" dest="text"/>
+  <copyField source="platforms" dest="text"/>
+  <copyField source="sensors" dest="text"/>
   <uniqueKey>
     authoritative_id
   </uniqueKey>
