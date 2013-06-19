@@ -8,6 +8,7 @@ usage()
 # absolute path to this script directory (without script name)
 APP_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $APP_HOME
+export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 
 set -x
 set -e
