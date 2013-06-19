@@ -18,7 +18,7 @@ cd solr/example
 
 if [ "$1" = "restart" ]
 then
-  java -jar start.jar --stop
+  java -jar start.jar -stop
   java -jar start.jar -Djetty.port=9283
 elif [ "$1" == "stop" ]
 then
