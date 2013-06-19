@@ -19,13 +19,13 @@ cd solr/example
 if [ "$1" = "restart" ]
 then
   java -jar start.jar -stop -Djetty.port=9283
-  java -jar start.jar -Djetty.port=9283
+  java -jar start.jar -daemon -Djetty.port=9283
 elif [ "$1" == "stop" ]
 then
   java -jar start.jar -stop -Djetty.port=9283
 elif [ "$1" == "start" ]
 then
-  java -jar start.jar -Djetty.port=9283
+  java -jar start.jar -daemon -Djetty.port=9283
 else
   usage;
 fi
