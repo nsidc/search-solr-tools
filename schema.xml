@@ -3,14 +3,31 @@
   <fields>
     <field name="authoritative_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="title" type="text_general" indexed="true" stored="true" />
-    <field name="_version_" type="float" indexed="true" stored="true"/>
-    <field name="iso" type="string" indexed="false" stored="true" />
+    <field name="summary" type="text_general" indexed="true" stored="true" />
+    <field name="topic" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="parameter" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="keyword" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="platform" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="sensor" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="spatial_coverage" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="temporal_coverage" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="supporting_program" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="author" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="last_revision_date" type="text_general" indexed="false" stored="true" />
+    <field name="dataset_url" type="text_general" indexed="false" stored="true" />
+    <field name="data_access_url" type="text_general" indexed="false" stored="true" multiValued="true" />
+    <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
 
     <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->
     <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
   </fields>
   <copyField source="title" dest="text"/>
+  <copyField source="summary" dest="text"/>
+  <copyField source="topic" dest="text"/>
+  <copyField source="parameter" dest="text"/>
+  <copyField source="keyword" dest="text"/>
+  <copyField source="sensor" dest="text"/>
   <uniqueKey>
     authoritative_id
   </uniqueKey>
