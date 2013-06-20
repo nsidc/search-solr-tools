@@ -21,6 +21,10 @@ namespace :build do
   task :deploy, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
     sh "cd #{env[:deployment_target]}; pwd; #{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar; chmod u+x init"
+    if(environment != "development")
+      sh "chmod -R 775 #{env[:deployment_target]}/*"
+      sh "chgrp -R webapp #{env[:deployment_target]}/*"
+    end
   end
 
   desc "Deploy Init Script"

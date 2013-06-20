@@ -42,6 +42,7 @@ cd $APP_HOME
 export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 set -x
 set -e
+umask 002
 cd solr/example
 
 if [ "$1" == "restart" ]
