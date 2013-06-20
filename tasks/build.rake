@@ -27,12 +27,6 @@ namespace :build do
     end
   end
 
-  desc "Deploy Init Script"
-  task :deploy_init, :environment do |t, args|
-    env = SolrEnvironments[args[:environment]]
-    sh "cd #{env[:deployment_target]}; pwd; #{env[:prefix]} tar -xvf #{env[:repo_dir]}/nsidc_solr_search#{ENV['ARTIFACT_VERSION']}.tar init; chmod u+x init"
-  end
-
   desc "Add build version to successfully deployed artifacts log"
   task :add_build_version_to_log, :environment, :build do |t, args|
     env = SolrEnvironments[args[:environment]]
