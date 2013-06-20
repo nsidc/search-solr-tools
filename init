@@ -26,7 +26,7 @@ function start_solr(){
     echo "Solr is already running/has a pidfile. Stop server or remove pidfile to start SOLR"
     exit 1
   fi
-  nohup java -jar start.jar -Djetty.port=9283 --daemon 2>&1 &
+  nohup java -jar start.jar -Djetty.port=9283 --daemon > /dev/null 2>&1 &
   echo $! > $PFILE
 }
 
