@@ -48,7 +48,7 @@ end
 
 def create_tarball(args, env)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr solr-4.3.0/contrib solr-4.3.0/dist solr-4.3.0/example Rakefile Gemfile* lib tasks rails_init init nsidc_oai_iso.xslt config"
+  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr solr-4.3.0/contrib solr-4.3.0/dist solr-4.3.0/example Rakefile Gemfile* lib tasks harvest_init init nsidc_oai_iso.xslt config"
 end
 
 def configure_collection(collection, target, environment )
