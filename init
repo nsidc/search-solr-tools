@@ -5,12 +5,12 @@ function stop_solr(){
     then
       PID=$(cat $PFILE)
       kill -0 $PID || true
-      if [ $? -ne 0 ]
+      if [ $? -eq 0 ]
       then
         kill -15 $PID
       fi
       kill -0 $PID || tx1rue
-      if [ $? -ne 0 ]
+      if [ $? -eq 0 ]
       then
         kill -9 $PID
       fi
