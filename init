@@ -1,34 +1,61 @@
 #!/bin/bash
 
+function stop_solr(){
+    if [ -e "$PFILE" ]
+    then
+      PID=$(cat $PFILE)
+      kill -0 $PID || true
+      if [ $? -ne 0 ]
+      then
+        kill -15 $PID
+      fi
+      kill -0 $PID || true
+      if [ $? -ne 0 ]
+      then
+        kill -9 $PID
+      fi
+      rm $PFILE
+    else
+      echo "SOLR is already stopped"
+    fi
+}
+
+function start_solr(){
+  if [ -e "$PFILE" ]
+  then
+    echo "Solr is already running/has a pidfile. Stop server or remove pidfile to start SOLR"
+    exit 1
+  fi
+  nohup java -jar start.jar -Djetty.port=9283 --daemon >/dev/null 2>&1 &
+  echo $! > $PFILE
+}
+
 usage()
 {
     echo "Usage: ${0##*/} {start|stop|restart}"
-    exit 1
+    exit 0
 }
 # absolute path to this script directory (without script name)
+PFILE=solr.pid
 APP_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $APP_HOME
 export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 
 set -x
 set -e
-
-echo "RESTART"
 cd solr/example
 
 if [ "$1" == "restart" ]
 then
-  java -jar -DSTOP.PORT=9284 -DSTOP.KEY=opensecret start.jar --stop
-  nohup java -jar start.jar  java -jar -DSTOP.PORT=9284 -DSTOP.KEY=opensecret start.jar -Djetty.port=9283 --daemon >/dev/null 2>&1 &
-
+  stop_solr || true
+  start_solr
 elif [ "$1" == "stop" ]
 then
-  java -jar -DSTOP.PORT=9284 -DSTOP.KEY=opensecret start.jar --stop
+  stop_solr
 elif [ "$1" == "start" ]
 then
-  nohup java -jar start.jar  java -jar -DSTOP.PORT=9284 -DSTOP.KEY=opensecret start.jar -Djetty.port=9283 --daemon >/dev/null 2>&1 &
+  start_solr
 else
   usage;
 fi
-
 
