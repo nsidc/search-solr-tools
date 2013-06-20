@@ -9,7 +9,7 @@ function stop_solr(){
       then
         kill -15 $PID
       fi
-      kill -0 $PID || true
+      kill -0 $PID || tx1rue
       if [ $? -ne 0 ]
       then
         kill -9 $PID
@@ -36,11 +36,10 @@ usage()
     exit 0
 }
 # absolute path to this script directory (without script name)
-PFILE=solr.pid
 APP_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PFILE=$APP_HOME/solr.pid
 cd $APP_HOME
 export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
-
 set -x
 set -e
 cd solr/example
