@@ -58,7 +58,7 @@
               <xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/>,<xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/>
             </field>
           </xsl:for-each>
-          <xsl:for-each select="gmd:EX_TemporalExtent">
+          <xsl:for-each select=".//gmd:EX_TemporalExtent">
             <field name="temporal_coverages">
               <xsl:value-of select=".//gml:beginPosition"/>,<xsl:value-of select=".//gml:endPosition"/>
             </field>
