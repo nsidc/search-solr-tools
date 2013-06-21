@@ -34,7 +34,7 @@ module SolrEnvironments
           :prefix => 'sudo',
           :port => '8983',
           :repo_dir => '~/solr_repo/',
-          :oai_url => 'http://integration.nsidc.org/api/oai/provider?verb=ListRecords&metadataPrefix=iso',
+          :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
           :host => 'localhost'
       },
       :integration => COMMON.clone.merge({
