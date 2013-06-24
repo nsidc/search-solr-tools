@@ -1,4 +1,5 @@
 namespace :server do
+  #XXX - This code duplicates the init script, probably better to just call the init script.
   desc "Start a configured solr instance"
   task :start, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
