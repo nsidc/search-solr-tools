@@ -51,6 +51,11 @@ module SolrEnvironments
                                          :deployment_target => '/disks/staging/live/apps/nsidc-open-search-solr/',
                                          :oai_url => 'http://freeze.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
                                          :host => 'freeze.colorado.edu'
+                                     }),
+      :production => COMMON.clone.merge({
+                                         :deployment_target => '/disks/production/live/apps/nsidc-open-search-solr/',
+                                         :oai_url => 'http://frozen.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                                         :host => 'frozen.colorado.edu'
                                      })
   }
 end
