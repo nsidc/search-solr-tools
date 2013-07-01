@@ -2,7 +2,7 @@
 
 usage()
 {
-    echo "Usage: ${0##*/} {harvest|environment} {integration|qa|staging|production}"
+    echo "Usage: ${0##*/} {harvest|harvest-ade|environment} {integration|qa|staging|production} {eol|cisl|nodc|nmi|default}"
     exit 1
 }
 # absolute path to this script directory (without script name)
@@ -36,6 +36,9 @@ fi
 if [ "$1" == "harvest" ]
 then
    bundle exec rake harvest:nsidc_oai_iso[$env]
+elif [ "$1" == "harvest-ade" ]
+then 
+   bundle exec rake harvest:ade[$env,$3]
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
