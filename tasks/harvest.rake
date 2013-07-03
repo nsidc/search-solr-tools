@@ -10,11 +10,11 @@ require 'nokogiri'
   task :ade, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
     startIndex = 1
-    pageSize = 10
+    pageSize = 25
     resultCounts = getNumberOfRecords env[:gi_cat_csw_url]
     puts resultCounts.to_i
     while startIndex - 1 < resultCounts.to_i
-      result_query_url = env[:gi_cat_csw_url] + "?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxReccords=#{pageSize}&startPsition=#{startIndex}&outputSchema=http://www.isotc211.org/2005/gmd"
+      result_query_url = env[:gi_cat_csw_url] + "?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=#{pageSize}&startPsition=#{startIndex}&outputSchema=http://www.isotc211.org/2005/gmd"
       sh "curl -s '#{result_query_url}' | xsltproc ./ade_eol_thredds.xslt - > ade_oai_output.xml"
       sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @ade_oai_output.xml"
       startIndex += pageSize
