@@ -52,6 +52,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <field name="dataset_url">
             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString"/>
           </field>
+          <field name="source">ADE</field>
         </doc>
       </xsl:for-each>
     </add>

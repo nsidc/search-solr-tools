@@ -4,5 +4,5 @@ gem 'rake'
 gem 'rspec'
 gem 'turnip'
 gem 'rest-client'
-gem 'nokogiri'
+gem 'nokogiri', "~> 1.5.6"
 gem 'yarjuf'

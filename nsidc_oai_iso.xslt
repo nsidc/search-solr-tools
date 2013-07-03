@@ -89,6 +89,7 @@
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
+          <field name="source">NSIDC</field>
         </doc>
       </xsl:for-each>
     </add>
