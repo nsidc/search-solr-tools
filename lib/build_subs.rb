@@ -43,6 +43,7 @@ def setup_solr(args)
   sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{collection_dir(env)}/conf/schema.xml"
   sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{collection_dir(env)}/conf/solrconfig.xml"
   sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{collection_dir(env)}/conf/xslt/nsidc_oai_iso.xslt"
+  sh "#{env[:prefix]} cp ade_eol_thredds.xslt #{env[:setup_dir]}/#{collection_dir(env)}/conf/xslt/ade_eol_thredds.xslt"
   configure_collection(env[:collection_name], "#{env[:setup_dir]}/solr", "#{args[:environment]}")
 end
 
