@@ -8,6 +8,29 @@
                 xmlns:gml="http://www.opengis.net/gml" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:gmi="http://eden.ign.fr/xsd/isotc211/isofull/20090316/gmi/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+  <xsl:template name="split_into_fields">
+    <xsl:param name="text" select="."/>
+    <xsl:param name="fieldName"/>
+
+    <xsl:if test="string-length($text) > 0">
+      <xsl:variable name="next" select=
+        "substring-before(concat($text, ' > '), ' > ')"/>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">
+          <xsl:value-of select="$fieldName"/>
+        </xsl:attribute>
+        <xsl:value-of select="$next"/>
+      </xsl:element>
+
+      <xsl:call-template name="split_into_fields">
+        <xsl:with-param name="text" select=
+          "substring-after($text, ' > ')"/>
+        <xsl:with-param name="fieldName" select="$fieldName"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template match="/">
     <add>
       <xsl:for-each select=".//oai-identifier:metadata">
@@ -22,7 +45,11 @@
             <xsl:value-of select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString"/>
           </field>
           <xsl:for-each select=".//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode='discipline']//gmd:keyword/gco:CharacterString">
-            <field name="parameters">
+            <xsl:call-template name="split_into_fields">
+              <xsl:with-param name="text" select="."/>
+              <xsl:with-param name="fieldName" select="'parameters'"/>
+            </xsl:call-template>
+            <field name="full_parameters">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>

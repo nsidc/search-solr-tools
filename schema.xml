@@ -18,6 +18,7 @@
     <field name="data_access_urls" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="distribution_formats" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="source" type="text_general" indexed="true" stored="true" multiValued="false" />
+    <field name="full_parameters" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
   </fields>
 
