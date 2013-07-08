@@ -117,6 +117,7 @@
             </field>
           </xsl:for-each>
           <field name="source">NSIDC</field>
+          <field name="source">ADE</field>
         </doc>
       </xsl:for-each>
     </add>
