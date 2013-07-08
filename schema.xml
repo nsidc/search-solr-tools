@@ -20,11 +20,13 @@
     <field name="source" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="full_parameters" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
+    <field name="normalized_authoritative_id" type="normalized" indexed="true" stored="true" multiValued="true" />
   </fields>
 
   <uniqueKey>
     authoritative_id
   </uniqueKey>
+  <copyField source="authoritative_id" dest="normalized_authoritative_id" />
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.
        It supports doc values but in that case the field needs to be
@@ -129,5 +131,17 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
                geo="true" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />
+
+    <fieldType name="normalized" class="solr.TextField">
+      <analyzer type="index">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateAll="1" splitOnNumerics="0" splitOnCaseChange="0" preserveOriginal="1"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
   </types>
 </schema>
