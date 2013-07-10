@@ -10,6 +10,7 @@
     <field name="platforms" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="sensors" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="authors" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="brokered" type="boolean" indexed="true" stored="true" multiValued="false" default="false" />
     <field name="spatial_coverages" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="temporal_coverages" type="text_general" indexed="false" stored="true" multiValued="true" />
     <field name="supporting_programs" type="text_general" indexed="false" stored="true" multiValued="true" />
@@ -59,6 +60,8 @@
     <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="8" positionIncrementGap="0"/>
     <fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" positionIncrementGap="0"/>
     <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0"/>
+
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="false" omitNorms="true"/>
 
     <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
          is a more restricted form of the canonical representation of dateTime

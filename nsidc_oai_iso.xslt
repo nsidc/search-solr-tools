@@ -78,6 +78,9 @@
               <xsl:value-of select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:edition/gco:CharacterString"/>
             </field>
           </xsl:if>
+          <xsl:if test="count(.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='offlineAccess']) &gt; 0">
+            <field name="brokered">true</field>
+          </xsl:if>
 
           <!-- non-indexed fields -->
           <xsl:for-each select=".//gmd:EX_GeographicBoundingBox">
@@ -106,7 +109,7 @@
           <field name="dataset_url">
             <xsl:value-of select=".//gmd:dataSetURI"/>
           </field>
-          <xsl:for-each select=".//gmd:MD_Distribution/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='download']//gmd:URL/gco:CharacterString">
+          <xsl:for-each select=".//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='download']//gmd:URL/gco:CharacterString">
             <field name="data_access_urls">
               <xsl:value-of select="."/>
             </field>
