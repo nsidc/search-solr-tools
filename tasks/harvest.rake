@@ -21,6 +21,12 @@ require 'nokogiri'
     end
     
   end
+  desc "Delete all documents from the index"
+  task :delete_all, :environment do |t, args|
+    env = SolrEnvironments[args[:environment]]
+    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'"
+    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'"
+  end
 
   def getNumberOfRecords(url)
     count_url =  url + '?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=hits&outputFormat=application/xml&maxRecords=1&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd'
