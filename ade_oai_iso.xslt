@@ -25,6 +25,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <field name="title">
             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString"/>
           </field>
+          <field name="authors">
+            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='creator']/gmd:individualName/gco:CharacterString">
+          </field>
           <field name="summary">
             <xsl:value-of  select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString"/>
           </field>
@@ -42,7 +45,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <field name="sensors">
           </field>
           <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='publisher']/gmd:organisationName/gco:CharacterString">
-            <field name="authors">
+            <field name="data_centers">
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
