@@ -26,7 +26,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString"/>
           </field>
           <field name="authors">
-            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='creator']/gmd:individualName/gco:CharacterString">
+            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='creator']/gmd:individualName/gco:CharacterString"/>
           </field>
           <field name="summary">
             <xsl:value-of  select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString"/>
