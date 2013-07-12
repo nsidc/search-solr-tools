@@ -18,8 +18,8 @@ export GEM_PATH=$GEM_HOME/bin
 export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
 export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
 
-#gem install bundler
-#bundle install
+gem install bundler
+bundle install
 
 if [[ -z "$2" ]]
 then
