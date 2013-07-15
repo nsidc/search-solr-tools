@@ -25,9 +25,29 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <field name="title">
             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString"/>
           </field>
-          <field name="authors">
-            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='creator']/gmd:individualName/gco:CharacterString"/>
-          </field>
+          <xsl:comment>
+            <!-- check whether element exist http://stackoverflow.com/questions/825831/check-if-a-string-is-null-or-empty-in-xslt -->
+          </xsl:comment>
+          <xsl:choose>
+            <xsl:when test="count(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='creator']) = 0">
+              <field name="authors">unknown</field>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:for-each  select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='creator']/gmd:individualName">
+                <xsl:choose>
+                  <xsl:when test="gco:CharacterString != ''">
+                    <field name="authors">
+                      <xsl:value-of select="gco:CharacterString"/>
+                    </field>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <field name="authors">unknown</field>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:for-each>
+            </xsl:otherwise>
+          </xsl:choose>
+
           <field name="summary">
             <xsl:value-of  select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString"/>
           </field>
