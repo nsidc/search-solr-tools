@@ -10,6 +10,7 @@
     <field name="platforms" type="text_special" indexed="true" stored="true" multiValued="true" />
     <field name="sensors" type="text_special" indexed="true" stored="true" multiValued="true" />
     <field name="authors" type="text_special" indexed="true" stored="true" multiValued="true" />
+    <field name="data_centers" type="text_special" indexed="true" stored="true" multiValued="true" />
     <field name="brokered" type="boolean" indexed="true" stored="true" multiValued="false" default="false" />
     <field name="spatial_coverages" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="temporal_coverages" type="string" indexed="false" stored="true" multiValued="true" />
