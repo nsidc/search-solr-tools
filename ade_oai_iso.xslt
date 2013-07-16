@@ -55,20 +55,31 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           </field>
           <field name="topics">
           </field>
-          <xsl:for-each select=".//gmd:MD_Keywords">
+          <xsl:for-each select=".//gmd:MD_Keywords[not(.//gmd:thesaurusName)]/gmd:keyword/gco:CharacterString">
             <field name="keywords">
-              <xsl:value-of select="gmd:keyword"/>
+              <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
           <field name="platforms">
           </field>
           <field name="sensors">
           </field>
-          <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='publisher']/gmd:organisationName/gco:CharacterString">
-            <field name="data_centers">
-              <xsl:value-of select="."/>
-            </field>
-          </xsl:for-each>
+          <xsl:choose>
+            <xsl:when test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='publisher']/gmd:organisationName/gco:CharacterString != ''">
+              <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='publisher']/gmd:organisationName/gco:CharacterString">
+                <field name="data_centers">
+                  <xsl:value-of select="."/>
+                </field>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString != ''">
+              <xsl:for-each select="gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString">
+                <field name="data_centers">
+                  <xsl:value-of select="."/>
+                </field>
+              </xsl:for-each>
+            </xsl:when>
+          </xsl:choose>
           <field name="last_revision_date">
             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date"/>
           </field>
