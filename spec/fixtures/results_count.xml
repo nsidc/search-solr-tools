@@ -1,0 +1,5 @@
+<csw:GetRecordsResponse xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0.2" xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd">
+  <csw:RequestId/>
+  <csw:SearchStatus timestamp="2013-07-17T15:25:20.724-06:00"/>
+  <csw:SearchResults nextRecord="1" numberOfRecordsMatched="10" numberOfRecordsReturned="0" recordSchema="http://www.isotc211.org/2005/gmd"/>
+</csw:GetRecordsResponse>

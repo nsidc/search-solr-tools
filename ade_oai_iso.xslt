@@ -79,6 +79,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                 </field>
               </xsl:for-each>
             </xsl:when>
+            <xsl:otherwise>
+              <!-- Check the URI to determine what Data Center name to use -->
+              <xsl:choose>
+                <xsl:when test="">
+                </xsl:when>
+              </xsl:choose>
+            </xsl:otherwise>
           </xsl:choose>
           <field name="last_revision_date">
             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date"/>

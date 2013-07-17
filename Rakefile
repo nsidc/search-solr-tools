@@ -10,5 +10,9 @@ namespace :spec do
     t.rspec_opts = %w[-f progress -f JUnit -o results.xml]
     t.pattern = './spec/*{.feature}'
   end
+
+  RSpec::Core::RakeTask.new(:unit) do |t|
+    t.pattern = './spec/**/*{_spec.rb}'
+  end
 end
 
