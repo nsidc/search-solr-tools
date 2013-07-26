@@ -19,7 +19,7 @@ class ADEHarvester
     return resultsCount.to_i
   end
 
-  def getRecords
+  def getRecords pageSize, startIndex
     queryString = buildCswRequest("results", pageSize, startIndex)
 
     return Nokogiri::XML(open(queryString))
@@ -38,7 +38,7 @@ class ADEHarvester
   end
 
   # Update Solr with a set of documents
-  def insertSolrDocs
+  def insertSolrDocs solrDocs
     #TODO: Make this method work using RSolr
     # solr = RSolr.connect :url => @solr_url
     # solr.add solrDocsJson, :add_attributes => {:allowDups => false}
