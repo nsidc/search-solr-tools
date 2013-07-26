@@ -1,6 +1,7 @@
 # NSIDC Solr
 
 This is a collection of:
+
 * SOLR schema and configuration files
 * XSLT files to transform ISO into SOLR documents
 * Rake tasks to run a SOLR instance
