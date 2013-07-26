@@ -1,5 +1,3 @@
-require 'ade_csw_iso_query_builder'
-
 class ADECswIsoQueryBuilder
 
   class QueryBuilder

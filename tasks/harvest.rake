@@ -1,5 +1,6 @@
 namespace :harvest do
 require 'nokogiri'
+require File.join(File.dirname(__FILE__), '../lib/ade_harvester')
 
   desc "Harvest NSIDC_OAI data"
   task :nsidc_oai_iso, :environment do |t, args|
@@ -21,6 +22,13 @@ require 'nokogiri'
       sh "curl -a 'http://#{env[:host]}:#{env[:port]}/solr/update?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @ade_oai_output.xml"
       startIndex += pageSize
     end
+  end
+
+  #TODO: [Mliu 07/26/2013]Remove the harvest ade task once harvest all task is working
+  desc "Harvest all data"
+  task :all, :environment do |t, args|
+    env = SolrEnvironments[args[:environment]]
+    ADEHarvester.new.harvest
   end
 
   desc "Delete all documents from the index"

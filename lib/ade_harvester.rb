@@ -1,4 +1,4 @@
-require 'ade_csw_iso_query_builder'
+require File.join(File.dirname(__FILE__), '/ade_csw_iso_query_builder')
 require 'nokogiri'
 require 'open-uri'
 require 'rsolr'
