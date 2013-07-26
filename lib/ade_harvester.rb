@@ -4,7 +4,7 @@ require 'open-uri'
 require 'rsolr'
 
 class ADEHarvester
-  attr_accessor :env, :gi_cat_url
+  attr_accessor :environment, :gi_cat_url
 
   def initialize( env="integration" )
     @environment = env
