@@ -23,6 +23,7 @@
     <field name="full_parameters" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
     <field name="normalized_authoritative_id" type="normalized" indexed="true" stored="true" multiValued="true" />
+    <field name="popularity" type="int" indexed="true" stored="true" multiValued="false" />
   </fields>
 
   <uniqueKey>
