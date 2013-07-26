@@ -20,9 +20,25 @@ class ADEHarvester
   end
 
   def getRecords pageSize, startIndex
-    queryString = buildCswRequest("results", pageSize, startIndex)
+    records = []
 
-    return Nokogiri::XML(open(queryString))
+    # Grab each page of results
+    startIndex = 1
+    pageSize = 100
+    numRecords = getNumberOfRecords
+
+    while startIndex - 1 < numRecords
+      getResults(pageSize, startIndex)
+
+      entries = results.xpath(".//gmd:MD_Metadata")
+
+      # Build an array of result entries
+      records.push(entries)
+
+      startIndex += pageSize
+    end
+
+    return records
   end
 
   def transformCswToSolrDoc(cswResponseXml)
@@ -45,23 +61,21 @@ class ADEHarvester
   end
 
   def harvest
-    startIndex = 1
-    pageSize = 25
-
-    while startIndex - 1 < getNumberOfRecords
       # This is the old code we used
       # result_query_url = env[:gi_cat_csw_url] + "?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=#{pageSize}&startPosition=#{startIndex}&outputSchema=http://www.isotc211.org/2005/gmd"
       # sh "curl -s '#{result_query_url}' | xsltproc ./ade_oai_iso.xslt - > ade_oai_output.xml"
       # sh "curl -a 'http://#{env[:host]}:#{env[:port]}/solr/update?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @ade_oai_output.xml"
 
-      resultsXml = getRecords(pageSize, startIndex)
+      resultsXml = getRecords()
 
       solrDocs = transformCswToSolrDoc(resultsXml)
 
       insertSolrDocs(solrDocs)
+  end
 
-      startIndex += pageSize
-    end
+  def getResults pageSize, startIndex
+    queryString = buildCswRequest("results", pageSize, startIndex)
+    return Nokogiri::XML(open(queryString))
   end
 
   def buildCswRequest(resultType = 'results', maxRecords = '25', startPosition = '1')
