@@ -55,9 +55,11 @@ class ADEHarvester
 
   # Update Solr with a set of documents
   def insertSolrDocs solrDocs
-    #TODO: Make this method work using RSolr
-    # solr = RSolr.connect :url => @solr_url
-    # solr.add solrDocsJson, :add_attributes => {:allowDups => false}
+    buildAddXMLMessage solrDocs
+
+    solr = RSolr.connect :url => @solr_url
+    solr.update solrDocs, :add_attributes => {:overwrite => "true"}
+    solr.commit
   end
 
   def harvest
@@ -76,6 +78,10 @@ class ADEHarvester
   def getResults pageSize, startIndex
     queryString = buildCswRequest("results", pageSize, startIndex)
     return Nokogiri::XML(open(queryString))
+  end
+
+  def buildAddXMLMessage solrDocs
+    return solrDocs.insert(0, '<add>').insert(-1, '</add>')
   end
 
   def buildCswRequest(resultType = 'results', maxRecords = '25', startPosition = '1')

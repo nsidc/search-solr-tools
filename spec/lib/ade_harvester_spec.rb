@@ -74,28 +74,11 @@ describe ADEHarvester do
     end
 
     describe "Adding documents to Solr" do
-      it "Invokes the insertSolrDocs method" do
-        xmlDoc = nil
-        expect(@ade_harvester.insertSolrDocs(xmlDoc)).to eql("hello")
+      it "Creates an XML message to add documents in Solr" do
+        xmlDoc = "<foo>"
+        expect(@ade_harvester.buildAddXMLMessage(xmlDoc)).to eql("<add><foo></add>")
       end
 
-    end
-
-    describe "Harvest process to ingest CSW/ISO response into Solr" do
-      it "Transforms the CSW/ISO response into the Solr document" do
-        cswXml = Nokogiri::XML(File.new("spec/fixtures/results.xml"))
-        jsonOutput = @ade_harvester.transformCswToSolrDoc(cswXml)
-
-        expect(jsonOutput).to eql("foo")
-      end
-
-      it "Sends a request to update Solr with the data" do
-        expect(true).to eql(false)
-      end
-
-      it "Loops over each page of results until all results are in Solr" do
-        expect(true).to eql(false)
-      end
     end
   end
 end
