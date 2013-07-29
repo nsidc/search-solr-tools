@@ -7,7 +7,7 @@ describe ADEHarvester do
   describe "Initialization" do
     it "Uses a default environment if not specified" do
       ade_harvester = ADEHarvester.new
-      expect(ade_harvester.environment).to eq("integration")
+      expect(ade_harvester.environment).to eq("development")
     end
 
     it "Initializes with a specific environment name" do
@@ -75,8 +75,24 @@ describe ADEHarvester do
 
     describe "Adding documents to Solr" do
       it "Creates an XML message to add documents in Solr" do
-        xmlDoc = "<foo>"
-        expect(@ade_harvester.buildAddXMLMessage(xmlDoc)).to eql("<add><foo></add>")
+        xmlDoc = "<root><doc>a</doc><doc><foo></doc></root>"
+        docs = Nokogiri::XML("<add>" + xmlDoc + "</add>")
+        expect(@ade_harvester.buildAddXMLMessage(xmlDoc)).to eql(docs.to_xml)
+      end
+
+      it "Issues a request to update Solr with data" do
+        stub_request(:post, "http://liquid.colorado.edu:9283/solr/update?commit=true")
+          .with(:body => "<add><foo></add>",
+               :headers => {'Accept'=>'*/*; q=0.5, application/xml',
+                            'Accept-Encoding'=>'gzip, deflate',
+                            'Content-Length'=>'16',
+                            'Content-Type'=>'text/xml; charset=utf-8',
+                            'User-Agent'=>'Ruby'})
+          .to_return(:status => 200, :body => "success", :headers => {})
+
+        response = @ade_harvester.insertSolrDocs "<add><foo></add>"
+
+        expect(response).to eql(200)
       end
 
     end

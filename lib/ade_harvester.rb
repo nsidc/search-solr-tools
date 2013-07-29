@@ -1,12 +1,12 @@
-require File.join(File.dirname(__FILE__), '/ade_csw_iso_query_builder')
+require 'rest-client'
 require 'nokogiri'
 require 'open-uri'
-require 'rsolr'
+require './lib/ade_csw_iso_query_builder'
 
 class ADEHarvester
   attr_accessor :environment, :gi_cat_url
 
-  def initialize( env="integration" )
+  def initialize( env="development" )
     @environment = env
     @csw_query_url = SolrEnvironments[@environment][:gi_cat_csw_url]
     @solr_url = "http://" + SolrEnvironments[@environment][:host] + ":" + SolrEnvironments[@environment][:port] + "/" + SolrEnvironments[@environment][:collection_path]
@@ -19,60 +19,29 @@ class ADEHarvester
     return resultsCount.to_i
   end
 
-  def getRecords pageSize, startIndex
-    records = []
-
-    # Grab each page of results
+  def getRecords
     startIndex = 1
     pageSize = 100
     numRecords = getNumberOfRecords
 
-    while startIndex - 1 < numRecords
-      getResults(pageSize, startIndex)
+    records = Nokogiri::XML::Builder.new do |xml|
+      xml.root {
+        # Grab each page of results
+        #while startIndex - 1 < numRecords
+          results = getResults(pageSize, startIndex)
 
-      entries = results.xpath(".//gmd:MD_Metadata")
+          entries = results.xpath(".//gmd:MD_Metadata")
 
-      # Build an array of result entries
-      records.push(entries)
+          entries.each do |entry|
+            xml.doc_ entry
+          end
 
-      startIndex += pageSize
+          startIndex += pageSize
+        #end
+      }
     end
 
-    return records
-  end
-
-  def transformCswToSolrDoc(cswResponseXml)
-    #TODO: Placeholder method to convert the GI-Cat response into a Solr doc
-    datasets = cswResponseXml.xpath(".//gmd:MD_Metadata")
-    jsonDocs = []
-
-    for dataset in datasets
-      jsonDocs.push(doc)
-    end
-
-    return jsonDocs
-  end
-
-  # Update Solr with a set of documents
-  def insertSolrDocs solrDocs
-    buildAddXMLMessage solrDocs
-
-    solr = RSolr.connect :url => @solr_url
-    solr.update solrDocs, :add_attributes => {:overwrite => "true"}
-    solr.commit
-  end
-
-  def harvest
-      # This is the old code we used
-      # result_query_url = env[:gi_cat_csw_url] + "?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=#{pageSize}&startPosition=#{startIndex}&outputSchema=http://www.isotc211.org/2005/gmd"
-      # sh "curl -s '#{result_query_url}' | xsltproc ./ade_oai_iso.xslt - > ade_oai_output.xml"
-      # sh "curl -a 'http://#{env[:host]}:#{env[:port]}/solr/update?commit=true' -H 'Content-Type: text/xml; charset=utf-8' --data-binary @ade_oai_output.xml"
-
-      resultsXml = getRecords()
-
-      solrDocs = transformCswToSolrDoc(resultsXml)
-
-      insertSolrDocs(solrDocs)
+    return records.to_xml
   end
 
   def getResults pageSize, startIndex
@@ -80,8 +49,30 @@ class ADEHarvester
     return Nokogiri::XML(open(queryString))
   end
 
+  def transformCswToSolrDoc(cswResponseXml)
+    return cswResponseXml
+  end
+
+  # Update Solr with a set of documents
+  def insertSolrDocs solrDocs
+    RestClient.post(@solr_url + "/update?commit=true",
+                    solrDocs,
+                    {:Content_Type => 'text/xml; charset=utf-8'}) { |response, request, result| return response.code }
+  end
+
+  def harvest
+      resultsXml = getRecords
+
+      solrDocs = transformCswToSolrDoc(resultsXml)
+
+      solrDocs = buildAddXMLMessage solrDocs
+
+      insertSolrDocs(solrDocs)
+  end
+
   def buildAddXMLMessage solrDocs
-    return solrDocs.insert(0, '<add>').insert(-1, '</add>')
+    docs = Nokogiri::XML("<add>" + solrDocs + "</add>")
+    return docs.to_xml
   end
 
   def buildCswRequest(resultType = 'results', maxRecords = '25', startPosition = '1')
