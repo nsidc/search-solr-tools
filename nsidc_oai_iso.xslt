@@ -89,7 +89,14 @@
               <xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/>,<xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/>
             </field>
             <field name="spatial">
-              <xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>
+              <xsl:choose>
+                <xsl:when test="gmd:westBoundingLongitude/gco:Decimal = gmd:eastBoundingLongitude/gco:Decimal and gmd:southBoundingLatitude/gco:Decimal = gmd:northBoundingLatitude/gco:Decimal">
+                  <xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>
+                </xsl:otherwise>
+              </xsl:choose>
             </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmd:EX_TemporalExtent">
