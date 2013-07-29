@@ -110,7 +110,7 @@
           <field name="dataset_url">
             <xsl:value-of select=".//gmd:dataSetURI"/>
           </field>
-          <xsl:for-each select=".//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='download']//gmd:URL/gco:CharacterString">
+          <xsl:for-each select=".//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='download']//gmd:URL">
             <field name="data_access_urls">
               <xsl:value-of select="."/>
             </field>
