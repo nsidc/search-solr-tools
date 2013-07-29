@@ -14,6 +14,7 @@
     <field name="brokered" type="boolean" indexed="true" stored="true" multiValued="false" default="false" />
     <field name="published_date" type="date" indexed="true" stored="true" multiValued="false" />
     <field name="spatial_coverages" type="string" indexed="false" stored="true" multiValued="true" />
+    <field name="spatial" type="location_rpt" indexed="true" stored="true" multiValued="true" />
     <field name="temporal_coverages" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="supporting_programs" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="last_revision_date" type="string" indexed="false" stored="true" />

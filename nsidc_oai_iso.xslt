@@ -88,6 +88,9 @@
             <field name="spatial_coverages">
               <xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/>,<xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/>
             </field>
+            <field name="spatial">
+              <xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/><xsl:text> </xsl:text><xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>
+            </field>
           </xsl:for-each>
           <xsl:for-each select=".//gmd:EX_TemporalExtent">
             <field name="temporal_coverages">
