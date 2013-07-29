@@ -119,6 +119,11 @@
               <xsl:value-of select="."/>
             </field>
           </xsl:for-each>
+          <xsl:if test="count(gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceSpecificUsage/gmd:MD_Usage/gmd:popularity/gco:Integer) > 0 ">
+            <field name="popularity">
+              <xsl:value-of select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceSpecificUsage/gmd:MD_Usage/gmd:popularity/gco:Integer"/>
+            </field>
+          </xsl:if>
           <field name="source">NSIDC</field>
           <field name="source">ADE</field>
         </doc>
