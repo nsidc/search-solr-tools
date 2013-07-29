@@ -81,6 +81,7 @@
           <xsl:if test="count(.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode='offlineAccess']) &gt; 0">
             <field name="brokered">true</field>
           </xsl:if>
+          <field name="published_date"><xsl:value-of select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date"/>T00:00:00Z</field>
 
           <!-- non-indexed fields -->
           <xsl:for-each select=".//gmd:EX_GeographicBoundingBox">
