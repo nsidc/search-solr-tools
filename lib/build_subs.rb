@@ -67,7 +67,7 @@ def configure_collection(collection, target, environment)
   File.open("#{target}/solr.xml", 'w') { |file| file.puts replace }
 end
 
-def server_status pid_file, args, env
+def server_status(pid_file, args, env)
   if File.exists?(pid_file)
     pid = IO.read(pid_file).to_i
     server_status_running pid, pid_file, args, env
