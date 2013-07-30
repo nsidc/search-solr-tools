@@ -7,3 +7,4 @@ gem 'turnip'
 gem 'rest-client', "~> 1.6.7"
 gem 'nokogiri', "~> 1.6.0"
 gem 'yarjuf'
+gem 'rubocop'
