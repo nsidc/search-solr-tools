@@ -47,6 +47,7 @@ describe ADEHarvester do
 
         expect(@ade_harvester.get_number_of_records).to eql(10)
       end
+
     end
 
     describe 'Retrieving the records from GI-Cat' do
@@ -72,10 +73,31 @@ describe ADEHarvester do
 
         expect(response_xml.xpath('foo').first.name).to eql('foo')
       end
-
     end
 
     describe 'Adding documents to Solr' do
+
+      it 'constructs an xml document with root <add> which has <doc> children' do
+        csw_iso_url = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso'
+        query_params = ADECswIsoQueryBuilder.query_params({
+                                                            'resultType' => 'hits',
+                                                            'maxRecords' => '1',
+                                                            'startPosition' => '1'
+                                                          })
+
+        stub_request(:get, csw_iso_url).with(query: query_params)
+          .to_return(status: 200, body: File.new('spec/fixtures/results_count.xml'))
+
+        stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2')
+          .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
+          .to_return(status: 200, body: File.open('spec/fixtures/cisl_iso.xml'), headers: {})
+
+        nokogiri_doc = @ade_harvester.build_xml_to_post_to_solr
+
+        expect(nokogiri_doc.root.name).to eql('add')
+        expect(nokogiri_doc.root.first_element_child.name).to eql('doc')
+      end
+
       it 'Issues a request to update Solr with data' do
         stub_request(:post, 'http://liquid.colorado.edu:9283/solr/update?commit=true')
           .with(body: '<add><foo></add>',
@@ -95,4 +117,3 @@ describe ADEHarvester do
     end
   end
 end
-

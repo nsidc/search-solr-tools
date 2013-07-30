@@ -31,11 +31,10 @@ class ADEHarvester
     end
     solr_docs = solr_docs_builder.doc
     add_translated_entries_from_gi_cat_to_doc solr_docs
-    solr_docs.to_xml
+    solr_docs
   end
 
-  def add_translated_entries_from_gi_cat_to_doc(doc)
-    num_records = get_number_of_records
+  def add_translated_entries_from_gi_cat_to_doc(doc, num_records = get_number_of_records)
     while @start_index - 1 < num_records
       results = get_results_from_gi_cat
       entries = results.xpath('.//gmd:MD_Metadata', ISO_NAMESPACES)
@@ -60,7 +59,7 @@ class ADEHarvester
 
   def harvest
     solr_docs = build_xml_to_post_to_solr
-    insert_solr_docs solr_docs
+    insert_solr_docs solr_docs.to_xml
   end
 
   def build_csw_request(resultType = 'results', maxRecords = '25', startPosition = '1')
