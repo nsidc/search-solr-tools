@@ -18,7 +18,7 @@ namespace :spec do
 
   Rubocop::RakeTask.new(:rubocop) do |task|
     task.patterns = ['lib/**/*.rb', 'spec/**/*.rb', 'config/**/*.rb', 'tasks/**/*.rb', 'Rakefile']
-    task.fail_on_error = false
+    task.fail_on_error = true
   end
 
 end
