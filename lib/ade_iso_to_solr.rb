@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'date'
-require 'ade_iso_to_solr_xslt'
+require './lib/ade_iso_to_solr_xslt'
 
 # Translates ISO nokogiri documents into solr nokogiri documents
 class ADEIsoToSolr

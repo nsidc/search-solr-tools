@@ -2,8 +2,11 @@ require 'rest-client'
 require 'nokogiri'
 require 'open-uri'
 require './lib/ade_csw_iso_query_builder'
+require './lib/ade_iso_to_solr'
 
 class ADEHarvester
+  ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }
+
   attr_accessor :environment, :gi_cat_url
 
   def initialize( env="development" )
@@ -19,55 +22,55 @@ class ADEHarvester
     return resultsCount.to_i
   end
 
-  def getRecords
-    startIndex = 1
-    pageSize = 100
-    numRecords = getNumberOfRecords
-
-    records = Nokogiri::XML::Builder.new do |xml|
-      xml.root {
-        # Grab each page of results
-        #while startIndex - 1 < numRecords
-          results = getResults(pageSize, startIndex)
-
-          entries = results.xpath(".//gmd:MD_Metadata")
-
-          entries.each do |entry|
-            xml.doc_ entry
-          end
-
-          startIndex += pageSize
-        #end
-      }
-    end
-
-    return records.to_xml
-  end
-
   def getResults pageSize, startIndex
     queryString = buildCswRequest("results", pageSize, startIndex)
     return Nokogiri::XML(open(queryString))
   end
 
-  def transformCswToSolrDoc(cswResponseXml)
-    return cswResponseXml
+  def getRecords
+    start_index = 1
+    page_size = 100
+    numRecords = getNumberOfRecords
+
+    translator = ADEIsoToSolr.new :cisl
+
+    solr_docs_builder = Nokogiri::XML::Builder.new do |xml|
+      xml.add
+    end
+
+    solr_docs = solr_docs_builder.doc
+
+    while start_index - 1 < numRecords
+
+      results = getResults(page_size, start_index)
+      entries = results.xpath('.//gmd:MD_Metadata', ISO_NAMESPACES)
+
+      entries.each do |entry|
+        translated_entry = translator.translate entry
+        solr_docs.root.add_child translated_entry.root
+      end
+
+      start_index += page_size
+    end
+
+    return solr_docs.to_xml
   end
 
   # Update Solr with a set of documents
   def insertSolrDocs solrDocs
-    RestClient.post(@solr_url + "/update?commit=true",
+    url = @solr_url + "/update?commit=true"
+
+    response = RestClient.post(url,
                     solrDocs,
-                    {:Content_Type => 'text/xml; charset=utf-8'}) { |response, request, result| return response.code }
+                               {:Content_Type => 'text/xml; charset=utf-8'}) { |response, request, result|
+
+      return response.code
+}
   end
 
   def harvest
-      resultsXml = getRecords
-
-      solrDocs = transformCswToSolrDoc(resultsXml)
-
-      solrDocs = buildAddXMLMessage solrDocs
-
-      insertSolrDocs(solrDocs)
+    resultsXml = getRecords
+    insertSolrDocs(resultsXml)
   end
 
   def buildAddXMLMessage solrDocs
