@@ -72,7 +72,7 @@ describe 'CISL ISO to Solr converter' do
     'http://www.aoncadis.org/dataset/id/005f3222-7548-11e2-851e-00c0f03d5b7c.html'
   end
 
-  it 'should grab the correct updated date' do     
+  it 'should grab the correct updated date' do
     solr_doc.xpath("/doc/field[@name='last_revision_date']").text.should be ==
     ''
   end
@@ -80,6 +80,6 @@ describe 'CISL ISO to Solr converter' do
   it 'should grab the correct source' do
     solr_doc.xpath("/doc/field[@name='source']").text.should be ==
     'ADE'
-  end  
+  end
 
 end
