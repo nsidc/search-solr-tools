@@ -1,16 +1,17 @@
 require 'rest_client'
 require 'nokogiri'
 
+# class to query solr with specific terms and examine the results as Nokogiri documents
 class SolrSearchPage
   def initialize(host, port, collection_path, collection)
     @url = "http://#{host}:#{port}/#{collection_path}/#{collection}"
   end
 
   def query(terms)
-    query_url = "#{@url.dup}/select?q=#{URI::encode(terms)}&qf=title&defType=edismax"
+    query_url = "#{@url.dup}/select?q=#{URI.encode(terms)}&qf=title&defType=edismax"
 
     @response = RestClient.get query_url
-    @response_doc = Nokogiri::XML @response.body
+    @response_doc = Nokogiri.XML @response.body
   end
 
   def is_valid?

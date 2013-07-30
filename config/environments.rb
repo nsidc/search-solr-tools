@@ -1,66 +1,67 @@
 
+# configuration to work with solr locally, or on integration/qa/staging/prod
 module SolrEnvironments
   def self.[] (key)
     key_sym = (key || 'development').to_sym
     SOLR_ENVIRONMENTS[key_sym]
   end
 
-  def self.JarFile
+  def self.jar_file
     'start.jar'
   end
 
-  def self.PidFile
+  def self.pid_file
     'solr.pid'
   end
 
   private
 
   COMMON = {
-      :setup_dir => './solr/example',
-      :collection_name => 'nsidc_oai',
-      :collection_path => 'solr',
-      :prefix => '',
-      :repo_dir => '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
-      :port => '9283'
+      setup_dir: './solr/example',
+      collection_name: 'nsidc_oai',
+      collection_path: 'solr',
+      prefix: '',
+      repo_dir: '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
+      port: '9283'
   }
 
   SOLR_ENVIRONMENTS = {
-      :development => {
-          :setup_dir => '/opt/solr/dev',
-          :deployment_target => '~/solr_deploy/',
-          :run_dir => '/opt/solr/dev',
-          :collection_name => 'collection1',
-          :collection_path => 'solr',
-          :prefix => 'sudo',
-          :port => '8983',
-          :repo_dir => '~/solr_repo/',
-          :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
-          :gi_cat_csw_url => 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',          
-          :host => 'localhost'
+      development: {
+          setup_dir: '/opt/solr/dev',
+          deployment_target: '~/solr_deploy/',
+          run_dir: '/opt/solr/dev',
+          collection_name: 'collection1',
+          collection_path: 'solr',
+          prefix: 'sudo',
+          port: '8983',
+          repo_dir: '~/solr_repo/',
+          oai_url: 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+          gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
+          host: 'localhost'
       },
-      :integration => COMMON.clone.merge({
-                                             :deployment_target => '/disks/integration/live/apps/nsidc-open-search-solr/',
-                                             :oai_url => 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
-                                             :gi_cat_csw_url => 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
-                                             :host => 'liquid.colorado.edu'
+      integration: COMMON.clone.merge({
+                                             deployment_target: '/disks/integration/live/apps/nsidc-open-search-solr/',
+                                             oai_url: 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                                             gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
+                                             host: 'liquid.colorado.edu'
                                          }),
-      :qa => COMMON.clone.merge({
-                                    :deployment_target => '/disks/qa/live/apps/nsidc-open-search-solr/',
-                                    :oai_url => 'http://brash.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
-                                    :gi_cat_csw_url => 'http://brash.colorado.edu:11380/api/gi-cat/services/cswiso',
-                                    :host => 'brash.colorado.edu'
+      qa: COMMON.clone.merge({
+                                    deployment_target: '/disks/qa/live/apps/nsidc-open-search-solr/',
+                                    oai_url: 'http://brash.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                                    gi_cat_csw_url: 'http://brash.colorado.edu:11380/api/gi-cat/services/cswiso',
+                                    host: 'brash.colorado.edu'
                                 }),
-      :staging => COMMON.clone.merge({
-                                         :deployment_target => '/disks/staging/live/apps/nsidc-open-search-solr/',
-                                         :oai_url => 'http://freeze.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
-                                         :gi_cat_csw_url => 'http://freeze.colorado.edu:11380/api/gi-cat/services/cswiso',
-                                         :host => 'freeze.colorado.edu'
+      staging: COMMON.clone.merge({
+                                         deployment_target: '/disks/staging/live/apps/nsidc-open-search-solr/',
+                                         oai_url: 'http://freeze.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                                         gi_cat_csw_url: 'http://freeze.colorado.edu:11380/api/gi-cat/services/cswiso',
+                                         host: 'freeze.colorado.edu'
                                      }),
-      :production => COMMON.clone.merge({
-                                         :deployment_target => '/disks/production/live/apps/nsidc-open-search-solr/',
-                                         :oai_url => 'http://frozen.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
-                                         :gi_cat_csw_url => 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
-                                         :host => 'frozen.colorado.edu'
+      production: COMMON.clone.merge({
+                                         deployment_target: '/disks/production/live/apps/nsidc-open-search-solr/',
+                                         oai_url: 'http://frozen.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                                         gi_cat_csw_url: 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
+                                         host: 'frozen.colorado.edu'
                                      })
   }
 end

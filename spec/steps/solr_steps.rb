@@ -1,6 +1,7 @@
 require File.join('.', 'config', 'environments.rb')
 require File.join('page_objects', 'solr_search_page')
 
+# module to control solr in acceptance tests
 module SolrSteps
   step 'I am using the current environment settings' do
     @target_env = ENV['TARGET_ENVIRONMENT'] || 'development'
