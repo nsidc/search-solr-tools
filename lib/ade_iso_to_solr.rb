@@ -1,54 +1,9 @@
 require 'nokogiri'
+require 'date'
+require 'ade_iso_to_solr_xslt'
 
 # Translates ISO nokogiri documents into solr nokogiri documents
 class ADEIsoToSolr
-
-  SELECTORS = {
-    cisl: {
-      authoritative_id: {
-          xpaths: ['//gmd:fileIdentifier/gco:CharacterString'],
-          default_value: '',
-          multivalue: false
-        },
-      title: {
-          xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-          default_value: '',
-          multivalue: false
-        },
-      summary: {
-          xpaths: ['//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
-          default_value: '',
-          multivalue: false
-        },
-      data_center: {
-          xpaths: ['//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-          default_value: '',
-          multivalue: false
-        },
-      parameters: {
-          xpaths: [''],
-          default_value: '',
-          multivalue: false
-        },
-      topics: {
-          xpaths: [''],
-          default_value: '',
-          multivalue: false
-        },
-      parameters: {
-          xpaths: [''],
-          default_value: '',
-          multivalue: false
-        },
-      keywords: {
-          xpaths: ['//gmd:keyword/gco:CharacterString'],
-          default_value: '',
-          multivalue: true
-        },
-    },
-    eol: {
-    }
-  }
 
   ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }
 

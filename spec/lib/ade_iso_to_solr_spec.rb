@@ -63,8 +63,23 @@ describe 'CISL ISO to Solr converter' do
   end
 
   it 'should grab the correct data center' do
-    solr_doc.xpath("/doc/field[@name='data_center']").text.should be ==
+    solr_doc.xpath("/doc/field[@name='data_centers']").text.should be ==
     'Advanced Cooperative Arctic Data and Information Service'
   end
+
+  it 'should grab the correct get data link' do
+    solr_doc.xpath("/doc/field[@name='dataset_url']").text.should be ==
+    'http://www.aoncadis.org/dataset/id/005f3222-7548-11e2-851e-00c0f03d5b7c.html'
+  end
+
+  it 'should grab the correct updated date' do     
+    solr_doc.xpath("/doc/field[@name='last_revision_date']").text.should be ==
+    ''
+  end
+
+  it 'should grab the correct source' do
+    solr_doc.xpath("/doc/field[@name='source']").text.should be ==
+    'ADE'
+  end  
 
 end
