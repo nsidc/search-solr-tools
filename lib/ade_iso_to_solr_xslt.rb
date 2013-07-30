@@ -40,7 +40,7 @@
           default_value: '',
           multivalue: false
         },
-      platform: {
+      platforms: {
           xpaths: [''],
           default_value: '',
           multivalue: false
