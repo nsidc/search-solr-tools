@@ -20,7 +20,6 @@ describe 'CISL ISO to Solr converter' do
   it 'should grab only one node when the multivalue option is false' do
     selector = {
           xpaths: ['//gmd:keyword/gco:CharacterString'],
-          default_value: '',
           multivalue: false
       }
     field = iso_to_solr.get_field_values fixture, selector
@@ -30,7 +29,6 @@ describe 'CISL ISO to Solr converter' do
   it 'should grab all the nodes when the multivalue option is true' do
     selector = {
           xpaths: ['//gmd:keyword/gco:CharacterString'],
-          default_value: '',
           multivalue: true
       }
     field = iso_to_solr.get_field_values fixture, selector
@@ -41,8 +39,29 @@ describe 'CISL ISO to Solr converter' do
   it 'should fall over the second xpath when the first is not present' do
     selector = {
           xpaths: ['//gmd:YouWontFindThis', '//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-          default_value: '',
           multivalue: false
+      }
+    title = iso_to_solr.get_field_values fixture, selector
+    title.size.should be == 1
+    title[0].should be == 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
+  end
+
+  it 'should format the field using the format key if present' do
+    selector = {
+          xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+          multivalue: false,
+          format: proc { |x| [x[0].upcase] }
+      }
+    title = iso_to_solr.get_field_values fixture, selector
+    title.size.should be == 1
+    title[0].should be == 'CARBON ISOTOPIC VALUES OF ALKANES EXTRACTED FROM PALEOSOLS'
+  end
+
+  it 'should return the same value if the format function breaks' do
+    selector = {
+          xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+          multivalue: false,
+          format: proc { |x| [x[nil].upcase] }
       }
     title = iso_to_solr.get_field_values fixture, selector
     title.size.should be == 1
@@ -74,7 +93,7 @@ describe 'CISL ISO to Solr converter' do
 
   it 'should grab the correct updated date' do
     solr_doc.xpath("/doc/field[@name='last_revision_date']").text.should be ==
-    ''
+    '2013-02-13T00:00:00Z'
   end
 
   it 'should grab the correct source' do

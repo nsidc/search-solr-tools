@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'date'
 require './lib/ade_iso_to_solr_xslt'
 
-# Translates ISO nokogiri documents into solr nokogiri documents
+# Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object (ade_to_solr_xslt)
 class ADEIsoToSolr
 
   ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }
@@ -26,6 +26,28 @@ class ADEIsoToSolr
     field_value
   end
 
+  def get_field_default_value(xpath_selectors)
+    default_value = nil
+    if xpath_selectors.has_key?(:default_value)
+      default_value = xpath_selectors[:default_value]
+    else
+      default_value = ''
+    end
+    default_value
+  end
+
+  def format_field(xpath_selectors, field)
+    formatted_field = field
+    if xpath_selectors.has_key?(:format)
+      begin
+        formatted_field = xpath_selectors[:format].call(field)
+      rescue
+        return field
+      end
+    end
+    formatted_field
+  end
+
   def get_field_values (iso_xml_doc, xpath_selectors)
     field_value = []
     xpath_selectors[:xpaths].each do |xpath|
@@ -33,9 +55,9 @@ class ADEIsoToSolr
       break if field_value[0] != nil
     end
     if field_value[0] == nil
-      field_value.push(xpath_selectors[:default_value])
+      field_value.push(get_field_default_value(xpath_selectors))
     end
-    field_value
+    format_field(xpath_selectors, field_value)
   end
 
   def translate (iso_xml_doc)
