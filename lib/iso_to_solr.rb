@@ -28,13 +28,7 @@ class IsoToSolr
   end
 
   def get_default_values(selector)
-    default_values = []
-    if selector.has_key?(:default_values)
-      default_values = selector[:default_values]
-    else
-      default_values = ['']
-    end
-    default_values
+    selector.has_key?(:default_values) ? selector[:default_values] : ['']
   end
 
   def format_fields(selector, fields)
