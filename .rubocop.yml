@@ -1,3 +1,10 @@
+AllCops:
+  Includes:
+    - tasks/*.rake
+    - Gemfile
+    - Guardfile
+    - Rakefile
+
 Encoding:
   Enabled: false
 

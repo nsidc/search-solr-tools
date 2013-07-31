@@ -2,9 +2,12 @@ source 'http://rubygems.org'
 
 gem 'rake'
 gem 'rspec'
-gem 'webmock', "~> 1.13.0"
+gem 'webmock', '~> 1.13.0'
 gem 'turnip'
-gem 'rest-client', "~> 1.6.7"
-gem 'nokogiri', "~> 1.6.0"
+gem 'rest-client', '~> 1.6.7'
+gem 'nokogiri', '~> 1.6.0'
 gem 'yarjuf'
 gem 'rubocop'
+gem 'guard'
+gem 'guard-rubocop'
+gem 'guard-rspec'
