@@ -1,6 +1,6 @@
 namespace :server do
-  #XXX - This code duplicates the init script, probably better to just call the init script.
-  desc "Start a configured solr instance"
+  # XXX - This code duplicates the init script, probably better to just call the init script.
+  desc 'Start a configured solr instance'
   task :start, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
     pid_file = pid_path env
@@ -17,13 +17,11 @@ namespace :server do
     exit
   end
 
-  desc "Stop the currently running solr instance"
+  desc 'Stop the currently running solr instance'
   task :stop, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
     pid_file = pid_path env
-    if !stop(pid_file, args, env)
-      warn "No PID file at #{pid_file}"
-    end
+    warn "No PID file at #{pid_file}" unless stop(pid_file, args, env)
   end
   task :status, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
