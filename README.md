@@ -24,7 +24,7 @@ Manipulating data in Solr can be done with the `harvest` tasks.
 * `rake harvest:nsidc_oia_iso` will gather data for NSIDC search.
 * `rake harvest:delete_all` wipes out the database in your local Solr
 
-Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`. Running the rake task will also automatically run the tests whenever the appropriate files are changed.
+Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`. Running the rake guard task will also automatically run the tests whenever the appropriate files are changed.
 
 The style checker RuboCop can be run with `rubocop` or `rake guard:rubocop`. The rake task will also watch for ruby files (.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run RuboCop on the changed files.
 
