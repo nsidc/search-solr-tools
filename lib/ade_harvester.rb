@@ -55,8 +55,7 @@ class ADEHarvester
   def get_results_from_gi_cat(start_index)
     query_string = build_csw_request('results', @page_size, start_index)
     results = Nokogiri.XML(open(query_string))
-    ret = results.xpath('//gmd:MD_Metadata', ISO_NAMESPACES)
-    ret
+    results.xpath('//gmd:MD_Metadata', ISO_NAMESPACES)
   end
 
   # Update Solr with a set of documents
