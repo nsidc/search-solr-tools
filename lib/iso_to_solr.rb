@@ -44,15 +44,11 @@ class IsoToSolr
   end
 
   def create_solr_fields (iso_xml_doc, selector)
-    fields = []
     selector[:xpaths].each do |xpath|
       fields = eval_xpath(iso_xml_doc, xpath, selector[:multivalue]) # this will return a nodeset with all the elements that matched the xpath
-      break if fields.size > 0
+      return format_fields(selector, fields) if fields.size > 0
     end
-    if fields.first == nil
-      fields = get_default_values(selector)
-    end
-    format_fields(selector, fields)
+    format_fields(selector, get_default_values(selector))
   end
 
   def translate (iso_xml_doc)
