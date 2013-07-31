@@ -1,4 +1,4 @@
-require 'ade_iso_to_solr'
+require 'iso_to_solr'
 
 describe 'CISL ISO to Solr converter' do
 

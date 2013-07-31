@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'date'
 require './lib/selectors.rb'
 
-# Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object (ade_to_solr_xslt)
+# Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object (selectors.rb)
 class ADEIsoToSolr
 
   ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }

@@ -2,7 +2,7 @@ require 'rest-client'
 require 'nokogiri'
 require 'open-uri'
 require './lib/ade_csw_iso_query_builder'
-require './lib/ade_iso_to_solr'
+require './lib/iso_to_solr'
 
 # Harvests data from GI-Cat and inserts it into Solr after it has been translated
 class ADEHarvester
