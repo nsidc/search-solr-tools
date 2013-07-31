@@ -37,7 +37,7 @@ class IsoToSolr
     default_values
   end
 
-  def format_field(selector, fields)
+  def format_fields(selector, fields)
     formatted_fields = fields
     if selector.has_key?(:format)
       begin
@@ -58,7 +58,7 @@ class IsoToSolr
     if fields.first == nil
       fields = get_default_values(selector)
     end
-    format_field(selector, fields)
+    format_fields(selector, fields)
   end
 
   def translate (iso_xml_doc)

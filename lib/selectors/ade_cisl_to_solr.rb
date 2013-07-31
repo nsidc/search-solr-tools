@@ -48,7 +48,7 @@ CISL = {
       xpaths: ['//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date', '//gmd:dateStamp'],
       default_values: [DateTime.now.iso8601[0..-7] + 'Z'], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
-      format: proc { |date| [DateTime.parse(date[0].squeeze(' ').strip).iso8601[0..-7] + 'Z'] }
+      format: proc { |dates| [DateTime.parse(dates.first.squeeze(' ').strip).iso8601[0..-7] + 'Z'] }
     },
   dataset_url: {
       xpaths: ['.//gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
