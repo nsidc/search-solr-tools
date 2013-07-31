@@ -18,6 +18,7 @@ CISL = {
     },
   data_centers: {
       xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+      default_values: ['Advanced Cooperative Arctic Data and Information Service'],
       multivalue: false
     },
   authors: {
