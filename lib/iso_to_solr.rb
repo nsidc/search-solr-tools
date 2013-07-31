@@ -32,15 +32,7 @@ class IsoToSolr
   end
 
   def format_fields(selector, fields)
-    formatted_fields = fields
-    if selector.has_key?(:format)
-      begin
-        formatted_fields = selector[:format].call(fields)
-      rescue
-        return fields
-      end
-    end
-    formatted_fields
+    selector[:format].call(fields) rescue fields
   end
 
   def create_solr_fields (iso_xml_doc, selector)
