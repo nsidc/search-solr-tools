@@ -1,6 +1,6 @@
-Dir["./lib/selectors/*.rb"].each {|file| require file }
+Dir['./lib/selectors/*.rb'].each { |file| require file }
 
 SELECTORS = {
-	cisl: CISL,
-	eol:  EOL
+  cisl: CISL,
+  eol:  EOL
 }
