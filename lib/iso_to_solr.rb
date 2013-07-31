@@ -2,69 +2,70 @@ require 'nokogiri'
 require 'date'
 require './lib/selectors.rb'
 
-# Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object (selectors.rb)
-class ADEIsoToSolr
+# Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object
+# This class should be constructed passing the selector file hash as a parameter (see selectors.rb)
+# after creating an instance we call transtale with a nokogiri iso document as a parameter.
+
+class IsoToSolr
 
   ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }
-
-  attr_accessor :fields
 
   def initialize (selector)
     @fields = SELECTORS[selector]
   end
 
-  def parse_xpath (iso_xml_doc, xpath, multivalue)
-    field_value = []
+  def eval_xpath (iso_xml_doc, xpath, multivalue)
+    fields = []
     begin
       iso_xml_doc.xpath(xpath, ISO_NAMESPACES).each do |f|
-        field_value.push(f.text)
+        fields.push(f.text)
         break if multivalue == false
       end
     rescue
-      field_value = []
+      fields = []
     end
-    field_value
+    fields
   end
 
-  def get_field_default_value(xpath_selectors)
-    default_value = nil
-    if xpath_selectors.has_key?(:default_value)
-      default_value = xpath_selectors[:default_value]
+  def get_default_values(selector)
+    default_values = []
+    if selector.has_key?(:default_values)
+      default_values = selector[:default_values]
     else
-      default_value = ''
+      default_values = ['']
     end
-    default_value
+    default_values
   end
 
-  def format_field(xpath_selectors, field)
-    formatted_field = field
-    if xpath_selectors.has_key?(:format)
+  def format_field(selector, fields)
+    formatted_fields = fields
+    if selector.has_key?(:format)
       begin
-        formatted_field = xpath_selectors[:format].call(field)
+        formatted_fields = selector[:format].call(fields)
       rescue
-        return field
+        return fields
       end
     end
-    formatted_field
+    formatted_fields
   end
 
-  def get_field_values (iso_xml_doc, xpath_selectors)
-    field_value = []
-    xpath_selectors[:xpaths].each do |xpath|
-      field_value = parse_xpath(iso_xml_doc, xpath, xpath_selectors[:multivalue])
-      break if field_value[0] != nil
+  def create_solr_fields (iso_xml_doc, selector)
+    fields = []
+    selector[:xpaths].each do |xpath|
+      fields = eval_xpath(iso_xml_doc, xpath, selector[:multivalue]) # this will return a nodeset with all the elements that matched the xpath
+      break if fields.size > 0
     end
-    if field_value[0] == nil
-      field_value.push(get_field_default_value(xpath_selectors))
+    if fields.first == nil
+      fields = get_default_values(selector)
     end
-    format_field(xpath_selectors, field_value)
+    format_field(selector, fields)
   end
 
   def translate (iso_xml_doc)
     solr_xml_doc = Nokogiri::XML::Builder.new do |xml|
       xml.doc_ do
-        @fields.each do |field_name, xpath_selectors|
-          get_field_values(iso_xml_doc, xpath_selectors).each do |value|
+        @fields.each do |field_name, selector|
+          create_solr_fields(iso_xml_doc, selector).each do |value|
             xml.field_({ name: field_name }, value)
           end
         end

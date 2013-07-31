@@ -1,3 +1,8 @@
+# The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
+# and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
+# xpaths resolved to a value and formatting the field.
+# xpaths and multivalue are required, default_value and format are optional.
+
 CISL = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -41,7 +46,7 @@ CISL = {
     },
   last_revision_date: {
       xpaths: ['//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date', '//gmd:dateStamp'],
-      default_value: DateTime.now.iso8601[0..-7] + 'Z', # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+      default_values: [DateTime.now.iso8601[0..-7] + 'Z'], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
       format: proc { |date| [DateTime.parse(date[0].squeeze(' ').strip).iso8601[0..-7] + 'Z'] }
     },
@@ -51,7 +56,7 @@ CISL = {
     },
   source: {
       xpaths: [''],
-      default_value: 'ADE',
+      default_values: ['ADE'],
       multivalue: false
     },
 }

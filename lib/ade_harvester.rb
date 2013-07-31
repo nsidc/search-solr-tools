@@ -13,7 +13,7 @@ class ADEHarvester
   def initialize(env = 'development')
     @environment = env
     @page_size = 100
-    @translator = ADEIsoToSolr.new :cisl
+    @translator = IsoToSolr.new :cisl
   end
 
   def solr_url
