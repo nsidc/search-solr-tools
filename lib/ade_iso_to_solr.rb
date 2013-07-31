@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'date'
-require './lib/ade_iso_to_solr_xslt'
+require './lib/selectors.rb'
 
 # Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object (ade_to_solr_xslt)
 class ADEIsoToSolr
