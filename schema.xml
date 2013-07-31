@@ -16,6 +16,7 @@
     <field name="spatial_coverages" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="spatial" type="location_rpt" indexed="true" stored="true" multiValued="true" />
     <field name="temporal_coverages" type="string" indexed="false" stored="true" multiValued="true" />
+    <field name="temporal" type="date_range" indexed="true" stored="true" multiValued="true" />
     <field name="supporting_programs" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="last_revision_date" type="string" indexed="false" stored="true" />
     <field name="dataset_url" type="string" indexed="false" stored="true" />
@@ -190,5 +191,20 @@
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
+
+    <!-- Spatial field to store date ranges. This allows us to do range queries on temporal coverages.
+      We're defining our world bounds to be 101 to 30,000,101. This will allow us to store dates from 0000-01-01 to 3000-01-01
+      This is a accomplished by simply converting the ISO 8601 representation of the date, minus the time and time zone, to an integer.
+      For example: 2013-01-01T00:00:00Z will be converted to 20130101.
+      See http://wiki.apache.org/solr/SpatialForTimeDurations and https://people.apache.org/~hossman/spatial-for-non-spatial-meetup-20130117/ for a better explanation
+    -->
+    <fieldType name="date_range"
+               class="solr.SpatialRecursivePrefixTreeFieldType"
+               geo="false"
+               worldBounds="101 101 30000101 30000101"
+               distErrPct="0"
+               maxDistErr="1"
+               units="degrees"
+      />
   </types>
 </schema>

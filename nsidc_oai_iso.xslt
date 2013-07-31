@@ -82,8 +82,6 @@
             <field name="brokered">true</field>
           </xsl:if>
           <field name="published_date"><xsl:value-of select="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date"/>T00:00:00Z</field>
-
-          <!-- non-indexed fields -->
           <xsl:for-each select=".//gmd:EX_GeographicBoundingBox">
             <field name="spatial_coverages">
               <xsl:value-of select="gmd:northBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:eastBoundingLongitude/gco:Decimal"/>,<xsl:value-of select="gmd:southBoundingLatitude/gco:Decimal"/>,<xsl:value-of select="gmd:westBoundingLongitude/gco:Decimal"/>
