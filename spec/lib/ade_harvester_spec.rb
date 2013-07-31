@@ -19,7 +19,6 @@ describe ADEHarvester do
   describe 'Harvest process' do
     before(:each) do
       @ade_harvester = ADEHarvester.new('integration')
-      @ade_harvester.start_index = 1
       @ade_harvester.page_size = 25
     end
 
@@ -32,20 +31,6 @@ describe ADEHarvester do
         query_string = @ade_harvester.build_csw_request('hits', '1', '1')
 
         expect(query_string).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=hits&outputFormat=application/xml&maxRecords=1&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd')
-      end
-
-      it 'Requests the number of records in the CSW/ISO response' do
-        csw_iso_url = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso'
-        query_params = ADECswIsoQueryBuilder.query_params({
-          'resultType' => 'hits',
-          'maxRecords' => '1',
-          'startPosition' => '1'
-        })
-
-        stub_request(:get, csw_iso_url).with(query: query_params)
-        .to_return(status: 200, body: File.new('spec/fixtures/results_count.xml'))
-
-        expect(@ade_harvester.get_number_of_records).to eql(10)
       end
 
     end
@@ -67,32 +52,35 @@ describe ADEHarvester do
         })
 
         stub_request(:get, csw_iso_url).with(query: query_params)
-        .to_return(status: 200, body: '<foo/>')
+        .to_return(status: 200, body: '<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"><foo/></gmd:MD_Metadata>')
 
-        response_xml = @ade_harvester.get_results_from_gi_cat
+        start_index = 1
+        results = @ade_harvester.get_results_from_gi_cat(start_index)
 
-        expect(response_xml.xpath('foo').first.name).to eql('foo')
+        expect(results[0].first_element_child.to_xml).to eql('<foo/>')
       end
+    end
+
+    it 'Builds a new Nokogiri XML document with an arbitrary root element' do
+      doc = @ade_harvester.create_new_doc_with_root('bar')
+      expect(doc.root.name).to eql('bar')
+      expect(doc.to_xml).to eql("<?xml version=\"1.0\"?>\n<bar/>\n")
     end
 
     describe 'Adding documents to Solr' do
 
       it 'constructs an xml document with root <add> which has <doc> children' do
-        csw_iso_url = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso'
-        query_params = ADECswIsoQueryBuilder.query_params({
-                                                            'resultType' => 'hits',
-                                                            'maxRecords' => '1',
-                                                            'startPosition' => '1'
-                                                          })
-
-        stub_request(:get, csw_iso_url).with(query: query_params)
-          .to_return(status: 200, body: File.new('spec/fixtures/results_count.xml'))
-
+        # the stubbed request for page 1 of results gets the fixture back
         stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2')
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
           .to_return(status: 200, body: File.open('spec/fixtures/cisl_iso.xml'), headers: {})
 
-        nokogiri_doc = @ade_harvester.build_xml_to_post_to_solr
+        # the stubbed request for page 2 of results gets none back
+        stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=26&version=2.0.2')
+          .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
+          .to_return(status: 200, body: '', headers: {})
+
+        nokogiri_doc = @ade_harvester.get_doc_with_translated_entries_from_gi_cat
 
         expect(nokogiri_doc.root.name).to eql('add')
         expect(nokogiri_doc.root.first_element_child.name).to eql('doc')

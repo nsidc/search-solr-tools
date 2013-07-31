@@ -13,7 +13,7 @@ namespace :harvest do
   task :ade, :environment do |t, args|
     harvester = ADEHarvester.new args[:environment]
 
-    harvester.harvest
+    harvester.harvest_gi_cat_into_solr
   end
 
   desc 'Delete all documents from the index'
