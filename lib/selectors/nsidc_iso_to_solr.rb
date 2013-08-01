@@ -1,3 +1,5 @@
+require './lib/selectors/iso_to_solr_format'
+
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
 # xpaths resolved to a value and formatting the field.
