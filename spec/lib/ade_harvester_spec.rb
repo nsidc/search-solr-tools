@@ -99,7 +99,7 @@ describe ADEHarvester do
 
         response = @ade_harvester.insert_solr_docs '<add><foo></add>'
 
-        expect(response).to eql(200)
+        expect(response).to eql('success')
       end
 
     end

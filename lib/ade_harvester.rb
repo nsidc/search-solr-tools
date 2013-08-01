@@ -59,9 +59,14 @@ class ADEHarvester
   # Update Solr with a set of documents
   def insert_solr_docs(docs)
     url = solr_url + '/update?commit=true'
-    RestClient.post(url,
-                    docs,
-                    { content_type: 'text/xml; charset=utf-8' }) { |response, request, result| response.code }
+    RestClient.post(url, docs, { content_type: 'text/xml; charset=utf-8' }) do |response, request, result|
+      case response.code
+      when 200
+        response
+      else
+        puts "Harvest failed! Server response was:\n\n #{response.body}"
+      end
+    end
   end
 
   def csw_query_url
