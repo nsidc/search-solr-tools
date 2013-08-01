@@ -49,7 +49,7 @@ describe 'CISL ISO to Solr converter' do
     selector = {
           xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
           multivalue: false,
-          format: proc { |x| x.upcase }
+          format: proc { |x| x.text.upcase }
       }
     titles = iso_to_solr.create_solr_fields fixture, selector
     titles.size.should be == 1

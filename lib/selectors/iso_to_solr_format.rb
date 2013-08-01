@@ -3,7 +3,7 @@ require './lib/selectors/iso_namespaces'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
-  DATE = proc { |date | date_str date }
+  DATE = proc { |date | date_str date.text }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
 
   def self.date_str(date)

@@ -20,7 +20,7 @@ describe 'ISO to SOLR format methods' do
     end
 
     it 'should generate a SOLR readable ISO 8601 string using the DATE helper' do
-      IsoToSolrFormat::DATE.call('2013-01-01').should eql '2013-01-01T00:00:00Z'
+      IsoToSolrFormat::DATE.call(fixture.xpath('.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date')).should eql '2004-05-10T00:00:00Z'
     end
   end
 

@@ -24,4 +24,39 @@ describe 'NSIDC ISO to SOLR converter' do
   it 'should include the correct topics' do
     solr_doc.xpath("/doc/field[@name='topics']").first.text.strip.should eql 'climatology'
   end
+
+  it 'should include the correct keywords' do
+    solr_doc.xpath("/doc/field[@name='keywords']").first.text.strip.should eql 'Theme'
+  end
+
+  it 'should include the correct parameters' do
+    params = solr_doc.xpath("/doc/field[@name='parameters']")
+    params.length.should eql 2
+    params.last.text.strip.should eql 'SubDiscipline'
+  end
+
+  it 'should include the correct full string parameters' do
+    solr_doc.xpath("/doc/field[@name='full_parameters']").first.text.strip.should eql 'Discipline > SubDiscipline'
+  end
+
+  it 'should include the correct platforms' do
+    solr_doc.xpath("/doc/field[@name='platforms']").first.text.strip.should eql 'DMSP 5D-3/F17 > Defense Meteorological Satellite Program-F17'
+  end
+
+  it 'should include the correct instruments' do
+    solr_doc.xpath("/doc/field[@name='sensors']").first.text.strip.should eql 'SSMIS > Special Sensor Microwave Imager/Sounder'
+  end
+
+  it 'should include brokered as true' do
+    solr_doc.xpath("/doc/field[@name='brokered']").first.text.strip.should eql 'true'
+  end
+
+  it 'should include the correct published date' do
+    solr_doc.xpath("/doc/field[@name='published_date']").first.text.strip.should eql '2004-05-10T00:00:00Z'
+  end
+
+  it 'should include the correct spatial_coverages' do
+    solr_doc.xpath("/doc/field[@name='spatial_coverages']").first.text.strip.should eql '-180,30.98,180,90'
+    solr_doc.xpath("/doc/field[@name='spatial_coverages']").last.text.strip.should eql '-180,-90,180,-39.23'
+  end
 end

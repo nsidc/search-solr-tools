@@ -34,7 +34,7 @@ NSIDC = {
   parameters: {
     xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
     multivalue: true,
-    format: proc { |param| param.split ' > ' }
+    format: proc { |param| param.text.split ' > ' }
   },
   full_parameters: {
     xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
@@ -49,9 +49,9 @@ NSIDC = {
     multivalue: true
   },
   brokered: {
-    xpaths: ['count(.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode="offlineAccess"])'],
+    xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode="offlineAccess"]'],
     multivalue: false,
-    format: proc { |count| counts > 0 ? 'true' : 'false' }
+    format: proc { |offline| offline.is_a?(Nokogiri::XML::Node) ? 'true' : 'false' }
   },
   published_date: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
@@ -71,12 +71,12 @@ NSIDC = {
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormate.temporal_display_str node }
+    format: proc { |node| IsoToSolrFormat.temporal_display_str node }
   },
   temporal_index: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormate.temporal_index_str node }
+    format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],

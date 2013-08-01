@@ -15,7 +15,7 @@ class IsoToSolr
     fields = []
     begin
       iso_xml_doc.xpath(xpath, ISO_NAMESPACES).each do |f|
-        fields.push(f.text)
+        fields.push(f)
         break if multivalue == false
       end
     rescue
@@ -28,8 +28,12 @@ class IsoToSolr
     selector.has_key?(:default_values) ? selector[:default_values] : ['']
   end
 
+  def format_text(field)
+    field.respond_to?(:text) ? field.text : field
+  end
+
   def format_fields(selector, fields)
-    fields.map { |f| selector[:format].call(f) }.flatten rescue fields
+    fields.map { |f| selector.has_key?(:format) ? selector[:format].call(f) : format_text(f) }.flatten  rescue fields.map { |f| format_text f }
   end
 
   def create_solr_fields (iso_xml_doc, selector)
