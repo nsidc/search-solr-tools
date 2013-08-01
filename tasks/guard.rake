@@ -1,5 +1,3 @@
-require 'guard'
-
 namespace :guard do
   desc 'Automatically run RuboCop'
   task :rubocop do
