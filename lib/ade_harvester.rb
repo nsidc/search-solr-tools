@@ -6,8 +6,6 @@ require './lib/iso_to_solr'
 
 # Harvests data from GI-Cat and inserts it into Solr after it has been translated
 class ADEHarvester
-  ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }
-
   attr_accessor :environment, :page_size
 
   def initialize(env = 'development')

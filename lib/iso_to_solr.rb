@@ -7,9 +7,6 @@ require './lib/selectors.rb'
 # after creating an instance we call transtale with a nokogiri iso document as a parameter.
 
 class IsoToSolr
-
-  ISO_NAMESPACES = { 'gmd' => 'http://www.isotc211.org/2005/gmd',  'gco' => 'http://www.isotc211.org/2005/gco' }
-
   def initialize (selector)
     @fields = SELECTORS[selector]
   end
@@ -32,7 +29,7 @@ class IsoToSolr
   end
 
   def format_fields(selector, fields)
-    selector[:format].call(fields) rescue fields
+    fields.map { |f| selector[:format].call(f) }.flatten rescue fields
   end
 
   def create_solr_fields (iso_xml_doc, selector)
