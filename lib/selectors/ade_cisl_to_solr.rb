@@ -4,7 +4,6 @@ require './lib/selectors/iso_to_solr_format'
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
-require './lib/selectors/iso_to_solr_format'
 
 CISL = {
   authoritative_id: {
