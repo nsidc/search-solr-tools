@@ -19,6 +19,11 @@ NSIDC = {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
     multivalue: false
   },
+  data_centers: {
+      xpaths: [''],
+      default_values: ['National Snow and Ice Data Center'],
+      multivalue: false
+    },
   authors: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:citedResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName/gco:CharacterString'],
     multivalue: true
