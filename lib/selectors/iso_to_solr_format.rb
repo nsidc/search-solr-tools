@@ -39,17 +39,24 @@ module IsoToSolrFormat
   private
 
   def self.separated_spatial_string(box_node, separator)
-    box = bounding_box box_node
+    box = bounding_box(box_node)
     [box[:west], box[:south], box[:east], box[:north]].join(separator)
   end
 
   def self.bounding_box(box_node)
     {
-      west: box_node.at_xpath('./gmd:westBoundingLongitude/gco:Decimal', ISO_NAMESPACES).text,
-      south: box_node.at_xpath('./gmd:southBoundingLatitude/gco:Decimal', ISO_NAMESPACES).text,
-      east: box_node.at_xpath('./gmd:eastBoundingLongitude/gco:Decimal', ISO_NAMESPACES).text,
-      north: box_node.at_xpath('./gmd:northBoundingLatitude/gco:Decimal', ISO_NAMESPACES).text,
+      west: get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal']).text,
+      south: get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal']).text,
+      east: get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal']).text,
+      north: get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal']).text
     }
+  end
+
+  def self.get_first_matching_child(node, paths)
+    paths.each do |path|
+      matching_nodes = node.xpath(path, ISO_NAMESPACES)
+      return matching_nodes if matching_nodes.size > 0
+    end
   end
 
   def self.date_range(temporal_node)
