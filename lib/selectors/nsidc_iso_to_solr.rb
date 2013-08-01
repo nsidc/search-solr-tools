@@ -73,7 +73,7 @@ NSIDC = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str node }
   },
-  temporal_index: {
+  temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
@@ -96,7 +96,7 @@ NSIDC = {
   },
   source: {
     xpaths: [''],
-    default_value: %w(NSIDC ADE),
+    default_values: %w(NSIDC ADE),
     multivalue: true
   },
 }

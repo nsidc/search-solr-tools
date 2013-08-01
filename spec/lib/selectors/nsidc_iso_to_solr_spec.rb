@@ -55,8 +55,34 @@ describe 'NSIDC ISO to SOLR converter' do
     solr_doc.xpath("/doc/field[@name='published_date']").first.text.strip.should eql '2004-05-10T00:00:00Z'
   end
 
-  it 'should include the correct spatial_coverages' do
+  it 'should include the correct spatial coverages' do
     solr_doc.xpath("/doc/field[@name='spatial_coverages']").first.text.strip.should eql '-180,30.98,180,90'
     solr_doc.xpath("/doc/field[@name='spatial_coverages']").last.text.strip.should eql '-180,-90,180,-39.23'
+  end
+
+  it 'should include the correct spatial values' do
+    solr_doc.xpath("/doc/field[@name='spatial']").first.text.strip.should eql '-180 30.98 180 90'
+    solr_doc.xpath("/doc/field[@name='spatial']").last.text.strip.should eql '-180 -90 180 -39.23'
+  end
+
+  it 'should include the correct temporal coverages' do
+    solr_doc.xpath("/doc/field[@name='temporal_coverages']").first.text.strip.should eql '1978-10-01,2011-12-31'
+  end
+
+  it 'should include the correct temporal values' do
+    solr_doc.xpath("/doc/field[@name='temporal']").first.text.strip.should eql '19781001 20111231'
+  end
+
+  it 'should include the correct data access urls' do
+    solr_doc.xpath("/doc/field[@name='data_access_urls']").first.text.strip.should eql 'ftp://sidads.colorado.edu/pub/DATASETS/fgdc/ggd221_soiltemp_antarctica/'
+  end
+
+  it 'should include the correct distribution formats' do
+    solr_doc.xpath("/doc/field[@name='distribution_formats']").first.text.strip.should eql 'ASCII Text'
+  end
+
+  it 'should inlcude the correct sources' do
+    solr_doc.xpath("/doc/field[@name='source']").first.text.strip.should eql 'NSIDC'
+    solr_doc.xpath("/doc/field[@name='source']").last.text.strip.should eql 'ADE'
   end
 end
