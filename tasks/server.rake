@@ -14,7 +14,7 @@ namespace :server do
       run env
     end
     sh "#{env[:prefix]} sh -c \"echo '#{pid}' > #{pid_file}\""
-    exit
+    #exit
   end
 
   desc 'Stop the currently running solr instance'
