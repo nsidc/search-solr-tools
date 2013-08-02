@@ -4,6 +4,7 @@ require './lib/selectors/iso_namespaces'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
+  SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str node }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
 
   def self.date_str(date)
@@ -16,11 +17,17 @@ module IsoToSolrFormat
   end
 
   def self.spatial_display_str(box_node)
-    separated_spatial_string box_node, ','
+    box = bounding_box(box_node)
+    "#{box[:west]},#{box[:south]},#{box[:east]},#{box[:north]}"
   end
 
   def self.spatial_index_str(box_node)
-    separated_spatial_string box_node, ' '
+    box = bounding_box(box_node)
+    (if box[:west] == box[:east] && box[:east] == box[:north]
+       [box[:west], box[:south]]
+     else
+       [box[:west], box[:south], box[:east], box[:north]]
+     end).join(' ')
   end
 
   def self.temporal_display_str(temporal_node)
@@ -38,10 +45,8 @@ module IsoToSolrFormat
 
   private
 
-  def self.separated_spatial_string(box_node, separator)
-    box = bounding_box(box_node)
-    [box[:west], box[:south], box[:east], box[:north]].join(separator)
-  end
+  MIN_DATE = '0'
+  MAX_DATE = '30000101'
 
   def self.bounding_box(box_node)
     {
@@ -60,13 +65,16 @@ module IsoToSolrFormat
   end
 
   def self.date_range(temporal_node)
+    start_date = temporal_node.xpath('.//gml:beginPosition', ISO_NAMESPACES).first.text
+    end_date = temporal_node.xpath('.//gml:endPosition', ISO_NAMESPACES).first.text
     {
-      start: temporal_node.at_xpath('.//gml:beginPosition', ISO_NAMESPACES).text,
-      end: temporal_node.at_xpath('.//gml:endPosition', ISO_NAMESPACES).text
+      start: start_date.empty? ? MIN_DATE : start_date,
+      end: end_date.empty? ? MAX_DATE : end_date
     }
   end
 
   def self.format_date_for_index(date_str)
-    DateTime.parse(date_str).strftime('%Y%m%d')
+    return date_str if date_str.eql?(MIN_DATE)
+    DateTime.parse(date_str).strftime('%C.%y%m%d')
   end
 end

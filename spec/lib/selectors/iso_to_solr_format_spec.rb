@@ -40,7 +40,7 @@ describe 'ISO to SOLR format methods' do
     end
 
     it 'should generate a striped start/end date space separated string from a TemporalExtent node' do
-      IsoToSolrFormat.temporal_index_str(temporal_node).should eql '19781001 20111231'
+      IsoToSolrFormat.temporal_index_str(temporal_node).should eql '19.781001 20.111231'
     end
   end
 end

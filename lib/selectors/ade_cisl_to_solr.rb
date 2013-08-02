@@ -40,7 +40,7 @@ CISL = {
   spatial_coverages: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
-      format: proc { |node| IsoToSolrFormat.spatial_display_str node }
+      format: IsoToSolrFormat::SPATIAL_DISPLAY
     },
   spatial: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],

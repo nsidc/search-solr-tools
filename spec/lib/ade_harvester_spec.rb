@@ -3,19 +3,6 @@ require 'webmock/rspec'
 require 'ade_csw_iso_query_builder'
 
 describe ADEHarvester do
-
-  describe 'Initialization' do
-    it 'Uses a default environment if not specified' do
-      ade_harvester = ADEHarvester.new
-      expect(ade_harvester.environment).to eq('development')
-    end
-
-    it 'Initializes with a specific environment name' do
-      ade_harvester = ADEHarvester.new('qa')
-      expect(ade_harvester.environment).to eq('qa')
-    end
-  end
-
   describe 'Harvest process' do
     before(:each) do
       @ade_harvester = ADEHarvester.new('integration')
@@ -61,15 +48,9 @@ describe ADEHarvester do
       end
     end
 
-    it 'Builds a new Nokogiri XML document with an arbitrary root element' do
-      doc = @ade_harvester.create_new_doc_with_root('bar')
-      expect(doc.root.name).to eql('bar')
-      expect(doc.to_xml).to eql("<?xml version=\"1.0\"?>\n<bar/>\n")
-    end
-
     describe 'Adding documents to Solr' do
 
-      it 'constructs an xml document with root <add> which has <doc> children' do
+      it 'constructs an xml document with <doc> children' do
         # the stubbed request for page 1 of results gets the fixture back
         stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2')
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
@@ -82,7 +63,6 @@ describe ADEHarvester do
 
         nokogiri_doc = @ade_harvester.get_doc_with_translated_entries_from_gi_cat
 
-        expect(nokogiri_doc.root.name).to eql('add')
         expect(nokogiri_doc.root.first_element_child.name).to eql('doc')
       end
 

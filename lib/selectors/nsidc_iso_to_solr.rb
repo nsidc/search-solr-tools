@@ -99,6 +99,10 @@ NSIDC = {
     xpaths: ['.//gmd:MD_Format/gmd:name/gco:CharacterString'],
     multivalue: true
   },
+  popularity: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceSpecificUsage/gmd:MD_Usage/gmd:popularity/gco:Integer'],
+    multivalue: false
+  },
   source: {
     xpaths: [''],
     default_values: %w(NSIDC ADE),

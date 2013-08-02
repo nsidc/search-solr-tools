@@ -32,8 +32,12 @@ class IsoToSolr
     field.respond_to?(:text) ? field.text : field
   end
 
+  def format_field(selector, field)
+    selector.has_key?(:format) ? selector[:format].call(field) : format_text(field) rescue format_text field
+  end
+
   def format_fields(selector, fields)
-    fields.map { |f| selector.has_key?(:format) ? selector[:format].call(f) : format_text(f) }.flatten  rescue fields.map { |f| format_text f }
+    fields.map { |f| format_field(selector, f) }.flatten
   end
 
   def create_solr_fields (iso_xml_doc, selector)
@@ -49,7 +53,7 @@ class IsoToSolr
       xml.doc_ do
         @fields.each do |field_name, selector|
           create_solr_fields(iso_xml_doc, selector).each do |value|
-            xml.field_({ name: field_name }, value)
+            xml.field_({ name: field_name }, value) unless value.nil? || value.eql?('')
           end
         end
       end

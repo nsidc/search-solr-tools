@@ -70,7 +70,9 @@ describe 'NSIDC ISO to SOLR converter' do
   end
 
   it 'should include the correct temporal values' do
-    solr_doc.xpath("/doc/field[@name='temporal']").first.text.strip.should eql '19781001 20111231'
+    solr_doc.xpath("/doc/field[@name='temporal']")[0].text.should eql '19.781001 20.111231'
+    solr_doc.xpath("/doc/field[@name='temporal']")[1].text.should eql '0 20.111231'
+    solr_doc.xpath("/doc/field[@name='temporal']")[2].text.should eql '19.781001 30.000101'
   end
 
   it 'should include the correct data access urls' do
@@ -79,6 +81,10 @@ describe 'NSIDC ISO to SOLR converter' do
 
   it 'should include the correct distribution formats' do
     solr_doc.xpath("/doc/field[@name='distribution_formats']").first.text.strip.should eql 'ASCII Text'
+  end
+
+  it 'should include the correct popularity' do
+    solr_doc.xpath("/doc/field[@name='popularity']").first.text.strip.should eql '10'
   end
 
   it 'should inlcude the correct sources' do
