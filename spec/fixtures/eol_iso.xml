@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?><csw:GetRecordsResponse xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0.2" xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd">
+    <csw:RequestId/>
+    <csw:SearchStatus timestamp="2013-08-05T12:50:52.233-06:00"/>
+    <csw:SearchResults nextRecord="16" numberOfRecordsMatched="1788" numberOfRecordsReturned="1" recordSchema="http://www.isotc211.org/2005/gmd"><gmd:MD_Metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dm="http://floraresearch.eu/sdi/services/7.0/dataModel/schema" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gml="http://www.opengis.net/gml" xmlns:gmx="http://www.opengis.net/gmx" xmlns:ns15="http://quakeml.org/xmlns/quakeml/1.2" xmlns:ns3="http://www.geoviqua.org/QualityInformationModel/3.1" xmlns:ns4="http://quakeml.org/xmlns/bed/1.2" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:wrs="http://www.opengis.net/cat/wrs/1.0" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://zeus.pin.unifi.it/schemas/mirrors/schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd"><gmd:fileIdentifier><gco:CharacterString>aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLmRhdGFzZXQuMjM0XzAwMS50aHJlZGRzLnhtbCMvL3RocjpkYXRhc2V0W0BJRD0ndWNhci5uY2FyLmVvbC5kYXRhc2V0LjIzNF8wMDEnXQ==</gco:CharacterString>
+</gmd:fileIdentifier><gmd:parentIdentifier><gco:CharacterString>aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLnByb2plY3QuQk9SRUFTLnRocmVkZHMueG1sIy8vdGhyOmRhdGFzZXRbQElEPSd1Y2FyLm5jYXIuZW9sLnByb2plY3QuQk9SRUFTJ10=</gco:CharacterString>
+</gmd:parentIdentifier><gmd:hierarchyLevel><gmd:MD_ScopeCode codeList="" codeListValue="dataset"/>
+</gmd:hierarchyLevel><gmd:characterSet><gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="MD_CharacterSetCode_utf8" codeSpace="ISOTC211/19115">MD_CharacterSetCode_utf8</gmd:MD_CharacterSetCode>
+</gmd:characterSet><gmd:contact/><gmd:dateStamp><gco:Date>2011-05-19</gco:Date>
+</gmd:dateStamp><gmd:identificationInfo><gmd:MD_DataIdentification xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://zeus.pin.unifi.it/schemas/mirrors/schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd"><gmd:topicCategory><gmd:MD_TopicCategoryCode>dataSetDataBase</gmd:MD_TopicCategoryCode>
+</gmd:topicCategory><gmd:citation><gmd:CI_Citation><gmd:title><gco:CharacterString>Low Rate Navigation, State Parameter, and Microphysics Flight-Level Data [NCAR/EOL]</gco:CharacterString>
+</gmd:title><gmd:editionDate><gco:Date/>
+</gmd:editionDate><gmd:date><gmd:CI_Date><gmd:date><gco:Date>2011-05-19T09:49:14Z</gco:Date>
+</gmd:date>
+</gmd:CI_Date>
+</gmd:date>
+</gmd:CI_Citation>
+</gmd:citation><gmd:abstract><gco:CharacterString>This data set includes airborne measurements obtained from the NCAR Research Aviation Facility (RAF) Electra aircraft (Tail Number: N308D) during the BOReal Ecosystem Atmosphere Study (BOREAS). This dataset contains low rate navigation, state parameter, and microphysics flight-level data in NetCDF format.</gco:CharacterString>
+</gmd:abstract><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>Aircraft, NCAR Electra</gco:CharacterString>
+</gmd:keyword>
+</gmd:MD_Keywords>
+</gmd:descriptiveKeywords><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>Aircraft</gco:CharacterString>
+</gmd:keyword>
+</gmd:MD_Keywords>
+</gmd:descriptiveKeywords><gmd:language/><gmd:supplementalInformation><gco:CharacterString>Codiac dataset page (234.001) --> http://data.eol.ucar.edu/codiac/dss/id=234.001 / info: LRT NetCDF Header Dump --> http://www.eol.ucar.edu/raf/Headers/header.lrt.818 / download: BOREAS LRT TapeLog --> http://www.eol.ucar.edu/raf/Catalog/taplog.lrt.818.html / Related project: BOREAS --> http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BOREAS.thredds.xml / </gco:CharacterString>
+</gmd:supplementalInformation><gmd:extent><gmd:EX_Extent><gmd:geographicElement><gmd:EX_GeographicBoundingBox><gmd:westBoundLongitude><gco:Decimal>-107.1337</gco:Decimal>
+</gmd:westBoundLongitude><gmd:eastBoundLongitude><gco:Decimal>-93.89519</gco:Decimal>
+</gmd:eastBoundLongitude><gmd:southBoundLatitude><gco:Decimal>52.13914</gco:Decimal>
+</gmd:southBoundLatitude><gmd:northBoundLatitude><gco:Decimal>60.63005</gco:Decimal>
+</gmd:northBoundLatitude>
+</gmd:EX_GeographicBoundingBox>
+</gmd:geographicElement><gmd:temporalElement><gmd:EX_TemporalExtent><gmd:extent><gml:TimePeriod gml:id="x93069e33-ef50-4e80-91a6-e7becedf0740"><gml:beginPosition>1994-05-25T15:54:12Z</gml:beginPosition><gml:endPosition>1994-09-16T22:35:43Z</gml:endPosition><gml:duration/>
+</gml:TimePeriod>
+</gmd:extent>
+</gmd:EX_TemporalExtent>
+</gmd:temporalElement>
+</gmd:EX_Extent>
+</gmd:extent><gmd:pointOfContact><gmd:CI_ResponsibleParty><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115"/>
+</gmd:role><gmd:organisationName><gco:CharacterString>UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility</gco:CharacterString>
+</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact><gmd:address><gmd:CI_Address><gmd:electronicMailAddress><gco:CharacterString>datahelp@eol.ucar.edu</gco:CharacterString>
+</gmd:electronicMailAddress>
+</gmd:CI_Address>
+</gmd:address>
+</gmd:CI_Contact>
+</gmd:contactInfo>
+</gmd:CI_ResponsibleParty>
+</gmd:pointOfContact>
+</gmd:MD_DataIdentification>
+</gmd:identificationInfo><gmd:identificationInfo><srv:SV_ServiceIdentification xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:srv="http://www.isotc211.org/2005/srv">
+    
+    <gmd:citation/>
+    <gmd:abstract/>
+    <srv:serviceType/>
+    <srv:couplingType/>
+    <srv:containsOperations/>
+    
+</srv:SV_ServiceIdentification></gmd:identificationInfo><gmd:distributionInfo><gmd:MD_Distribution><gmd:transferOptions><gmd:MD_DigitalTransferOptions><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.dataset.234_001.thredds.xml</gmd:URL>
+</gmd:linkage><gmd:protocol><gco:CharacterString>HTTP</gco:CharacterString>
+</gmd:protocol>
+</gmd:CI_OnlineResource>
+</gmd:onLine>
+</gmd:MD_DigitalTransferOptions>
+</gmd:transferOptions>
+</gmd:MD_Distribution>
+</gmd:distributionInfo><gmd:dataQualityInfo><gmd:DQ_DataQuality><gmd:scope><gmd:DQ_Scope><gmd:level><gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+</gmd:level>
+</gmd:DQ_Scope>
+</gmd:scope><gmd:report><gmd:DQ_DomainConsistency><gmd:nameOfMeasure><gco:CharacterString>THREDDS_VALIDATION_ATTRIBUTE</gco:CharacterString>
+</gmd:nameOfMeasure><gmd:result><gmd:DQ_ConformanceResult><gmd:specification><gmd:CI_Citation><gmd:title>THREDDS_VALIDATION_ATTRIBUTE</gmd:title><gmd:date><gmd:CI_Date><gmd:date><gco:Date/>
+</gmd:date><gmd:dateType><gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="creation"/>
+</gmd:dateType>
+</gmd:CI_Date>
+</gmd:date>
+</gmd:CI_Citation>
+</gmd:specification><gmd:explanation><gco:CharacterString>A validation has been performed on the dataset as recorded by the THREDDS catalog</gco:CharacterString>
+</gmd:explanation><gmd:pass><gco:Boolean>true</gco:Boolean>
+</gmd:pass>
+</gmd:DQ_ConformanceResult>
+</gmd:result>
+</gmd:DQ_DomainConsistency>
+</gmd:report><gmd:lineage><gmd:LI_Lineage><gmd:statement><gco:CharacterString/>
+</gmd:statement>
+</gmd:LI_Lineage>
+</gmd:lineage>
+</gmd:DQ_DataQuality>
+</gmd:dataQualityInfo>
+</gmd:MD_Metadata></csw:SearchResults>
+</csw:GetRecordsResponse>
