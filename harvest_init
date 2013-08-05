@@ -38,7 +38,7 @@ then
    bundle exec rake harvest:nsidc_oai_iso[$env]
 elif [ "$1" == "harvest-ade" ]
 then 
-   bundle exec rake harvest:ade[$env]
+   bundle exec rake harvest:ade[$env,'CISL']
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
