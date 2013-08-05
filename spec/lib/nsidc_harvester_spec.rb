@@ -25,16 +25,16 @@ describe NsidcHarvester do
 
     it 'Issues a request to update Solr with data' do
       stub_request(:post, 'http://liquid.colorado.edu:9283/solr/update?commit=true')
-        .with(body: '<add><foo></add>',
+        .with(body: Nokogiri.XML('<add><foo></add>').to_xml,
               headers: {
                 'Accept' => '*/*; q=0.5, application/xml',
                 'Accept-Encoding' => 'gzip, deflate',
-                'Content-Length' => '16',
+                'Content-Length' => '44',
                 'Content-Type' => 'text/xml; charset=utf-8',
                 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: 'success', headers: {})
 
-      @harvester.insert_solr_doc('<add><foo></add>').should eql(true)
+      @harvester.insert_solr_doc(Nokogiri.XML('<add><foo></add>')).should eql(true)
     end
   end
 end

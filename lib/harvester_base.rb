@@ -15,7 +15,7 @@ class HarvesterBase
     "http://#{env[:host]}:#{env[:port]}/#{env[:collection_path]}"
   end
 
-  # Update Solr with an array of xml documents, report number of successfully added documents
+  # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents
   def insert_solr_docs(docs)
     success = 0
     failure = 0
@@ -29,7 +29,7 @@ class HarvesterBase
   def insert_solr_doc(doc)
     url = solr_url + '/update?commit=true'
     success = false
-    RestClient.post(url, doc, { content_type: 'text/xml; charset=utf-8' }) do |response, request, result|
+    RestClient.post(url, (doc.respond_to?(:to_xml) ? doc.to_xml : doc), { content_type: 'text/xml; charset=utf-8' }) do |response, request, result|
       response.code == 200 ? success = true : puts(response.body)
     end
     success
