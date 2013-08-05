@@ -11,9 +11,8 @@ namespace :harvest do
   end
 
   desc 'Harvest ADE data'
-  task :ade, :environment do |t, args|
-    harvester = ADEHarvester.new args[:environment]
-
+  task :ade, :environment, :profile do |t, args|
+    harvester = ADEHarvester.new(args[:environment], args[:profile])
     harvester.harvest_gi_cat_into_solr
   end
 

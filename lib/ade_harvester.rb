@@ -1,20 +1,24 @@
+require 'gi_cat_driver'
 require './lib/ade_csw_iso_query_builder'
 require './lib/iso_to_solr'
 require './lib/harvester_base'
 
 # Harvests data from GI-Cat and inserts it into Solr after it has been translated
 class ADEHarvester < HarvesterBase
-  attr_accessor :page_size
+  attr_accessor :page_size, :profile
 
-  def initialize(env = 'development')
+  def initialize(env = 'development', profile_name = 'CISL')
     super env
     @page_size = 100
+    @profile = profile_name
     @translator = IsoToSolr.new :cisl
+    @gi_cat = GiCatDriver::GiCat.new(gi_cat_url, 'admin', 'abcd123$')
   end
 
   # get translated entries from GI-Cat and add them to Solr
   # this is the main entry point for the class
   def harvest_gi_cat_into_solr
+    @gi_cat.enable_profile @profile
     insert_solr_docs get_doc_with_translated_entries_from_gi_cat
   end
 
@@ -37,6 +41,10 @@ class ADEHarvester < HarvesterBase
   # returns a Nokogiri NodeSet containing @page_size search results from GI-Cat
   def get_results_from_gi_cat(start_index)
     get_results build_csw_request('results', @page_size, start_index), '//gmd:MD_Metadata'
+  end
+
+  def gi_cat_url
+    SolrEnvironments[@environment][:gi_cat_url]
   end
 
   def csw_query_url

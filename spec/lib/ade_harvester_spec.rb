@@ -9,6 +9,17 @@ describe ADEHarvester do
       @ade_harvester.page_size = 25
     end
 
+    describe 'The harvester can enable a gi-cat profile before it starts the harvest' do
+      it 'has the default profile enabled' do
+        expect(@ade_harvester.profile).to eql 'CISL'
+      end
+
+      it 'can enable a different profile' do
+        @ade_harvester = ADEHarvester.new('integration', 'EOL')
+        expect(@ade_harvester.profile).to eql 'EOL'
+      end
+    end
+
     describe 'Running CSW/ISO Queries against ACADIS GI-Cat' do
       it 'Builds a default request to query the ACADIS GI-Cat CSW/ISO service' do
         expect(@ade_harvester.build_csw_request).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=25&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd')
