@@ -49,8 +49,9 @@ EOL = {
       format: IsoToSolrFormat::SPATIAL_INDEX
     },
   dataset_url: {
-      xpaths: ['.//gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
-      multivalue: false
+      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
+      multivalue: false,
+      format: proc { |str| str.match('http://data.eol.ucar.edu/codiac/dss/id=(.)')[0] }
     },
   source: {
       xpaths: [''],
