@@ -90,7 +90,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  gi_cat_driver
+  gi_cat_driver (~> 0.3.0)
   guard
   guard-rspec
   guard-rubocop
