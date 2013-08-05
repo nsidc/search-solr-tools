@@ -1,7 +1,6 @@
 require 'iso_to_solr'
 
 describe 'CISL ISO to Solr converter' do
-
   fixture = Nokogiri.XML File.open('spec/fixtures/cisl_iso.xml')
   iso_to_solr = IsoToSolr.new(:cisl)
 
@@ -82,4 +81,15 @@ describe 'CISL ISO to Solr converter' do
     sources[1].should be == 'default2'
   end
 
+  it 'should not include blank fields when the selector doesn''t match any values' do
+    SELECTORS[:fake] = {
+      fake: {
+        xpaths: ['//gmd:fakeSelector/gco:CharacterString'],
+        multivalue: false
+      }
+    }
+
+    translated = IsoToSolr.new(:fake).translate fixture
+    translated.xpath('.//fake').size.should eql 0
+  end
 end

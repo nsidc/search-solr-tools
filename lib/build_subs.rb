@@ -42,20 +42,18 @@ def setup_solr(args)
   unless src_collection.eql?(target_collection)
     sh "#{env[:prefix]} mv #{src_collection} #{target_collection}"
   end
-  copy_xslts env
+  copy_schema env
   configure_collection(env[:collection_name], "#{env[:setup_dir]}/solr", "#{args[:environment]}")
 end
 
-def copy_xslts(env)
+def copy_schema(env)
   sh "#{env[:prefix]} cp schema.xml #{env[:setup_dir]}/#{collection_dir(env)}/conf/schema.xml"
   sh "#{env[:prefix]} cp solrconfig.xml #{env[:setup_dir]}/#{collection_dir(env)}/conf/solrconfig.xml"
-  sh "#{env[:prefix]} cp nsidc_oai_iso.xslt #{env[:setup_dir]}/#{collection_dir(env)}/conf/xslt/nsidc_oai_iso.xslt"
-  sh "#{env[:prefix]} cp ade_oai_iso.xslt #{env[:setup_dir]}/#{collection_dir(env)}/conf/xslt/ade_oai_iso.xslt"
 end
 
 def create_tarball(args, env)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr solr-4.3.0/contrib solr-4.3.0/dist solr-4.3.0/example Rakefile Gemfile* lib tasks harvest_init init nsidc_oai_iso.xslt ade_oai_iso.xslt config"
+  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr solr-4.3.0/contrib solr-4.3.0/dist solr-4.3.0/example Rakefile Gemfile* lib tasks harvest_init init config"
 end
 
 def configure_collection(collection, target, environment)

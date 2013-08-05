@@ -35,8 +35,9 @@ module IsoToSolrFormat
     "#{dr[:start]},#{dr[:end]}"
   end
 
-  # We are indexiong date ranges a spatial cordinates ranging from 101 to 30000101.
-  # This means we have to convert dates into the format YYYYMMDD which can be stored in our space
+  # We are indexiong date ranges a spatial cordinates.
+  # This means we have to convert dates into the format YY.YYMMDD which can be stored in the standard lat/long space
+  # For example: 2013-01-01T00:00:00Z to 2013-01-31T00:00:00Z will be converted to 20.130101, 20.130131.
   # See http://wiki.apache.org/solr/SpatialForTimeDurations
   def self.temporal_index_str(temporal_node)
     dr = date_range(temporal_node)
