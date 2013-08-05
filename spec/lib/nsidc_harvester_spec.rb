@@ -20,7 +20,7 @@ describe NsidcHarvester do
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/fixtures/nsidc_iso.xml'), headers: {})
 
-      @harvester.get_doc_with_translated_entries_from_nsidc.root.first_element_child.name.should eql('doc')
+      @harvester.get_docs_with_translated_entries_from_nsidc.first.root.first_element_child.name.should eql('doc')
     end
 
     it 'Issues a request to update Solr with data' do
@@ -34,7 +34,7 @@ describe NsidcHarvester do
                 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: 'success', headers: {})
 
-      @harvester.insert_solr_docs('<add><foo></add>').should eql('success')
+      @harvester.insert_solr_doc('<add><foo></add>').should eql(true)
     end
   end
 end

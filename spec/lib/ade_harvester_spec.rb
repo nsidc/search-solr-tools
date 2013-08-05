@@ -72,9 +72,10 @@ describe ADEHarvester do
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
           .to_return(status: 200, body: '', headers: {})
 
-        nokogiri_doc = @ade_harvester.get_doc_with_translated_entries_from_gi_cat
+        nokogiri_docs = @ade_harvester.get_docs_with_translated_entries_from_gi_cat
 
-        expect(nokogiri_doc.root.first_element_child.name).to eql('doc')
+        expect(nokogiri_docs.first.root.name).to eql('add')
+        expect(nokogiri_docs.first.root.first_element_child.name).to eql('doc')
       end
 
       it 'Issues a request to update Solr with data' do
@@ -88,9 +89,9 @@ describe ADEHarvester do
                   'User-Agent' => 'Ruby' })
           .to_return(status: 200, body: 'success', headers: {})
 
-        response = @ade_harvester.insert_solr_docs '<add><foo></add>'
+        response = @ade_harvester.insert_solr_doc '<add><foo></add>'
 
-        expect(response).to eql('success')
+        expect(response).to eql(true)
       end
 
     end

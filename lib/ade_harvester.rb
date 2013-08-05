@@ -20,23 +20,23 @@ class ADEHarvester < HarvesterBase
   def harvest_gi_cat_into_solr
     puts "Enabling profile: #{@profile}"
     @gi_cat.enable_profile @profile
-    insert_solr_docs get_doc_with_translated_entries_from_gi_cat
+    insert_solr_docs get_docs_with_translated_entries_from_gi_cat
   end
 
-  # returns a Nokogiri XML document with structure
-  # <add> <doc><doc>...<doc> </add>
+  # returns an array of Nokogiri XML documents with structure
+  # <add><doc></add>
   # this structure can be POSTed to Solr to update the db
   #
   # each entry from GI-Cat is translated to our Solr format, then
   # inserted into a <doc> element
-  def get_doc_with_translated_entries_from_gi_cat
-    doc = create_new_solr_add_doc
+  def get_docs_with_translated_entries_from_gi_cat
+    docs = []
     start_index = 1
     while (entries = get_results_from_gi_cat(start_index)) && (entries.length > 0)
-      entries.each { |entry| doc.root.add_child @translator.translate(entry).root }
+      entries.each { |entry| docs.push(create_new_solr_add_doc_with_child(@translator.translate(entry).root)) }
       start_index += @page_size
     end
-    doc
+    docs
   end
 
   # returns a Nokogiri NodeSet containing @page_size search results from GI-Cat
