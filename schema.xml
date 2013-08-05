@@ -2,6 +2,7 @@
 <schema name="NSIDC" version="1.5">
   <fields>
     <field name="authoritative_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="dataset_version" type="int" indexed="false" stored="true" required="false" multiValued="false" />
     <field name="title" type="text_stem" indexed="true" stored="true" />
     <field name="summary" type="text_stem" indexed="true" stored="true" />
     <field name="topics" type="text_special" indexed="true" stored="true" multiValued="true" />
@@ -192,11 +193,10 @@
       </analyzer>
     </fieldType>
 
-    <!-- Spatial field to store date ranges which allows us to do range queries on temporal coverages.
-      This is a accomplished by simply converting the ISO 8601 representation of the date, minus the time and time zone, to a latitude or longitude.
-      We define a point with the start date as longitudes (x-axis) and the end date as latitude (y-axis).
-      For example: 2013-01-01T00:00:00Z to 2013-01-31T00:00:00Z will be converted to 20.130101, 20.130131.
-      We also need to set the distance percentage error to 0 in order to eliminate any slop in the matching.
+    <!-- Spatial field to store date ranges. This allows us to do range queries on temporal coverages.
+      We're defining our world bounds to be 101 to 30,000,101. This will allow us to store dates from 0000-01-01 to 3000-01-01
+      This is a accomplished by simply converting the ISO 8601 representation of the date, minus the time and time zone, to an integer.
+      For example: 2013-01-01T00:00:00Z will be converted to 20130101.
       See http://wiki.apache.org/solr/SpatialForTimeDurations and https://people.apache.org/~hossman/spatial-for-non-spatial-meetup-20130117/ for a better explanation
     -->
     <fieldType name="date_range"

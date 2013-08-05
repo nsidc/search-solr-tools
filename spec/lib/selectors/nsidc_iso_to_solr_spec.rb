@@ -9,6 +9,10 @@ describe 'NSIDC ISO to SOLR converter' do
     solr_doc.at_xpath("/doc/field[@name='authoritative_id']").text.should eql 'NSIDC-0001'
   end
 
+  it 'should include the correct version id' do
+    solr_doc.at_xpath("/doc/field[@name='dataset_version']").text.should eql '4'
+  end
+
   it 'should include the correct title' do
     solr_doc.at_xpath("/doc/field[@name='title']").text.strip.should eql 'Test Title'
   end
