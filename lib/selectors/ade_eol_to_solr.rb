@@ -20,7 +20,7 @@ EOL = {
     },
   data_centers: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: ['UCAR/NCAR - Earth Observing Laboratory/Computing, Data and Software Facility'],
+      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'],
       multivalue: false
     },
   authors: {
@@ -50,7 +50,10 @@ EOL = {
   dataset_url: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
       multivalue: false,
-      format: proc { |str| str.match('http://data.eol.ucar.edu/codiac/dss/id=(.)')[0] }
+      format: proc do |node|
+                matches = node.text.match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
+                matches ? matches[0] : ''
+              end
     },
   source: {
       xpaths: [''],
