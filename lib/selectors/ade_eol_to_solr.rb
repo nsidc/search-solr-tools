@@ -20,8 +20,7 @@ EOL = {
     },
   data_centers: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: ['default'],
-#      default_values: ['UCAR/NCAR - Earth Observing Laboratory/Computing, Data and Software Facility'],
+      default_values: ['UCAR/NCAR - Earth Observing Laboratory/Computing, Data and Software Facility'],
       multivalue: false
     },
   authors: {

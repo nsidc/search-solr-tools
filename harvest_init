@@ -33,9 +33,21 @@ else
   usage
 fi
 
+if [[ -z "$3" ]]
+then
+  profile="CISL"
+elif [ "$3" == "CISL" ] || [ "$3" == "EOL" ] || [ "$3" == "NMI" ] || [ "$3" == "NODC" ]
+then
+  profile="$3"
+else
+  echo "|$3|"
+  echo "Invalid environment $3 specified, please try again"
+  usage
+fi
+
 if [ "$1" == "harvest" ]
 then
-   bundle exec rake harvest:nsidc_oai_iso[$env]
+   bundle exec rake harvest:nsidc_oai_iso[$env,$profile]
 elif [ "$1" == "harvest-ade" ]
 then 
    bundle exec rake harvest:ade[$env,'CISL']
