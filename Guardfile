@@ -1,4 +1,4 @@
-guard :rspec, spec_paths: ['spec/lib'], all_on_start: true do
+guard :rspec, spec_paths: ['spec/lib'], keep_failed: true, all_after_pass: true, all_on_start: true do
   watch(/^spec\/.+_spec\.rb/)
   watch(/^lib\/(.+)\.rb/) { |m| "spec/lib/#{m[1]}_spec.rb" }
 end
