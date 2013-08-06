@@ -41,12 +41,12 @@ module IsoToSolrFormat
   # See http://wiki.apache.org/solr/SpatialForTimeDurations
   def self.temporal_index_str(temporal_node)
     dr = date_range(temporal_node)
-    "#{format_date_for_index dr[:start]} #{format_date_for_index dr[:end]}"
+    "#{format_date_for_index dr[:start], MIN_DATE} #{format_date_for_index dr[:end], MAX_DATE}"
   end
 
   private
 
-  MIN_DATE = '0'
+  MIN_DATE = '00010101'
   MAX_DATE = '30000101'
 
   def self.bounding_box(box_node)
@@ -69,13 +69,13 @@ module IsoToSolrFormat
     start_date = temporal_node.xpath('.//gml:beginPosition', ISO_NAMESPACES).first.text
     end_date = temporal_node.xpath('.//gml:endPosition', ISO_NAMESPACES).first.text
     {
-      start: start_date.empty? ? MIN_DATE : start_date,
-      end: end_date.empty? ? MAX_DATE : end_date
+      start: start_date.empty? ? '' : start_date,
+      end: end_date.empty? ? '' : end_date
     }
   end
 
-  def self.format_date_for_index(date_str)
-    return date_str if date_str.eql?(MIN_DATE)
+  def self.format_date_for_index(date_str, default)
+    date_str = default if date_str.eql?('')
     DateTime.parse(date_str).strftime('%C.%y%m%d')
   end
 end
