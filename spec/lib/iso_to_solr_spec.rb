@@ -81,7 +81,7 @@ describe 'CISL ISO to Solr converter' do
     sources[1].should be == 'default2'
   end
 
-  it 'should not include blank fields when the selector doesn''t match any values' do
+  it 'should not include blank fields when the selector does not match any values' do
     SELECTORS[:fake] = {
       fake: {
         xpaths: ['//gmd:fakeSelector/gco:CharacterString'],
@@ -91,5 +91,17 @@ describe 'CISL ISO to Solr converter' do
 
     translated = IsoToSolr.new(:fake).translate fixture
     translated.xpath('.//fake').size.should eql 0
+  end
+
+  it 'should return the default value when the node has no value' do
+    SELECTORS[:fake] = {
+      fake: {
+          xpaths: ['.//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+          multivalue: false,
+          default_values: ['Fake Org']
+      }
+    }
+    translated = IsoToSolr.new(:fake).translate fixture
+    translated.xpath('.//field[@name=\'fake\']').text.should eql 'Fake Org'
   end
 end
