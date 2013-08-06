@@ -40,6 +40,16 @@ describe 'EOL ISO to Solr converter' do
       expected_text: 'ADE'
     },
     {
+      title: 'should grab the correct spatial display bounds',
+      xpath: "/doc/field[@name='spatial_coverages']",
+      expected_text: '-107.1337,52.13914,-93.89519,60.63005'
+    },
+    {
+      title: 'should grab the correct spatial bounds',
+      xpath: "/doc/field[@name='spatial']",
+      expected_text: '-107.1337 52.13914 -93.89519 60.63005'
+    },
+    {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
       expected_text: '1994-05-25T15:54:12Z,1994-09-16T22:35:43Z'

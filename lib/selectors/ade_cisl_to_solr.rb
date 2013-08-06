@@ -37,6 +37,10 @@ CISL = {
       multivalue: false,
       format: IsoToSolrFormat::DATE
   },
+  dataset_url: {
+      xpaths: ['.//gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
+      multivalue: false
+  },
   spatial_coverages: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
@@ -46,10 +50,6 @@ CISL = {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_INDEX
-  },
-  dataset_url: {
-      xpaths: ['.//gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
-      multivalue: false
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],

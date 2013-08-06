@@ -40,6 +40,16 @@ describe 'NMI ISO to Solr converter' do
       expected_text: 'ADE'
     },
     {
+      title: 'should grab the correct spatial display bounds',
+      xpath: "/doc/field[@name='spatial_coverages']",
+      expected_text: '-180,60,180,90'
+    },
+    {
+      title: 'should grab the correct spatial bounds',
+      xpath: "/doc/field[@name='spatial']",
+      expected_text: '-180 60 180 90'
+    },
+    {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
       expected_text: '2008-06-02,2011-12-12'
