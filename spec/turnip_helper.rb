@@ -1,3 +1,3 @@
 require 'yarjuf'
 
-Dir.glob('spec/steps/**/*steps.rb') { |f| load f, true }
+Dir.glob('spec/acceptance/steps/**/*steps.rb') { |f| load f, true }

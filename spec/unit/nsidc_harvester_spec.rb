@@ -18,7 +18,7 @@ describe NsidcHarvester do
     it 'constructs an xml document with <doc> children' do
       stub_request(:get, 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso')
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
-        .to_return(status: 200, body: File.open('spec/fixtures/nsidc_iso.xml'), headers: {})
+        .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_iso.xml'), headers: {})
 
       @harvester.get_docs_with_translated_entries_from_nsidc.first.root.first_element_child.name.should eql('doc')
     end

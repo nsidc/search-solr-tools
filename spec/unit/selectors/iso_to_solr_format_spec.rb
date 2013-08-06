@@ -2,7 +2,7 @@ require 'nokogiri'
 require './lib/selectors/iso_to_solr_format'
 
 describe 'ISO to SOLR format methods' do
-  fixture = Nokogiri.XML File.open('spec/fixtures/nsidc_iso.xml')
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
   geo_node = fixture.xpath('.//gmd:EX_GeographicBoundingBox').first
   temporal_node = fixture.xpath('.//gmd:EX_TemporalExtent').first
 

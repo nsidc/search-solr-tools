@@ -1,7 +1,7 @@
 require 'iso_to_solr'
 
 describe 'CISL ISO to Solr converter' do
-  fixture = Nokogiri.XML File.open('spec/fixtures/cisl_iso.xml')
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_iso.xml')
   iso_to_solr = IsoToSolr.new(:cisl)
 
   it 'should use the default value if none of the xpaths are present' do

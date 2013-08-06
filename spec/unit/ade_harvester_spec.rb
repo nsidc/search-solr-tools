@@ -65,7 +65,7 @@ describe ADEHarvester do
         # the stubbed request for page 1 of results gets the fixture back
         stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2')
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
-          .to_return(status: 200, body: File.open('spec/fixtures/cisl_iso.xml'), headers: {})
+          .to_return(status: 200, body: File.open('spec/unit/fixtures/cisl_iso.xml'), headers: {})
 
         # the stubbed request for page 2 of results gets none back
         stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=26&version=2.0.2')

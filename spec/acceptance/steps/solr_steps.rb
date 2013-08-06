@@ -1,5 +1,5 @@
 require File.join('.', 'config', 'environments.rb')
-require File.join('page_objects', 'solr_search_page')
+require File.join('acceptance', 'page_objects', 'solr_search_page')
 
 # module to control solr in acceptance tests
 module SolrSteps
