@@ -109,7 +109,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the second correct temporal values',
       xpath: "/doc/field[@name='temporal'][2]",
-      expected_text: '0 20.111231'
+      expected_text: '00.010101 20.111231'
     },
     {
       title: 'should include the third correct temporal values',
