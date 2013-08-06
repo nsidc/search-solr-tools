@@ -38,6 +38,16 @@ describe 'EOL ISO to Solr converter' do
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
       expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct temporal coverage',
+      xpath: "/doc/field[@name='temporal_coverages']",
+      expected_text: '1994-05-25T15:54:12Z,1994-09-16T22:35:43Z'
+    },
+    {
+      title: 'should grab the correct temporal range',
+      xpath: "/doc/field[@name='temporal']",
+      expected_text: '19.940525 19.940916'
     }
   ]
 

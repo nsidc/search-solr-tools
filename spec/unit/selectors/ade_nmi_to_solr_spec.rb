@@ -38,6 +38,16 @@ describe 'NMI ISO to Solr converter' do
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
       expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct temporal coverage',
+      xpath: "/doc/field[@name='temporal_coverages']",
+      expected_text: '2008-06-02,2011-12-12'
+    },
+    {
+      title: 'should grab the correct temporal range',
+      xpath: "/doc/field[@name='temporal']",
+      expected_text: '20.080602 20.111212'
     }
   ]
 

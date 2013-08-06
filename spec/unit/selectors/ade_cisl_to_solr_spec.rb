@@ -37,6 +37,16 @@ describe 'CISL ISO to Solr converter' do
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
       expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct temporal coverage',
+      xpath: "/doc/field[@name='temporal_coverages']",
+      expected_text: '2012-06-09T06:00:00Z,2012-08-18T06:00:00Z'
+    },
+    {
+      title: 'should grab the correct temporal range',
+      xpath: "/doc/field[@name='temporal']",
+      expected_text: '20.120609 20.120818'
     }
   ]
 
