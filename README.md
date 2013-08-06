@@ -37,6 +37,7 @@ Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`.
 Running the rake guard task will also automatically run the tests whenever the appropriate files are changed.
 
 Running the acceptance tests locally requires a running instance of Solr and some data indexed:
+
 * Use the Solr dev VM at https://bitbucket.org/nsidc/nsidc-solr-development-vm.  Follow the instructions in that project to get the VM started and running.
 * `vagrant ssh` into the VM
 * Clone this project, run `bundle install`
