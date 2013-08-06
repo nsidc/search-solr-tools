@@ -36,6 +36,11 @@ Pushing with failing tests or RuboCop violations will cause the Jenkins build to
 Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`.
 Running the rake guard task will also automatically run the tests whenever the appropriate files are changed.
 
-Running the acceptance tests locally requires a running instance of Solr and some data indexed.
-Use the Solr dev VM at https://bitbucket.org/nsidc/nsidc-solr-development-vm,
-and run `rake blah` to harvest NSIDC metadata into your virtual Solr.
+Running the acceptance tests locally requires a running instance of Solr and some data indexed:
+* Use the Solr dev VM at https://bitbucket.org/nsidc/nsidc-solr-development-vm.  Follow the instructions in that project to get the VM started and running.
+* `vagrant ssh` into the VM
+* Clone this project, run `bundle install`
+* Run `rake server:start` to start up Solr
+* It was suggested that running the `rake build:setup` would have taken care of this...
+* Run `rake restart_with_clean_nsidc_harvest` to suck in the NSIDC metadata (FIXME I had to run this a couple of times to get it to work...)
+* Once Solr has its data, `rake spec:acceptance` runs the ATs.
