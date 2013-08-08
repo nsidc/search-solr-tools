@@ -8,6 +8,11 @@ describe 'EOL ISO to Solr converter' do
 
   test_expectations = [
     {
+      title: 'should grab the correct id and normalize it',
+      xpath: "/doc/field[@name='authoritative_id']",
+      expected_text: 'aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLmRhdGFzZXQuMjM0XzAwMS50aHJlZGRzLnhtbCMvL3RocjpkYXRhc2V0W0BJRD0ndWNhci5uY2FyLmVvbC5kYXRhc2V0LjIzNF8wMDEnXQ'
+    },
+    {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
       expected_text: 'Low Rate Navigation, State Parameter, and Microphysics Flight-Level Data [NCAR/EOL]'

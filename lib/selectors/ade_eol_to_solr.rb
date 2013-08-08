@@ -8,7 +8,10 @@ require './lib/selectors/iso_to_solr_format'
 EOL = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
-      multivalue: false
+      multivalue: false,
+      format: proc do | node| # double equals in the ID is "breaking" the harvest in liquid/qa etc.
+                node.text.split('==')[0] || ''
+              end
   },
   title: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
