@@ -72,7 +72,9 @@ describe ADEHarvester do
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
           .to_return(status: 200, body: '', headers: {})
 
-        nokogiri_docs = @ade_harvester.get_docs_with_translated_entries_from_gi_cat
+        entries = @ade_harvester.get_results_from_gi_cat(1)
+
+        nokogiri_docs = @ade_harvester.get_docs_with_translated_entries_from_gi_cat(entries)
 
         expect(nokogiri_docs.first.root.name).to eql('add')
         expect(nokogiri_docs.first.root.first_element_child.name).to eql('doc')

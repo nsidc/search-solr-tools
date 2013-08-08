@@ -20,7 +20,7 @@ class ADEHarvester < HarvesterBase
   def harvest_gi_cat_into_solr
     puts "Enabling GI-Catx profile: #{@profile}"
     @gi_cat.enable_profile @profile
-    insert_solr_docs get_docs_with_translated_entries_from_gi_cat
+    harvest_iso_documents
   end
 
   # returns an array of Nokogiri XML documents with structure
@@ -29,14 +29,18 @@ class ADEHarvester < HarvesterBase
   #
   # each entry from GI-Cat is translated to our Solr format, then
   # inserted into a <doc> element
-  def get_docs_with_translated_entries_from_gi_cat
+  def get_docs_with_translated_entries_from_gi_cat (entries)
     docs = []
+    entries.each { |entry| docs.push(create_new_solr_add_doc_with_child(@translator.translate(entry).root)) }
+    docs
+  end
+
+  def harvest_iso_documents
     start_index = 1
     while (entries = get_results_from_gi_cat(start_index)) && (entries.length > 0)
-      entries.each { |entry| docs.push(create_new_solr_add_doc_with_child(@translator.translate(entry).root)) }
+      insert_solr_docs get_docs_with_translated_entries_from_gi_cat(entries)
       start_index += @page_size
     end
-    docs
   end
 
   # returns a Nokogiri NodeSet containing @page_size search results from GI-Cat
