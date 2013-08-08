@@ -9,7 +9,7 @@ describe NsidcHarvester do
   it 'should retrieve records from the NSIDC OAI url' do
     stub_request(:get, 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: '<gmi:MI_Metadata xmlns:gmi="http://eden.ign.fr/xsd/isotc211/isofull/20090316/gmi/"><foo/></gmi:MI_Metadata>')
+      .to_return(status: 200, body: '<gmi:MI_Metadata xmlns:gmi="http://www.isotc211.org/2005/gmi"><foo/></gmi:MI_Metadata>')
 
     @harvester.get_results_from_nsidc.first.first_element_child.to_xml.should eql('<foo/>')
   end
