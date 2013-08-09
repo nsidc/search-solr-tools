@@ -18,7 +18,7 @@ module IsoToSolrFormat
 
   def self.spatial_display_str(box_node)
     box = bounding_box(box_node)
-    "#{box[:west]},#{box[:south]},#{box[:east]},#{box[:north]}"
+    "#{box[:south]} #{box[:west]} #{box[:north]} #{box[:east]}"
   end
 
   def self.spatial_index_str(box_node)

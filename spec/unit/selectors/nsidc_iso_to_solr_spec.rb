@@ -79,12 +79,12 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the correct first spatial coverages',
       xpath: "/doc/field[@name='spatial_coverages'][1]",
-      expected_text: '-180,30.98,180,90'
+      expected_text: '30.98 -180 90 180'
     },
     {
       title: 'should include the correct last spatial coverages',
       xpath: "/doc/field[@name='spatial_coverages'][last()]",
-      expected_text: '-180,-90,180,-39.23'
+      expected_text: '-90 -180 -39.23 180'
     },
     {
       title: 'should include the first correct spatial values',

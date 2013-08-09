@@ -47,7 +47,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '-107.1337,52.13914,-93.89519,60.63005'
+      expected_text: '52.13914 -107.1337 60.63005 -93.89519'
     },
     {
       title: 'should grab the correct spatial bounds',

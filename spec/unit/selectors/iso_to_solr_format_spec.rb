@@ -25,8 +25,8 @@ describe 'ISO to SOLR format methods' do
   end
 
   describe 'spatial' do
-    it 'should generate a WSEN comma separated string from a GeographicBoundingBox node' do
-      IsoToSolrFormat.spatial_display_str(geo_node).should eql '-180,30.98,180,90'
+    it 'should generate a SWEN space separated string from a GeographicBoundingBox node' do
+      IsoToSolrFormat.spatial_display_str(geo_node).should eql '30.98 -180 90 180'
     end
 
     it 'should generate a WSEN space separated string from a GeographicBoundingBox node' do

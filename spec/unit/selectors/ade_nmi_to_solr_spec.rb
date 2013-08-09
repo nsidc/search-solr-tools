@@ -42,7 +42,7 @@ describe 'NMI ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '-180,60,180,90'
+      expected_text: '60 -180 90 180'
     },
     {
       title: 'should grab the correct spatial bounds',
