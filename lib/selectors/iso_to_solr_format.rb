@@ -60,14 +60,14 @@ module IsoToSolrFormat
 
   def self.get_first_matching_child(node, paths)
     paths.each do |path|
-      matching_nodes = node.xpath(path, ISO_NAMESPACES)
+      matching_nodes = node.xpath(path, IsoNamespaces.get_namespaces(node))
       return matching_nodes if matching_nodes.size > 0
     end
   end
 
   def self.date_range(temporal_node)
-    start_date = temporal_node.xpath('.//gml:beginPosition', ISO_NAMESPACES).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition', ISO_NAMESPACES).first.text
+    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
+    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
     {
       start: start_date.empty? ? '' : start_date,
       end: end_date.empty? ? '' : end_date

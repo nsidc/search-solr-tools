@@ -73,11 +73,11 @@ describe 'NODC ISO to Solr converter' do
 #      xpath: "/doc/field[@name='temporal_coverages']",
 #      expected_text: '1981-08-24:00:00Z,2011-12-31T00:00:00Z'
 #    },
-#    {
-#      title: 'should grab the correct temporal range',
-#      xpath: "/doc/field[@name='temporal']",
-#      expected_text: '19.810824 20.111231'
-#    },
+    {
+      title: 'should grab the correct temporal range',
+      xpath: "/doc/field[@name='temporal']",
+      expected_text: '19.810824 20.111231'
+    },
     {
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
