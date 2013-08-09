@@ -11,3 +11,9 @@ task restart_with_clean_nsidc_harvest: ['server:stop', 'build:setup', 'server:st
   Rake::Task['harvest:delete_all'].invoke
   Rake::Task['harvest:nsidc_oai_iso'].invoke
 end
+
+desc 'Install git hooks'
+task :git_hooks do
+  scripts = Dir.entries('git hooks/').reject { |f| /(\..*)|(.*~)/.match(f) }
+  scripts.each { |s| FileUtils.ln_sf("../../git hooks/#{s}", ".git/hooks/#{s}", { verbose: true }) }
+end

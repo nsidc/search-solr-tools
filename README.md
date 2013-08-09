@@ -45,3 +45,8 @@ Running the acceptance tests locally requires a running instance of Solr and som
 * It was suggested that running the `rake build:setup` would have taken care of this...
 * Run `rake restart_with_clean_nsidc_harvest` to suck in the NSIDC metadata (FIXME I had to run this a couple of times to get it to work...)
 * Once Solr has its data, `rake spec:acceptance` runs the ATs.
+
+### Git Hooks
+`rake git_hooks` will create symlinks in `.git/hooks/` to everything in `git hooks/`.
+
+`git hooks/pre-push` will run `rubocop` and `rspec`, cancelling the push if there is a failure. In this way, you can be safe from the public shaming (or rocket attacks) that come from breaking Jenkins builds.

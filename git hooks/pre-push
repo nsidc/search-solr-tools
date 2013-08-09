@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# run rubocop and the spec tests locally to prevent pushes
+# that would break the Jenkins builds
+
+remote="$1"
+url="$2"
+
+rubocop
+copPassed="$?"
+rspec
+specPassed="$?"
+
+exit `expr $copPassed + $specPassed`
