@@ -30,8 +30,8 @@ module IsoToSolrFormat
      end).join(' ')
   end
 
-  def self.temporal_display_str(temporal_node)
-    dr = date_range(temporal_node)
+  def self.temporal_display_str(temporal_node, formatted = false)
+    dr = date_range(temporal_node, formatted)
     "#{dr[:start]},#{dr[:end]}"
   end
 
@@ -65,9 +65,11 @@ module IsoToSolrFormat
     end
   end
 
-  def self.date_range(temporal_node)
+  def self.date_range(temporal_node, formatted = false)
     start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
     end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
+    formatted ? start_date = date_str(start_date) : start_date
+    formatted ? end_date = date_str(end_date) : end_date
     {
       start: start_date.empty? ? '' : start_date,
       end: end_date.empty? ? '' : end_date

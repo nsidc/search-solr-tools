@@ -52,7 +52,7 @@ NODC = {
   temporal_coverages: {
     xpaths: ['//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_display_str node }
+    format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
   },
   temporal: {
     xpaths: ['//gmd:EX_TemporalExtent'],

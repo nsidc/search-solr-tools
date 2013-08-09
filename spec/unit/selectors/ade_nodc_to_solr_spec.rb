@@ -65,14 +65,11 @@ describe 'NODC ISO to Solr converter' do
       xpath: "/doc/field[@name='spatial']",
       expected_text: '-180 -90 180 90'
     },
-## TODO: Deal with the namespace conflicts and uncomment these.
-## I think the code implemented should make the tests pass,
-## but don't be surprised if there are some problems.
-#    {
-#      title: 'should grab the correct temporal coverage',
-#      xpath: "/doc/field[@name='temporal_coverages']",
-#      expected_text: '1981-08-24:00:00Z,2011-12-31T00:00:00Z'
-#    },
+    {
+     title: 'should grab the correct temporal coverage',
+     xpath: "/doc/field[@name='temporal_coverages']",
+     expected_text: '1981-08-24T00:00:00Z,2011-12-31T00:00:00Z'
+    },
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
