@@ -22,7 +22,7 @@ Manipulating data in Solr can be done with the `harvest` tasks.
 
 * `rake harvest:ade` gathers data for the Arctic Data Explorer and inserts it into Solr.
 * `rake harvest:nsidc_oia_iso` will gather data for NSIDC search.
-* `rake harvest:delete_all` wipes out the database in your local Solr
+* `rake harvest:delete_all` wipes out the database in your local Solr.
 
 
 The style checker RuboCop can be run with `rubocop` or `rake guard:rubocop`. The rake task will also watch for ruby files (.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run RuboCop on the changed files.
