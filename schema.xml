@@ -201,6 +201,6 @@
     -->
     <fieldType name="date_range"
                class="solr.SpatialRecursivePrefixTreeFieldType"
-               geo="true" distErrPct="0" maxDistErr="0.000009" units="degrees" />
+               geo="true" distErrPct="0" maxDistErr="0.0000009" units="degrees" />
   </types>
 </schema>
