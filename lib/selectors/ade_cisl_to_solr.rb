@@ -61,9 +61,14 @@ CISL = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
+  resource_origin: {
+      xpaths: [''],
+      default_values: ['Advanced Cooperative Arctic Data and Information Service'],
+      multivalue: false
+  },
   source: {
       xpaths: [''],
       default_values: ['ADE'],
       multivalue: false
-  },
+  }
 }

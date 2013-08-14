@@ -68,6 +68,11 @@ EOL = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
+  resource_origin: {
+      xpaths: [''],
+      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'],
+      multivalue: false
+  },
   source: {
       xpaths: [''],
       default_values: ['ADE'],

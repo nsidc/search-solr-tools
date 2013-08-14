@@ -28,12 +28,15 @@
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
     <field name="normalized_authoritative_id" type="normalized" indexed="true" stored="true" multiValued="true" />
     <field name="popularity" type="int" indexed="true" stored="true" multiValued="false" />
+    <field name="resource_origin" type="string" indexed="true" stored="true" multiValued="false" />
+    <field name="data_centers_faceted" type="string" indexed="true" stored="true" multiValued="true" />    
   </fields>
 
   <uniqueKey>
     authoritative_id
   </uniqueKey>
   <copyField source="authoritative_id" dest="normalized_authoritative_id" />
+  <copyField source="data_centers" dest="data_centers_faceted" />
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.
        It supports doc values but in that case the field needs to be

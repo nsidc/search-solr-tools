@@ -20,6 +20,7 @@ NODC = {
   },
   data_centers: {
     xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+    default_values: ['NOAA National Oceanographic Data Center'],
     multivalue: false
   },
   authors: {
@@ -62,6 +63,11 @@ NODC = {
   sensors: {
     xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
     multivalue: true
+  },
+  resource_origin: {
+      xpaths: [''],
+      default_values: ['NOAA National Oceanographic Data Center'],
+      multivalue: false
   },
   source: {
     xpaths: [''],
