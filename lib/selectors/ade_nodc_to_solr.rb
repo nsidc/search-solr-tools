@@ -19,16 +19,16 @@ NODC = {
     multivalue: false
   },
   data_centers: {
-    xpaths: ['//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+    xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
     multivalue: false
   },
   authors: {
-    xpaths: ["//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
+    xpaths: [".//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
     multivalue: true
   },
   keywords: {
-    xpaths: ['//gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString',
-             '//gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gmx:Anchor'],
+    xpaths: ['.//gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString',
+             './/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gmx:Anchor'],
     multivalue: true
   },
   last_revision_date: {
@@ -50,17 +50,17 @@ NODC = {
       format: IsoToSolrFormat::SPATIAL_INDEX
   },
   temporal_coverages: {
-    xpaths: ['//gmd:EX_TemporalExtent'],
+    xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
   },
   temporal: {
-    xpaths: ['//gmd:EX_TemporalExtent'],
+    xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
   sensors: {
-    xpaths: ['//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+    xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
     multivalue: true
   },
   source: {
