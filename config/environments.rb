@@ -1,6 +1,6 @@
 # configuration to work with solr locally, or on integration/qa/staging/prod
 module SolrEnvironments
-  def self.[] (key)
+  def self.[](key)
     key_sym = (key || 'development').to_sym
     SOLR_ENVIRONMENTS[key_sym]
   end

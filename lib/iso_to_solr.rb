@@ -7,11 +7,11 @@ require './lib/selectors.rb'
 # after creating an instance we call transtale with a nokogiri iso document as a parameter.
 
 class IsoToSolr
-  def initialize (selector)
+  def initialize(selector)
     @fields = SELECTORS[selector]
   end
 
-  def eval_xpath (iso_xml_doc, xpath, multivalue)
+  def eval_xpath(iso_xml_doc, xpath, multivalue)
     fields = []
     begin
       iso_xml_doc.xpath(xpath, IsoNamespaces.get_namespaces(iso_xml_doc)).each do |f|
@@ -25,7 +25,7 @@ class IsoToSolr
   end
 
   def get_default_values(selector)
-    selector.has_key?(:default_values) ? selector[:default_values] : ['']
+    selector.key?(:default_values) ? selector[:default_values] : ['']
   end
 
   def format_text(field)
@@ -33,14 +33,14 @@ class IsoToSolr
   end
 
   def format_field(selector, field)
-    selector.has_key?(:format) ? selector[:format].call(field) : format_text(field) rescue format_text field
+    selector.key?(:format) ? selector[:format].call(field) : format_text(field) rescue format_text field
   end
 
   def format_fields(selector, fields)
     fields.map { |f| format_field(selector, f) }.flatten
   end
 
-  def create_solr_fields (iso_xml_doc, selector)
+  def create_solr_fields(iso_xml_doc, selector)
     selector[:xpaths].each do |xpath|
       fields = eval_xpath(iso_xml_doc, xpath, selector[:multivalue]) # this will return a nodeset with all the elements that matched the xpath
       return format_fields(selector, fields) if fields.size > 0 && fields.any? { |f| f.text.strip.length > 0 }
@@ -48,7 +48,7 @@ class IsoToSolr
     format_fields(selector, get_default_values(selector))
   end
 
-  def translate (iso_xml_doc)
+  def translate(iso_xml_doc)
     solr_xml_doc = Nokogiri::XML::Builder.new do |xml|
       xml.doc_ do
         @fields.each do |field_name, selector|

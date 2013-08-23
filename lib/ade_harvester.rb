@@ -10,7 +10,7 @@ class ADEHarvester < HarvesterBase
   def initialize(env = 'development', profile_name = 'CISL')
     super env
     @page_size = 100
-    @profile = profile_name == nil ? 'CISL' : profile_name # for some reason the default param value was not working
+    @profile = profile_name.nil? ? 'CISL' : profile_name # for some reason the default param value was not working
     @translator = IsoToSolr.new profile_name.downcase.to_sym
     @gi_cat = GiCatDriver::GiCat.new(gi_cat_url, 'admin', 'abcd123$')
   end
@@ -29,7 +29,7 @@ class ADEHarvester < HarvesterBase
   #
   # each entry from GI-Cat is translated to our Solr format, then
   # inserted into a <doc> element
-  def get_docs_with_translated_entries_from_gi_cat (entries)
+  def get_docs_with_translated_entries_from_gi_cat(entries)
     docs = []
     entries.each { |entry| docs.push(create_new_solr_add_doc_with_child(@translator.translate(entry).root)) }
     docs
