@@ -95,10 +95,6 @@ NSIDC = {
     xpaths: ['.//gmd:dataSetURI'],
     multivalue: false
   },
-  data_access_urls: {
-    xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[gmd:CI_OnLineFunctionCode="download"]//gmd:URL'],
-    multivalue: true
-  },
   distribution_formats: {
     xpaths: ['.//gmd:MD_Format/gmd:name/gco:CharacterString'],
     multivalue: true
