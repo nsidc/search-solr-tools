@@ -47,7 +47,7 @@ Running the acceptance tests locally requires a running instance of Solr and som
 * Once Solr has its data, `rake spec:acceptance` runs the ATs.
 
 ### Git Hooks
-Download `git-hooks` [from github](https://github.com/icefox/git-hooks), add it to your `PATH`, and run `git hooks --install`. This allows the hooks to be installed inside of the repository (in this case, in `.githooks/`) instead of in `.git/hooks/`, which is not under version control.
+Download `git-hooks` [from github](https://github.com/michaeljb/git-hooks), add it to your `PATH`, and run `git hooks --install`. This allows the hooks to be installed inside of the repository (in this case, in `.githooks/`) instead of in `.git/hooks/`, which is not under version control.
 
 Run `git hooks` to see a list of all installed hooks (this command will call all of the scripts in `.githooks/` with the `--about` argument, so be sure to handle this when writing new hooks).
 
