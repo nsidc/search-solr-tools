@@ -117,11 +117,6 @@ describe 'NSIDC ISO to SOLR converter' do
       expected_text: '19.781001 30.000101'
     },
     {
-      title: 'should include the correct data access urls',
-      xpath: "/doc/field[@name='data_access_urls'][1]",
-      expected_text: 'ftp://sidads.colorado.edu/pub/DATASETS/fgdc/ggd221_soiltemp_antarctica/'
-    },
-    {
       title: 'should include the correct distribution formats',
       xpath: "/doc/field[@name='distribution_formats'][1]",
       expected_text: 'ASCII Text'
