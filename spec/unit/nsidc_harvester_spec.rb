@@ -7,7 +7,7 @@ describe NsidcHarvester do
   end
 
   it 'should retrieve records from the NSIDC OAI url' do
-    stub_request(:get, 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso')
+    stub_request(:get, 'http://liquid.colorado.edu:11580/api/dataset/2/oai?metadata_prefix=iso&verb=ListRecords')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<gmi:MI_Metadata xmlns:gmi="http://www.isotc211.org/2005/gmi"><foo/></gmi:MI_Metadata>')
 
@@ -16,7 +16,7 @@ describe NsidcHarvester do
 
   describe 'Adding documents to Solr' do
     it 'constructs an xml document with <doc> children' do
-      stub_request(:get, 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso')
+      stub_request(:get, 'http://liquid.colorado.edu:11580/api/dataset/2/oai?metadata_prefix=iso&verb=ListRecords')
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_iso.xml'), headers: {})
 

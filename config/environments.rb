@@ -34,7 +34,7 @@ module SolrEnvironments
           prefix: 'sudo',
           port: '8983',
           repo_dir: '~/solr_repo/',
-          oai_url: 'http://liquid.colorado.edu:11680/metadata-interface/oai/provider?verb=ListRecords&metadataPrefix=iso',
+          oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
           gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
           gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
           host: 'localhost'
