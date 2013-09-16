@@ -53,9 +53,6 @@
               <gmd:organisationName>
                 <gco:CharacterString>National Snow and Ice Data Center</gco:CharacterString>
               </gmd:organisationName>
-              <gmd:positionName>
-                <gco:CharacterString>none</gco:CharacterString>
-              </gmd:positionName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:phone>
@@ -101,42 +98,6 @@
               </gmd:role>
             </gmd:CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
-          <gmd:citedResponsibleParty>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>John Doe</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:organisationName>
-                <gco:CharacterString>
-                  Making Earth System Data Records for Use in Research Environments
-                </gco:CharacterString>
-              </gmd:organisationName>
-              <gmd:positionName>
-                <gco:CharacterString>none</gco:CharacterString>
-              </gmd:positionName>
-              <gmd:contactInfo>
-                <gmd:CI_Contact>
-                  <gmd:address>
-                    <gmd:CI_Address>
-                      <gmd:electronicMailAddress>
-                        <gco:CharacterString>nsidc@nsidc.org</gco:CharacterString>
-                      </gmd:electronicMailAddress>
-                    </gmd:CI_Address>
-                  </gmd:address>
-                  <gmd:onlineResource>
-                    <gmd:CI_OnlineResource>
-                      <gmd:linkage>
-                        <gmd:URL>Unknown</gmd:URL>
-                      </gmd:linkage>
-                    </gmd:CI_OnlineResource>
-                  </gmd:onlineResource>
-                </gmd:CI_Contact>
-              </gmd:contactInfo>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmd:citedResponsibleParty>
         </gmd:CI_Citation>
       </gmd:citation>
       <gmd:abstract>
@@ -154,28 +115,15 @@
               Making Earth System Data Records for Use in Research Environments
             </gco:CharacterString>
           </gmd:organisationName>
-          <gmd:positionName>
-            <gco:nilReason>missing</gco:nilReason>
-          </gmd:positionName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
-              <gmd:phone>
-                <gco:nilReason>missing</gco:nilReason>
-              </gmd:phone>
-              <gmd:address>
-                <gco:nilReason>missing</gco:nilReason>
-              </gmd:address>
               <gmd:onlineResource>
                 <gmd:CI_OnlineResource>
                   <gmd:linkage>
                     <gmd:URL>http://nsidc.org</gmd:URL>
                   </gmd:linkage>
-                  <gmd:name>
-                    <gco:nilReason>missing</gco:nilReason>
-                  </gmd:name>
-                  <gmd:description>
-                    <gco:nilReason>missing</gco:nilReason>
-                  </gmd:description>
+                  <gmd:name gco:nilReason="missing"/>
+                  <gmd:description gco:nilReason="missing"/>
                 </gmd:CI_OnlineResource>
               </gmd:onlineResource>
             </gmd:CI_Contact>
@@ -193,9 +141,6 @@
           <gmd:organisationName>
             <gco:CharacterString>NASA DAAC at the National Snow and Ice Data Center</gco:CharacterString>
           </gmd:organisationName>
-          <gmd:positionName>
-            <gco:nilReason>missing</gco:nilReason>
-          </gmd:positionName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
               <gmd:phone>
@@ -241,18 +186,225 @@
                   <gmd:linkage>
                     <gmd:URL>http://nsidc.org</gmd:URL>
                   </gmd:linkage>
-                  <gmd:name>
-                    <gco:nilReason>missing</gco:nilReason>
-                  </gmd:name>
-                  <gmd:description>
-                    <gco:nilReason>missing</gco:nilReason>
-                  </gmd:description>
+                  <gmd:name gco:nilReason="missing"/>
+                  <gmd:description gco:nilReason="missing"/>
                 </gmd:CI_OnlineResource>
               </gmd:onlineResource>
             </gmd:CI_Contact>
           </gmd:contactInfo>
           <gmd:role>
             <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Frank J. Wentz</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gco:CharacterString>Remote Sensing Systems</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>1 707 545 2904 x16</gco:CharacterString>
+                  </gmd:voice>
+                  <gmd:facsimile>
+                    <gco:CharacterString>1 707 545 2906 x</gco:CharacterString>
+                  </gmd:facsimile>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>Remote Sensing Systems</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>438 First Street</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>Suite 200</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Santa Rosa</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>CA</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>95401</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>USA</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>wentz@remss.com</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+              <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL>http://nsidc.org</gmd:URL>
+                  </gmd:linkage>
+                  <gmd:name gco:nilReason="missing"/>
+                  <gmd:description gco:nilReason="missing"/>
+                </gmd:CI_OnlineResource>
+              </gmd:onlineResource>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Marilyn Walker</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>1 907 474 2424 x</gco:CharacterString>
+                  </gmd:voice>
+                  <gmd:facsimile>
+                    <gco:CharacterString>1 907 474 6251 x</gco:CharacterString>
+                  </gmd:facsimile>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>University of Alaska Fairbanks</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>Boreal Ecology Cooperative Research Unit</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>
+                      School of Agriculture and Land Resources Management
+                    </gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>P.O. Box 756780</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Fairbanks</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>AK</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>99775-7000</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>ffmdw@uaf.edu</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+              <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL>http://nsidc.org</gmd:URL>
+                  </gmd:linkage>
+                  <gmd:name gco:nilReason="missing"/>
+                  <gmd:description gco:nilReason="missing"/>
+                </gmd:CI_OnlineResource>
+              </gmd:onlineResource>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="author">author</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Gene R. Major</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL>http://nsidc.org</gmd:URL>
+                  </gmd:linkage>
+                  <gmd:name gco:nilReason="missing"/>
+                  <gmd:description gco:nilReason="missing"/>
+                </gmd:CI_OnlineResource>
+              </gmd:onlineResource>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="metadata author">metadata author</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>NSIDC User Services</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gco:CharacterString>National Snow and Ice Data Center</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>1 303 492 6199 x</gco:CharacterString>
+                  </gmd:voice>
+                  <gmd:facsimile>
+                    <gco:CharacterString>1 303 492 2468 x</gco:CharacterString>
+                  </gmd:facsimile>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>CIRES, 449 UCB</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>University of Colorado</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Boulder</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>CO</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>80309-0449</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>USA</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>nsidc@nsidc.org</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+              <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL>http://nsidc.org</gmd:URL>
+                  </gmd:linkage>
+                  <gmd:name gco:nilReason="missing"/>
+                  <gmd:description gco:nilReason="missing"/>
+                </gmd:CI_OnlineResource>
+              </gmd:onlineResource>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="metadata author">metadata author</gmd:CI_RoleCode>
           </gmd:role>
         </gmd:CI_ResponsibleParty>
       </gmd:pointOfContact>

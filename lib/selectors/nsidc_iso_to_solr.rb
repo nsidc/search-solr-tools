@@ -29,7 +29,9 @@ NSIDC = {
       multivalue: false
     },
   authors: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:citedResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName/gco:CharacterString'],
+    xpaths: ['.//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
+              | .//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
+              | .//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]'],
     multivalue: true
   },
   topics: {

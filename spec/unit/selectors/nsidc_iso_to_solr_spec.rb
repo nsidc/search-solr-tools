@@ -27,9 +27,24 @@ describe 'NSIDC ISO to SOLR converter' do
       expected_text: 'Test Abstract'
     },
     {
-      title: 'should include the correct authors',
+      title: 'should include the correct citation PI author',
       xpath: "/doc/field[@name='authors'][1]",
       expected_text: 'Jane Doe'
+    },
+    {
+      title: 'should include the correct point of contact PI author',
+      xpath: "/doc/field[@name='authors'][2]",
+      expected_text: 'Frank J. Wentz'
+    },
+    {
+      title: 'should include the correct point of contact data author',
+      xpath: "/doc/field[@name='authors'][3]",
+      expected_text: 'Marilyn Walker'
+    },
+    {
+      title: 'should include the correct point of contact metadata author',
+      xpath: "/doc/field[@name='authors'][4]",
+      expected_text: 'Gene R. Major'
     },
     {
       title: 'should include the correct topics',
@@ -141,5 +156,9 @@ describe 'NSIDC ISO to SOLR converter' do
     it expectation[:title] do
       solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
     end
+  end
+
+  it 'should exclude NSIDC User Services as an author' do
+    solr_doc.xpath("/doc/field[@name='authors']").text.strip.should_not include('NSIDC User Services')
   end
 end
