@@ -22,20 +22,26 @@
     <field name="dataset_url" type="string" indexed="false" stored="true" />
     <field name="data_access_urls" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="distribution_formats" type="string" indexed="false" stored="true" multiValued="true" />
-    <field name="source" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="full_parameters" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
     <field name="normalized_authoritative_id" type="normalized" indexed="true" stored="true" multiValued="true" />
     <field name="popularity" type="int" indexed="true" stored="true" multiValued="false" />
-    <field name="resource_origin" type="string" indexed="true" stored="true" multiValued="false" />
-    <field name="data_centers_faceted" type="string" indexed="true" stored="true" multiValued="true" />    
+    <field name="source" type="string" indexed="true" stored="true" multiValued="true" />
+
+    <field name="facet_data_center" type="string" indexed="true" stored="true" multiValued="false" />
+    <field name="facet_popularity" type="int" indexed="true" stored="true" multiValued="false" />
+    <field name="facet_spatial_coverage" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="facet_temporal_duarion" type="int" indexed="true" stored="true" multiValued="false" />
+    <field name="facet_sensors" type="string" indexed="true" stored="true" multiValued="false" />
+    <field name="facet_brokered" type="boolean" indexed="true" stored="true" multiValued="false" />
+
   </fields>
 
   <uniqueKey>
     authoritative_id
   </uniqueKey>
   <copyField source="authoritative_id" dest="normalized_authoritative_id" />
-  <copyField source="data_centers" dest="data_centers_faceted" />
+  <copyField source="popularity" dest="facet_popularity" />
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.
        It supports doc values but in that case the field needs to be

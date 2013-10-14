@@ -7,6 +7,8 @@ module IsoToSolrFormat
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str node }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
 
+  SPATIAL_COVERAGE_FACET = proc { |node| IsoToSolrFormat.get_spatial_facet node }
+
   def self.date_str(date)
     d = if date.is_a? String
           DateTime.parse(date.strip)
@@ -33,6 +35,15 @@ module IsoToSolrFormat
   def self.temporal_display_str(temporal_node, formatted = false)
     dr = date_range(temporal_node, formatted)
     "#{dr[:start]},#{dr[:end]}"
+  end
+
+  def self.get_spatial_facet(box_node)
+    box = bounding_box(box_node)
+    facet = 'Equatorial'
+    facet = 'Southern Hemisphere' if box[:nort].to_f < 0.0
+    facet = 'Northern Hemisphere' if box[:south].to_f > 0.0
+    facet = 'Global' if box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+    facet
   end
 
   # We are indexiong date ranges a spatial cordinates.

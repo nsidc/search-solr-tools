@@ -105,14 +105,19 @@ NSIDC = {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceSpecificUsage/gmd:MD_Usage/gmd:popularity/gco:Integer'],
     multivalue: false
   },
-  resource_origin: {
-      xpaths: [''],
-      default_values: ['National Snow and Ice Data Center'],
-      multivalue: false
-  },
   source: {
     xpaths: [''],
     default_values: %w(NSIDC ADE),
     multivalue: true
   },
+  facet_data_center: {
+      xpaths: [''],
+      default_values: ['National Snow and Ice Data Center'],
+      multivalue: true
+  },
+  facet_spatial_coverage: {
+    xpaths: ['.//gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_COVERAGE_FACET
+  }
 }

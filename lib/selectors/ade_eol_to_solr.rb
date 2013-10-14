@@ -72,14 +72,19 @@ EOL = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
-  resource_origin: {
-      xpaths: [''],
-      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'],
-      multivalue: false
-  },
   source: {
       xpaths: [''],
       default_values: ['ADE'],
       multivalue: false
   },
+  facet_data_center: {
+      xpaths: [''],
+      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'],
+      multivalue: false
+  },
+  facet_spatial_coverage: {
+      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+      multivalue: true,
+      format: IsoToSolrFormat::SPATIAL_COVERAGE_FACET
+  }
 }

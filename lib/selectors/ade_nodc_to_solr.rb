@@ -64,14 +64,19 @@ NODC = {
     xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
     multivalue: true
   },
-  resource_origin: {
-      xpaths: [''],
-      default_values: ['NOAA National Oceanographic Data Center'],
-      multivalue: false
-  },
   source: {
     xpaths: [''],
     default_values: ['ADE'],
     multivalue: false
   },
+  facet_data_center: {
+      xpaths: [''],
+      default_values: ['NOAA National Oceanographic Data Center'],
+      multivalue: false
+  },
+  facet_spatial_coverage: {
+      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+      multivalue: true,
+      format: IsoToSolrFormat::SPATIAL_COVERAGE_FACET
+  }
 }
