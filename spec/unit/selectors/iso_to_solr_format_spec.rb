@@ -43,4 +43,15 @@ describe 'ISO to SOLR format methods' do
       IsoToSolrFormat.temporal_index_str(temporal_node).should eql '19.781001 20.111231'
     end
   end
+
+  describe 'facets' do
+    it 'should set the spatial coverage(s) from a GeographicBoundingBox node' do
+      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Northern Hemisphere'
+    end
+
+    it 'should set the duration(s) from a TemporalExtent node' do
+      temporal_nodes = fixture.xpath('.//gmd:extent').first
+      IsoToSolrFormat.facet_temporal_duration(temporal_nodes).should eql '10+'
+    end
+   end
 end

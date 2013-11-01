@@ -7,7 +7,8 @@ module IsoToSolrFormat
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str node }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
 
-  SPATIAL_COVERAGE_FACET = proc { |node| IsoToSolrFormat.get_spatial_facet node }
+  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet node }
+  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.facet_temporal_duration node }
 
   def self.date_str(date)
     d = if date.is_a? String
@@ -43,6 +44,11 @@ module IsoToSolrFormat
     facet = 'Southern Hemisphere' if box[:nort].to_f < 0.0
     facet = 'Northern Hemisphere' if box[:south].to_f > 0.0
     facet = 'Global' if box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+    facet
+  end
+
+  def self.facet_temporal_duration(temporal_node)
+    facet = temporal_duration(temporal_node)
     facet
   end
 
@@ -85,6 +91,32 @@ module IsoToSolrFormat
       start: start_date.empty? ? '' : start_date,
       end: end_date.empty? ? '' : end_date
     }
+  end
+
+  def self.temporal_duration(temporal_node)
+    date_ranges = temporal_node.xpath('.//gmd:EX_TemporalExtent', IsoNamespaces.get_namespaces(temporal_node))
+
+    duration = 0
+    date_ranges.each do |dr|
+      start_date = dr.xpath('.//gml:beginPosition', IsoNamespaces.get_namespaces(dr)).first.text
+      end_date = dr.xpath('.//gml:endPosition', IsoNamespaces.get_namespaces(dr)).first.text
+      if (!start_date.empty? && !end_date.empty?)
+        start_date = format_date_for_index start_date, MIN_DATE
+        end_date = format_date_for_index end_date, MAX_DATE
+
+        duration += (end_date.to_f - start_date.to_f)
+      end
+    end
+
+    # Number of years is 2 digits right of the decimal, so multiply by 100 and hack off the rest
+    duration = (duration * 100).to_int
+    range = case duration
+            when 0 then "< 1"
+            when 1..4 then "1 - 4"
+            when 5..9 then "5 - 9"
+            else "10+"
+            end
+    range
   end
 
   def self.format_date_for_index(date_str, default)

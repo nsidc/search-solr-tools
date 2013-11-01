@@ -118,6 +118,11 @@ NSIDC = {
   facet_spatial_coverage: {
     xpaths: ['.//gmd:EX_GeographicBoundingBox'],
     multivalue: true,
-    format: IsoToSolrFormat::SPATIAL_COVERAGE_FACET
+    format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
+  },
+  facet_temporal_duration: {
+    xpaths: ['.//gmd:extent'],
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    multivalue: false
   }
 }
