@@ -96,21 +96,24 @@ module IsoToSolrFormat
   end
 
   def self.total_duration(date_ranges)
-    duration = 0
+    durations = []
     date_ranges.each do |dr|
       dr = date_range dr
       if !dr[:start].empty? && !dr[:end].empty?
-        duration += (format_date_for_index(dr[:start], MIN_DATE).to_f - format_date_for_index(dr[:end], MAX_DATE).to_f)
+        durations.push format_date_for_index(dr[:end], MIN_DATE).to_f - format_date_for_index(dr[:start], MAX_DATE).to_f
       end
     end
 
+    return '' if durations.empty?
+
     # Number of years is 2 digits right of the decimal, so multiply by 100 and hack off the rest
-    duration = (duration * 100).to_int
+    duration = (durations.inject(:+) * 100).to_int
     duration
   end
 
   def self.temporal_duration_range(temporal_duration)
     range = case temporal_duration
+            when '' then ''
             when 0 then '< 1'
             when 1..4 then '1 - 4'
             when 5..9 then '5 - 9'
