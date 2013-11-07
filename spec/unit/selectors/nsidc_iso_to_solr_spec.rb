@@ -161,4 +161,8 @@ describe 'NSIDC ISO to SOLR converter' do
   it 'should exclude NSIDC User Services as an author' do
     solr_doc.xpath("/doc/field[@name='authors']").text.strip.should_not include('NSIDC User Services')
   end
+
+  it 'should exclude duplicate authors' do
+    solr_doc.xpath("/doc/field[@name='authors']").select { |a| a.text.strip.eql? 'Gene R. Major' }.length.should be 1
+  end
 end

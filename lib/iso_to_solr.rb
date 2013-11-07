@@ -37,7 +37,8 @@ class IsoToSolr
   end
 
   def format_fields(selector, fields)
-    fields.map { |f| format_field(selector, f) }.flatten
+    formatted = fields.map { |f| format_field(selector, f) }.flatten
+    selector[:unique] ? formatted.uniq : formatted
   end
 
   def create_solr_fields(iso_xml_doc, selector)
