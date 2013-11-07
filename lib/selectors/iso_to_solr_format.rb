@@ -48,7 +48,9 @@ module IsoToSolrFormat
   end
 
   def self.facet_temporal_duration(temporal_node)
-    facet = temporal_duration(temporal_node)
+    date_ranges = temporal_node.xpath('.//gmd:EX_TemporalExtent', IsoNamespaces.get_namespaces(temporal_node))
+    duration = total_duration(date_ranges)
+    facet = temporal_duration_range(duration)
     facet
   end
 
@@ -93,28 +95,26 @@ module IsoToSolrFormat
     }
   end
 
-  def self.temporal_duration(temporal_node)
-    date_ranges = temporal_node.xpath('.//gmd:EX_TemporalExtent', IsoNamespaces.get_namespaces(temporal_node))
-
+  def self.total_duration(date_ranges)
     duration = 0
     date_ranges.each do |dr|
-      start_date = dr.xpath('.//gml:beginPosition', IsoNamespaces.get_namespaces(dr)).first.text
-      end_date = dr.xpath('.//gml:endPosition', IsoNamespaces.get_namespaces(dr)).first.text
-      if (!start_date.empty? && !end_date.empty?)
-        start_date = format_date_for_index start_date, MIN_DATE
-        end_date = format_date_for_index end_date, MAX_DATE
-
-        duration += (end_date.to_f - start_date.to_f)
+      dr = date_range dr
+      if !dr[:start].empty? && !dr[:end].empty?
+        duration += (format_date_for_index(dr[:start], MIN_DATE).to_f - format_date_for_index(dr[:end], MAX_DATE).to_f)
       end
     end
 
     # Number of years is 2 digits right of the decimal, so multiply by 100 and hack off the rest
     duration = (duration * 100).to_int
-    range = case duration
-            when 0 then "< 1"
-            when 1..4 then "1 - 4"
-            when 5..9 then "5 - 9"
-            else "10+"
+    duration
+  end
+
+  def self.temporal_duration_range(temporal_duration)
+    range = case temporal_duration
+            when 0 then '< 1'
+            when 1..4 then '1 - 4'
+            when 5..9 then '5 - 9'
+            else '10+'
             end
     range
   end

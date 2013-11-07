@@ -53,5 +53,5 @@ describe 'ISO to SOLR format methods' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
       IsoToSolrFormat.facet_temporal_duration(temporal_nodes).should eql '10+'
     end
-   end
+  end
 end
