@@ -28,6 +28,7 @@
     <field name="popularity" type="int" indexed="true" stored="true" multiValued="false" />
     <field name="source" type="string" indexed="true" stored="true" multiValued="true" />
 
+    <field name="facet_author" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_data_center" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="facet_popularity" type="int" indexed="true" stored="true" multiValued="false" />
     <field name="facet_spatial_coverage" type="string" indexed="true" stored="true" multiValued="true" />
