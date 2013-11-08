@@ -24,6 +24,13 @@ describe 'ISO to SOLR format methods' do
     end
   end
 
+  describe 'temporal duration' do
+    it 'should calculate a correct duration for a single date range' do
+      temporal_node = fixture.xpath('.//gmd:extent').first
+      expect(IsoToSolrFormat.facet_temporal_duration(temporal_node)).to eql '10+'
+    end
+  end
+
   describe 'spatial' do
     it 'should generate a SWEN space separated string from a GeographicBoundingBox node' do
       IsoToSolrFormat.spatial_display_str(geo_node).should eql '30.98 -180 90 180'
