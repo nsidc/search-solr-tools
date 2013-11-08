@@ -96,7 +96,7 @@ module IsoToSolrFormat
   end
 
   def self.total_duration(date_ranges)
-    durations = []
+    max_duration = 0
     date_ranges.each do |dr|
       dr = date_range(dr)
 
@@ -105,11 +105,11 @@ module IsoToSolrFormat
         end_date = dr[:end].empty? ? Time.now : Time.new(dr[:end])
 
         # Time - Time returns seconds as a Float; we want the year as an integer
-        durations.push(((end_date - start_date) / (60 * 60 * 24 * 365)).to_int)
+        duration = ((end_date - start_date) / (60 * 60 * 24 * 365)).to_int
+        max_duration = duration if duration > max_duration
       end
     end
-
-    durations.inject(:+)
+    max_duration
   end
 
   def self.temporal_duration_range(temporal_duration)
