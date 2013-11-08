@@ -47,7 +47,7 @@ module IsoToSolrFormat
     facet
   end
 
-  def self.facet_temporal_duration(temporal_node)
+  def self.get_temporal_duration_facet(temporal_node)
     date_ranges = temporal_node.xpath('.//gmd:EX_TemporalExtent', IsoNamespaces.get_namespaces(temporal_node))
     duration = total_duration(date_ranges)
     facet = temporal_duration_range(duration)
