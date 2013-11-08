@@ -53,5 +53,12 @@ describe 'ISO to SOLR format methods' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
       IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql '10+ years'
     end
+
+    it 'should set the author(s) from a ResponsibleParty node' do
+      author_nodes = fixture.xpath('.//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
+              | .//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
+              | .//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]')
+      IsoToSolrFormat.get_author_facet(author_nodes).should eql ['Jane Doe', 'Frank J. Wentz', 'Marilyn Walker', 'Gene R. Major']
+    end
   end
 end
