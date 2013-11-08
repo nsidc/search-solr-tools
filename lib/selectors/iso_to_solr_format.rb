@@ -8,7 +8,7 @@ module IsoToSolrFormat
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
 
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet node }
-  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.facet_temporal_duration node }
+  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet node }
 
   def self.date_str(date)
     d = if date.is_a? String
