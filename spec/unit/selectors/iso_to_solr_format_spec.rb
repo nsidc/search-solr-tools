@@ -27,7 +27,7 @@ describe 'ISO to SOLR format methods' do
   describe 'temporal duration' do
     it 'should calculate a correct duration for a single date range' do
       temporal_node = fixture.xpath('.//gmd:extent').first
-      expect(IsoToSolrFormat.facet_temporal_duration(temporal_node)).to eql '10+'
+      expect(IsoToSolrFormat.facet_temporal_duration(temporal_node)).to eql '10+ years'
     end
   end
 
@@ -58,7 +58,7 @@ describe 'ISO to SOLR format methods' do
 
     it 'should set the duration(s) from a TemporalExtent node' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
-      IsoToSolrFormat.facet_temporal_duration(temporal_nodes).should eql '10+'
+      IsoToSolrFormat.facet_temporal_duration(temporal_nodes).should eql '10+ years'
     end
   end
 end

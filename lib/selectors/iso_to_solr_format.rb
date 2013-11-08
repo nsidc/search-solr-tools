@@ -115,10 +115,10 @@ module IsoToSolrFormat
   def self.temporal_duration_range(temporal_duration)
     range = case temporal_duration
             when nil then ''
-            when 0 then '< 1'
-            when 1..4 then '1 - 4'
-            when 5..9 then '5 - 9'
-            else '10+'
+            when 0 then '< 1 years'
+            when 1..4 then '1 - 4 years'
+            when 5..9 then '5 - 9 years'
+            else '10+ years'
             end
     range
   end
