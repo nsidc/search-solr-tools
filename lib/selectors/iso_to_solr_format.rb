@@ -47,9 +47,7 @@ module IsoToSolrFormat
 
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
-    facet = 'Equatorial'
-    facet = 'Southern Hemisphere' if box[:nort].to_f < 0.0
-    facet = 'Northern Hemisphere' if box[:south].to_f > 0.0
+    facet = 'Non global'
     facet = 'Global' if box[:south].to_f < -89.0 && box[:north].to_f > 89.0
     facet
   end

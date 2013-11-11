@@ -46,7 +46,7 @@ describe 'ISO to SOLR format methods' do
 
   describe 'facets' do
     it 'should set the spatial coverage(s) from a GeographicBoundingBox node' do
-      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Northern Hemisphere'
+      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Non global'
     end
 
     it 'should set the duration(s) from a TemporalExtent node' do
