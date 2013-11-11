@@ -9,5 +9,5 @@ SELECTORS = {
   nmi:  NMI,
   nodc:  NODC,
   nsidc: NSIDC,
-  dryads: DRYADS
+  dryad: DRYAD
 }

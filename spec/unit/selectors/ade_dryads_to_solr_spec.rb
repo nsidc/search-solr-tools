@@ -3,7 +3,7 @@ require 'iso_to_solr'
 describe 'Dryads ISO to Solr converter' do
 
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/dryads_iso.xml')
-  iso_to_solr = IsoToSolr.new(:dryads)
+  iso_to_solr = IsoToSolr.new(:dryad)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
