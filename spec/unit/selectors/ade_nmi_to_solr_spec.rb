@@ -13,7 +13,7 @@ describe 'NMI ISO to Solr converter' do
       expected_text: 'ECMWF deterministic model forecast'
     },
     {
-      title: 'should grab the correct title',
+      title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
       expected_text: "Products from the ECMWF Atmospheric Deterministic medium-range weather forecasts up to ten\ndays. " +
       "Check out http://www.ecmwf.int/ for details. The model output has been subsetted, reprojected\nand " +

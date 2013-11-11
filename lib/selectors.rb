@@ -8,5 +8,6 @@ SELECTORS = {
   eol:  EOL,
   nmi:  NMI,
   nodc:  NODC,
-  nsidc: NSIDC
+  nsidc: NSIDC,
+  dryads: DRYADS
 }

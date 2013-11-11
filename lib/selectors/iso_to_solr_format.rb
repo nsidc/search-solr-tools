@@ -20,6 +20,12 @@ module IsoToSolrFormat
     "#{d.iso8601[0..-7]}Z"
   end
 
+  def self.fix_dryads_url(id_node)
+    # Dryad does not provide links but this is a handy way to get to the datasets
+    data_link = 'http://datadryad.org/handle/' + id_node
+    data_link.gsub! 'oai:datadryad.org:', ''
+  end
+
   def self.spatial_display_str(box_node)
     box = bounding_box(box_node)
     "#{box[:south]} #{box[:west]} #{box[:north]} #{box[:east]}"
