@@ -2,7 +2,7 @@
 
 usage()
 {
-    echo "Usage: ${0##*/} {harvest|harvest-ade|environment} {integration|qa|staging|production} {eol|cisl|nodc|nmi|default}"
+    echo "Usage: ${0##*/} {harvest|harvest-ade|environment|delete} {integration|qa|staging|production} {eol|cisl|nodc|nmi|default}"
     exit 1
 }
 # absolute path to this script directory (without script name)
@@ -51,6 +51,9 @@ then
 elif [ "$1" == "harvest-ade" ]
 then 
    bundle exec rake harvest:ade[$env,$profile]
+elif [ "$1" == "delete" ]
+then
+   bundle exec rake harvest:delete_all[$env]
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
