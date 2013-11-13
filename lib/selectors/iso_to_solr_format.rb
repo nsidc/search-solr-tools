@@ -60,8 +60,7 @@ module IsoToSolrFormat
   end
 
   def self.get_author_facet(author_nodes)
-    facet = author_nodes.map { |author_node| author_node.text.strip }.uniq
-    facet
+    author_nodes.text
   end
 
   # We are indexiong date ranges a spatial cordinates.

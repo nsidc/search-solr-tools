@@ -80,5 +80,10 @@ CISL = {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: false
+  },
+  facet_author: {
+    xpaths: [''],
+    format: IsoToSolrFormat::FACET_AUTHOR,
+    multivalue: true
   }
 }
