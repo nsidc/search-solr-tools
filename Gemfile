@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'https://igloo.nsidc.org/intranet/RUBY'
 
 gem 'rake'
 gem 'rspec'
