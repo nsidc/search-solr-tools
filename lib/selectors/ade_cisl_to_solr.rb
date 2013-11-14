@@ -84,6 +84,7 @@ CISL = {
   facet_author: {
     xpaths: [''],
     format: IsoToSolrFormat::FACET_AUTHOR,
-    multivalue: true
+    multivalue: true,
+    unique: true
   }
 }

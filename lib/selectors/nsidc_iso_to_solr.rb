@@ -131,6 +131,7 @@ NSIDC = {
               | .//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
               | .//gmd :CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]'],
     format: IsoToSolrFormat::FACET_AUTHOR,
-    multivalue: true
+    multivalue: true,
+    unique: true
   }
 }
