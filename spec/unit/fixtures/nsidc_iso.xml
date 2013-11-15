@@ -47,9 +47,7 @@
           </gmd:identifier>
           <gmd:citedResponsibleParty>
             <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>Jane Doe</gco:CharacterString>
-              </gmd:individualName>
+              <gmd:individualName><gco:CharacterString>Jane Doe</gco:CharacterString></gmd:individualName>
               <gmd:organisationName>
                 <gco:CharacterString>National Snow and Ice Data Center</gco:CharacterString>
               </gmd:organisationName>
@@ -199,9 +197,7 @@
       </gmd:pointOfContact>
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
-          <gmd:individualName>
-            <gco:CharacterString>Frank J. Wentz</gco:CharacterString>
-          </gmd:individualName>
+          <gmd:individualName><gco:CharacterString>Frank J. Wentz</gco:CharacterString></gmd:individualName>
           <gmd:organisationName>
             <gco:CharacterString>Remote Sensing Systems</gco:CharacterString>
           </gmd:organisationName>
@@ -263,9 +259,7 @@
       </gmd:pointOfContact>
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
-          <gmd:individualName>
-            <gco:CharacterString>Marilyn Walker</gco:CharacterString>
-          </gmd:individualName>
+          <gmd:individualName><gco:CharacterString>Marilyn Walker</gco:CharacterString></gmd:individualName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
               <gmd:phone>
@@ -326,9 +320,7 @@
       </gmd:pointOfContact>
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
-          <gmd:individualName>
-            <gco:CharacterString>Gene R. Major</gco:CharacterString>
-          </gmd:individualName>
+          <gmd:individualName><gco:CharacterString>Gene R. Major</gco:CharacterString></gmd:individualName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
               <gmd:onlineResource>
@@ -349,9 +341,7 @@
       </gmd:pointOfContact>
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
-          <gmd:individualName>
-            <gco:CharacterString>Gene R. Major</gco:CharacterString>
-          </gmd:individualName>
+          <gmd:individualName><gco:CharacterString>Gene R. Major</gco:CharacterString></gmd:individualName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
               <gmd:onlineResource>

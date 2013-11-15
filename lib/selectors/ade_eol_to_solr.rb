@@ -94,7 +94,6 @@ EOL = {
   },
     facet_author: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
-      format: IsoToSolrFormat::FACET_AUTHOR,
       multivalue: true,
       unique: true
   }

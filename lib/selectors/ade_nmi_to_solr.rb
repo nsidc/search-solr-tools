@@ -83,7 +83,6 @@ NMI = {
   },
   facet_author: {
     xpaths: [''],
-    format: IsoToSolrFormat::FACET_AUTHOR,
     multivalue: true,
     unique: true
   }
