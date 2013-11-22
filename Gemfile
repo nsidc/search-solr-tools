@@ -14,7 +14,7 @@ gem 'guard-rubocop'
 gem 'guard-rspec'
 gem 'rb-readline'
 gem 'gi_cat_driver', '~> 0.3.0'
-gem 'nsidc_git_workflow', '~> 0.9.0'
+gem 'nsidc_git_workflow', '~> 0.10.0'
 
 # to use the debugger:
 # - uncomment gems below
