@@ -29,6 +29,7 @@ EOL = {
   authors: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
       multivalue: true,
+      unique: true,
       format: proc do |node|
                 matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
                 matches ? node.xpath('./gmd:organisationName/gco:CharacterString') : ''
@@ -92,9 +93,13 @@ EOL = {
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: false
   },
-    facet_author: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
-      multivalue: true,
-      unique: true
+  facet_author: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
+    multivalue: true,
+    unique: true,
+    format: proc do |node|
+              matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
+              matches ? node.xpath('./gmd:organisationName/gco:CharacterString') : ''
+            end
   }
 }
