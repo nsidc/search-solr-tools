@@ -9,7 +9,6 @@ module IsoToSolrFormat
 
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet node }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet node }
-  FACET_AUTHOR = proc { |node| IsoToSolrFormat.get_author_facet node }
 
   def self.date_str(date)
     d = if date.is_a? String
@@ -56,11 +55,6 @@ module IsoToSolrFormat
     date_ranges = temporal_node.xpath('.//gmd:EX_TemporalExtent', IsoNamespaces.get_namespaces(temporal_node))
     duration = total_duration(date_ranges)
     facet = temporal_duration_range(duration)
-    facet
-  end
-
-  def self.get_author_facet(author_nodes)
-    facet = author_nodes.map { |author_node| author_node.text.strip }.uniq
     facet
   end
 
