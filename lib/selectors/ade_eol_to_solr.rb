@@ -91,7 +91,7 @@ EOL = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
-    multivalue: false
+    multivalue: true
   },
   facet_author: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],

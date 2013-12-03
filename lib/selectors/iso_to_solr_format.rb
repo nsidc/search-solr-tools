@@ -52,8 +52,7 @@ module IsoToSolrFormat
   end
 
   def self.get_temporal_duration_facet(temporal_node)
-    date_ranges = temporal_node.xpath('.//gmd:EX_TemporalExtent', IsoNamespaces.get_namespaces(temporal_node))
-    duration = total_duration(date_ranges)
+    duration = total_duration(temporal_node)
     facet = temporal_duration_range(duration)
     facet
   end
@@ -101,17 +100,15 @@ module IsoToSolrFormat
 
   def self.total_duration(date_ranges)
     max_duration = 0
-    date_ranges.each do |dr|
-      dr = date_range(dr)
+    dr = date_range(date_ranges)
 
-      unless dr[:start].empty?
-        start_date = Time.new(dr[:start])
-        end_date = dr[:end].empty? ? Time.now : Time.new(dr[:end])
+    unless dr[:start].empty?
+      start_date = Time.new(dr[:start])
+      end_date = dr[:end].empty? ? Time.now : Time.new(dr[:end])
 
-        # Time - Time returns seconds as a Float; we want the year as an integer
-        duration = ((end_date - start_date) / (60 * 60 * 24 * 365)).to_int
-        max_duration = duration if duration > max_duration
-      end
+      # Time - Time returns seconds as a Float; we want the year as an integer
+      duration = ((end_date - start_date) / (60.0 * 60 * 24 * 365)).to_int
+      max_duration = duration if duration > max_duration
     end
     max_duration
   end
