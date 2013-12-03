@@ -1,4 +1,3 @@
-require 'debugger'
 require 'date'
 require './lib/selectors/iso_namespaces'
 
