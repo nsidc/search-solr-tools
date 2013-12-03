@@ -122,9 +122,9 @@ NSIDC = {
     format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
   facet_temporal_duration: {
-    xpaths: ['.//gmd:extent'],
+    xpaths: ['.//gmd:EX_TemporalExtent'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
-    multivalue: false
+    multivalue: true
   },
   facet_author: {
     xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
