@@ -1,3 +1,4 @@
+require 'debugger'
 require 'date'
 require './lib/selectors/iso_namespaces'
 
@@ -99,7 +100,6 @@ module IsoToSolrFormat
   end
 
   def self.total_duration(date_ranges)
-    max_duration = 0
     dr = date_range(date_ranges)
 
     unless dr[:start].empty?
@@ -107,10 +107,9 @@ module IsoToSolrFormat
       end_date = dr[:end].empty? ? Time.now : Time.new(dr[:end])
 
       # Time - Time returns seconds as a Float; we want the year as an integer
-      duration = ((end_date - start_date) / (60.0 * 60 * 24 * 365)).to_int
-      max_duration = duration if duration > max_duration
+      duration = ((end_date - start_date) / Float(60 * 60 * 24 * 365)).to_int
     end
-    max_duration
+    duration
   end
 
   def self.temporal_duration_range(temporal_duration)
