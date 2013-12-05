@@ -73,7 +73,7 @@ DRYAD = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Dryad Digital Repository'],
+      default_values: ['Dryad Digital Repository | Dryad'],
       multivalue: false
   },
   facet_spatial_coverage: {

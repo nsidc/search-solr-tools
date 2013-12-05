@@ -80,7 +80,7 @@ EOL = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'],
+      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility | UCAR/NCAR EOL-CDS'],
       multivalue: false
   },
   facet_spatial_coverage: {

@@ -113,7 +113,7 @@ NSIDC = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['National Snow and Ice Data Center'],
+      default_values: ['National Snow and Ice Data Center | NSIDC'],
       multivalue: true
   },
   facet_spatial_coverage: {

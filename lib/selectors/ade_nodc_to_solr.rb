@@ -71,7 +71,7 @@ NODC = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['NOAA National Oceanographic Data Center'],
+      default_values: ['NOAA National Oceanographic Data Center | NOAA NODC'],
       multivalue: false
   },
   facet_spatial_coverage: {
