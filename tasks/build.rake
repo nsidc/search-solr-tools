@@ -36,7 +36,7 @@ namespace :build do
       File.open(deployment_log, 'w') { |f| f.write('buildVersion=') }
     end
     version_in_list = nil
-    File.open('deployable_version_staging', 'r') { |f| version_in_list = f.read =~ /[=,]#{version_id}\,/ }
+    File.open(deployment_log, 'r') { |f| version_in_list = f.read =~ /[=,]#{version_id}\,/ }
     if !version_in_list
       puts "Adding version #{version_id} to #{deployment_log}"
       `sed -i "s/buildVersion=/buildVersion=#{version_id},/" #{deployment_log}`
