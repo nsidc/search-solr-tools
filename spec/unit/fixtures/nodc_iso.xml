@@ -1,140 +1,184 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<gmd:MD_Metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dm="http://floraresearch.eu/sdi/services/7.0/dataModel/schema" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:ns15="http://quakeml.org/xmlns/quakeml/1.2" xmlns:ns3="http://www.geoviqua.org/QualityInformationModel/3.1" xmlns:ns4="http://quakeml.org/xmlns/bed/1.2" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:wrs="http://www.opengis.net/cat/wrs/1.0" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<gmd:MD_Metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dm="http://floraresearch.eu/sdi/services/7.0/dataModel/schema" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:ns15="http://quakeml.org/xmlns/quakeml/1.2" xmlns:ns3="http://www.geoviqua.org/QualityInformationModel/3.1" xmlns:ns4="http://quakeml.org/xmlns/bed/1.2" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:wrs="http://www.opengis.net/cat/wrs/1.0" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd">
   <gmd:fileIdentifier>
-    <gco:CharacterString>AVHRR_Pathfinder-NODC-L3C-v5.2</gco:CharacterString>
+    <gco:CharacterString>gov.noaa.nodc:9900244
+    </gco:CharacterString>
   </gmd:fileIdentifier>
   <gmd:parentIdentifier>
-    <gco:CharacterString>UUID-473fd3d5-791e-4e9e-a079-57d7d3cda987</gco:CharacterString>
+    <gco:CharacterString>UUID-473fd3d5-791e-4e9e-a079-57d7d3cda987
+    </gco:CharacterString>
   </gmd:parentIdentifier>
+  <gmd:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8" codeSpace="004">utf8
+    </gmd:MD_CharacterSetCode>
+  </gmd:characterSet>
   <gmd:hierarchyLevel>
-    <gmd:MD_ScopeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+    <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml" codeListValue="dataset" codeSpace="005">dataset
+    </gmd:MD_ScopeCode>
   </gmd:hierarchyLevel>
+  <gmd:hierarchyLevelName>
+    <gco:CharacterString>dataset
+    </gco:CharacterString>
+  </gmd:hierarchyLevelName>
   <gmd:contact>
     <gmd:CI_ResponsibleParty>
       <gmd:individualName>
-        <gco:CharacterString>Sheri Phillips</gco:CharacterString>
+        <gco:CharacterString>Robert Evans</gco:CharacterString>
       </gmd:individualName>
       <gmd:organisationName>
-        <gco:CharacterString>DOC/NOAA/NESDIS/NODC &gt; National Oceanographic Data Center, NESDIS, NOAA, U.S. Department of Commerce</gco:CharacterString>
+        <gco:CharacterString>University of Miami Rosenstiel School of Marine and Atmospheric Science</gco:CharacterString>
       </gmd:organisationName>
+      <gmd:positionName>
+        <gco:CharacterString>Research Professor</gco:CharacterString>
+      </gmd:positionName>
       <gmd:contactInfo>
         <gmd:CI_Contact>
           <gmd:phone>
             <gmd:CI_Telephone>
               <gmd:voice>
-                <gco:CharacterString>(301) 713-3280 x127</gco:CharacterString>
+                <gco:CharacterString>(305)421-4799</gco:CharacterString>
+              </gmd:voice>
+            </gmd:CI_Telephone>
+          </gmd:phone>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:deliveryPoint>
+                <gco:CharacterString>4600 Rickenbacker Causeway</gco:CharacterString>
+              </gmd:deliveryPoint>
+              <gmd:city>
+                <gco:CharacterString>Miami</gco:CharacterString>
+              </gmd:city>
+              <gmd:administrativeArea>
+                <gco:CharacterString>FL</gco:CharacterString>
+              </gmd:administrativeArea>
+              <gmd:postalCode>
+                <gco:CharacterString>33149</gco:CharacterString>
+              </gmd:postalCode>
+              <gmd:electronicMailAddress>
+                <gco:CharacterString>revans@rsmas.miami.edu</gco:CharacterString>
+              </gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+          <gmd:hoursOfService>
+            <gco:CharacterString>9 - 5 EST</gco:CharacterString>
+          </gmd:hoursOfService>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+    <gmd:CI_ResponsibleParty>
+      <gmd:organisationName>
+        <gco:CharacterString>NOAA National Oceanographic Data Center
+        </gco:CharacterString>
+      </gmd:organisationName>
+      <gmd:positionName>
+        <gco:CharacterString>Data Officer
+        </gco:CharacterString>
+      </gmd:positionName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:phone>
+            <gmd:CI_Telephone>
+              <gmd:voice>
+                <gco:CharacterString>301-713-3272
+                </gco:CharacterString>
               </gmd:voice>
               <gmd:facsimile>
-                <gco:CharacterString>(301) 713-3302</gco:CharacterString>
+                <gco:CharacterString>301-713-3302
+                </gco:CharacterString>
               </gmd:facsimile>
             </gmd:CI_Telephone>
           </gmd:phone>
           <gmd:address>
             <gmd:CI_Address>
               <gmd:deliveryPoint>
-                <gco:CharacterString>SSMC3, 1315 East-West Highway, Mail Code E/OC1</gco:CharacterString>
+                <gco:CharacterString>1315 East-West Highway, SSMC 3, 4th floor
+                </gco:CharacterString>
               </gmd:deliveryPoint>
               <gmd:city>
-                <gco:CharacterString>Silver Spring</gco:CharacterString>
+                <gco:CharacterString>Silver Spring
+                </gco:CharacterString>
               </gmd:city>
               <gmd:administrativeArea>
-                <gco:CharacterString>MD</gco:CharacterString>
+                <gco:CharacterString>MD
+                </gco:CharacterString>
               </gmd:administrativeArea>
               <gmd:postalCode>
-                <gco:CharacterString>20910-3282</gco:CharacterString>
+                <gco:CharacterString>20910-3282
+                </gco:CharacterString>
               </gmd:postalCode>
               <gmd:country>
-                <gco:CharacterString>USA</gco:CharacterString>
+                <gco:CharacterString>U.S.A.
+                </gco:CharacterString>
               </gmd:country>
               <gmd:electronicMailAddress>
-                <gco:CharacterString>Sheri.Phillips@noaa.gov</gco:CharacterString>
+                <gco:CharacterString>NODC.DataOfficer@noaa.gov
+                </gco:CharacterString>
               </gmd:electronicMailAddress>
             </gmd:CI_Address>
           </gmd:address>
-          <gmd:hoursOfService>
-            <gco:CharacterString>10:00 - 18:00 EST</gco:CharacterString>
-          </gmd:hoursOfService>
+          <gmd:onlineResource>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage>
+                <gmd:URL>http://www.nodc.noaa.gov/
+                </gmd:URL>
+              </gmd:linkage>
+              <gmd:protocol>
+                <gco:CharacterString>HTTP
+                </gco:CharacterString>
+              </gmd:protocol>
+              <gmd:name>
+                <gco:CharacterString>NOAA National Oceanographic Data Center website
+                </gco:CharacterString>
+              </gmd:name>
+              <gmd:description>
+                <gco:CharacterString>Main NODC website providing links to the NODC Geoportal and access links to data and data services.
+                </gco:CharacterString>
+              </gmd:description>
+              <gmd:function>
+                <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information" codeSpace="002">information
+                </gmd:CI_OnLineFunctionCode>
+              </gmd:function>
+            </gmd:CI_OnlineResource>
+          </gmd:onlineResource>
         </gmd:CI_Contact>
       </gmd:contactInfo>
       <gmd:role>
-        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian" codeSpace="002">custodian
+        </gmd:CI_RoleCode>
       </gmd:role>
     </gmd:CI_ResponsibleParty>
   </gmd:contact>
   <gmd:dateStamp>
-    <gco:Date>2013-07-15</gco:Date>
+    <gco:Date>2013-07-15T00:00:00Z</gco:Date>
   </gmd:dateStamp>
   <gmd:metadataStandardName>
-    <gco:CharacterString>ISO 19115-2 Geographic Information - Metadata Part 2 Extensions for imagery and gridded data</gco:CharacterString>
+    <gco:CharacterString>ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data
+    </gco:CharacterString>
   </gmd:metadataStandardName>
   <gmd:metadataStandardVersion>
-    <gco:CharacterString>ISO 19115-2:2009(E)</gco:CharacterString>
+    <gco:CharacterString>ISO 19115-2:2009(E)
+    </gco:CharacterString>
   </gmd:metadataStandardVersion>
-  <gmd:spatialRepresentationInfo>
-    <gmd:MD_Georectified>
-      <gmd:numberOfDimensions>
-        <gco:Integer>3</gco:Integer>
-      </gmd:numberOfDimensions>
-      <gmd:axisDimensionProperties>
-        <gmd:MD_Dimension>
-          <gmd:dimensionName>
-            <gmd:MD_DimensionNameTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="column">column</gmd:MD_DimensionNameTypeCode>
-          </gmd:dimensionName>
-          <gmd:dimensionSize>
-            <gco:Integer>8640</gco:Integer>
-          </gmd:dimensionSize>
-          <gmd:resolution>
-            <gco:Measure uom="degreesPerPixel">0.0417</gco:Measure>
-          </gmd:resolution>
-        </gmd:MD_Dimension>
-      </gmd:axisDimensionProperties>
-      <gmd:axisDimensionProperties>
-        <gmd:MD_Dimension>
-          <gmd:dimensionName>
-            <gmd:MD_DimensionNameTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="row">row</gmd:MD_DimensionNameTypeCode>
-          </gmd:dimensionName>
-          <gmd:dimensionSize>
-            <gco:Integer>4320</gco:Integer>
-          </gmd:dimensionSize>
-          <gmd:resolution>
-            <gco:Measure uom="degreesPerPixel">0.0417</gco:Measure>
-          </gmd:resolution>
-        </gmd:MD_Dimension>
-      </gmd:axisDimensionProperties>
-      <gmd:axisDimensionProperties>
-        <gmd:MD_Dimension>
-          <gmd:dimensionName>
-            <gmd:MD_DimensionNameTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="vertical">vertical</gmd:MD_DimensionNameTypeCode>
-          </gmd:dimensionName>
-          <gmd:dimensionSize>
-            <gco:Integer>1</gco:Integer>
-          </gmd:dimensionSize>
-          <gmd:resolution/>
-        </gmd:MD_Dimension>
-      </gmd:axisDimensionProperties>
-      <gmd:cellGeometry>
-        <gmd:MD_CellGeometryCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_CellGeometryCode" codeListValue="area">area</gmd:MD_CellGeometryCode>
-      </gmd:cellGeometry>
-      <gmd:transformationParameterAvailability gco:nilReason="unknown"/>
-      <gmd:checkPointAvailability gco:nilReason="unknown"/>
-      <gmd:cornerPoints gco:nilReason="unknown"/>
-      <gmd:pointInPixel gco:nilReason="unknown"/>
-    </gmd:MD_Georectified>
-  </gmd:spatialRepresentationInfo>
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title>
-            <gco:CharacterString>AVHRR Pathfinder Version 5.2 Level 3 Collated (L3C) Global 4km Sea Surface Temperature for 1981-2011</gco:CharacterString>
+            <gco:CharacterString>DEPTH - OBSERVATION and Other Data from POLARSTERN and Other Platforms from 19240804 to 19991124 (NODC Accession 9900244)
+            </gco:CharacterString>
           </gmd:title>
           <gmd:date>
             <gmd:CI_Date>
               <gmd:date>
-                <gco:Date>2013-07-15</gco:Date>
+                <gco:Date>2011-07-21
+                </gco:Date>
               </gmd:date>
               <gmd:dateType>
-                <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" codeSpace="002">publication
+                </gmd:CI_DateTypeCode>
               </gmd:dateType>
             </gmd:CI_Date>
           </gmd:date>
@@ -142,470 +186,139 @@
             <gmd:MD_Identifier>
               <gmd:authority>
                 <gmd:CI_Citation>
-                  <gmd:title gco:nilReason="unknown"/>
-                  <gmd:date gco:nilReason="unknown"/>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:organisationName>
-                        <gco:CharacterString>DOC/NOAA/NESDIS/NODC &gt; National Oceanographic Data Center, NESDIS, NOAA, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:organisationName>
-                      <gmd:contactInfo>
-                        <gmd:CI_Contact>
-                          <gmd:address>
-                            <gmd:CI_Address>
-                              <gmd:deliveryPoint>
-                                <gco:CharacterString>1315 East West Highway, SSMC3, E/OC1</gco:CharacterString>
-                              </gmd:deliveryPoint>
-                              <gmd:city>
-                                <gco:CharacterString>Silver Spring</gco:CharacterString>
-                              </gmd:city>
-                              <gmd:administrativeArea>
-                                <gco:CharacterString>MD</gco:CharacterString>
-                              </gmd:administrativeArea>
-                              <gmd:country>
-                                <gco:CharacterString>USA</gco:CharacterString>
-                              </gmd:country>
-                              <gmd:electronicMailAddress>
-                                <gco:CharacterString>NODC.Services@noaa.gov</gco:CharacterString>
-                              </gmd:electronicMailAddress>
-                            </gmd:CI_Address>
-                          </gmd:address>
-                          <gmd:onlineResource>
-                            <gmd:CI_OnlineResource>
-                              <gmd:linkage>
-                                <gmd:URL>http://pathfinder.nodc.noaa.gov</gmd:URL>
-                              </gmd:linkage>
-                            </gmd:CI_OnlineResource>
-                          </gmd:onlineResource>
-                        </gmd:CI_Contact>
-                      </gmd:contactInfo>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
+                  <gmd:title>
+                    <gco:CharacterString>NOAA/NODC
+                    </gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date gco:nilReason="inapplicable"/>
                 </gmd:CI_Citation>
               </gmd:authority>
               <gmd:code>
-                <gco:CharacterString>AVHRR_Pathfinder-NODC-L3C-v5.2</gco:CharacterString>
+                <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/9900244" xlink:title="NODC Accession">9900244
+                </gmx:Anchor>
               </gmd:code>
             </gmd:MD_Identifier>
           </gmd:identifier>
           <gmd:citedResponsibleParty>
             <gmd:CI_ResponsibleParty>
               <gmd:individualName>
-                <gco:CharacterString>Kenneth S. Casey</gco:CharacterString>
+                <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/person/details/1159">Foote
+                </gmx:Anchor>
               </gmd:individualName>
-              <gmd:organisationName>
-                <gco:CharacterString>DOC/NOAA/NESDIS/NODC &gt; National Oceanographic Data Center, NESDIS, NOAA, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:organisationName>
-              <gmd:contactInfo>
-                <gmd:CI_Contact>
-                  <gmd:address>
-                    <gmd:CI_Address>
-                      <gmd:electronicMailAddress>
-                        <gco:CharacterString>Kenneth.Casey@noaa.gov</gco:CharacterString>
-                      </gmd:electronicMailAddress>
-                    </gmd:CI_Address>
-                  </gmd:address>
-                </gmd:CI_Contact>
-              </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="resourceProvider" codeSpace="001">resourceProvider
+                </gmd:CI_RoleCode>
               </gmd:role>
             </gmd:CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:organisationName>
+                <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/953">Department of Fisheries and Oceans; Integrated Science Data Management
+                </gmx:Anchor>
+              </gmd:organisationName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>613-990-6065
+                        </gco:CharacterString>
+                      </gmd:voice>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>Department of Fisheries and Oceans; W12082 - 200 Kent Street
+                        </gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>OTTAWA
+                        </gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>ONTARIO
+                        </gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>K1A 0E6
+                        </gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>CANADA
+                        </gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>services@meds-sdmm.dfo-mpo.gc.ca
+                        </gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                  <gmd:onlineResource>
+                    <gmd:CI_OnlineResource>
+                      <gmd:linkage>
+                        <gmd:URL>http://www.meds-sdmm.dfo-mpo.gc.ca/meds/Home_e.htm
+                        </gmd:URL>
+                      </gmd:linkage>
+                    </gmd:CI_OnlineResource>
+                  </gmd:onlineResource>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="resourceProvider" codeSpace="001">resourceProvider
+                </gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_PresentationFormCode" codeListValue="tableDigital" codeSpace="011">tableDigital
+            </gmd:CI_PresentationFormCode>
+          </gmd:presentationForm>
         </gmd:CI_Citation>
       </gmd:citation>
       <gmd:abstract>
-        <gco:CharacterString>The AVHRR Pathfinder Version 5.2 Sea Surface Temperature data set (PFV52) is a collection of global, [snip]</gco:CharacterString>
+        <gco:CharacterString>
+          Soil pore water collected from various drained thaw lake basins near Barrow, AK was analyzed for dissolved carbon dioxide and methane. Soil water samples (0-10 cm depth) were collected using Rhizon soil moisture samplers and dissolved gases were measured by GC analysis of the headspace.
+        </gco:CharacterString>
       </gmd:abstract>
-      <gmd:credit>
-        <gco:CharacterString>Please acknowledge the use of these data with the following statement: These data were provided by GHRSST and the US National Oceanographic Data Center.</gco:CharacterString>
-      </gmd:credit>
-      <gmd:graphicOverview>
-        <gmd:MD_BrowseGraphic>
-          <gmd:fileName>
-            <gco:CharacterString>http://data.nodc.noaa.gov/nodc/archive/metadata/approved/graphics/pfv52_browsegraphic.jpg</gco:CharacterString>
-          </gmd:fileName>
-          <gmd:fileDescription>
-            <gco:CharacterString>A graphic view of a day image from Pathfinder V5.2 data</gco:CharacterString>
-          </gmd:fileDescription>
-          <gmd:fileType>
-            <gco:CharacterString>JPEG</gco:CharacterString>
-          </gmd:fileType>
-        </gmd:MD_BrowseGraphic>
-      </gmd:graphicOverview>
+      <gmd:purpose>
+        <gco:CharacterString>BASIC RESEARCH
+        </gco:CharacterString>
+      </gmd:purpose>
+      <gmd:status>
+        <gmd:MD_ProgressCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="completed" codeSpace="001">completed
+        </gmd:MD_ProgressCode>
+      </gmd:status>
+      <gmd:resourceMaintenance>
+        <gmd:MD_MaintenanceInformation>
+          <gmd:maintenanceAndUpdateFrequency>
+            <gmd:MD_MaintenanceFrequencyCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded" codeSpace="009">asNeeded
+            </gmd:MD_MaintenanceFrequencyCode>
+          </gmd:maintenanceAndUpdateFrequency>
+        </gmd:MD_MaintenanceInformation>
+      </gmd:resourceMaintenance>
       <gmd:descriptiveKeywords>
         <gmd:MD_Keywords>
           <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/319">SEA SURFACE TEMPERATURE</gmx:Anchor>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/9900244">9900244
+            </gmx:Anchor>
           </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
-          </gmd:type>
           <gmd:thesaurusName>
             <gmd:CI_Citation>
               <gmd:title>
-                <gco:CharacterString>NODC DATA TYPES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/94">AVHRR &gt; Advanced Very High Resolution Radiometer</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/121">AVHRR-GAC</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="instrument">instrument</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC INSTRUMENT TYPES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/obstype/details/20">satellite data</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/obstype/details/14">physical</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC OBSERVATION TYPES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/10632">NOAA-7 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="gco:CharacterString">NOAA-9 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/2350">3101 - NOAA-11 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7052">3277 - NOAA-14 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/10468">NOAA-16 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/10614">NOAA-17 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/10633">NOAA-18 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/11370">NOAA-19 SATELLITE</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="platform">platform</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC PLATFORM NAMES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/project/details/385">GHRSST</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/project/details/367">PATHFINDER</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="project">project</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC PROJECT NAMES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/717">Rosenstiel School of Marine and Atmospheric Science</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/295">US DOC; NOAA; NESDIS; National Oceanographic Data Center</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/1258">US DOC; NOAA; NESDIS; National Climatic Data Center</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC COLLECTING INSTITUTION NAMES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/295">US DOC; NOAA; NESDIS; NATIONAL OCEANOGRAPHIC DATA CENTER</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC SUBMITTING INSTITUTION NAMES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/seaname/details/179">World-Wide Distribution</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NODC SEA AREA NAMES THESAURUS</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gco:CharacterString>Geographic Region &gt; Global Ocean</gco:CharacterString>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName xlink:title="NASA/GCMD Location Keywords">
-            <gmd:CI_Citation uuid="9f0de6e3-428b-11df-9879-0800200c9a66">
-              <gmd:title>
-                <gco:CharacterString>NASA/GCMD Location Keywords</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-              <gmd:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://dx.doi.org/10.7289/V5WD3XHB" xlink:title="DOI">doi:10.7289/V5WD3XHB</gmx:Anchor>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmd:identifier>
-              <gmd:citedResponsibleParty xlink:title="GCMD User Support Office">
-                <gmd:CI_ResponsibleParty uuid="8294BEE08B11359FE040AC8C5AB460D1" xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd">
-                  <gmd:organisationName>
-                    <gco:CharacterString>NASA Global Change Master Directory (GCMD) User Support Office</gco:CharacterString>
-                  </gmd:organisationName>
-                  <gmd:contactInfo>
-                    <gmd:CI_Contact>
-                      <gmd:phone gco:nilReason="missing"/>
-                      <gmd:address>
-                        <gmd:CI_Address>
-                          <gmd:deliveryPoint>
-                            <gco:CharacterString>NASA Global Change Master Directory, Goddard Space Flight Center</gco:CharacterString>
-                          </gmd:deliveryPoint>
-                          <gmd:city>
-                            <gco:CharacterString>Greenbelt</gco:CharacterString>
-                          </gmd:city>
-                          <gmd:administrativeArea>
-                            <gco:CharacterString>MD</gco:CharacterString>
-                          </gmd:administrativeArea>
-                          <gmd:postalCode>
-                            <gco:CharacterString>20771</gco:CharacterString>
-                          </gmd:postalCode>
-                          <gmd:country>
-                            <gco:CharacterString>USA</gco:CharacterString>
-                          </gmd:country>
-                          <gmd:electronicMailAddress>
-                            <gco:CharacterString>gcmduso@gcmd.gsfc.nasa.gov</gco:CharacterString>
-                          </gmd:electronicMailAddress>
-                        </gmd:CI_Address>
-                      </gmd:address>
-                      <gmd:onlineResource>
-                        <gmd:CI_OnlineResource uuid="5e4e9d00-4288-11df-9879-0800200c9a66">
-                          <gmd:linkage>
-                            <gmd:URL>http://gcmd.nasa.gov/index.html</gmd:URL>
-                          </gmd:linkage>
-                          <gmd:protocol>
-                            <gco:CharacterString>http</gco:CharacterString>
-                          </gmd:protocol>
-                          <gmd:applicationProfile>
-                            <gco:CharacterString>web browser</gco:CharacterString>
-                          </gmd:applicationProfile>
-                          <gmd:name>
-                            <gco:CharacterString>NASA Global Change Master Directory</gco:CharacterString>
-                          </gmd:name>
-                          <gmd:description>
-                            <gco:CharacterString>Home Page</gco:CharacterString>
-                          </gmd:description>
-                          <gmd:function>
-                            <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
-                          </gmd:function>
-                        </gmd:CI_OnlineResource>
-                      </gmd:onlineResource>
-                      <gmd:contactInstructions>
-                        <gco:CharacterString>http://gcmd.nasa.gov/MailComments/MailComments.jsf?rcpt=gcmduso</gco:CharacterString>
-                      </gmd:contactInstructions>
-                    </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</gmd:CI_RoleCode>
-                  </gmd:role>
-                </gmd:CI_ResponsibleParty>
-              </gmd:citedResponsibleParty>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gco:CharacterString>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</gco:CharacterString>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName xlink:title="NASA/GCMD Science Keywords">
-            <gmd:CI_Citation uuid="227737d0-428b-11df-9879-0800200c9a66">
-              <gmd:title>
-                <gco:CharacterString>NASA/GCMD Science Keywords</gco:CharacterString>
-              </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
-              <gmd:citedResponsibleParty xlink:title="GCMD User Support Office">
-                <gmd:CI_ResponsibleParty uuid="8294BEE08B11359FE040AC8C5AB460D1" xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd">
-                  <gmd:organisationName>
-                    <gco:CharacterString>NASA Global Change Master Directory (GCMD) User Support Office</gco:CharacterString>
-                  </gmd:organisationName>
-                  <gmd:contactInfo>
-                    <gmd:CI_Contact>
-                      <gmd:phone gco:nilReason="missing"/>
-                      <gmd:address>
-                        <gmd:CI_Address>
-                          <gmd:deliveryPoint>
-                            <gco:CharacterString>NASA Global Change Master Directory, Goddard Space Flight Center</gco:CharacterString>
-                          </gmd:deliveryPoint>
-                          <gmd:city>
-                            <gco:CharacterString>Greenbelt</gco:CharacterString>
-                          </gmd:city>
-                          <gmd:administrativeArea>
-                            <gco:CharacterString>MD</gco:CharacterString>
-                          </gmd:administrativeArea>
-                          <gmd:postalCode>
-                            <gco:CharacterString>20771</gco:CharacterString>
-                          </gmd:postalCode>
-                          <gmd:country>
-                            <gco:CharacterString>USA</gco:CharacterString>
-                          </gmd:country>
-                          <gmd:electronicMailAddress>
-                            <gco:CharacterString>gcmduso@gcmd.gsfc.nasa.gov</gco:CharacterString>
-                          </gmd:electronicMailAddress>
-                        </gmd:CI_Address>
-                      </gmd:address>
-                      <gmd:onlineResource>
-                        <gmd:CI_OnlineResource uuid="5e4e9d00-4288-11df-9879-0800200c9a66">
-                          <gmd:linkage>
-                            <gmd:URL>http://gcmd.nasa.gov/index.html</gmd:URL>
-                          </gmd:linkage>
-                          <gmd:protocol>
-                            <gco:CharacterString>http</gco:CharacterString>
-                          </gmd:protocol>
-                          <gmd:applicationProfile>
-                            <gco:CharacterString>web browser</gco:CharacterString>
-                          </gmd:applicationProfile>
-                          <gmd:name>
-                            <gco:CharacterString>NASA Global Change Master Directory</gco:CharacterString>
-                          </gmd:name>
-                          <gmd:description>
-                            <gco:CharacterString>Home Page</gco:CharacterString>
-                          </gmd:description>
-                          <gmd:function>
-                            <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
-                          </gmd:function>
-                        </gmd:CI_OnlineResource>
-                      </gmd:onlineResource>
-                      <gmd:contactInstructions>
-                        <gco:CharacterString>http://gcmd.nasa.gov/MailComments/MailComments.jsf?rcpt=gcmduso</gco:CharacterString>
-                      </gmd:contactInstructions>
-                    </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</gmd:CI_RoleCode>
-                  </gmd:role>
-                </gmd:CI_ResponsibleParty>
-              </gmd:citedResponsibleParty>
-            </gmd:CI_Citation>
-          </gmd:thesaurusName>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords>
-          <gmd:keyword>
-            <gco:CharacterString>climatologyMeteorologyAtmosphere</gco:CharacterString>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gco:CharacterString>oceans</gco:CharacterString>
-          </gmd:keyword>
-          <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
-          </gmd:type>
-          <gmd:thesaurusName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>ISO 19115 Topic Category</gco:CharacterString>
+                <gco:CharacterString>NODC ACCESSION NUMBER
+                </gco:CharacterString>
               </gmd:title>
               <gmd:date>
                 <gmd:CI_Date>
                   <gmd:date>
-                    <gco:Date>2009-01-01</gco:Date>
+                    <gco:Date>2011-07-21
+                    </gco:Date>
                   </gmd:date>
                   <gmd:dateType>
-                    <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="revision"/>
+                    <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" codeSpace="002">publication
+                    </gmd:CI_DateTypeCode>
                   </gmd:dateType>
                 </gmd:CI_Date>
               </gmd:date>
@@ -616,32 +329,168 @@
       <gmd:descriptiveKeywords>
         <gmd:MD_Keywords>
           <gmd:keyword>
-            <gco:CharacterString>sea_surface_skin_temperature</gco:CharacterString>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/3">AIR TEMPERATURE
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gco:CharacterString>wind_speed</gco:CharacterString>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/381">AIR TEMPERATURE - WET BULB
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gco:CharacterString>sea_ice_area_fraction</gco:CharacterString>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/5">ALKALINITY
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gco:CharacterString>time</gco:CharacterString>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/10">AMMONIA
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gco:CharacterString>latitude</gco:CharacterString>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/38">BAROMETRIC PRESSURE
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gco:CharacterString>longitude</gco:CharacterString>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/61">CARBON - TOTAL ORGANIC
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/83">CHLOROPHYLL A
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/91">CONDUCTIVITY
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/110">DEPTH - OBSERVATION
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/114">DISSOLVED ORGANIC CARBON
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/116">DISSOLVED OXYGEN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/147">FLUORESCENCE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/160">HYDROCARBONS - TOTAL RESOLVED
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/589">HYDROSTATIC PRESSURE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/209">LIGHT ATTENUATION
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/223">NITRATE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/226">NITRITE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/252">PCB
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/260">PHAEOPIGMENTS
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/263">PHOSPHATE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/307">SALINITY
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/333">SILICATE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/335">SOLAR RADIATION - ATMOSPHERIC
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/337">SOUND VELOCITY
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/383">TIDE HEIGHT
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/384">TIDE STAGE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/385">TOTAL CARBON
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/388">TOTAL PHOSPHORUS
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/500">WATER DENSITY
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/400">WATER DEPTH
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/373">WATER TEMPERATURE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/420">WAVE HEIGHT
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/423">WAVE PERIOD
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/431">WIND DIRECTION
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/437">WIND SPEED
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/257">pH
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/366">suspended solids
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/datatype/details/393">turbidity
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="005">theme
+            </gmd:MD_KeywordTypeCode>
           </gmd:type>
           <gmd:thesaurusName>
             <gmd:CI_Citation>
               <gmd:title>
-                <gco:CharacterString>NetCDF Climate and Forecast (CF) Metadata Convention</gco:CharacterString>
+                <gco:CharacterString>NODC DATA TYPES THESAURUS
+                </gco:CharacterString>
               </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
+              <gmd:date gco:nilReason="inapplicable"/>
             </gmd:CI_Citation>
           </gmd:thesaurusName>
         </gmd:MD_Keywords>
@@ -649,107 +498,317 @@
       <gmd:descriptiveKeywords>
         <gmd:MD_Keywords>
           <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0071185">0071185</gmx:Anchor>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/8">CTD
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073577">0073577</gmx:Anchor>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/4">bathythermograph - BT
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073578">0073578</gmx:Anchor>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/19">bathythermograph - MBT
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073579">0073579</gmx:Anchor>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/48">bathythermograph - XBT
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073580">0073580</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073581">0073581</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073582">0073582</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073583">0073583</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073584">0073584</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073585">0073585</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073586">0073586</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073587">0073587</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073588">0073588</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073589">0073589</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073590">0073590</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073591">0073591</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073592">0073592</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073593">0073593</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073594">0073594</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073595">0073595</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073596">0073596</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073597">0073597</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073598">0073598</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073599">0073599</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073600">0073600</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073601">0073601</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073602">0073602</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073603">0073603</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073604">0073604</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0073605">0073605</gmx:Anchor>
-          </gmd:keyword>
-          <gmd:keyword>
-            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://accession.nodc.noaa.gov/0099811">0099811</gmx:Anchor>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/insttype/details/3">bottle
+            </gmx:Anchor>
           </gmd:keyword>
           <gmd:type>
-            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="instrument">instrument
+            </gmd:MD_KeywordTypeCode>
           </gmd:type>
           <gmd:thesaurusName>
             <gmd:CI_Citation>
               <gmd:title>
-                <gco:CharacterString>NODC ACCESSION</gco:CharacterString>
+                <gco:CharacterString>NODC INSTRUMENT TYPES THESAURUS
+                </gco:CharacterString>
               </gmd:title>
-              <gmd:date gco:nilReason="unknown"/>
+              <gmd:date gco:nilReason="inapplicable"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/obstype/details/14">physical
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/obstype/details/18">profile
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/obstype/details/24">time series
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/obstype/details/25">tows
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="005">theme
+            </gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>NODC OBSERVATION TYPES THESAURUS
+                </gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="inapplicable"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7039">ALBATROSS IV
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7044">ATLANTIS  1931-9/63
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/834">BAFFIN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/6455">BELOGORSK
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1470">CHAIN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/879">DAWSON
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7038">DELAWARE II
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1512">DOLPHIN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/8401">GREBE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/918">HUDSON
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/921">ICE STATION
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/917">J. L. HART
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/9004">MARTHA L. BLACK
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/6587">MUSSON
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/9002">OPILIO
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/996">PANDALUS
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1014">PANDORA II
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/6012">PANULIRUS II
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1013">PARIZEAU
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/9007">PIERRE RADISSON
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/6644">PINRO
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/226">POLARSTERN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7383">R.B. YOUNG
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1051">SACKVILLE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/9003">SAMBRO
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7388">SIR JOHN FRANKLIN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/7584">SIR WILFRID LAURIER
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1092">UNKNOWN PLATFORMS OF CANADA
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/1517">USCGC DUANE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/6703">VIKTOR BUGAYEV
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform/details/2584">WOLVERINE
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="platform">platform
+            </gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>NODC PLATFORM NAMES THESAURUS
+                </gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="inapplicable"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/953">Department of Fisheries and Oceans; Integrated Science Data Management
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/295">US DOC; NOAA; NESDIS; National Oceanographic Data Center
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/643">Unknown - No Country Designation Available
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="dataCenter">dataCenter
+            </gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>NODC COLLECTING INSTITUTION NAMES THESAURUS
+                </gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="inapplicable"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/institution/details/953">Department of Fisheries and Oceans; Integrated Science Data Management
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="dataCenter">dataCenter
+            </gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>NODC SUBMITTING INSTITUTION NAMES THESAURUS
+                </gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="inapplicable"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/project/details/65">Global Temperature-Salinity Profile Program
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gmx:Anchor xlink:actuate="onRequest" xlink:href="http://www.nodc.noaa.gov/cgi-bin/OAS/prd/project/details/270">UNKNOWN
+            </gmx:Anchor>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="project">project
+            </gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>NODC PROJECT NAMES THESAURUS
+                </gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="inapplicable"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>oceanography
+            </gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="005">theme
+            </gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>WMO_CategoryCode
+                </gco:CharacterString>
+              </gmd:title>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>2012-09-15
+                    </gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication
+                    </gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
             </gmd:CI_Citation>
           </gmd:thesaurusName>
         </gmd:MD_Keywords>
@@ -757,582 +816,109 @@
       <gmd:resourceConstraints>
         <gmd:MD_Constraints>
           <gmd:useLimitation>
-            <gco:CharacterString>Cite as: Casey, Kenneth S., Evans, Robert H., Baringer, Warner, Kilpatrick, Katherine A., Podesta, Guillermo P., Walsh, Susan, Williams, Elizabeth, Brandon, Tess B., Byrne, Deirdre A., Foti, Gregg, Li, Yuanjie, Phillips, Sheri A., Zhang, Dexin, and Zhang, Yongsheng (2011): AVHRR Pathfinder Version 5.2 Level 3 Collated (L3C) Global 4km Sea Surface Temperature for 1981-2011. National Oceanographic Data Center, NOAA. Dataset. doi:10.7289/V5WD3XHB [access date]</gco:CharacterString>
-          </gmd:useLimitation>
-          <gmd:otherConstraints>
-            <gco:CharacterString>
-              None
+            <gco:CharacterString>Cite as: Foote, and Department of Fisheries and Oceans; Integrated Science Data Management (2011): DEPTH - OBSERVATION and Other Data from POLARSTERN and Other Platforms from 19240804 to 19991124 (NODC Accession 9900244). National Oceanographic Data Center, NOAA. [access date].
             </gco:CharacterString>
-          </gmd:otherConstraints>
+          </gmd:useLimitation>
+        </gmd:MD_Constraints>
+      </gmd:resourceConstraints>
+      <gmd:resourceConstraints>
+        <gmd:MD_Constraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>Please note: NOAA and NODC make no warranty, expressed or implied, regarding these data, nor does the fact of distribution constitute such a warranty. NOAA and NODC cannot assume liability for any damages caused by any errors or omissions in these data.
+            </gco:CharacterString>
+          </gmd:useLimitation>
         </gmd:MD_Constraints>
       </gmd:resourceConstraints>
       <gmd:resourceConstraints>
         <gmd:MD_LegalConstraints>
-          <gmd:useLimitation>
-            <gco:CharacterString>Cite as: Casey, Kenneth S., Evans, Robert H., Baringer, Warner, Kilpatrick, Katherine A., Podesta, Guillermo P., Walsh, Susan, Williams, Elizabeth, Brandon, Tess B., Byrne, Deirdre A., Foti, Gregg, Li, Yuanjie, Phillips, Sheri A., Zhang, Dexin, and Zhang, Yongsheng (2011): AVHRR Pathfinder Version 5.2 Level 3 Collated (L3C) Global 4km Sea Surface Temperature for 1981-2011. National Oceanographic Data Center, NOAA. Dataset. doi:10.7289/V5WD3XHB [access date]</gco:CharacterString>
-          </gmd:useLimitation>
+          <gmd:accessConstraints>
+            <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions">otherRestrictions
+            </gmd:MD_RestrictionCode>
+          </gmd:accessConstraints>
           <gmd:otherConstraints>
-            <gco:CharacterString>
-              None
+            <gco:CharacterString>None.
             </gco:CharacterString>
           </gmd:otherConstraints>
         </gmd:MD_LegalConstraints>
       </gmd:resourceConstraints>
-      <gmd:aggregationInfo>
-        <gmd:MD_AggregateInformation>
-          <gmd:aggregateDataSetName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>Group for High Resolution SST</gco:CharacterString>
-              </gmd:title>
-              <gmd:date/>
-            </gmd:CI_Citation>
-          </gmd:aggregateDataSetName>
-          <gmd:associationType>
-            <gmd:DS_AssociationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_AssociationTypeCode" codeListValue="largerWorkCitation">largerWorkCitation</gmd:DS_AssociationTypeCode>
-          </gmd:associationType>
-          <gmd:initiativeType>
-            <gmd:DS_InitiativeTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_InitiativeTypeCode" codeListValue="project">project</gmd:DS_InitiativeTypeCode>
-          </gmd:initiativeType>
-        </gmd:MD_AggregateInformation>
-      </gmd:aggregationInfo>
-      <gmd:aggregationInfo>
-        <gmd:MD_AggregateInformation>
-          <gmd:aggregateDataSetName>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>NOAA Climate Data Record Program</gco:CharacterString>
-              </gmd:title>
-              <gmd:date/>
-            </gmd:CI_Citation>
-          </gmd:aggregateDataSetName>
-          <gmd:associationType>
-            <gmd:DS_AssociationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_AssociationTypeCode" codeListValue="largerWorkCitation">largerWorkCitation</gmd:DS_AssociationTypeCode>
-          </gmd:associationType>
-          <gmd:initiativeType>
-            <gmd:DS_InitiativeTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_InitiativeTypeCode" codeListValue="program">program</gmd:DS_InitiativeTypeCode>
-          </gmd:initiativeType>
-        </gmd:MD_AggregateInformation>
-      </gmd:aggregationInfo>
-      <gmd:aggregationInfo>
-        <gmd:MD_AggregateInformation>
-          <gmd:aggregateDataSetIdentifier>
-            <gmd:MD_Identifier>
-              <gmd:authority>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Unidata Common Data Model</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date gco:nilReason="unknown"/>
-                </gmd:CI_Citation>
-              </gmd:authority>
-              <gmd:code>
-                <gco:CharacterString>grid</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmd:aggregateDataSetIdentifier>
-          <gmd:associationType>
-            <gmd:DS_AssociationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_AssociationTypeCode" codeListValue="largerWorkCitation">collection</gmd:DS_AssociationTypeCode>
-          </gmd:associationType>
-          <gmd:initiativeType>
-            <gmd:DS_InitiativeTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_InitiativeTypeCode" codeListValue="collection">collection</gmd:DS_InitiativeTypeCode>
-          </gmd:initiativeType>
-        </gmd:MD_AggregateInformation>
-      </gmd:aggregationInfo>
-      <gmd:spatialRepresentationType>
-        <gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_SpatialRepresentationTypeCode" codeListValue="grid">grid</gmd:MD_SpatialRepresentationTypeCode>
-      </gmd:spatialRepresentationType>
       <gmd:language>
-        <gco:CharacterString>eng</gco:CharacterString>
+        <gco:CharacterString>eng; USA
+        </gco:CharacterString>
       </gmd:language>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>oceans
+        </gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>environment
+        </gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
       <gmd:extent>
         <gmd:EX_Extent id="boundingExtent">
           <gmd:geographicElement>
-            <gmd:EX_GeographicBoundingBox>
+            <gmd:EX_GeographicBoundingBox id="boundingGeographicBoundingBox">
               <gmd:westBoundLongitude>
-                <gco:Decimal>-180</gco:Decimal>
+                <gco:Decimal>-124.2</gco:Decimal>
               </gmd:westBoundLongitude>
               <gmd:eastBoundLongitude>
-                <gco:Decimal>180</gco:Decimal>
+                <gco:Decimal>-144.2</gco:Decimal>
               </gmd:eastBoundLongitude>
               <gmd:southBoundLatitude>
-                <gco:Decimal>-90</gco:Decimal>
+                <gco:Decimal>0.3</gco:Decimal>
               </gmd:southBoundLatitude>
               <gmd:northBoundLatitude>
-                <gco:Decimal>90</gco:Decimal>
+                <gco:Decimal>86.1</gco:Decimal>
               </gmd:northBoundLatitude>
             </gmd:EX_GeographicBoundingBox>
           </gmd:geographicElement>
-          <gmd:geographicElement>
-            <gmd:EX_GeographicDescription>
-              <gmd:geographicIdentifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>Global Ocean</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmd:geographicIdentifier>
-            </gmd:EX_GeographicDescription>
-          </gmd:geographicElement>
           <gmd:temporalElement>
-            <gmd:EX_TemporalExtent>
+            <gmd:EX_TemporalExtent id="boundingTemporalExtent">
               <gmd:extent>
-                <gml:TimePeriod gml:id="boundingTimePeriod">
-                  <gml:beginPosition>19810824</gml:beginPosition>
-                  <gml:endPosition>20111231</gml:endPosition>
+                <gml:TimePeriod gml:id="boundingTemporalExtentPeriod">
+                  <gml:beginPosition>1924-08-04
+                  </gml:beginPosition>
+                  <gml:endPosition>1999-11-24
+                  </gml:endPosition>
                 </gml:TimePeriod>
               </gmd:extent>
             </gmd:EX_TemporalExtent>
           </gmd:temporalElement>
-          <gmd:verticalElement>
-            <gmd:EX_VerticalExtent>
-              <gmd:minimumValue/>
-              <gmd:maximumValue/>
-              <gmd:verticalCRS gco:nilReason="unknown"/>
-            </gmd:EX_VerticalExtent>
-          </gmd:verticalElement>
         </gmd:EX_Extent>
       </gmd:extent>
       <gmd:supplementalInformation>
-        <gco:CharacterString>The purpose of this data set is to provide sea surface temperature data and related parameters with good temporal consistency, high accuracy and spatial resolution, and for archive and distribution through the NOAA National Oceanographic Data Center (NODC). This SST data collection is intended primarily for climate related applications and studies and is produced with partial support from the NOAA Climate Data Record Program. The Pathfinder Version 5.2 data set follows the international format, content and metadata standard defined by the Group for High Resolution Sea Surface Temperature (GHRSST) in the GHRSST Data Specification Version 2.0 (GDS2.0). These data deviate from that standard only in that sses_bias, sses_standard_deviation, and sst_dtime variables are empty. The GDS2.0 Technical Specifications document can be downloaded from the GHRSST Project Office at https://www.ghrsst.org/documents/q/category/gds-documents/operational/.</gco:CharacterString>
+        <gco:CharacterString>Note: Metadata for this accession were extracted from a legacy database
+        maintained by the U.S. National Oceanographic Data Center (NODC).  The
+        design of the database did not exactly reflect the FGDC Content
+        Standard for Digital Geospatial Metadata (CSDGM).
+        Principal Investigator (PI) and organization contact information
+        accurately represents all available information from the legacy database
+        at the time that this description was created. However, proper
+        attribution of a PI to a specific institution or the role (submitting or
+        collecting) taken by an institution may not be correct due to inexact
+        mapping between fields in the legacy database and the CSDGM. Due to this
+        uncertainty, the contact information was initially recorded in the
+        Supplemental Information element of the CSDGM description.
+        To develop more accurate metadata, the NODC reviews metadata for all
+        accessions on an ongoing basis.
+        Points of contact for this data set include:
+        Contact info:
+        Agency: MARINE ENVIRONMENTAL DATA SERVICE
+        PI: Foote
+        Address:
+        address: NOT AVAILABLE
+        city: OTTAWA
+        state: NOT AVAILABLE
+        postal: NOT AVAILABLE
+        country: CANADA
+        Contact info:
+        Agency: US DOC; NOAA; NESDIS; NATIONAL OCEANOGRAPHIC DATA CENTER
+        Address:
+        </gco:CharacterString>
       </gmd:supplementalInformation>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
-  <gmd:contentInfo>
-    <gmd:MD_CoverageDescription>
-      <gmd:attributeDescription gco:nilReason="unknown"/>
-      <gmd:contentType gco:nilReason="unknown"/>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>sea_surface_temperature</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int16</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>NOAA Climate Data Record of sea surface skin temperature</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#kelvin"/>
-          <gmd:scaleFactor>
-            <gco:Real>0.01</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>273.15</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>sst_dtime</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int32</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>time difference from reference time</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#seconds"/>
-          <gmd:scaleFactor>
-            <gco:Real>1.0</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>sses_bias</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>SSES bias estimate</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#kelvin"/>
-          <gmd:scaleFactor>
-            <gco:Real>0.02</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>sses_standard_deviation</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>SSES standard deviation</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#kelvin"/>
-          <gmd:scaleFactor>
-            <gco:Real>0.02</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>2.54</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>dt_analysis</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>Deviation from last SST analysis</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#kelvin"/>
-          <gmd:scaleFactor>
-            <gco:Real>0.1</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>aerosol_dynamic_indicator</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>aerosol optical thickness</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#none"/>
-          <gmd:scaleFactor>
-            <gco:Real>1.0</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>adi_dtime_from_sst</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int32</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>time difference of aerosol dynamic indicator from SST</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#hours"/>
-          <gmd:scaleFactor>
-            <gco:Real>1.0</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>wind_speed</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>10m wind speed</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#metersPerSecond"/>
-          <gmd:scaleFactor>
-            <gco:Real>1.0</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>sea_ice_fraction</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>sea ice fraction</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#none"/>
-          <gmd:scaleFactor>
-            <gco:Real>0.01</gco:Real>
-          </gmd:scaleFactor>
-          <gmd:offset>
-            <gco:Real>0</gco:Real>
-          </gmd:offset>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>quality_level</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>SST measurement quality</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue>
-            <gco:Real>5</gco:Real>
-          </gmd:maxValue>
-          <gmd:minValue>
-            <gco:Real>1</gco:Real>
-          </gmd:minValue>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>pathfinder_quality_level</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int8</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>Pathfinder SST quality flag</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue>
-            <gco:Real>7</gco:Real>
-          </gmd:maxValue>
-          <gmd:minValue>
-            <gco:Real>0</gco:Real>
-          </gmd:minValue>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>l2p_flags</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int16</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>L2P flags</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>time</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>int32</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>reference time</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue/>
-          <gmd:minValue/>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#seconds_since_1981-01-01"/>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>lat</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>single</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>latitude</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue>
-            <gco:Real>90</gco:Real>
-          </gmd:maxValue>
-          <gmd:minValue>
-            <gco:Real>-90</gco:Real>
-          </gmd:minValue>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#degrees_north"/>
-        </gmi:MI_Band>
-      </gmd:dimension>
-      <gmd:dimension>
-        <gmi:MI_Band>
-          <gmd:sequenceIdentifier>
-            <gco:MemberName>
-              <gco:aName>
-                <gco:CharacterString>lon</gco:CharacterString>
-              </gco:aName>
-              <gco:attributeType>
-                <gco:TypeName>
-                  <gco:aName>
-                    <gco:CharacterString>single</gco:CharacterString>
-                  </gco:aName>
-                </gco:TypeName>
-              </gco:attributeType>
-            </gco:MemberName>
-          </gmd:sequenceIdentifier>
-          <gmd:descriptor>
-            <gco:CharacterString>longitude</gco:CharacterString>
-          </gmd:descriptor>
-          <gmd:maxValue>
-            <gco:Real>180</gco:Real>
-          </gmd:maxValue>
-          <gmd:minValue>
-            <gco:Real>-180</gco:Real>
-          </gmd:minValue>
-          <gmd:units xlink:actuate="onRequest" xlink:href="http://TBD_UnitsDictionary#degrees_east"/>
-        </gmi:MI_Band>
-      </gmd:dimension>
-    </gmd:MD_CoverageDescription>
-  </gmd:contentInfo>
   <gmd:identificationInfo>
-    <srv:SV_ServiceIdentification xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd">
+    <srv:SV_ServiceIdentification xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:srv="http://www.isotc211.org/2005/srv">
       <gmd:citation/>
       <gmd:abstract/>
       <srv:serviceType/>
@@ -1347,79 +933,86 @@
           <gmd:distributorContact>
             <gmd:CI_ResponsibleParty>
               <gmd:organisationName>
-                <gco:CharacterString>DOC/NOAA/NODC &gt; National Oceanographic Data Center, NOAA, U.S. Department of Commerce</gco:CharacterString>
+                <gco:CharacterString>NOAA National Oceanographic Data Center
+                </gco:CharacterString>
               </gmd:organisationName>
+              <gmd:positionName>
+                <gco:CharacterString>NODC User Services
+                </gco:CharacterString>
+              </gmd:positionName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:phone>
                     <gmd:CI_Telephone>
                       <gmd:voice>
-                        <gco:CharacterString>(301) 713-3277</gco:CharacterString>
+                        <gco:CharacterString>301-713-3277 x148
+                        </gco:CharacterString>
                       </gmd:voice>
                       <gmd:facsimile>
-                        <gco:CharacterString>(301) 713-3302</gco:CharacterString>
+                        <gco:CharacterString>301-713-3302
+                        </gco:CharacterString>
                       </gmd:facsimile>
                     </gmd:CI_Telephone>
                   </gmd:phone>
                   <gmd:address>
                     <gmd:CI_Address>
                       <gmd:deliveryPoint>
-                        <gco:CharacterString>SSMC3, 1315 East West Highway</gco:CharacterString>
+                        <gco:CharacterString>1315 East-West Highway, SSMC 3, 4th floor
+                        </gco:CharacterString>
                       </gmd:deliveryPoint>
                       <gmd:city>
-                        <gco:CharacterString>Silver Spring</gco:CharacterString>
+                        <gco:CharacterString>Silver Spring
+                        </gco:CharacterString>
                       </gmd:city>
                       <gmd:administrativeArea>
-                        <gco:CharacterString>MD</gco:CharacterString>
+                        <gco:CharacterString>Maryland
+                        </gco:CharacterString>
                       </gmd:administrativeArea>
                       <gmd:postalCode>
-                        <gco:CharacterString>20910-3282</gco:CharacterString>
+                        <gco:CharacterString>20910-3282
+                        </gco:CharacterString>
                       </gmd:postalCode>
                       <gmd:country>
-                        <gco:CharacterString>USA</gco:CharacterString>
+                        <gco:CharacterString>U.S.A.
+                        </gco:CharacterString>
                       </gmd:country>
                       <gmd:electronicMailAddress>
-                        <gco:CharacterString>NODC.Services@noaa.gov</gco:CharacterString>
+                        <gco:CharacterString>NODC.Services@noaa.gov
+                        </gco:CharacterString>
                       </gmd:electronicMailAddress>
                     </gmd:CI_Address>
                   </gmd:address>
                   <gmd:hoursOfService>
-                    <gco:CharacterString>9:00 - 5:00 EST</gco:CharacterString>
+                    <gco:CharacterString>8:30-6:00 PM, EST
+                    </gco:CharacterString>
                   </gmd:hoursOfService>
-                  <gmd:contactInstructions>
-                    <gco:CharacterString>Phone/E-mail/letter. NODC provides data free of charge.</gco:CharacterString>
-                  </gmd:contactInstructions>
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="distributor">distributor</gmd:CI_RoleCode>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007">pointOfContact
+                </gmd:CI_RoleCode>
               </gmd:role>
             </gmd:CI_ResponsibleParty>
           </gmd:distributorContact>
           <gmd:distributionOrderProcess>
             <gmd:MD_StandardOrderProcess>
               <gmd:fees>
-                <gco:CharacterString>For digital delivery, free for all users. For delivery on physical media, users are responsible for the cost of the physical media and production and delivery of the product.</gco:CharacterString>
+                <gco:CharacterString>Digital data may be downloaded from NODC at no charge in most cases. For custom orders of digital data or to obtain a copy of analog materials, please contact NODC User Services for information about current fees.
+                </gco:CharacterString>
               </gmd:fees>
-              <gmd:plannedAvailableDateTime>
-                <gco:DateTime>2011-06-01T00:00:00</gco:DateTime>
-              </gmd:plannedAvailableDateTime>
-              <gmd:turnaround>
-                <gco:CharacterString>Delivery of physical media occurs within 1 to 2 weeks, but may take longer for large orders.</gco:CharacterString>
-              </gmd:turnaround>
+              <gmd:orderingInstructions>
+                <gco:CharacterString>Data may be searched and downloaded using online services provided by the NODC using the online resource URLs in this record. Contact NODC User Services for custom orders. When requesting data from the NODC, the desired data set may be referred to by the NODC Accession Number listed in this metadata record.
+                </gco:CharacterString>
+              </gmd:orderingInstructions>
             </gmd:MD_StandardOrderProcess>
           </gmd:distributionOrderProcess>
           <gmd:distributorFormat>
             <gmd:MD_Format>
               <gmd:name>
-                <gco:CharacterString>netCDF</gco:CharacterString>
+                <gco:CharacterString>Originator data format
+                </gco:CharacterString>
               </gmd:name>
-              <gmd:version>
-                <gco:CharacterString>netCDF-4</gco:CharacterString>
-              </gmd:version>
-              <gmd:fileDecompressionTechnique>
-                <gco:CharacterString>Files are compressed internally using netCDF4.</gco:CharacterString>
-              </gmd:fileDecompressionTechnique>
+              <gmd:version gco:nilReason="unknown"/>
             </gmd:MD_Format>
           </gmd:distributorFormat>
           <gmd:distributorTransferOptions>
@@ -1427,22 +1020,24 @@
               <gmd:onLine>
                 <gmd:CI_OnlineResource>
                   <gmd:linkage>
-                    <gmd:URL>http://data.nodc.noaa.gov/pathfinder/Version5.2/</gmd:URL>
+                    <gmd:URL>ftp://ftp.nodc.noaa.gov/nodc/archive/arc0001/9900244/
+                    </gmd:URL>
                   </gmd:linkage>
                   <gmd:protocol>
-                    <gco:CharacterString>http</gco:CharacterString>
+                    <gco:CharacterString>FTP
+                    </gco:CharacterString>
                   </gmd:protocol>
                   <gmd:applicationProfile>
-                    <gco:CharacterString>web browser</gco:CharacterString>
+                    <gco:CharacterString>Any FTP client
+                    </gco:CharacterString>
                   </gmd:applicationProfile>
-                  <gmd:name>
-                    <gco:CharacterString>NODC HTTP server</gco:CharacterString>
-                  </gmd:name>
                   <gmd:description>
-                    <gco:CharacterString>Navigate to URL: http://data.nodc.noaa.gov/pathfinder/Version5.2/ and begin browsing through the file hierarchy. Clicking on any of the files will prompt you to download that file or will launch any application associated with netCDF files.</gco:CharacterString>
+                    <gco:CharacterString>These data are available through the File Transfer Protocol (FTP). The base URL of NODC's FTP server is ftp://ftp.nodc.noaa.gov/ and you may use any FTP client to download these data.
+                    </gco:CharacterString>
                   </gmd:description>
                   <gmd:function>
-                    <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download">download</gmd:CI_OnLineFunctionCode>
+                    <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download" codeSpace="001">download
+                    </gmd:CI_OnLineFunctionCode>
                   </gmd:function>
                 </gmd:CI_OnlineResource>
               </gmd:onLine>
@@ -1453,940 +1048,55 @@
               <gmd:onLine>
                 <gmd:CI_OnlineResource>
                   <gmd:linkage>
-                    <gmd:URL>ftp://ftp.nodc.noaa.gov/pub/data.nodc/pathfinder/Version5.2/</gmd:URL>
+                    <gmd:URL>http://accession.nodc.noaa.gov/download/9900244
+                    </gmd:URL>
                   </gmd:linkage>
                   <gmd:protocol>
-                    <gco:CharacterString>ftp</gco:CharacterString>
+                    <gco:CharacterString>HTTP
+                    </gco:CharacterString>
                   </gmd:protocol>
                   <gmd:applicationProfile>
-                    <gco:CharacterString>Any FTP client</gco:CharacterString>
+                    <gco:CharacterString>Standard Internet browser
+                    </gco:CharacterString>
                   </gmd:applicationProfile>
-                  <gmd:name>
-                    <gco:CharacterString>NODC FTP server</gco:CharacterString>
-                  </gmd:name>
                   <gmd:description>
-                    <gco:CharacterString>Navigate to URL: ftp://ftp.nodc.noaa.gov/pub/data.nodc/pathfinder/Version5.2/ to download.</gco:CharacterString>
+                    <gco:CharacterString>Navigate directly to the URL for data access and direct download.
+                    </gco:CharacterString>
                   </gmd:description>
                   <gmd:function>
-                    <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download">download</gmd:CI_OnLineFunctionCode>
+                    <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download" codeSpace="001">download
+                    </gmd:CI_OnLineFunctionCode>
                   </gmd:function>
                 </gmd:CI_OnlineResource>
               </gmd:onLine>
-            </gmd:MD_DigitalTransferOptions>
-          </gmd:distributorTransferOptions>
-          <gmd:distributorTransferOptions>
-            <gmd:MD_DigitalTransferOptions>
-              <gmd:onLine>
-                <gmd:CI_OnlineResource>
-                  <gmd:linkage>
-                    <gmd:URL>http://data.nodc.noaa.gov/thredds/catalog/pathfinder/Version5.2/catalog.html</gmd:URL>
-                  </gmd:linkage>
-                  <gmd:protocol>
-                    <gco:CharacterString>thredds</gco:CharacterString>
-                  </gmd:protocol>
-                  <gmd:applicationProfile>
-                    <gco:CharacterString>Various</gco:CharacterString>
-                  </gmd:applicationProfile>
-                  <gmd:name>
-                    <gco:CharacterString>NODC THREDDS server</gco:CharacterString>
-                  </gmd:name>
-                  <gmd:description>
-                    <gco:CharacterString>Thematic Realtime Environmental Distributed Data Services. Provides various web services for data access, including OPeNDAP, HTTP, Web Coverage Service, Web Mapping Service, as well as NCML and ISO views to the data.</gco:CharacterString>
-                  </gmd:description>
-                  <gmd:function>
-                    <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download">download</gmd:CI_OnLineFunctionCode>
-                  </gmd:function>
-                </gmd:CI_OnlineResource>
-              </gmd:onLine>
-            </gmd:MD_DigitalTransferOptions>
-          </gmd:distributorTransferOptions>
-          <gmd:distributorTransferOptions>
-            <gmd:MD_DigitalTransferOptions>
-              <gmd:onLine>
-                <gmd:CI_OnlineResource>
-                  <gmd:linkage>
-                    <gmd:URL>http://data.nodc.noaa.gov/las/getUI.do?dsid=testdata.pathfinderAgg.pathFinderV5.2_day.ncml&amp;varid=sea_surface_temperature-testdata.pathfinderAgg.pathFinderV5.2_day.ncml&amp;auto=true</gmd:URL>
-                  </gmd:linkage>
-                  <gmd:protocol>
-                    <gco:CharacterString>Live Access Server (LAS)</gco:CharacterString>
-                  </gmd:protocol>
-                  <gmd:applicationProfile>
-                    <gco:CharacterString>Various</gco:CharacterString>
-                  </gmd:applicationProfile>
-                  <gmd:name>
-                    <gco:CharacterString>NODC LAS server</gco:CharacterString>
-                  </gmd:name>
-                  <gmd:description>
-                    <gco:CharacterString>For data analysis and visualization</gco:CharacterString>
-                  </gmd:description>
-                  <gmd:function>
-                    <gmd:CI_OnLineFunctionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download">download</gmd:CI_OnLineFunctionCode>
-                  </gmd:function>
-                </gmd:CI_OnlineResource>
-              </gmd:onLine>
-            </gmd:MD_DigitalTransferOptions>
-          </gmd:distributorTransferOptions>
-          <gmd:distributorTransferOptions xlink:title="cdRom">
-            <gmd:MD_DigitalTransferOptions uuid="88771C4D-8254-9B60-E040-0AC8C5AB476AB">
-              <gmd:offLine>
-                <gmd:MD_Medium>
-                  <gmd:name>
-                    <gmd:MD_MediumNameCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MediumNameCode" codeListValue="cdRom">cdRom</gmd:MD_MediumNameCode>
-                  </gmd:name>
-                </gmd:MD_Medium>
-              </gmd:offLine>
-            </gmd:MD_DigitalTransferOptions>
-          </gmd:distributorTransferOptions>
-          <gmd:distributorTransferOptions xlink:title="dvd">
-            <gmd:MD_DigitalTransferOptions uuid="88771C4D-8259-9B60-E040-0AC8C5AB476AB">
-              <gmd:offLine>
-                <gmd:MD_Medium>
-                  <gmd:name>
-                    <gmd:MD_MediumNameCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MediumNameCode" codeListValue="dvd">dvd</gmd:MD_MediumNameCode>
-                  </gmd:name>
-                </gmd:MD_Medium>
-              </gmd:offLine>
-            </gmd:MD_DigitalTransferOptions>
-          </gmd:distributorTransferOptions>
-          <gmd:distributorTransferOptions xlink:title="IBM LTO Tape">
-            <gmd:MD_DigitalTransferOptions uuid="88771C4D-825E-9B60-E040-0AC8C5AB476AB">
-              <gmd:offLine>
-                <gmd:MD_Medium>
-                  <gmd:mediumNote>
-                    <gco:CharacterString>IBM LTO Tape</gco:CharacterString>
-                  </gmd:mediumNote>
-                </gmd:MD_Medium>
-              </gmd:offLine>
             </gmd:MD_DigitalTransferOptions>
           </gmd:distributorTransferOptions>
         </gmd:MD_Distributor>
       </gmd:distributor>
-      <gmd:transferOptions>
-        <gmd:MD_DigitalTransferOptions>
-          <gmd:onLine>
-            <gmd:CI_OnlineResource>
-              <gmd:linkage>
-                <gmd:URL>http://data.nodc.noaa.gov/nodc/archive/metadata/approved/graphics/pfv52_browsegraphic.jpg</gmd:URL>
-              </gmd:linkage>
-              <gmd:name>
-                <gco:CharacterString>Browse graphic</gco:CharacterString>
-              </gmd:name>
-              <gmd:description>
-                <gco:CharacterString>Browse graphic for sample data view</gco:CharacterString>
-              </gmd:description>
-            </gmd:CI_OnlineResource>
-          </gmd:onLine>
-        </gmd:MD_DigitalTransferOptions>
-      </gmd:transferOptions>
     </gmd:MD_Distribution>
   </gmd:distributionInfo>
-  <gmd:dataQualityInfo>
-    <gmd:DQ_DataQuality>
-      <gmd:scope xlink:href="#datasetScope"/>
-      <gmd:report>
-        <gmd:DQ_QuantitativeAttributeAccuracy>
-          <gmd:nameOfMeasure>
-            <gco:CharacterString>FGDC Attribute Accuracy Report</gco:CharacterString>
-          </gmd:nameOfMeasure>
-          <gmd:result>
-            <gmd:DQ_QuantitativeResult>
-              <gmd:valueUnit gco:nilReason="inapplicable"/>
-              <gmd:value>
-                <gco:Record>
-                  <gco:CharacterString>Quality indicators are provided for each data file within the quality_level, pathfinder_quality_level, and dt_analysis variables.</gco:CharacterString>
-                </gco:Record>
-              </gmd:value>
-            </gmd:DQ_QuantitativeResult>
-          </gmd:result>
-        </gmd:DQ_QuantitativeAttributeAccuracy>
-      </gmd:report>
-      <gmd:report>
-        <gmd:DQ_ConceptualConsistency>
-          <gmd:nameOfMeasure>
-            <gco:CharacterString>FGDC Logical Consistency Report</gco:CharacterString>
-          </gmd:nameOfMeasure>
-          <gmd:result>
-            <gmd:DQ_QuantitativeResult>
-              <gmd:valueUnit gco:nilReason="inapplicable"/>
-              <gmd:value>
-                <gco:Record>
-                  <gco:CharacterString>Files are run against the program (algorithm) MD5 to verify data integrity which generates a code, called an MD5 checksum. After files are transferred from one place to another, the program can be run on the file again and a new code generated. The old MD5 checksum code should be identical to the new MD5 checksum code. If not, the file was somehow corrupted during transfer (see original MD5 documentation at http://www.isi.edu/in-notes/rfc1321.txt)</gco:CharacterString>
-                </gco:Record>
-              </gmd:value>
-            </gmd:DQ_QuantitativeResult>
-          </gmd:result>
-        </gmd:DQ_ConceptualConsistency>
-      </gmd:report>
-      <gmd:report>
-        <gmd:DQ_CompletenessOmission>
-          <gmd:nameOfMeasure>
-            <gco:CharacterString>FGDC Completeness Report</gco:CharacterString>
-          </gmd:nameOfMeasure>
-          <gmd:result>
-            <gmd:DQ_QuantitativeResult>
-              <gmd:valueUnit gco:nilReason="inapplicable"/>
-              <gmd:value>
-                <gco:Record>
-                  <gco:CharacterString>The SST data are nearly complete in the sense that a value is available for nearly every pixel, with the exception of some areas and times where some of the input low-level AVHRR data were missing from the archive. However, after application of the quality flag parameters, the SST fields have extensive gaps due to clouds and other factors which limit the quality of the observed SST. Additional masking information is stored in the l2p_flags variable, which contains bits encoded for the presence of land, sea ice, lakes, and rivers. These data were collected through the operational periods of the NOAA-7 through NOAA-19 Polar Operational Environmental Satellite (POES). A table listing which satellites were used in the generation of Pathfinder V5.0 data for specific dates is available online at: http://www.nodc.noaa.gov/sog/pathfinder4km/userguide.html.</gco:CharacterString>
-                </gco:Record>
-              </gmd:value>
-            </gmd:DQ_QuantitativeResult>
-          </gmd:result>
-        </gmd:DQ_CompletenessOmission>
-      </gmd:report>
-      <gmd:report>
-        <gmd:DQ_AbsoluteExternalPositionalAccuracy>
-          <gmd:nameOfMeasure>
-            <gco:CharacterString>FGDC Horizontal Positional Accuracy Report</gco:CharacterString>
-          </gmd:nameOfMeasure>
-          <gmd:result>
-            <gmd:DQ_QuantitativeResult>
-              <gmd:valueUnit gco:nilReason="inapplicable"/>
-              <gmd:value>
-                <gco:Record>
-                  <gco:CharacterString>The major sources of error in geo-locating AVHRR data are (a) drift in the spacecraft clock (which causes errors in the estimated along-track position), and (b) uncertainty errors in spacecraft and sensor attitude. (a) Clock Correction: To minimize error in the along track position estimated by the orbital model, a satellite clock correction factor is applied to the time code imbedded in each piece. The method used to determine these clock correction factors is presented below. The clock aboard a given satellite drifts continually at a relatively constant rate (e.g., for NOAA-14, ~9msday-1) compared to the reference clock on Earth. Because of this drift, the NOAA/NESDIS Satellite Operation Control Center periodically sends a command to the satellite to reset the on-board clock to a new baseline thereby eliminating the accumulation of a large time offset error between the Earth and satellite clocks.To correct for clock drift between these resets, correction factors were determined from a database of satellite clock time and Earth time offsets collected at the RSMAS High Resolution Picture Transmission (HRPT) receiving station. During HRPT transmission, both the satellite clock (used to create the embedded time code in each piece) and the Earth clock are simultaneously available. The clock correction bias was determined by (1) visual examination of the Earth/satellite clock differences collected in the database to locate the precise magnitude and timing of clock resets performed by the Satellite Operation Control Center and (2) recorded time differences between the identified reset periods were then filtered to remove spurious noise, and regressed against the corresponding satellite time to determine the clock drift correction. These drift corrections were then applied to all data time-stamped during a given reset period. Refer to Sea Surface Temperature Global Area Coverage (GAC) Processing Appendix A: Calibration and Navigation Correction Factors for a list of clock offsets for each NOAA spacecraft (http://www.rsmas.miami.edu/groups/rrsl/pathfinder/Processing/proc_app_a.html).(b) Attitude Corrections - After clock correction, a nominal attitude correction is then applied to minimize the uncertainty in regard to the direction in which the spacecraft is pointing. The nominal attitude correction applied was determined by averaging the absolute attitude of the spacecraft over many geographic locations and times along the orbital track. The method used to determine the absolute attitude of the spacecraft involves matching a digital coastal outline to a given image and recording the amount of pitch, yaw, and roll required to make the outline and land coincide. This method has the advantage that it can be performed over small geographical distances and is similar to other techniques which rely on widely separated geographical control points to anchor the navigation. The resultant navigation information, output by the SECTOR procedure for each piece, provides the mapping parameters needed to convert between the satellite perspective of pixel and scan line, and Earth-based latitude and longitude coordinates. Refer to Sea Surface Temperature Global Area Coverage (GAC) Processing Appendix A: Calibration and Navigation Correction Factors for attitude correction factors for each NOAA spacecraft (http://www.rsmas.miami.edu/groups/rrsl/pathfinder/Processing/proc_app_a.html).</gco:CharacterString>
-                </gco:Record>
-              </gmd:value>
-            </gmd:DQ_QuantitativeResult>
-          </gmd:result>
-        </gmd:DQ_AbsoluteExternalPositionalAccuracy>
-      </gmd:report>
-      <gmd:report>
-        <gmd:DQ_AbsoluteExternalPositionalAccuracy>
-          <gmd:nameOfMeasure>
-            <gco:CharacterString>FGDC Vertical Positional Accuracy Report</gco:CharacterString>
-          </gmd:nameOfMeasure>
-          <gmd:result>
-            <gmd:DQ_QuantitativeResult>
-              <gmd:valueUnit gco:nilReason="inapplicable"/>
-              <gmd:value gco:nilReason="inapplicable"/>
-            </gmd:DQ_QuantitativeResult>
-          </gmd:result>
-        </gmd:DQ_AbsoluteExternalPositionalAccuracy>
-      </gmd:report>
-    </gmd:DQ_DataQuality>
-  </gmd:dataQualityInfo>
-  <gmd:dataQualityInfo>
-    <gmd:DQ_DataQuality>
-      <gmd:scope>
-        <gmd:DQ_Scope>
-          <gmd:level>
-            <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
-          </gmd:level>
-        </gmd:DQ_Scope>
-      </gmd:scope>
-      <gmd:lineage>
-        <gmd:LI_Lineage>
-          <gmd:processStep>
-            <gmi:LE_ProcessStep id="rsmas">
-              <gmd:description>
-                <gco:CharacterString>Pathfinder Version 5.2 data are produced from Level 1b AVHRR Global Area Coverage (GAC) data using code based on the SeaDAS v6.1 processing environment. The output of this process is a collection of twice-daily, global Level 3 data files in HDF4 format. The process requires several important pieces of information, which are categorized by the following four overall steps in the Pathfinder processing system (steps A-D): A. Ingestion, calibration, and navigation of Global Area Coverage (GAC) data. Sub-steps: a. Calibrate and convert AVHRR digital counts for channels 1 through 5 to radiances - i. Obtain AVHRR channels 1 through 5 radiometer count data; ii. Channels 1 and 2 require pre-launch calibration coefficients for linear counts-to-radiance conversion, followed by a correction for temporal changes using sensor decay rate data and then a correction for inter-satellite differences using inter-satellite standardization data to the NOAA-9 reference, both of which use Libyan desert target area data; iii. Channels 3, 4, and 5 require both the pre-launch calibration data and onboard blackbody (space view and sensor base plate) data for non-linear counts-to-radiance conversion; b. Navigation, Clock, and Attitude Corrections; i. Satellite clock corrections need Earth time offset data based on RSMAS High-Resolution Picture Transmission data; ii. Attitude corrections are made using coastline comparison data; iii. At this point, navigated, calibrated albedos/brightness temperatures are available for all five channels. Note that channels 1-2 are not used in the Pathfinder SST algorithm, and channel 3 is used only in assignment of a quality indicator (see step B.d.i.). B. SST Calculation. Sub-steps: a. Channel 4 and 5 brightness temperatures are converted to SST in degrees C using the Pathfinder algorithm, which requires a set of monthly coefficients; b. These coefficients are derived using the Pathfinder Buoy Matchup Database. This is a set of in situ buoy SST observations and collocated AVHRR data; c. In addition, a first-guess SST field is needed by the algorithm. This first-guess field is the Reynolds Optimum Interpolation ¼-Degree Daily SST Analysis version 2 (DOISSTv2) product, with inland values populated from the AVHRR Pathfinder Version 5.0/5.1 daily climatological SST. (For more information on this reference field see http://accession.nodc.noaa.gov/0071185). Note: Pathfinder Version 5.0 used the Reynolds Weekly Global Optimally Interpolated SST Version 2 (OISSTv2); d. Quality Flag Assignment - i. A Channel 3, 4, and 5 brightness temperature test is performed. These data are already available from step A.a.iii; ii. The viewing angle is evaluated using a satellite zenith angle check; iii. A reference field comparison check is made against the Reynolds DOISSTv2 used in step B.c.; iv. A stray sunlight test is performed which requires information on whether the data in question are to left or right of nadir; v. An edge test is performed which checks the location of the pixel within a scan line and the location of the scan line within the processing piece (a 'piece' is a subset of an entire orbit file); vi. A glint test is performed which requires a glint index calculated according to the Cox and Munk (1954) formulation; vii. The preceding steps are all combined into an overall quality flag assignment for each pixel. C. Spatial Binning. Sub-steps: a. An equal-area grid is defined into which GAC pixels are binned. No external data are needed, only information on the equal-area binning strategy itself; b. A data-day is defined following a spatial data-day definition. See http://www.nodc.noaa.gov/sog/pathfinder4km/Data-day.pdf for a description of the spatial data-day definition, written by Guillermo Podesta, University of Miami RSMAS; c. A land mask is applied to the dataset, identifying pixels that fall on land. This land mask was generated by rasterizing the Global Self-consistent Hierarchical High-resolution Shoreline (GSHHS) Database from the NOAA National Geophysical Data Center. Any 4km Pathfinder pixel whose area is 50% or more covered by land is considered land in this land mask. Inland water bodies were incorporated into this land mask by rasterizing the US World Wildlife Fund's Global Lakes and Wetlands Database. Any 4km Pathfinder pixel whose area is 50% or more covered by lake or river was considered water for in this land mask. D. Temporal Binning. Sub-steps: a. The spatially binned pieces from step C are accumulated into a single ascending (daytime) or descending (nighttime) file for each day. In case of overlapping satellite passes, only the best pixels of equivalent quality are binned. No external information is needed, only information about the accumulation procedure itself; b. Fields are reprojected from equal-area to the 8640x4320 equal-angle grid.</gco:CharacterString>
-              </gmd:description>
-              <gmd:dateTime gco:nilReason="inapplicable"/>
-              <gmd:processor>
-                <gmd:CI_ResponsibleParty>
-                  <gmd:individualName>
-                    <gco:CharacterString>Robert Evans</gco:CharacterString>
-                  </gmd:individualName>
-                  <gmd:organisationName>
-                    <gco:CharacterString>University of Miami Rosenstiel School of Marine and Atmospheric Science</gco:CharacterString>
-                  </gmd:organisationName>
-                  <gmd:positionName>
-                    <gco:CharacterString>Research Professor</gco:CharacterString>
-                  </gmd:positionName>
-                  <gmd:contactInfo>
-                    <gmd:CI_Contact>
-                      <gmd:phone>
-                        <gmd:CI_Telephone>
-                          <gmd:voice>
-                            <gco:CharacterString>(305)421-4799</gco:CharacterString>
-                          </gmd:voice>
-                        </gmd:CI_Telephone>
-                      </gmd:phone>
-                      <gmd:address>
-                        <gmd:CI_Address>
-                          <gmd:deliveryPoint>
-                            <gco:CharacterString>4600 Rickenbacker Causeway</gco:CharacterString>
-                          </gmd:deliveryPoint>
-                          <gmd:city>
-                            <gco:CharacterString>Miami</gco:CharacterString>
-                          </gmd:city>
-                          <gmd:administrativeArea>
-                            <gco:CharacterString>FL</gco:CharacterString>
-                          </gmd:administrativeArea>
-                          <gmd:postalCode>
-                            <gco:CharacterString>33149</gco:CharacterString>
-                          </gmd:postalCode>
-                          <gmd:electronicMailAddress>
-                            <gco:CharacterString>revans@rsmas.miami.edu</gco:CharacterString>
-                          </gmd:electronicMailAddress>
-                        </gmd:CI_Address>
-                      </gmd:address>
-                      <gmd:hoursOfService>
-                        <gco:CharacterString>9 - 5 EST</gco:CharacterString>
-                      </gmd:hoursOfService>
-                    </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
-                  </gmd:role>
-                </gmd:CI_ResponsibleParty>
-              </gmd:processor>
-            </gmi:LE_ProcessStep>
-          </gmd:processStep>
-          <gmd:processStep>
-            <gmi:LE_ProcessStep id="nodc">
-              <gmd:description>
-                <gco:CharacterString>Twice-daily global L3 Pathfinder files in HDF4 are transferred from the University of Miami to the National Oceanographic Data Center, where they are converted into GDS2.0-compliant netCDF4. Details of this process are as follows: 1. Start time, end time, satellite ID, and orbit node (ascending or descending) are read from the input L3 HDF file and used to generate the name of the output netCDF file. (Note: The GDS2.0 standard requires the center time of collation to be the indicative time used in the filename for an L3C file.); 2. The reference time of the HDF file is converted to GDS2.0 "seconds since 1981-01-01 00:00:00" format and written to the netCDF file along with latitude and longitude values for the Pathfinder Version 5.2 grid; 3. Sea surface temperature data from the HDF "SST" file are written to the sea_surface_temperature variable in the netCDF file; 4. GDS2.0-required variables sst_dtime, sses_bias, and sses_standard_deviation are written to the netCDF file and populated with fill values. Note: Pathfinder Version 6.0 will contain actual values for these three variables; 5. Reference SST data from the corresponding HDF "REF" file are combined with the SST data to populate the dt_analysis variable in the netCDF file; 6. Wind speed data are written to the wind_speed variable in the netCDF file. These data are created by the NCEP-DOE Atmospheric Model Intercomparison Project (AMIP-II) reanalysis (R-2) and represent winds at 10 meters above the sea surface. They are interpolated to the Pathfinder Version 5.2 grid prior to processing; 7. Sea ice data are written to the sea_ice_fraction variable in the netCDF file. These data are taken from the EUMETSAT Ocean and Sea Ice Satellite Application Facility (OSISAF) Global Daily Sea Ice Concentration Reprocessing Data Set (http://accession.nodc.noaa.gov/0068294) when these data are available. The data are reprojected and interpolated from their original polar stereographic projection at 10km spatial resolution to the 4km Pathfinder Version 5.2 grid. When the OSISAF data are not available for both hemispheres on a given day, the sea ice concentration data are taken from the sea_ice_fraction variable found in the L4 GHRSST DailyOI SST product from NOAA/NCDC, and are interpolated from the 25km DailyOI grid to the 4km Pathfinder Version 5.2 grid; 8. Aerosol data are written to the aerosol_dynamic_indicator and adi_dtime_from_sst variables in the netCDF file. These data are pulled from three different sources and interpolated to the Pathfinder Version 5.2 grid prior to processing. For 1981-2000, AVHRR Pathfinder Atmospheres (PATMOS-A2) data from the NOAA Office of Satellite Data Processing and Distribution (OSDPD) are used. For 2003-2009, AVHRR Pathfinder Atmospheres - Extended (PATMOS-X) data from NOAA OSDPD are used. For 2001-2002 and 2010, data are taken from the OMI/Aura Aerosol Optical Depth and Single Scattering Albedo Daily L2 Global 0.25 degree gridded v003 product (OMAEROG), produced by the US NASA Goddard Earth Sciences Data and Information Services Center; 9. Original Pathfinder quality levels are read from the HDF file, mapped to the 6 quality levels required by the GDS2.0, and written to the variable quality_level in the netCDF file. The quality levels are as follows: GDS quality_level 5 = native Pathfinder quality level 7 == best_quality; GDS quality_level 4 = native Pathfinder quality_level 4-6 == acceptable_quality; GDS quality_level 3 = native Pathfinder quality level 2-3 == low_quality; GDS quality_level 2 = native Pathfinder quality level 1 == worst_quality; GDS quality_level 1 = native Pathfinder quality level 0 == bad_data; GDS quality_level 0 = native Pathfinder quality level -1 == missing_data; 10. The original Pathfinder quality level is written to the optional variable pathfinder_quality_level in the netCDF file; 11. River, lake, and land information from the Pathfinder Version 5.2 land mask, as well as sea ice presence information from the sea ice data described previously, are encoded in bits and written to the bit mask variable l2p_flags in the netCDF file; 12. Global attributes are written to the netCDF file according to GDS2.0 requirements; 13. Final AVHRR Pathfinder Version 5.2 data are quality assured through browse graphic generation and inspection. Upon completion of the quality assurance routines, the data are archived by the National Oceanographic Data Center and published online.</gco:CharacterString>
-              </gmd:description>
-              <gmd:dateTime gco:nilReason="inapplicable"/>
-              <gmd:processor>
-                <gmd:CI_ResponsibleParty>
-                  <gmd:individualName>
-                    <gco:CharacterString>Kenneth Casey</gco:CharacterString>
-                  </gmd:individualName>
-                  <gmd:organisationName>
-                    <gco:CharacterString>DOC/NOAA/NESDIS/NODC &gt; National Oceanographic Data Center, NESDIS, NOAA, U.S. Department of Commerce</gco:CharacterString>
-                  </gmd:organisationName>
-                  <gmd:positionName>
-                    <gco:CharacterString>Technical Director</gco:CharacterString>
-                  </gmd:positionName>
-                  <gmd:contactInfo>
-                    <gmd:CI_Contact>
-                      <gmd:phone>
-                        <gmd:CI_Telephone>
-                          <gmd:voice>
-                            <gco:CharacterString>(301)713-3272 x133</gco:CharacterString>
-                          </gmd:voice>
-                        </gmd:CI_Telephone>
-                      </gmd:phone>
-                      <gmd:address>
-                        <gmd:CI_Address>
-                          <gmd:deliveryPoint>
-                            <gco:CharacterString>1315 East West Highway, SSMC3 E/OC</gco:CharacterString>
-                          </gmd:deliveryPoint>
-                          <gmd:city>
-                            <gco:CharacterString>Silver Spring</gco:CharacterString>
-                          </gmd:city>
-                          <gmd:administrativeArea>
-                            <gco:CharacterString>MD</gco:CharacterString>
-                          </gmd:administrativeArea>
-                          <gmd:postalCode>
-                            <gco:CharacterString>20910</gco:CharacterString>
-                          </gmd:postalCode>
-                          <gmd:electronicMailAddress>
-                            <gco:CharacterString>Kenneth.Casey@noaa.gov</gco:CharacterString>
-                          </gmd:electronicMailAddress>
-                        </gmd:CI_Address>
-                      </gmd:address>
-                      <gmd:hoursOfService>
-                        <gco:CharacterString>7 - 4 EST</gco:CharacterString>
-                      </gmd:hoursOfService>
-                    </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
-                  </gmd:role>
-                </gmd:CI_ResponsibleParty>
-              </gmd:processor>
-            </gmi:LE_ProcessStep>
-          </gmd:processStep>
-        </gmd:LI_Lineage>
-      </gmd:lineage>
-    </gmd:DQ_DataQuality>
-  </gmd:dataQualityInfo>
-  <gmd:metadataConstraints>
-    <gmd:MD_LegalConstraints>
-      <gmd:useLimitation>
-        <gco:CharacterString>Disclaimer - While every effort has been made to ensure that these data are accurate and reliable within the limits of the current state of the art, NOAA cannot assume liability for any damages caused by any errors or omissions in the data, nor as a result of the failure of the data to function on a particular system. NOAA makes no warranty, expressed or implied, nor does the fact of distribution constitute such a warranty.</gco:CharacterString>
-      </gmd:useLimitation>
-    </gmd:MD_LegalConstraints>
-  </gmd:metadataConstraints>
   <gmd:metadataMaintenance>
     <gmd:MD_MaintenanceInformation>
       <gmd:maintenanceAndUpdateFrequency>
-        <gmd:MD_MaintenanceFrequencyCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded"/>
+        <gmd:MD_MaintenanceFrequencyCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded" codeSpace="009">asNeeded
+        </gmd:MD_MaintenanceFrequencyCode>
       </gmd:maintenanceAndUpdateFrequency>
-      <gmd:dateOfNextUpdate>
-        <gco:Date>20120610</gco:Date>
-      </gmd:dateOfNextUpdate>
       <gmd:maintenanceNote>
-        <gco:CharacterString>This record will be translated to FGDC for inclusion in NODC Web Accessible Folders.</gco:CharacterString>
+        <gco:CharacterString>Metadata are developed, maintained and distributed by the NODC. Updates are performed as needed to maintain currentness.
+        </gco:CharacterString>
       </gmd:maintenanceNote>
+      <gmd:contact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:organisationName>
+            <gco:CharacterString>DOC/NOAA/NESDIS/NODC > National Oceanographic Data Center, NESDIS, NOAA, U.S. Department of Commerce
+            </gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian" codeSpace="002">custodian
+            </gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:contact>
     </gmd:MD_MaintenanceInformation>
   </gmd:metadataMaintenance>
-  <gmi:acquisitionInformation>
-    <gmi:MI_AcquisitionInformation>
-      <gmi:instrument>
-        <gmi:MI_Instrument>
-          <gmi:citation>
-            <gmd:CI_Citation>
-              <gmd:title>
-                <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-              </gmd:title>
-              <gmd:date>
-                <gmd:CI_Date>
-                  <gmd:date gco:nilReason="unknown"/>
-                  <gmd:dateType>
-                    <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                  </gmd:dateType>
-                </gmd:CI_Date>
-              </gmd:date>
-              <gmd:citedResponsibleParty>
-                <gmd:CI_ResponsibleParty>
-                  <gmd:individualName>
-                    <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                  </gmd:individualName>
-                  <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                  </gmd:role>
-                </gmd:CI_ResponsibleParty>
-              </gmd:citedResponsibleParty>
-            </gmd:CI_Citation>
-          </gmi:citation>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:type>
-            <gco:CharacterString>radiometer</gco:CharacterString>
-          </gmi:type>
-          <gmi:description>
-            <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-          </gmi:description>
-        </gmi:MI_Instrument>
-      </gmi:instrument>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-7 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: June 23, 1981. Instruments: AVHRR, TOVS, DCLS, SEM. Status: Retired. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-9 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: December 12, 1984. Instruments: AVHRR, TOVS, DCLS, SEM, ERBE, SARSAT, SBUV/2. Status: Retired. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-11 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: September 24, 1988. Instruments: AVHRR, TOVS, DCS, SAR, SBUV/2. Status: Retired. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-14 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: December 29, 1994. Instruments: AVHRR, TOVS, ARGOS, SARSAT, SEM, RAIDS. Status: Retired. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-16 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: September 21, 2000. Instruments: AVHRR, HIRS/3, AMSU/A, AMSU/B, SEM-2, SARSAT, DCS-2. Status: PM Secondary. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-17 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: June 24, 2002. Instruments: AVHRR, HIRS/3, AMSU/A, AMSU/B, SEM-2, SBUV/2, SARSAT, DCS-2. Status: AM Backup. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-18 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: May 20, 2005. Instruments: AVHRR, HIRS/3, AMSU/A, AMSU/B, SEM-2, SBUV/2, SARSAT, DCS-2. Status: PM Secondary. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSO &gt; Office of Satellite Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4° from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instruments optical cavity and detectors. An AVHRR instrument is flown on board each of the NOAA Polar Operational Environmental Satellites (POES). For these satellites, the hysteris scan mirror has been replaced with a Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-      <gmi:platform>
-        <gmi:MI_Platform>
-          <gmi:identifier>
-            <gmd:MD_Identifier>
-              <gmd:code>
-                <gco:CharacterString>NOAA-19 Satellite</gco:CharacterString>
-              </gmd:code>
-            </gmd:MD_Identifier>
-          </gmi:identifier>
-          <gmi:description>
-            <gco:CharacterString>Launched: February 6, 2009, as NOAA N-PRIME. Instruments: AMSU/A1, AMSU/A2, AVHRR, HIRS, MHS, SARP-3, SARR, SBUV, SEM. Status: PM Primary. Orbit: Sun-synchronous.</gco:CharacterString>
-          </gmi:description>
-          <gmi:sponsor>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>US DOC/NOAA/OSPO &gt; Office of Satellite and Product Operations, National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmi:sponsor>
-          <gmi:instrument>
-            <gmi:MI_Instrument>
-              <gmi:citation>
-                <gmd:CI_Citation>
-                  <gmd:title>
-                    <gco:CharacterString>Advanced Very High Resolution Radiometer - AVHRR</gco:CharacterString>
-                  </gmd:title>
-                  <gmd:date>
-                    <gmd:CI_Date>
-                      <gmd:date gco:nilReason="unknown"/>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date>
-                  <gmd:citedResponsibleParty>
-                    <gmd:CI_ResponsibleParty>
-                      <gmd:individualName>
-                        <gco:CharacterString>US DOC/NOAA &gt; National Oceanic and Atmospheric Administration, U.S. Department of Commerce</gco:CharacterString>
-                      </gmd:individualName>
-                      <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
-                      </gmd:role>
-                    </gmd:CI_ResponsibleParty>
-                  </gmd:citedResponsibleParty>
-                </gmd:CI_Citation>
-              </gmi:citation>
-              <gmi:identifier>
-                <gmd:MD_Identifier>
-                  <gmd:code>
-                    <gco:CharacterString>AVHRR &gt; Advanced Very High Resolution Radiometer</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmi:identifier>
-              <gmi:type>
-                <gco:CharacterString>radiometer</gco:CharacterString>
-              </gmi:type>
-              <gmi:description>
-                <gco:CharacterString>The AVHRR/3 is a six-channel imaging radiometer which detects energy in the visible and infrared (IR) portions of the electromagnetic spectrum. The instrument measures reflected solar (visible and near-IR) energy and radiated thermal energy from land, sea, clouds, and the intervening atmosphere. The instrument has an instantaneous field-of-view (IFOV) of 1.3 milliradians providing a nominal spatial resolution of 1.1 km (0.69 mi) at nadir. A continuously rotating elliptical scan mirror provides the cross-track scan, scanning the Earth from ± 55.4¡ from nadir. The mirror scans at six revolutions per second to provide continuous coverage. The AVHRR/3 provides spectral and gain improvements to the solar visible channels that provide low light energy detection. Channel 3A, at 1.6 microns, provides snow, ice, and cloud discrimination. Channel 3A will be time-shared with the 3.7- micron channel, designated 3B, to provide five channels of continuous data. An external sun shield and an internal baffle have been added to reduce sunlight impingement into the instrument's optical cavity and detectors. For the NOAA-N Spacecraft, and later missions, the hysteris scan mirror has been replaced with a 360 RPM Brushless DC motor. This motor is more reliable and operates with significantly reduced jitter.</gco:CharacterString>
-              </gmi:description>
-            </gmi:MI_Instrument>
-          </gmi:instrument>
-        </gmi:MI_Platform>
-      </gmi:platform>
-    </gmi:MI_AcquisitionInformation>
-  </gmi:acquisitionInformation>
 </gmd:MD_Metadata>
