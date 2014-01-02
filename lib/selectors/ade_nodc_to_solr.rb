@@ -34,7 +34,8 @@ NODC = {
   },
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],
-    multivalue: false
+    multivalue: false,
+    format: IsoToSolrFormat::DATE
   },
   dataset_url: {
     xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[./gmd:protocol/gco:CharacterString/text()="ftp"]/gmd:linkage/gmd:URL'],
