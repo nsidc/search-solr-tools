@@ -92,7 +92,8 @@ NSIDC = {
   },
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],
-    multivalue: false
+    multivalue: false,
+    format: IsoToSolrFormat::DATE
   },
   dataset_url: {
     xpaths: ['.//gmd:dataSetURI'],
