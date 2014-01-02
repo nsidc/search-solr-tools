@@ -163,7 +163,7 @@ measurements.
         <gmd:MD_Keywords>
           <gmd:keyword>
             <gco:CharacterString>
-Land cover
+Land    cover
 </gco:CharacterString>
           </gmd:keyword>
           <gmd:type>

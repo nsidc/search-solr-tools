@@ -9,6 +9,7 @@ require './lib/selectors.rb'
 class IsoToSolr
   def initialize(selector)
     @fields = SELECTORS[selector]
+    @multiple_whitespace = /\s{2,}/ # save the regex so it is not recompiled every time format_field() is called
   end
 
   def eval_xpath(iso_xml_doc, xpath, multivalue)
@@ -33,7 +34,10 @@ class IsoToSolr
   end
 
   def format_field(selector, field)
-    selector.key?(:format) ? selector[:format].call(field) : format_text(field) rescue format_text field
+    formatted = selector.key?(:format) ? selector[:format].call(field) : format_text(field) rescue format_text(field)
+    formatted.strip! if formatted.respond_to?(:strip!)
+    formatted.gsub!(@multiple_whitespace, ' ') if formatted.respond_to?(:gsub!)
+    formatted
   end
 
   def format_fields(selector, fields)
