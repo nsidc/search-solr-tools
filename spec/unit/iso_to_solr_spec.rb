@@ -31,7 +31,7 @@ describe 'CISL ISO to Solr converter' do
       }
     keywords = iso_to_solr.create_solr_fields fixture, selector
     keywords.size.should be == 9
-    keywords.first.should be == "\nLand cover\n"
+    keywords.first.should be == 'Land cover'
   end
 
   it 'should fall over the second xpath when the first is not present' do
