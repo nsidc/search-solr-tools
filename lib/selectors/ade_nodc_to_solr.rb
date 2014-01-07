@@ -38,7 +38,8 @@ NODC = {
     format: IsoToSolrFormat::DATE
   },
   dataset_url: {
-    xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[./gmd:protocol/gco:CharacterString/text()="ftp"]/gmd:linkage/gmd:URL'],
+    xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"ftp")]/gmd:linkage/gmd:URL',
+            './/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"FTP")]/gmd:linkage/gmd:URL'],
     multivalue: false
   },
   spatial_coverages: {

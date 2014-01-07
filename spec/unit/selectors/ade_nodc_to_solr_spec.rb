@@ -11,22 +11,22 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should grab the correct authoritative id',
       xpath: "/doc/field[@name='authoritative_id']",
-      expected_text: 'AVHRR_Pathfinder-NODC-L3C-v5.2'
+      expected_text: 'gov.noaa.nodc:9900244'
     },
     {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
-      expected_text: 'AVHRR Pathfinder Version 5.2 Level 3 Collated (L3C) Global 4km Sea Surface Temperature for 1981-2011'
+      expected_text: 'DEPTH - OBSERVATION and Other Data from POLARSTERN and Other Platforms from 19240804 to 19991124 (NODC Accession 9900244)'
     },
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: 'The AVHRR Pathfinder Version 5.2 Sea Surface Temperature data set (PFV52) is a collection of global, [snip]'
+      expected_text: 'Soil pore water collected from various drained thaw lake basins near Barrow, AK was analyzed for dissolved carbon dioxide and methane. Soil water samples (0-10 cm depth) were collected using Rhizon soil moisture samplers and dissolved gases were measured by GC analysis of the headspace.'
     },
     {
       title: 'should grab the correct data_centers',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'DOC/NOAA/NODC > National Oceanographic Data Center, NOAA, U.S. Department of Commerce'
+      expected_text: 'NOAA National Oceanographic Data Center'
     },
     {
       title: 'should include the correct authors',
@@ -36,19 +36,20 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should include the correct keywords',
       xpath: "/doc/field[@name='keywords'][1]",
-      expected_text: 'Geographic Region > Global Ocean'
+      expected_text: 'oceanography'
     },
     {
+      # TODO: add a dummy sensor to the fixture [MB 2013-12-27]
       title: 'should grab the correct first sensor',
       xpath: "/doc/field[@name='sensors'][1]",
-      expected_text: 'Advanced Very High Resolution Radiometer - AVHRR'
+      expected_text: ''
     },
     {
       title: 'should grab the correct dataset_url link',
       xpath: "/doc/field[@name='dataset_url']",
       # NOTE: I'm grabbing the FTP link explicitly.  NODC has really good data
       # access links with other representations available.
-      expected_text: 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/pathfinder/Version5.2/'
+      expected_text: 'ftp://ftp.nodc.noaa.gov/nodc/archive/arc0001/9900244/'
     },
     {
       title: 'should grab the correct updated date',
@@ -58,22 +59,22 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '-90 -180 90 180'
+      expected_text: '0.3 -124.2 86.1 -144.2'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: '-180 -90 180 90'
+      expected_text: '-124.2 0.3 -144.2 86.1'
     },
     {
      title: 'should grab the correct temporal coverage',
      xpath: "/doc/field[@name='temporal_coverages']",
-     expected_text: '1981-08-24T00:00:00Z,2011-12-31T00:00:00Z'
+     expected_text: '1924-08-04T00:00:00Z,1999-11-24T00:00:00Z'
     },
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
-      expected_text: '19.810824 20.111231'
+      expected_text: '19.240804 19.991124'
     },
     {
       title: 'should grab the correct source',
