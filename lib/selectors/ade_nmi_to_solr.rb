@@ -68,7 +68,7 @@ NMI = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Norwegian Meteorological Institute'],
+      default_values: ['Norwegian Meteorological Institute | Met.no'],
       multivalue: false
   },
   facet_spatial_coverage: {
