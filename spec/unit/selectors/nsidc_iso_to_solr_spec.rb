@@ -150,6 +150,11 @@ describe 'NSIDC ISO to SOLR converter' do
       title: 'should include the correct last source',
       xpath: "/doc/field[@name='source'][last()]",
       expected_text: 'ADE'
+    },
+    {
+      title: 'should include the correct last revision date',
+      xpath: "/doc/field[@name='last_revision_date']",
+      expected_text: '2013-05-28T00:00:00Z'
     }]
 
   test_expectations.each do |expectation|
