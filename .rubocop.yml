@@ -12,3 +12,6 @@ LineLength:
 
 MethodLength:
   Max: 15
+
+RescueModifier:
+  Enabled: false

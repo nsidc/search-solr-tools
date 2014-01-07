@@ -32,12 +32,16 @@ namespace :build do
     env = SolrEnvironments[args[:environment]]
     version_id = args[:build] || generate_version_id
     deployment_log = "#{env[:repo_dir]}/deployable_version_" + [args[:environment]][0]
-
     unless File.exists?(deployment_log)
       File.open(deployment_log, 'w') { |f| f.write('buildVersion=') }
     end
-    if File.open(deployment_log, 'r') { |f| !f.read.include?(version_id) }
+    version_in_list = nil
+    File.open(deployment_log, 'r') { |f| version_in_list = f.read =~ /[=,]#{version_id}\,/ }
+    if !version_in_list
+      puts "Adding version #{version_id} to #{deployment_log}"
       `sed -i "s/buildVersion=/buildVersion=#{version_id},/" #{deployment_log}`
+    else
+      puts "version #{version_id} is already in the deployment list."
     end
   end
 end
