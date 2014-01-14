@@ -39,8 +39,12 @@ describe 'ISO to SOLR format methods' do
       IsoToSolrFormat.temporal_display_str(temporal_node).should eql '1978-10-01,2011-12-31'
     end
 
-    it 'should generate a striped start/end date space separated string from a TemporalExtent node' do
+    it 'should generate a stripped start/end date space separated string from a TemporalExtent node' do
       IsoToSolrFormat.temporal_index_str(temporal_node).should eql '19.781001 20.111231'
+    end
+
+    it 'should calculate a duration in days from a TemporalExtent node' do
+      IsoToSolrFormat.get_temporal_duration(temporal_node).should eql 12144
     end
   end
 

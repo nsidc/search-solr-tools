@@ -65,6 +65,11 @@ describe 'EOL ISO to Solr converter' do
       expected_text: '2002-08-01T00:00:00Z,2008-07-30T23:59:59Z'
     },
     {
+      title: 'should grab the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: '2190'
+    },
+    {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
       expected_text: '20.020801 20.080730'

@@ -4,11 +4,12 @@ require './lib/selectors/iso_namespaces'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
-  SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str node }
-  SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
+  SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
+  SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
+  TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
 
-  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet node }
-  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet node }
+  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
+  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
   def self.date_str(date)
     d = if date.is_a? String
@@ -51,9 +52,21 @@ module IsoToSolrFormat
     facet
   end
 
+  def self.get_temporal_duration(temporal_node)
+    dr = date_range(temporal_node)
+
+    unless dr[:start].empty?
+      start_date = Date.parse(dr[:start])
+      end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
+
+      duration = Integer(end_date - start_date)
+    end
+    duration
+  end
+
   def self.get_temporal_duration_facet(temporal_node)
-    duration = total_duration(temporal_node)
-    facet = temporal_duration_range(duration)
+    duration = get_temporal_duration(temporal_node)
+    facet = temporal_duration_range(duration / 365)
     facet
   end
 
@@ -96,19 +109,6 @@ module IsoToSolrFormat
       start: start_date.empty? ? '' : start_date,
       end: end_date.empty? ? '' : end_date
     }
-  end
-
-  def self.total_duration(date_ranges)
-    dr = date_range(date_ranges)
-
-    unless dr[:start].empty?
-      start_date = Time.new(dr[:start])
-      end_date = dr[:end].empty? ? Time.now : Time.new(dr[:end])
-
-      # Time - Time returns seconds as a Float; we want the year as an integer
-      duration = ((end_date - start_date) / Float(60 * 60 * 24 * 365)).to_int
-    end
-    duration
   end
 
   def self.temporal_duration_range(temporal_duration)

@@ -56,6 +56,11 @@ NMI = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str node }
   },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    multivalue: false,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
+  },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,

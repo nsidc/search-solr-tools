@@ -73,6 +73,11 @@ EOL = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    multivalue: false,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
+  },
   source: {
       xpaths: [''],
       default_values: ['ADE'],
