@@ -64,6 +64,7 @@ CISL = {
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
+    default_values: [-2],
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {

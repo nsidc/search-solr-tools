@@ -52,21 +52,27 @@ module IsoToSolrFormat
     facet
   end
 
+  # returns the temporal duration in days; returns -1 if there is not a valid
+  # start date
   def self.get_temporal_duration(temporal_node)
     dr = date_range(temporal_node)
 
-    unless dr[:start].empty?
+    if dr[:start].empty?
+      duration = -1
+    else
       start_date = Date.parse(dr[:start])
       end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
 
       duration = Integer(end_date - start_date)
+      duration = duration < 0 ? -1 : duration
     end
+
     duration
   end
 
   def self.get_temporal_duration_facet(temporal_node)
     duration = get_temporal_duration(temporal_node)
-    facet = temporal_duration_range(duration / 365)
+    facet = temporal_duration_range(duration)
     facet
   end
 
@@ -111,9 +117,13 @@ module IsoToSolrFormat
     }
   end
 
+  # takes a temporal_duration in days, returns a string representing the range
+  # for faceting
   def self.temporal_duration_range(temporal_duration)
-    range = case temporal_duration
+    years = temporal_duration / 365
+    range = case years
             when nil then ''
+            when -1 then ''
             when 0 then '< 1 years'
             when 1..4 then '1 - 4 years'
             when 5..9 then '5 - 9 years'
