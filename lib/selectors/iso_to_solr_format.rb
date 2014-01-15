@@ -11,6 +11,8 @@ module IsoToSolrFormat
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
+  REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
+
   def self.date_str(date)
     d = if date.is_a? String
           DateTime.parse(date.strip)
@@ -74,6 +76,10 @@ module IsoToSolrFormat
     duration = get_temporal_duration(temporal_node)
     facet = temporal_duration_range(duration)
     facet
+  end
+
+  def self.reduce_temporal_duration(values)
+    values.max
   end
 
   # We are indexiong date ranges a spatial cordinates.
