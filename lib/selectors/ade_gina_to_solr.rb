@@ -75,7 +75,7 @@ GINA = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Norwegian Meteorological Institute | Met.no'],
+      default_values: ['UAF Geographic Information Network of Alaska'],
       multivalue: false
   },
   facet_spatial_coverage: {

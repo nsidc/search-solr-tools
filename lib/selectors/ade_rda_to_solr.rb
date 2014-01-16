@@ -75,7 +75,7 @@ RDA = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Advanced Cooperative Arctic Data and Information Service | ACADIS Gateway'],
+      default_values: ['Research Data Archive'],
       multivalue: false
   },
   facet_spatial_coverage: {
