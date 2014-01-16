@@ -72,6 +72,11 @@ describe 'NODC ISO to Solr converter' do
      expected_text: '1924-08-04T00:00:00Z,1999-11-24T00:00:00Z'
     },
     {
+      title: 'should grab the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: '27505'
+    },
+    {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
       expected_text: '19.240804 19.991124'

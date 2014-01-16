@@ -3,7 +3,11 @@ require './lib/selectors/iso_to_solr_format'
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
 # xpaths resolved to a value and formatting the field.
-# xpaths and multivalue are required, default_value and format are optional.
+# xpaths and multivalue are required, default_value, format, and reduce are optional.
+# reduce takes the formatted result of multiple nodes and produces a single
+#   result. This is for fields that are not multivalued, but their value should
+#   consider information from all the nodes (for example, storing only the
+#   maximum duration from multiple temporal coverage fields)
 
 CISL = {
   authoritative_id: {
@@ -60,6 +64,13 @@ CISL = {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+  },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    default_values: [-2],
+    multivalue: false,
+    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
       xpaths: [''],

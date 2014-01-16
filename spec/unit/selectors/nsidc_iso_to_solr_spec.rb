@@ -117,6 +117,11 @@ describe 'NSIDC ISO to SOLR converter' do
       expected_text: '1978-10-01,2011-12-31'
     },
     {
+      title: 'should grab the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: '12890'
+    },
+    {
       title: 'should include the first correct temporal values',
       xpath: "/doc/field[@name='temporal'][1]",
       expected_text: '19.781001 20.111231'

@@ -104,4 +104,15 @@ describe 'CISL ISO to Solr converter' do
     translated = IsoToSolr.new(:fake).translate fixture
     translated.xpath('.//field[@name=\'fake\']').text.should eql 'Fake Org'
   end
+
+  it 'should reduce multiple values to one when :reduce is set' do
+    selector = {
+      xpaths: ['//gmd:keyword/gco:CharacterString'],
+      multivalue: false,
+      reduce: proc { |values| values.max }
+    }
+    keywords = iso_to_solr.create_solr_fields(fixture, selector)
+    keywords.should eq ["Soils\n/\nCarbon"]
+  end
+
 end

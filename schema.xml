@@ -18,6 +18,7 @@
     <field name="spatial" type="location_rpt" indexed="true" stored="true" multiValued="true" />
     <field name="temporal_coverages" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="temporal" type="date_range" indexed="true" stored="true" multiValued="true" />
+    <field name="temporal_duration" type="int" indexed="true" stored="true" multiValued="false" />
     <field name="last_revision_date" type="date" indexed="true" stored="true" multiValued="false" />
     <field name="dataset_url" type="string" indexed="false" stored="true" />
     <field name="data_access_urls" type="string" indexed="false" stored="true" multiValued="true" />
