@@ -15,8 +15,8 @@ describe 'GINA ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "A WMS-compliant map server provided by the Alaska Mapped program" +
-      " (http://www.alaskamapped.org) and UAF-GINA (http://www.gina.alaska.edu)."
+      expected_text: 'A WMS-compliant map server provided by the Alaska Mapped program' +
+      ' (http://www.alaskamapped.org) and UAF-GINA (http://www.gina.alaska.edu).'
     },
     {
       title: 'should grab the correct data center',

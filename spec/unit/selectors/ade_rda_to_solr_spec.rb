@@ -15,8 +15,8 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "The NCEP OI is a weekly and monthly 1x1 global analysis dataset that is available for " +
-      "November 1981 through a current date... Abbreviated for testing"
+      expected_text: 'The NCEP OI is a weekly and monthly 1x1 global analysis dataset that is available for ' +
+      'November 1981 through a current date... Abbreviated for testing'
     },
     {
       title: 'should grab the correct data center',
