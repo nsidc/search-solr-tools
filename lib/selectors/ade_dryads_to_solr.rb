@@ -5,6 +5,9 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
+long_name = 'Dryad Digital Repository'
+short_name = 'Dryad'
+
 DRYAD = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -20,7 +23,7 @@ DRYAD = {
   },
   data_centers: {
       xpaths: [''],
-      default_values: ['Dryad Digital Repository'],
+      default_values: [long_name],
       multivalue: false
   },
   authors: {
@@ -80,7 +83,7 @@ DRYAD = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Dryad Digital Repository | Dryad'],
+      default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
   facet_spatial_coverage: {

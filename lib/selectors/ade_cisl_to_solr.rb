@@ -9,6 +9,9 @@ require './lib/selectors/iso_to_solr_format'
 #   consider information from all the nodes (for example, storing only the
 #   maximum duration from multiple temporal coverage fields)
 
+long_name = 'Advanced Cooperative Arctic Data and Information Service'
+short_name = 'ACADIS Gateway'
+
 CISL = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -24,7 +27,7 @@ CISL = {
   },
   data_centers: {
       xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: ['Advanced Cooperative Arctic Data and Information Service'],
+      default_values: [long_name],
       multivalue: false
   },
   authors: {
@@ -79,7 +82,7 @@ CISL = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Advanced Cooperative Arctic Data and Information Service | ACADIS Gateway'],
+      default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
   facet_spatial_coverage: {

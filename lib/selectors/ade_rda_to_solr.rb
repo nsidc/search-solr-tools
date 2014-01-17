@@ -5,6 +5,9 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
+long_name = 'Research Data Archive'
+short_name = 'RDA'
+
 RDA = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -20,7 +23,7 @@ RDA = {
   },
   data_centers: {
       xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: ['Research Data Archive'],
+      default_values: [long_name],
       multivalue: false
   },
   authors: {
@@ -75,7 +78,7 @@ RDA = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Research Data Archive'],
+      default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
   facet_spatial_coverage: {

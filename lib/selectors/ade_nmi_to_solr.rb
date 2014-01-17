@@ -5,6 +5,9 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
+long_name = 'Norwegian Meteorological Institute'
+short_name = 'Met.no'
+
 NMI = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -20,7 +23,7 @@ NMI = {
   },
   data_centers: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: ['Norwegian Meteorological Institute'],
+      default_values: [long_name],
       multivalue: false
   },
   authors: {
@@ -74,7 +77,7 @@ NMI = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['Norwegian Meteorological Institute | Met.no'],
+      default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
   facet_spatial_coverage: {
