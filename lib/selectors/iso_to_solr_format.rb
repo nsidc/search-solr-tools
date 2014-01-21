@@ -81,7 +81,7 @@ module IsoToSolrFormat
   end
 
   def self.reduce_temporal_duration(values)
-    values.max
+    values.reject { |v| v.nil? }.max
   end
 
   # We are indexiong date ranges a spatial cordinates.

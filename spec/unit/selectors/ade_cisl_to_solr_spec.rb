@@ -61,7 +61,7 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should calculate the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '70'
+      expected_text: '71'
     }
   ]
 

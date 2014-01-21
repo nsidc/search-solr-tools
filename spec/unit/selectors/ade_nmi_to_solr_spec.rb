@@ -57,7 +57,7 @@ describe 'NMI ISO to Solr converter' do
     {
       title: 'should grab the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '1288'
+      expected_text: '1289'
     },
     {
       title: 'should grab the correct temporal range',
