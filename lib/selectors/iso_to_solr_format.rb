@@ -60,13 +60,16 @@ module IsoToSolrFormat
     dr = date_range(temporal_node)
 
     if dr[:start].empty?
-      duration = -1
+      duration = nil
     else
       start_date = Date.parse(dr[:start])
       end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
 
-      duration = Integer(end_date - start_date)
-      duration = duration < 0 ? -1 : duration
+      # datasets that cover just one day would have end_date - start_date = 0,
+      # so we need to add 1 to make sure the duration is the actual number of
+      # days; if the end date and start date are flipped in the metadata, a
+      # negative duration doesn't make sense so use the absolute value
+      duration = Integer(end_date - start_date).abs + 1
     end
 
     duration
@@ -74,12 +77,11 @@ module IsoToSolrFormat
 
   def self.get_temporal_duration_facet(temporal_node)
     duration = get_temporal_duration(temporal_node)
-    facet = temporal_duration_range(duration)
-    facet
+    temporal_duration_range(duration)
   end
 
   def self.reduce_temporal_duration(values)
-    values.max
+    values.reject { |v| v.nil? }.max
   end
 
   # We are indexiong date ranges a spatial cordinates.
@@ -128,8 +130,6 @@ module IsoToSolrFormat
   def self.temporal_duration_range(temporal_duration)
     years = temporal_duration / 365
     range = case years
-            when nil then ''
-            when -1 then ''
             when 0 then '< 1 years'
             when 1..4 then '1 - 4 years'
             when 5..9 then '5 - 9 years'
