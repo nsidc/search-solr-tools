@@ -1,299 +1,626 @@
-<?xml version='1.0' encoding='UTF-8'?><csw:GetRecordsResponse xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0.2" xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd">
-    <csw:RequestId/>
-    <csw:SearchStatus timestamp="2014-01-15T10:51:58.860-07:00"/>
-    <csw:SearchResults nextRecord="2" numberOfRecordsMatched="636" numberOfRecordsReturned="1" recordSchema="http://www.isotc211.org/2005/gmd"><gmd:MD_Metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xmlns:dm="http://floraresearch.eu/sdi/services/7.0/dataModel/schema" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gml="http://www.opengis.net/gml" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:ns15="http://quakeml.org/xmlns/quakeml/1.2" xmlns:ns3="http://www.geoviqua.org/QualityInformationModel/3.1" xmlns:ns4="http://quakeml.org/xmlns/bed/1.2" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:wms="http://www.opengis.net/wms" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:wrs="http://www.opengis.net/cat/wrs/1.0" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><gmd:fileIdentifier><gco:CharacterString>oai:edu.ucar.rda:ds277.0</gco:CharacterString>
-</gmd:fileIdentifier><gmd:parentIdentifier><gco:CharacterString>UUID-09125061-5d8e-4a45-8abb-9f04d9538218</gco:CharacterString>
-</gmd:parentIdentifier><gmd:language><gmd:LanguageCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#LanguageCode" codeListValue="eng">English</gmd:LanguageCode>
-</gmd:language><gmd:characterSet><gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="MD_CharacterSetCode_utf8" codeSpace="ISOTC211/19115">MD_CharacterSetCode_utf8</gmd:MD_CharacterSetCode>
-</gmd:characterSet><gmd:hierarchyLevel><gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset">
-							dataset
-						</gmd:MD_ScopeCode>
-</gmd:hierarchyLevel><gmd:hierarchyLevelName><gco:CharacterString/>
-</gmd:hierarchyLevelName><gmd:contact><gmd:CI_ResponsibleParty><gmd:organisationName><gco:CharacterString/>
-</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact><gmd:phone><gmd:CI_Telephone><gmd:voice><gco:CharacterString/>
-</gmd:voice><gmd:facsimile><gco:CharacterString/>
-</gmd:facsimile>
-</gmd:CI_Telephone>
-</gmd:phone><gmd:address><gmd:CI_Address><gmd:deliveryPoint><gco:CharacterString/>
-</gmd:deliveryPoint><gmd:city><gco:CharacterString/>
-</gmd:city><gmd:administrativeArea><gco:CharacterString/>
-</gmd:administrativeArea><gmd:postalCode><gco:CharacterString/>
-</gmd:postalCode><gmd:country><gco:CharacterString/>
-</gmd:country><gmd:electronicMailAddress><gco:CharacterString/>
-</gmd:electronicMailAddress>
-</gmd:CI_Address>
-</gmd:address><gmd:onlineResource><gmd:CI_OnlineResource><gmd:linkage><gmd:URL/>
-</gmd:linkage>
-</gmd:CI_OnlineResource>
-</gmd:onlineResource>
-</gmd:CI_Contact>
-</gmd:contactInfo><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
-</gmd:role>
-</gmd:CI_ResponsibleParty>
-</gmd:contact><gmd:dateStamp><gco:Date>2014-01-01</gco:Date>
-</gmd:dateStamp><gmd:metadataStandardName><gco:CharacterString>CEOS IDN DIF</gco:CharacterString>
-</gmd:metadataStandardName><gmd:metadataStandardVersion><gco:CharacterString>9.7</gco:CharacterString>
-</gmd:metadataStandardVersion><gmd:dataSetURI><gco:CharacterString>277.0</gco:CharacterString>
-</gmd:dataSetURI><gmd:identificationInfo><gmd:MD_DataIdentification><gmd:citation><gmd:CI_Citation><gmd:title><gco:CharacterString>NCEP Version 2.0 OI Global SST and NCDC Version 3.0 Extended Reconstructed SST Analyses</gco:CharacterString>
-</gmd:title><gmd:alternateTitle><gco:CharacterString>NCEP Version 2.0 OI Global SST and NCDC Version 3.0 Extended Reconstructed SST Analyses</gco:CharacterString>
-</gmd:alternateTitle><gmd:date><gmd:CI_Date><gmd:date/><gmd:dateType><gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-</gmd:dateType>
-</gmd:CI_Date>
-</gmd:date><gmd:edition><gco:CharacterString/>
-</gmd:edition><gmd:identifier><gmd:RS_Identifier><gmd:code><gco:CharacterString/>
-</gmd:code><gmd:codeSpace><gco:CharacterString/>
-</gmd:codeSpace>
-</gmd:RS_Identifier>
-</gmd:identifier><gmd:citedResponsibleParty><gmd:CI_ResponsibleParty><gmd:organisationName><gco:CharacterString>UCAR/NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</gco:CharacterString>
-</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact/>
-</gmd:contactInfo><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator" codeSpace="ISOTC211/19115">originator
-										</gmd:CI_RoleCode>
-</gmd:role>
-</gmd:CI_ResponsibleParty>
-</gmd:citedResponsibleParty><gmd:citedResponsibleParty><gmd:CI_ResponsibleParty><gmd:organisationName><gco:CharacterString>UCAR/NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</gco:CharacterString>
-</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact><gmd:address><gmd:CI_Address><gmd:city><gco:CharacterString/>
-</gmd:city>
-</gmd:CI_Address>
-</gmd:address>
-</gmd:CI_Contact>
-</gmd:contactInfo><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115">publisher</gmd:CI_RoleCode>
-</gmd:role>
-</gmd:CI_ResponsibleParty>
-</gmd:citedResponsibleParty><gmd:series><gmd:CI_Series><gmd:name><gco:CharacterString/>
-</gmd:name>
-</gmd:CI_Series>
-</gmd:series><gmd:otherCitationDetails><gco:CharacterString/>
-</gmd:otherCitationDetails>
-</gmd:CI_Citation>
-</gmd:citation><gmd:abstract><gco:CharacterString>
-            The NCEP OI is a weekly and monthly 1x1 global analysis dataset that
-            is available for November 1981 through a current date... Abbreviated for testing</gco:CharacterString>
-</gmd:abstract><gmd:status><gmd:MD_ProgressCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;underDevelopment&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
-							underDevelopment
-						</gmd:MD_ProgressCode>
-</gmd:status><gmd:pointOfContact><gmd:CI_ResponsibleParty><gmd:individualName><gco:CharacterString>Zaihua Ji</gco:CharacterString>
-</gmd:individualName><gmd:organisationName><gco:CharacterString/>
-</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact><gmd:phone><gmd:CI_Telephone><gmd:voice><gco:CharacterString>(303)-497-1819</gco:CharacterString>
-</gmd:voice><gmd:facsimile><gco:CharacterString>(303)-497-1291</gco:CharacterString>
-</gmd:facsimile>
-</gmd:CI_Telephone>
-</gmd:phone><gmd:address><gmd:CI_Address><gmd:deliveryPoint><gco:CharacterString>National Center for Atmospheric Research</gco:CharacterString>
-</gmd:deliveryPoint><gmd:deliveryPoint><gco:CharacterString>CISL/DSS</gco:CharacterString>
-</gmd:deliveryPoint><gmd:deliveryPoint><gco:CharacterString>P.O. Box 3000</gco:CharacterString>
-</gmd:deliveryPoint><gmd:city><gco:CharacterString>Boulder</gco:CharacterString>
-</gmd:city><gmd:administrativeArea><gco:CharacterString>CO</gco:CharacterString>
-</gmd:administrativeArea><gmd:postalCode><gco:CharacterString>80307</gco:CharacterString>
-</gmd:postalCode><gmd:country><gco:CharacterString>U.S.A.</gco:CharacterString>
-</gmd:country><gmd:electronicMailAddress><gco:CharacterString>zji@ucar.edu</gco:CharacterString>
-</gmd:electronicMailAddress>
-</gmd:CI_Address>
-</gmd:address><gmd:onlineResource><gmd:CI_OnlineResource><gmd:linkage><gmd:URL/>
-</gmd:linkage>
-</gmd:CI_OnlineResource>
-</gmd:onlineResource>
-</gmd:CI_Contact>
-</gmd:contactInfo><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
-</gmd:role>
-</gmd:CI_ResponsibleParty>
-</gmd:pointOfContact><gmd:pointOfContact><gmd:CI_ResponsibleParty><gmd:individualName><gco:CharacterString>Bob Dattore</gco:CharacterString>
-</gmd:individualName><gmd:organisationName><gco:CharacterString/>
-</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact><gmd:phone><gmd:CI_Telephone><gmd:voice><gco:CharacterString>(303)-497-1825</gco:CharacterString>
-</gmd:voice><gmd:facsimile><gco:CharacterString>(303)-497-1291</gco:CharacterString>
-</gmd:facsimile>
-</gmd:CI_Telephone>
-</gmd:phone><gmd:address><gmd:CI_Address><gmd:deliveryPoint><gco:CharacterString>National Center for Atmospheric Research</gco:CharacterString>
-</gmd:deliveryPoint><gmd:deliveryPoint><gco:CharacterString>CISL/DSS</gco:CharacterString>
-</gmd:deliveryPoint><gmd:deliveryPoint><gco:CharacterString>P.O. Box 3000</gco:CharacterString>
-</gmd:deliveryPoint><gmd:city><gco:CharacterString>Boulder</gco:CharacterString>
-</gmd:city><gmd:administrativeArea><gco:CharacterString>CO</gco:CharacterString>
-</gmd:administrativeArea><gmd:postalCode><gco:CharacterString>80307</gco:CharacterString>
-</gmd:postalCode><gmd:country><gco:CharacterString>U.S.A.</gco:CharacterString>
-</gmd:country><gmd:electronicMailAddress><gco:CharacterString>dattore@ucar.edu</gco:CharacterString>
-</gmd:electronicMailAddress>
-</gmd:CI_Address>
-</gmd:address><gmd:onlineResource><gmd:CI_OnlineResource><gmd:linkage><gmd:URL/>
-</gmd:linkage>
-</gmd:CI_OnlineResource>
-</gmd:onlineResource>
-</gmd:CI_Contact>
-</gmd:contactInfo><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
-</gmd:role>
-</gmd:CI_ResponsibleParty>
-</gmd:pointOfContact><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>
-								Oceanographic geographical features
-							</gco:CharacterString>
-</gmd:keyword><gmd:type><gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="ISOTC/211">theme
-									</gmd:MD_KeywordTypeCode>
-</gmd:type><gmd:thesaurusName><gmd:CI_Citation><gmd:title><gco:CharacterString>GEMET - INSPIRE themes, version 1.0</gco:CharacterString>
-</gmd:title><gmd:date><gmd:CI_Date><gmd:date><gco:Date>2008-06-01</gco:Date>
-</gmd:date><gmd:dateType><gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication
-													</gmd:CI_DateTypeCode>
-</gmd:dateType>
-</gmd:CI_Date>
-</gmd:date>
-</gmd:CI_Citation>
-</gmd:thesaurusName>
-</gmd:MD_Keywords>
-</gmd:descriptiveKeywords><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>GRIDDING METHODS / </gco:CharacterString>
-</gmd:keyword>
-</gmd:MD_Keywords>
-</gmd:descriptiveKeywords><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>EARTH SCIENCE</gco:CharacterString>
-</gmd:keyword><gmd:type><gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="ISOTC/211">theme
-									</gmd:MD_KeywordTypeCode>
-</gmd:type>
-</gmd:MD_Keywords>
-</gmd:descriptiveKeywords><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>Ocean Temperature
-							/
-							Sea Surface Temperature</gco:CharacterString>
-</gmd:keyword><gmd:thesaurusName><gmd:CI_Citation><gmd:title><gco:CharacterString>EARTH SCIENCE Oceans</gco:CharacterString>
-</gmd:title><gmd:date/>
-</gmd:CI_Citation>
-</gmd:thesaurusName>
-</gmd:MD_Keywords>
-</gmd:descriptiveKeywords><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>Sea Ice
-							/
-							Sea Ice Concentration</gco:CharacterString>
-</gmd:keyword><gmd:thesaurusName><gmd:CI_Citation><gmd:title><gco:CharacterString>EARTH SCIENCE Oceans</gco:CharacterString>
-</gmd:title><gmd:date/>
-</gmd:CI_Citation>
-</gmd:thesaurusName>
-</gmd:MD_Keywords>
-</gmd:descriptiveKeywords><gmd:descriptiveKeywords><gmd:MD_Keywords><gmd:keyword><gco:CharacterString>
-            USA/NCAR
-          </gco:CharacterString>
-</gmd:keyword>
-</gmd:MD_Keywords>
-</gmd:descriptiveKeywords><gmd:resourceConstraints><gmd:MD_Constraints><gmd:useLimitation><gco:CharacterString/>
-</gmd:useLimitation>
-</gmd:MD_Constraints><gmd:MD_LegalConstraints><gmd:accessConstraints><gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resou                         rces/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions">otherRestrictions</gmd:MD_RestrictionCode>
-</gmd:accessConstraints><gmd:otherConstraints><gco:CharacterString/>
-</gmd:otherConstraints>
-</gmd:MD_LegalConstraints>
-</gmd:resourceConstraints><gmd:language><gco:CharacterString>English</gco:CharacterString>
-</gmd:language><gmd:topicCategory><gmd:MD_TopicCategoryCode>oceans</gmd:MD_TopicCategoryCode>
-</gmd:topicCategory><gmd:topicCategory><gmd:MD_TopicCategoryCode>oceans</gmd:MD_TopicCategoryCode>
-</gmd:topicCategory><gmd:extent><gmd:EX_Extent><gmd:temporalElement><gmd:EX_TemporalExtent><gmd:extent><gml:TimePeriod gml:id="d1e158"><gml:beginPosition>1854-01-01</gml:beginPosition><gml:endPosition>2014-01-11</gml:endPosition>
-</gml:TimePeriod>
-</gmd:extent>
-</gmd:EX_TemporalExtent>
-</gmd:temporalElement>
-</gmd:EX_Extent>
-</gmd:extent><gmd:supplementalInformation><gco:CharacterString>
-            Smith, T.M., R.W. Reynolds, Thomas C. Peterson, and Jay Lawrimore,
-            2007: Improvements to NOAA's Historical Merged Land-Ocean Surface
-            Temperature Analysis (1880-2006). J. Climate, 21(10), 2283-2296
-            (DOI: 10.1175/2007JCLI2100.1), URL:
-            http://ams.allenpress.com/perlserv/?request=get-abstract&amp;doi=10.1175%2F2007JCLI2100.1.
-
-            Reynolds, R.W., N.A. Rayner, T.M. Smith, D.C. Stokes, and W. Wang,
-            2002: An Improved In Situ and Satellite SST Analysis for Climate. J.
-            Climate, 11, 3320-3323.
-          </gco:CharacterString>
-</gmd:supplementalInformation>
-</gmd:MD_DataIdentification>
-</gmd:identificationInfo><gmd:identificationInfo><srv:SV_ServiceIdentification xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:srv="http://www.isotc211.org/2005/srv">
-    
-    <gmd:citation/>
-    <gmd:abstract/>
-    <srv:serviceType/>
-    <srv:couplingType/>
-    <srv:containsOperations/>
-    
-</srv:SV_ServiceIdentification></gmd:identificationInfo><gmd:distributionInfo><gmd:MD_Distribution><gmd:distributionFormat><gmd:MD_Format><gmd:name><gco:CharacterString/>
-</gmd:name><gmd:version><gco:CharacterString/>
-</gmd:version>
-</gmd:MD_Format>
-</gmd:distributionFormat><gmd:distributor><gmd:MD_Distributor><gmd:distributorContact><gmd:CI_ResponsibleParty><gmd:individualName><gco:CharacterString>DSS Help Desk</gco:CharacterString>
-</gmd:individualName><gmd:organisationName><gco:CharacterString>Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</gco:CharacterString>
-</gmd:organisationName><gmd:contactInfo><gmd:CI_Contact><gmd:phone><gmd:CI_Telephone><gmd:voice><gco:CharacterString>(303)-497-1231</gco:CharacterString>
-</gmd:voice><gmd:facsimile><gco:CharacterString>(303)-497-1291</gco:CharacterString>
-</gmd:facsimile>
-</gmd:CI_Telephone>
-</gmd:phone><gmd:address><gmd:CI_Address><gmd:deliveryPoint><gco:CharacterString>National Center for Atmospheric Research</gco:CharacterString>
-</gmd:deliveryPoint><gmd:deliveryPoint><gco:CharacterString>CISL/DSS</gco:CharacterString>
-</gmd:deliveryPoint><gmd:deliveryPoint><gco:CharacterString>P.O. Box 3000</gco:CharacterString>
-</gmd:deliveryPoint><gmd:city><gco:CharacterString>Boulder</gco:CharacterString>
-</gmd:city><gmd:administrativeArea><gco:CharacterString>CO</gco:CharacterString>
-</gmd:administrativeArea><gmd:postalCode><gco:CharacterString>80307</gco:CharacterString>
-</gmd:postalCode><gmd:country><gco:CharacterString>U.S.A.</gco:CharacterString>
-</gmd:country><gmd:electronicMailAddress><gco:CharacterString>dssweb@ucar.edu</gco:CharacterString>
-</gmd:electronicMailAddress>
-</gmd:CI_Address>
-</gmd:address><gmd:onlineResource><gmd:CI_OnlineResource><gmd:linkage><gmd:URL/>
-</gmd:linkage>
-</gmd:CI_OnlineResource>
-</gmd:onlineResource>
-</gmd:CI_Contact>
-</gmd:contactInfo><gmd:role><gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
-</gmd:role>
-</gmd:CI_ResponsibleParty>
-</gmd:distributorContact><gmd:distributionOrderProcess><gmd:MD_StandardOrderProcess><gmd:fees><gco:CharacterString/>
-</gmd:fees>
-</gmd:MD_StandardOrderProcess>
-</gmd:distributionOrderProcess>
-</gmd:MD_Distributor>
-</gmd:distributor><gmd:transferOptions><gmd:MD_DigitalTransferOptions><gmd:transferSize><gco:Real/>
-</gmd:transferSize><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://rda.ucar.edu/datasets/ds277.3/</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString/>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://rda.ucar.edu/datasets/ds277.7/</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString/>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://www.cdc.noaa.gov/cdc/data.noaa.oisst.v2.html</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString>NetCDF-formatted OI weekly and monthly data from the NOAA Climate Diagnostic Center</gco:CharacterString>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://www.ncdc.noaa.gov/oa/climate/research/sst/sst.html</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString>Extended Reconstructed SST (ERSST) from NCDC</gco:CharacterString>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://www.cpc.ncep.noaa.gov/data/indices/</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString>Climate indicies from NCEP Cllimate Predicition Center (CPC)</gco:CharacterString>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://www.emc.ncep.noaa.gov/research/cmb/sst_analysis/</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString>Images, plots, and data for OI v2 from NCEP</gco:CharacterString>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://www.cpc.noaa.gov/products/predictions/30day/SSTs/sst_clim.html</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString>SST climatology based on the OI.v2 Reanalysis fields</gco:CharacterString>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://cdp.ucar.edu/MergedHadleyOI</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString>VIEW RELATED INFORMATION </gco:CharacterString>
-</gmd:protocol><gmd:description><gco:CharacterString>Merged Hadley Centre (HADISST) and OI.v2 SST and Sea Ice from NCAR CDP</gco:CharacterString>
-</gmd:description>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:onLine><gmd:CI_OnlineResource><gmd:linkage><gmd:URL>http://rda.ucar.edu/datasets/ds277.0/</gmd:URL>
-</gmd:linkage><gmd:protocol><gco:CharacterString/>
-</gmd:protocol><gmd:description><gco:CharacterString/>
-</gmd:description><gmd:function><gmd:CI_OnLineFunctionCode codeListValue="information" codeSpace="ISOTC211/19115">information</gmd:CI_OnLineFunctionCode>
-</gmd:function>
-</gmd:CI_OnlineResource>
-</gmd:onLine><gmd:offLine><gmd:MD_Medium><gmd:mediumNote><gco:CharacterString/>
-</gmd:mediumNote>
-</gmd:MD_Medium>
-</gmd:offLine>
-</gmd:MD_DigitalTransferOptions>
-</gmd:transferOptions>
-</gmd:MD_Distribution>
-</gmd:distributionInfo><gmd:dataQualityInfo><gmd:DQ_DataQuality><gmd:scope><gmd:DQ_Scope><gmd:level><gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
-</gmd:level>
-</gmd:DQ_Scope>
-</gmd:scope><gmd:lineage><gmd:LI_Lineage><gmd:statement><gco:CharacterString/>
-</gmd:statement>
-</gmd:LI_Lineage>
-</gmd:lineage>
-</gmd:DQ_DataQuality>
-</gmd:dataQualityInfo>
-</gmd:MD_Metadata></csw:SearchResults>
-</csw:GetRecordsResponse>
+<gmd:MD_Metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xmlns:dm="http://floraresearch.eu/sdi/services/7.0/dataModel/schema" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gml="http://www.opengis.net/gml" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:ns15="http://quakeml.org/xmlns/quakeml/1.2" xmlns:ns3="http://www.geoviqua.org/QualityInformationModel/3.1" xmlns:ns4="http://quakeml.org/xmlns/bed/1.2" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:wms="http://www.opengis.net/wms" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:wrs="http://www.opengis.net/cat/wrs/1.0" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <gmd:fileIdentifier>
+    <gco:CharacterString>oai:edu.ucar.rda:ds010.0</gco:CharacterString>
+  </gmd:fileIdentifier>
+  <gmd:parentIdentifier>
+    <gco:CharacterString>UUID-09125061-5d8e-4a45-8abb-9f04d9538218</gco:CharacterString>
+  </gmd:parentIdentifier>
+  <gmd:language>
+    <gmd:LanguageCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#LanguageCode" codeListValue="eng">English</gmd:LanguageCode>
+  </gmd:language>
+  <gmd:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="MD_CharacterSetCode_utf8" codeSpace="ISOTC211/19115">MD_CharacterSetCode_utf8</gmd:MD_CharacterSetCode>
+  </gmd:characterSet>
+  <gmd:hierarchyLevel>
+    <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+  </gmd:hierarchyLevel>
+  <gmd:hierarchyLevelName>
+    <gco:CharacterString/>
+  </gmd:hierarchyLevelName>
+  <gmd:contact>
+    <gmd:CI_ResponsibleParty>
+      <gmd:organisationName>
+        <gco:CharacterString/>
+      </gmd:organisationName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:phone>
+            <gmd:CI_Telephone>
+              <gmd:voice>
+                <gco:CharacterString/>
+              </gmd:voice>
+              <gmd:facsimile>
+                <gco:CharacterString/>
+              </gmd:facsimile>
+            </gmd:CI_Telephone>
+          </gmd:phone>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:deliveryPoint>
+                <gco:CharacterString/>
+              </gmd:deliveryPoint>
+              <gmd:city>
+                <gco:CharacterString/>
+              </gmd:city>
+              <gmd:administrativeArea>
+                <gco:CharacterString/>
+              </gmd:administrativeArea>
+              <gmd:postalCode>
+                <gco:CharacterString/>
+              </gmd:postalCode>
+              <gmd:country>
+                <gco:CharacterString/>
+              </gmd:country>
+              <gmd:electronicMailAddress>
+                <gco:CharacterString/>
+              </gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+          <gmd:onlineResource>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage>
+                <gmd:URL/>
+              </gmd:linkage>
+            </gmd:CI_OnlineResource>
+          </gmd:onlineResource>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+  <gmd:dateStamp>
+    <gco:Date/>
+  </gmd:dateStamp>
+  <gmd:metadataStandardName>
+    <gco:CharacterString>CEOS IDN DIF</gco:CharacterString>
+  </gmd:metadataStandardName>
+  <gmd:metadataStandardVersion>
+    <gco:CharacterString>9.7</gco:CharacterString>
+  </gmd:metadataStandardVersion>
+  <gmd:dataSetURI>
+    <gco:CharacterString>010.0</gco:CharacterString>
+  </gmd:dataSetURI>
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>
+              Daily Northern Hemisphere Sea Level Pressure Grids, continuing from 1899
+            </gco:CharacterString>
+          </gmd:title>
+          <gmd:alternateTitle>
+            <gco:CharacterString>
+              Daily Northern Hemisphere Sea Level Pressure Grids, continuing from 1899
+            </gco:CharacterString>
+          </gmd:alternateTitle>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date/>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:edition>
+            <gco:CharacterString/>
+          </gmd:edition>
+          <gmd:identifier>
+            <gmd:RS_Identifier>
+              <gmd:code>
+                <gco:CharacterString/>
+              </gmd:code>
+              <gmd:codeSpace>
+                <gco:CharacterString/>
+              </gmd:codeSpace>
+            </gmd:RS_Identifier>
+          </gmd:identifier>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:organisationName>
+                <gco:CharacterString>
+                  UCAR/NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research
+                </gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact/>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator" codeSpace="ISOTC211/19115">originator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:organisationName>
+                <gco:CharacterString>
+                  UCAR/NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research
+                </gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:city>
+                        <gco:CharacterString/>
+                      </gmd:city>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115">publisher</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:series>
+            <gmd:CI_Series>
+              <gmd:name>
+                <gco:CharacterString/>
+              </gmd:name>
+            </gmd:CI_Series>
+          </gmd:series>
+          <gmd:otherCitationDetails>
+            <gco:CharacterString/>
+          </gmd:otherCitationDetails>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract>
+        <gco:CharacterString>
+          The 5-degree latitude/longitude grids contained in this dataset make up the longest continuous set of daily gridded Northern Hemisphere sea-level pressure data in the DSS archive. For more information, see the documentation [http://rda.ucar.edu/datasets/ds010.0/docs/] about original data points.
+        </gco:CharacterString>
+      </gmd:abstract>
+      <gmd:status>
+        <gmd:MD_ProgressCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue=" underDevelopment ">underDevelopment</gmd:MD_ProgressCode>
+      </gmd:status>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Bob Dattore</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gco:CharacterString/>
+          </gmd:organisationName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>(303)-497-1825</gco:CharacterString>
+                  </gmd:voice>
+                  <gmd:facsimile>
+                    <gco:CharacterString>(303)-497-1291</gco:CharacterString>
+                  </gmd:facsimile>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>National Center for Atmospheric Research</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>CISL/DSS</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>P.O. Box 3000</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Boulder</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>CO</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>80307</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>U.S.A.</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>dattore@ucar.edu</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+              <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL/>
+                  </gmd:linkage>
+                </gmd:CI_OnlineResource>
+              </gmd:onlineResource>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Bob Dattore</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gco:CharacterString/>
+          </gmd:organisationName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>(303)-497-1825</gco:CharacterString>
+                  </gmd:voice>
+                  <gmd:facsimile>
+                    <gco:CharacterString>(303)-497-1291</gco:CharacterString>
+                  </gmd:facsimile>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>National Center for Atmospheric Research</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>CISL/DSS</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>P.O. Box 3000</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Boulder</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>CO</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>80307</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>U.S.A.</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>dattore@ucar.edu</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+              <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL/>
+                  </gmd:linkage>
+                </gmd:CI_OnlineResource>
+              </gmd:onlineResource>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>Atmospheric conditions</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="ISOTC/211">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GEMET - INSPIRE themes, version 1.0</gco:CharacterString>
+              </gmd:title>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>2008-06-01</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>ESSPO / 433L ESSPO</gco:CharacterString>
+          </gmd:keyword>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>MAPS GRIDDING METHODS /</gco:CharacterString>
+          </gmd:keyword>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="ISOTC/211">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>
+              Atmospheric Pressure / Sea Level Pressure
+            </gco:CharacterString>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>EARTH SCIENCE Atmosphere</gco:CharacterString>
+              </gmd:title>
+              <gmd:date/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>USA/NCAR</gco:CharacterString>
+          </gmd:keyword>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:resourceConstraints>
+        <gmd:MD_Constraints>
+          <gmd:useLimitation>
+            <gco:CharacterString/>
+          </gmd:useLimitation>
+        </gmd:MD_Constraints>
+        <gmd:MD_LegalConstraints>
+          <gmd:accessConstraints>
+            <gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resou rces/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions">otherRestrictions</gmd:MD_RestrictionCode>
+          </gmd:accessConstraints>
+          <gmd:otherConstraints>
+            <gco:CharacterString/>
+          </gmd:otherConstraints>
+        </gmd:MD_LegalConstraints>
+      </gmd:resourceConstraints>
+      <gmd:spatialResolution>
+        <gmd:MD_Resolution>
+          <gmd:distance>
+            <gco:Distance uom="degrees">5</gco:Distance>
+          </gmd:distance>
+        </gmd:MD_Resolution>
+      </gmd:spatialResolution>
+      <gmd:language>
+        <gco:CharacterString>English</gco:CharacterString>
+      </gmd:language>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:westBoundLongitude>
+                <gco:Decimal>-180 est</gco:Decimal>
+              </gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude>
+                <gco:Decimal>180 ast</gco:Decimal>
+              </gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude>
+                <gco:Decimal>15 orth</gco:Decimal>
+              </gmd:southBoundLatitude>
+              <gmd:northBoundLatitude>
+                <gco:Decimal>90 orth</gco:Decimal>
+              </gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:temporalElement>
+            <gmd:EX_TemporalExtent>
+              <gmd:extent>
+                <gml:TimePeriod gml:id="d2037e149">
+                  <gml:beginPosition>1899-01-01</gml:beginPosition>
+                  <gml:endPosition>2014-01-21</gml:endPosition>
+                </gml:TimePeriod>
+              </gmd:extent>
+            </gmd:EX_TemporalExtent>
+          </gmd:temporalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:supplementalInformation>
+        <gco:CharacterString/>
+      </gmd:supplementalInformation>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+  <gmd:identificationInfo>
+    <srv:SV_ServiceIdentification xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:srv="http://www.isotc211.org/2005/srv">
+      <gmd:citation/>
+      <gmd:abstract/>
+      <srv:serviceType/>
+      <srv:couplingType/>
+      <srv:containsOperations/>
+    </srv:SV_ServiceIdentification>
+  </gmd:identificationInfo>
+  <gmd:distributionInfo>
+    <gmd:MD_Distribution>
+      <gmd:distributionFormat>
+        <gmd:MD_Format>
+          <gmd:name>
+            <gco:CharacterString>Binary</gco:CharacterString>
+          </gmd:name>
+          <gmd:version>
+            <gco:CharacterString/>
+          </gmd:version>
+        </gmd:MD_Format>
+      </gmd:distributionFormat>
+      <gmd:distributor>
+        <gmd:MD_Distributor>
+          <gmd:distributorContact>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>DSS Help Desk</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>
+                  Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research
+                </gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>(303)-497-1231</gco:CharacterString>
+                      </gmd:voice>
+                      <gmd:facsimile>
+                        <gco:CharacterString>(303)-497-1291</gco:CharacterString>
+                      </gmd:facsimile>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>National Center for Atmospheric Research</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>CISL/DSS</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>P.O. Box 3000</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Boulder</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>CO</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>80307</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>U.S.A.</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>dssweb@ucar.edu</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                  <gmd:onlineResource>
+                    <gmd:CI_OnlineResource>
+                      <gmd:linkage>
+                        <gmd:URL/>
+                      </gmd:linkage>
+                    </gmd:CI_OnlineResource>
+                  </gmd:onlineResource>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="" codeSpace="ISOTC211/19115"/>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:distributorContact>
+          <gmd:distributionOrderProcess>
+            <gmd:MD_StandardOrderProcess>
+              <gmd:fees>
+                <gco:CharacterString/>
+              </gmd:fees>
+            </gmd:MD_StandardOrderProcess>
+          </gmd:distributionOrderProcess>
+        </gmd:MD_Distributor>
+      </gmd:distributor>
+      <gmd:transferOptions>
+        <gmd:MD_DigitalTransferOptions>
+          <gmd:transferSize>
+            <gco:Real/>
+          </gmd:transferSize>
+          <gmd:onLine>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage>
+                <gmd:URL>http://rda.ucar.edu/datasets/ds010.1/</gmd:URL>
+              </gmd:linkage>
+              <gmd:protocol>
+                <gco:CharacterString>VIEW RELATED INFORMATION</gco:CharacterString>
+              </gmd:protocol>
+              <gmd:description>
+                <gco:CharacterString/>
+              </gmd:description>
+            </gmd:CI_OnlineResource>
+          </gmd:onLine>
+          <gmd:onLine>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage>
+                <gmd:URL>http://rda.ucar.edu/datasets/ds010.0/</gmd:URL>
+              </gmd:linkage>
+              <gmd:protocol>
+                <gco:CharacterString/>
+              </gmd:protocol>
+              <gmd:description>
+                <gco:CharacterString/>
+              </gmd:description>
+              <gmd:function>
+                <gmd:CI_OnLineFunctionCode codeListValue="information" codeSpace="ISOTC211/19115">information</gmd:CI_OnLineFunctionCode>
+              </gmd:function>
+            </gmd:CI_OnlineResource>
+          </gmd:onLine>
+          <gmd:offLine>
+            <gmd:MD_Medium>
+              <gmd:mediumNote>
+                <gco:CharacterString/>
+              </gmd:mediumNote>
+            </gmd:MD_Medium>
+          </gmd:offLine>
+        </gmd:MD_DigitalTransferOptions>
+      </gmd:transferOptions>
+    </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+  <gmd:dataQualityInfo>
+    <gmd:DQ_DataQuality>
+      <gmd:scope>
+        <gmd:DQ_Scope>
+          <gmd:level>
+            <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+          </gmd:level>
+        </gmd:DQ_Scope>
+      </gmd:scope>
+      <gmd:report>
+        <gmd:DQ_AccuracyOfATimeMeasurement>
+          <gmd:nameOfMeasure>
+            <gco:CharacterString>Horizontal Resolution Range</gco:CharacterString>
+          </gmd:nameOfMeasure>
+          <gmd:result>
+            <gmd:DQ_QuantitativeResult>
+              <gmd:valueUnit>
+                <gml:DerivedUnit gml:id="d2037e185">
+                  <gml:identifier codeSpace=""/>
+                  <gml:derivationUnitTerm uom="km - < 1000 km or approximately 5 degrees - < 10 degrees"/>
+                </gml:DerivedUnit>
+              </gmd:valueUnit>
+              <gmd:value>
+                <gco:Record>500</gco:Record>
+              </gmd:value>
+            </gmd:DQ_QuantitativeResult>
+          </gmd:result>
+        </gmd:DQ_AccuracyOfATimeMeasurement>
+      </gmd:report>
+      <gmd:lineage>
+        <gmd:LI_Lineage>
+          <gmd:statement>
+            <gco:CharacterString/>
+          </gmd:statement>
+        </gmd:LI_Lineage>
+      </gmd:lineage>
+    </gmd:DQ_DataQuality>
+  </gmd:dataQualityInfo>
+</gmd:MD_Metadata>

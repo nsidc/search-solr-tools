@@ -5,7 +5,7 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
-long_name = 'Research Data Archive'
+long_name = 'CISL Research Data Archive'
 short_name = 'RDA'
 
 RDA = {
@@ -35,13 +35,13 @@ RDA = {
       multivalue: true
   },
   last_revision_date: {
-      xpaths: ['//gmd:dateStamp'],
+      xpaths: ['//gmd:dateStamp', './/gml:endPosition'],
       default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
       format: IsoToSolrFormat::DATE
   },
   dataset_url: {
-      xpaths: [".//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL[../gmd:function/gmd:CI_OnLineFunctionCode[@codeListValue='information']]"],
+      xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:function/gmd:CI_OnLineFunctionCode/text(),"information")]/gmd:linkage/gmd:URL'],
       multivalue: false
   },
   spatial_coverages: {

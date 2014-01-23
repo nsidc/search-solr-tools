@@ -10,13 +10,14 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
-      expected_text: 'NCEP Version 2.0 OI Global SST and NCDC Version 3.0 Extended Reconstructed SST Analyses'
+      expected_text: 'Daily Northern Hemisphere Sea Level Pressure Grids, continuing from 1899'
     },
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: 'The NCEP OI is a weekly and monthly 1x1 global analysis dataset that is available for ' +
-      'November 1981 through a current date... Abbreviated for testing'
+      expected_text: 'The 5-degree latitude/longitude grids contained in this dataset make up the longest continuous set of ' +
+      'daily gridded Northern Hemisphere sea-level pressure data in the DSS archive. For more information, ' +
+      'see the documentation [http://rda.ucar.edu/datasets/ds010.0/docs/] about original data points.'
     },
     {
       title: 'should grab the correct data center',
@@ -26,12 +27,12 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct get data link',
       xpath: "/doc/field[@name='dataset_url']",
-      expected_text: ''
+      expected_text: 'http://rda.ucar.edu/datasets/ds010.0/'
     },
     {
       title: 'should grab the correct updated date',
       xpath: "/doc/field[@name='last_revision_date']",
-      expected_text: '2014-01-01T00:00:00Z'
+      expected_text: '2014-01-21T00:00:00Z'
     },
     {
       title: 'should grab the correct source',
@@ -41,22 +42,22 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: ''
+      expected_text: '15 -180 90 180'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: ''
+      expected_text: '-180 15 180 90'
     },
     {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
-      expected_text: '1854-01-01,2014-01-11'
+      expected_text: '1899-01-01,2014-01-21'
     },
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
-      expected_text: '18.540101 20.140111'
+      expected_text: '18.990101 20.140121'
     }
   ]
 
