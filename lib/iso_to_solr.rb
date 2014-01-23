@@ -12,12 +12,13 @@ class IsoToSolr
     @multiple_whitespace = /\s{2,}/ # save the regex so it is not recompiled every time format_field() is called
   end
 
-  def eval_xpath(iso_xml_doc, xpath, multivalue)
+  # this will return a nodeset with all the elements that matched the xpath
+  def eval_xpath(iso_xml_doc, xpath, multivalue, reduce)
     fields = []
     begin
       iso_xml_doc.xpath(xpath, IsoNamespaces.get_namespaces(iso_xml_doc)).each do |f|
         fields.push(f)
-        break if multivalue == false
+        break if multivalue == false && reduce.nil?
       end
     rescue
       fields = []
@@ -40,15 +41,20 @@ class IsoToSolr
     formatted
   end
 
-  def format_fields(selector, fields)
+  def format_fields(selector, fields, reduce = nil)
     formatted = fields.map { |f| format_field(selector, f) }.flatten
+    formatted = [reduce.call(formatted)] unless reduce.nil?
     selector[:unique] ? formatted.uniq : formatted
   end
 
   def create_solr_fields(iso_xml_doc, selector)
     selector[:xpaths].each do |xpath|
-      fields = eval_xpath(iso_xml_doc, xpath, selector[:multivalue]) # this will return a nodeset with all the elements that matched the xpath
-      return format_fields(selector, fields) if fields.size > 0 && fields.any? { |f| f.text.strip.length > 0 }
+      fields = eval_xpath(iso_xml_doc, xpath, selector[:multivalue], selector[:reduce])
+
+      # stop evaluating xpaths once we find data in one of them
+      if fields.size > 0 && fields.any? { |f| f.text.strip.length > 0 }
+        return format_fields(selector, fields, selector[:reduce])
+      end
     end
     format_fields(selector, get_default_values(selector))
   end

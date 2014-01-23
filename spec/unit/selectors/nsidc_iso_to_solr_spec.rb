@@ -1,4 +1,5 @@
 require 'iso_to_solr'
+require 'date'
 
 describe 'NSIDC ISO to SOLR converter' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
@@ -115,6 +116,11 @@ describe 'NSIDC ISO to SOLR converter' do
       title: 'should include the correct temporal coverages',
       xpath: "/doc/field[@name='temporal_coverages'][1]",
       expected_text: '1978-10-01,2011-12-31'
+    },
+    {
+      title: 'should grab the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: "#{Integer(Time.now.to_date - Date.parse('1978-10-01')) + 1}"
     },
     {
       title: 'should include the first correct temporal values',

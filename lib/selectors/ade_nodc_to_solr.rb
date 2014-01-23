@@ -57,6 +57,12 @@ NODC = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
   },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    multivalue: false,
+    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
+  },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
@@ -83,6 +89,7 @@ NODC = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
+    default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },

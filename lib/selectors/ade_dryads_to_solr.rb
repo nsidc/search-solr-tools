@@ -66,6 +66,12 @@ DRYAD = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    multivalue: false,
+    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
+  },
   source: {
       xpaths: [''],
       default_values: ['ADE'],
@@ -83,6 +89,7 @@ DRYAD = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
+    default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },

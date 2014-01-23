@@ -4,11 +4,14 @@ require './lib/selectors/iso_namespaces'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
-  SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str node }
-  SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str node }
+  SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
+  SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
+  TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
 
-  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet node }
-  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet node }
+  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
+  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
+
+  REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   def self.date_str(date)
     d = if date.is_a? String
@@ -51,10 +54,34 @@ module IsoToSolrFormat
     facet
   end
 
+  # returns the temporal duration in days; returns -1 if there is not a valid
+  # start date
+  def self.get_temporal_duration(temporal_node)
+    dr = date_range(temporal_node)
+
+    if dr[:start].empty?
+      duration = nil
+    else
+      start_date = Date.parse(dr[:start])
+      end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
+
+      # datasets that cover just one day would have end_date - start_date = 0,
+      # so we need to add 1 to make sure the duration is the actual number of
+      # days; if the end date and start date are flipped in the metadata, a
+      # negative duration doesn't make sense so use the absolute value
+      duration = Integer(end_date - start_date).abs + 1
+    end
+
+    duration
+  end
+
   def self.get_temporal_duration_facet(temporal_node)
-    duration = total_duration(temporal_node)
-    facet = temporal_duration_range(duration)
-    facet
+    duration = get_temporal_duration(temporal_node)
+    temporal_duration_range(duration)
+  end
+
+  def self.reduce_temporal_duration(values)
+    values.reject { |v| v.nil? }.max
   end
 
   # We are indexiong date ranges a spatial cordinates.
@@ -98,22 +125,11 @@ module IsoToSolrFormat
     }
   end
 
-  def self.total_duration(date_ranges)
-    dr = date_range(date_ranges)
-
-    unless dr[:start].empty?
-      start_date = Time.new(dr[:start])
-      end_date = dr[:end].empty? ? Time.now : Time.new(dr[:end])
-
-      # Time - Time returns seconds as a Float; we want the year as an integer
-      duration = ((end_date - start_date) / Float(60 * 60 * 24 * 365)).to_int
-    end
-    duration
-  end
-
+  # takes a temporal_duration in days, returns a string representing the range
+  # for faceting
   def self.temporal_duration_range(temporal_duration)
-    range = case temporal_duration
-            when nil then ''
+    years = temporal_duration / 365
+    range = case years
             when 0 then '< 1 years'
             when 1..4 then '1 - 4 years'
             when 5..9 then '5 - 9 years'

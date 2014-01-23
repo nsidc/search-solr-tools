@@ -57,6 +57,11 @@ describe 'CISL ISO to Solr converter' do
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
       expected_text: '20.120609 20.120818'
+    },
+    {
+      title: 'should calculate the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: '71'
     }
   ]
 
