@@ -22,8 +22,8 @@ RDA = {
       multivalue: false
   },
   data_centers: {
-      xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: [long_name],
+      xpaths: [''],
+      default_values: ['UCAR/NCAR - Data Support Section, Computational and Information Systems Laboratory'],
       multivalue: false
   },
   authors: {
