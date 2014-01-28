@@ -6,6 +6,9 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths and multivalue are required, default_value and format are optional
 require './lib/selectors/iso_to_solr_format'
 
+long_name = 'National Snow and Ice Data Center'
+short_name = 'NSIDC'
+
 NSIDC = {
   authoritative_id: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_Identifier/gmd:code/gco:CharacterString'],
@@ -25,7 +28,7 @@ NSIDC = {
   },
   data_centers: {
       xpaths: [''],
-      default_values: ['National Snow and Ice Data Center'],
+      default_values: [long_name],
       multivalue: false
     },
   authors: {
@@ -120,7 +123,7 @@ NSIDC = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['National Snow and Ice Data Center | NSIDC'],
+      default_values: ["#{long_name} | #{short_name}"],
       multivalue: true
   },
   facet_spatial_coverage: {

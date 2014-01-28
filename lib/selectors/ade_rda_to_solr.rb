@@ -3,12 +3,12 @@ require './lib/selectors/iso_to_solr_format'
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
 # xpaths resolved to a value and formatting the field.
-# xpaths and multivalue are required, default_value and format are optional
+# xpaths and multivalue are required, default_value and format are optional.
 
-long_name = 'Norwegian Meteorological Institute'
-short_name = 'Met.no'
+long_name = 'CISL Research Data Archive'
+short_name = 'RDA'
 
-NMI = {
+RDA = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
       multivalue: false
@@ -22,8 +22,8 @@ NMI = {
       multivalue: false
   },
   data_centers: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-      default_values: [long_name],
+      xpaths: [''],
+      default_values: ['UCAR/NCAR - Data Support Section, Computational and Information Systems Laboratory'],
       multivalue: false
   },
   authors: {
@@ -35,40 +35,41 @@ NMI = {
       multivalue: true
   },
   last_revision_date: {
-      xpaths: ['//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date', '//gmd:dateStamp'],
+      xpaths: ['//gmd:dateStamp', './/gml:endPosition'],
       default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
       format: IsoToSolrFormat::DATE
   },
+  dataset_url: {
+      xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:function/gmd:CI_OnLineFunctionCode/text(),"information")]/gmd:linkage/gmd:URL'],
+      multivalue: false
+  },
   spatial_coverages: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
-      format: proc { |node| IsoToSolrFormat.spatial_display_str node }
+      format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_INDEX
   },
-  dataset_url: {
-      xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
-      multivalue: false
-  },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str node }
   },
-  temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
-    multivalue: false,
-    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
-  },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+  },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    default_values: [-2],
+    multivalue: false,
+    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
       xpaths: [''],
@@ -87,7 +88,6 @@ NMI = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
-    default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
