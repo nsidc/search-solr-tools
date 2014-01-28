@@ -22,7 +22,7 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research'
+      expected_text: 'UCAR/NCAR - Data Support Section, Computational and Information Systems Laboratory'
     },
     {
       title: 'should grab the correct get data link',
