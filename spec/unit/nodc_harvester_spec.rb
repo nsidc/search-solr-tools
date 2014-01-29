@@ -7,7 +7,7 @@ describe NodcHarvester do
   end
 
   it 'should retrieve records from the NODC CSW url' do
-    stub_request(:get, 'http://data.nodc.noaa.gov/geoportal/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&ElementSetName=full&startPosition=1&maxRecords=500')
+    stub_request(:get, 'http://data.nodc.noaa.gov/geoportal/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&ElementSetName=full&startPosition=1&maxRecords=100')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<gmi:MI_Metadata xmlns:gmi="http://www.isotc211.org/2005/gmi"><foo/></gmi:MI_Metadata>')
 
@@ -16,7 +16,7 @@ describe NodcHarvester do
 
   describe 'Adding documents to Solr' do
     it 'constructs an xml document with <doc> children' do
-      stub_request(:get, 'http://data.nodc.noaa.gov/geoportal/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&ElementSetName=full&startPosition=1&maxRecords=500')
+      stub_request(:get, 'http://data.nodc.noaa.gov/geoportal/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&ElementSetName=full&startPosition=1&maxRecords=100')
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nodc_iso.xml'), headers: {})
 
