@@ -18,7 +18,7 @@ class ADEHarvester < HarvesterBase
   # get translated entries from GI-Cat and add them to Solr
   # this is the main entry point for the class
   def harvest_gi_cat_into_solr
-    puts "Enabling GI-Catx profile: #{@profile}"
+    puts "Enabling GI-Cat profile: #{@profile}"
     @gi_cat.enable_profile @profile
     harvest_iso_documents
   end

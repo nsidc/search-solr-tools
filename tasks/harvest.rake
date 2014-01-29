@@ -1,5 +1,6 @@
 require './lib/ade_harvester.rb'
 require './lib/nsidc_harvester.rb'
+require './lib/nodc_harvester.rb'
 
 namespace :harvest do
 
@@ -8,6 +9,13 @@ namespace :harvest do
     harvester = NsidcHarvester.new args[:environment]
 
     harvester.harvest_nsidc_oai_into_solr
+  end
+
+  desc 'Harvest NODC data'
+  task :nodc, :environment do |t, args|
+    harvester = NodcHarvester.new args[:environment]
+
+    harvester.harvest_nodc_into_solr
   end
 
   desc 'Harvest ADE data'
