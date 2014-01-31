@@ -4,10 +4,12 @@ Dir['./lib/selectors/*.rb'].each { |file| require file }
 # to add a new source we need to create a selector file and add it to this hash.
 
 SELECTORS = {
-  cisl: CISL,
-  eol:  EOL,
-  nmi:  NMI,
-  nodc:  NODC,
-  nsidc: NSIDC,
-  dryad: DRYAD
+  cisl:   CISL,
+  eol:    EOL,
+  nmi:    NMI,
+  nodc:   NODC,
+  nsidc:  NSIDC,
+  dryad:  DRYAD,
+  rda:    RDA,
+  gina:   GINA
 }

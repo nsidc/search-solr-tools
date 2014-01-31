@@ -5,6 +5,9 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
+long_name = 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'
+short_name = 'UCAR/NCAR EOL-CDS'
+
 EOL = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -23,7 +26,7 @@ EOL = {
   },
   data_centers: {
       xpaths: [''],
-      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'],
+      default_values: [long_name],
       multivalue: false
   },
   authors: {
@@ -86,7 +89,7 @@ EOL = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility | UCAR/NCAR EOL-CDS'],
+      default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
   facet_spatial_coverage: {

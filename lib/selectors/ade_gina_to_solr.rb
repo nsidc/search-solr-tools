@@ -5,10 +5,10 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
-long_name = 'Norwegian Meteorological Institute'
-short_name = 'Met.no'
+long_name = 'UAF Geographic Information Network of Alaska'
+short_name = 'GINA'
 
-NMI = {
+GINA = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
       multivalue: false
@@ -59,16 +59,17 @@ NMI = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str node }
   },
-  temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
-    multivalue: false,
-    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
-  },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+  },
+  temporal_duration: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    default_values: [-2],
+    multivalue: false,
+    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
       xpaths: [''],
@@ -87,7 +88,6 @@ NMI = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
-    default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },

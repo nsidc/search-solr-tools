@@ -5,6 +5,9 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
+long_name = 'NOAA National Oceanographic Data Center'
+short_name = 'NOAA NODC'
+
 NODC = {
   authoritative_id: {
     xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -19,37 +22,43 @@ NODC = {
     multivalue: false
   },
   data_centers: {
-      xpaths: [''],
-      default_values: ['NOAA National Oceanographic Data Center'],
-      multivalue: false
+    xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+    default_values: [long_name],
+    multivalue: false
   },
   authors: {
-    xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="resourceProvider"]//gmd:individualName'],
-    multivalue: true,
-    unique: true
+    xpaths: [".//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
+    multivalue: true
   },
   keywords: {
-    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="theme" and not(.//gmd:thesaurusName)]//gmd:keyword/gco:CharacterString'],
+    xpaths: ['.//gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString',
+             './/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gmx:Anchor'],
     multivalue: true
   },
-  sensors: {
-    xpaths: ['.//gmi:MI_Instrument/gmi:identifier/gmd:MD_Identifier/gmd:code/gco:CharacterString'],
-    multivalue: true
+  last_revision_date: {
+    xpaths: ['.//gmd:dateStamp/gco:Date'],
+    multivalue: false,
+    format: IsoToSolrFormat::DATE
+  },
+  dataset_url: {
+    xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"ftp")]/gmd:linkage/gmd:URL',
+            './/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"FTP")]/gmd:linkage/gmd:URL'],
+    multivalue: false
   },
   spatial_coverages: {
-    xpaths: ['.//gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.spatial_display_str node }
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-    xpaths: ['.//gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: true,
     format: IsoToSolrFormat::SPATIAL_INDEX
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_display_str node }
+    format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
   },
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
@@ -62,23 +71,22 @@ NODC = {
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
   },
-  last_revision_date: {
-    xpaths: ['.//gmd:dateStamp/gco:Date'],
-    multivalue: false,
-    format: IsoToSolrFormat::DATE
+  sensors: {
+    xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+    multivalue: true
   },
   source: {
     xpaths: [''],
-    default_values: %w(ADE),
-    multivalue: true
+    default_values: ['ADE'],
+    multivalue: false
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ['NOAA National Oceanographic Data Center | NOAA NODC'],
-      multivalue: true
+      default_values: ["#{long_name} | #{short_name}"],
+      multivalue: false
   },
   facet_spatial_coverage: {
-    xpaths: ['.//gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
@@ -89,9 +97,7 @@ NODC = {
     multivalue: true
   },
   facet_author: {
-    xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
-              | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
-              | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]'],
+    xpaths: [".//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
     multivalue: true,
     unique: true
   }
