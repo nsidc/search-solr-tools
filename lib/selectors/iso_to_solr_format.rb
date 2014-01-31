@@ -49,9 +49,26 @@ module IsoToSolrFormat
 
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
-    facet = 'Non global'
-    facet = 'Global' if box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+
+    if is_box_invalid(box)
+      facet = 'No Spatial Information'
+    elsif is_box_global(box)
+      facet = 'Global'
+    else
+      facet = 'Non Global'
+    end
     facet
+  end
+
+  def self.is_box_invalid(box)
+    box[:north].nil? || box[:north].empty? ||
+      box[:east].nil? || box[:east].empty? ||
+      box[:south].nil? || box[:south].empty? ||
+      box[:west].nil? || box[:west].empty?
+  end
+
+  def self.is_box_global(box)
+    box[:south].to_f < -89.0 && box[:north].to_f > 89.0
   end
 
   # returns the temporal duration in days; returns -1 if there is not a valid
@@ -71,7 +88,6 @@ module IsoToSolrFormat
       # negative duration doesn't make sense so use the absolute value
       duration = Integer(end_date - start_date).abs + 1
     end
-
     duration
   end
 
@@ -108,10 +124,12 @@ module IsoToSolrFormat
   end
 
   def self.get_first_matching_child(node, paths)
+    matching_nodes = ''
     paths.each do |path|
       matching_nodes = node.xpath(path, IsoNamespaces.get_namespaces(node))
       return matching_nodes if matching_nodes.size > 0
     end
+    matching_nodes
   end
 
   def self.date_range(temporal_node, formatted = false)

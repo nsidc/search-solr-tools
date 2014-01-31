@@ -8,7 +8,7 @@ describe 'NODC ISO to Solr converter' do
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
-    {
+   {
       title: 'should grab the correct authoritative id',
       xpath: "/doc/field[@name='authoritative_id']",
       expected_text: 'gov.noaa.nodc:9900245'
@@ -30,18 +30,18 @@ describe 'NODC ISO to Solr converter' do
     },
     {
       title: 'should include the correct authors',
-      xpath: "/doc/field[@name='authors'][1]",
+      xpath: "/doc/field[@name='authors']",
       expected_text: 'Barbara M Hickey'
     },
     {
       title: 'should include the correct keywords',
-      xpath: "/doc/field[@name='keywords'][1]",
+      xpath: "/doc/field[@name='keywords']",
       expected_text: ''
     },
     {
       # TODO: add a dummy sensor to the fixture [MB 2013-12-27]
       title: 'should grab the correct first sensor',
-      xpath: "/doc/field[@name='sensors'][1]",
+      xpath: "/doc/field[@name='sensors']",
       expected_text: ''
     },
     {
@@ -85,6 +85,11 @@ describe 'NODC ISO to Solr converter' do
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
       expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct spatial facet',
+      xpath: "/doc/field[@name='facet_spatial_coverage']",
+      expected_text: 'Non Global'
     }
   ]
 

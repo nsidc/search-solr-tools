@@ -3,7 +3,9 @@ require './lib/selectors/iso_to_solr_format'
 
 describe 'ISO to SOLR format methods' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
+  bad_fixture = Nokogiri.XML File.open('spec/unit/fixtures/nodc_iso_bad_spatial.xml')
   geo_node = fixture.xpath('.//gmd:EX_GeographicBoundingBox').first
+  bad_geo_node = bad_fixture.xpath('.//gmd:EX_GeographicBoundingBox').first
   temporal_node = fixture.xpath('.//gmd:EX_TemporalExtent').first
 
   describe 'date' do
@@ -55,7 +57,11 @@ describe 'ISO to SOLR format methods' do
 
   describe 'facets' do
     it 'should set the spatial coverage(s) from a GeographicBoundingBox node' do
-      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Non global'
+      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Non Global'
+    end
+
+    it 'should set the spatial coverage(s) to "No Spatial Information" when missing bounds' do
+      IsoToSolrFormat.get_spatial_facet(bad_geo_node).should eql 'No Spatial Information'
     end
 
     it 'should set the duration(s) from a TemporalExtent node' do
