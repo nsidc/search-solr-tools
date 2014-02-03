@@ -39,7 +39,25 @@ class NodcHarvester < HarvesterBase
     nodc_url + NODCCswIsoQueryBuilder.get_query_string({
       'resultType' => resultType,
       'maxRecords' => maxRecords,
-      'startPosition' => startPosition
+      'startPosition' => startPosition,
+      'constraint' => get_bbox_constraint
     })
+  end
+
+  def get_bbox_constraint
+    bbox = {
+      west: '-180',
+      south: '45',
+      east: '180',
+      north: '90'
+    }
+
+    URI.encode '<Filter xmlns:ogc="http://www.opengis.net/ogc" ' +
+      'xmlns:gml="http://www.opengis.net/gml" ' +
+      'xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">' +
+      '<ogc:BBOX><PropertyName>apiso:BoundingBox</PropertyName><gml:Envelope>' +
+      '<gml:lowerCorner>' + bbox[:west] + ' ' + bbox[:south] + '</gml:lowerCorner>' +
+      '<gml:upperCorner>' + bbox[:east] + ' ' + bbox[:north] + '</gml:upperCorner>' +
+      '</gml:Envelope></ogc:BBOX></Filter>'
   end
 end
