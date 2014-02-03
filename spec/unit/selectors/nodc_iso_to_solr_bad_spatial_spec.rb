@@ -36,7 +36,7 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
     {
       title: 'should include the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: ''
+      expected_text: 'oceanography'
     },
     {
       # TODO: add a dummy sensor to the fixture [MB 2013-12-27]
@@ -49,7 +49,7 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
       xpath: "/doc/field[@name='dataset_url']",
       # NOTE: I'm grabbing the FTP link explicitly.  NODC has really good data
       # access links with other representations available.
-      expected_text: ''
+      expected_text: 'ftp://ftp.nodc.noaa.gov/nodc/archive/arc0016/0001497/'
     },
     {
       title: 'should grab the correct updated date',
@@ -69,7 +69,7 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
     {
      title: 'should grab the correct temporal coverage',
      xpath: "/doc/field[@name='temporal_coverages']",
-     expected_text: '1985-04-13,1994-11-23'
+     expected_text: '1985-04-13T00:00:00Z,1994-11-23T00:00:00Z'
     },
     {
       title: 'should grab the correct temporal duration',

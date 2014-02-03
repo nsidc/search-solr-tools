@@ -31,12 +31,12 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should include the correct authors',
       xpath: "/doc/field[@name='authors']",
-      expected_text: 'Barbara M Hickey'
+      expected_text: ''
     },
     {
       title: 'should include the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: ''
+      expected_text: 'oceanography'
     },
     {
       # TODO: add a dummy sensor to the fixture [MB 2013-12-27]
@@ -49,7 +49,7 @@ describe 'NODC ISO to Solr converter' do
       xpath: "/doc/field[@name='dataset_url']",
       # NOTE: I'm grabbing the FTP link explicitly.  NODC has really good data
       # access links with other representations available.
-      expected_text: ''
+      expected_text: 'ftp://ftp.nodc.noaa.gov/nodc/archive/arc0001/9900245/'
     },
     {
       title: 'should grab the correct updated date',
@@ -69,7 +69,7 @@ describe 'NODC ISO to Solr converter' do
     {
      title: 'should grab the correct temporal coverage',
      xpath: "/doc/field[@name='temporal_coverages']",
-     expected_text: '1995-07-22,1995-07-28'
+     expected_text: '1995-07-22T00:00:00Z,1995-07-28T00:00:00Z'
     },
     {
       title: 'should grab the correct temporal duration',
