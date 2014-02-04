@@ -1,5 +1,5 @@
 require 'nokogiri'
-require './lib/nodc_csw_iso_query_builder'
+require './lib/csw_iso_query_builder'
 require './lib/iso_to_solr'
 require './lib/harvester_base'
 
@@ -36,7 +36,7 @@ class NodcHarvester < HarvesterBase
   end
 
   def build_csw_request(resultType = 'results', maxRecords = '25', startPosition = '1')
-    nodc_url + NODCCswIsoQueryBuilder.get_query_string({
+    CswIsoQueryBuilder.get_query_string(nodc_url, {
       'resultType' => resultType,
       'maxRecords' => maxRecords,
       'startPosition' => startPosition,

@@ -1,5 +1,5 @@
 require 'gi_cat_driver'
-require './lib/ade_csw_iso_query_builder'
+require './lib/csw_iso_query_builder'
 require './lib/iso_to_solr'
 require './lib/harvester_base'
 
@@ -57,10 +57,11 @@ class ADEHarvester < HarvesterBase
   end
 
   def build_csw_request(resultType = 'results', maxRecords = '25', startPosition = '1')
-    csw_query_url + ADECswIsoQueryBuilder.get_query_string({
-        'resultType' => resultType,
-        'maxRecords' => maxRecords,
-        'startPosition' => startPosition
+    CswIsoQueryBuilder.get_query_string(csw_query_url, {
+      'namespace' => 'xmlns(gmd=http://www.isotc211.org/2005/gmd)',
+      'resultType' => resultType,
+      'maxRecords' => maxRecords,
+      'startPosition' => startPosition
     })
   end
 end
