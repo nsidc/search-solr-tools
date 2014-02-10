@@ -49,8 +49,14 @@ module IsoToSolrFormat
 
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
-    facet = 'Non global'
-    facet = 'Global' if box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+
+    if is_box_invalid(box)
+      facet = 'No Spatial Information'
+    elsif is_box_global(box)
+      facet = 'Global'
+    else
+      facet = 'Non Global'
+    end
     facet
   end
 
@@ -71,7 +77,6 @@ module IsoToSolrFormat
       # negative duration doesn't make sense so use the absolute value
       duration = Integer(end_date - start_date).abs + 1
     end
-
     duration
   end
 
@@ -99,19 +104,26 @@ module IsoToSolrFormat
   MAX_DATE = '30000101'
 
   def self.bounding_box(box_node)
+    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal'])
+    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal'])
+    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal'])
+    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal'])
+
     {
-      west: get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal']).text.split(' ').first.strip,
-      south: get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal']).text.split(' ').first.strip,
-      east: get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal']).text.split(' ').first.strip,
-      north: get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal']).text.split(' ').first.strip
+      west: west,
+      south: south,
+      east: east,
+      north: north
     }
   end
 
   def self.get_first_matching_child(node, paths)
+    text = ''
     paths.each do |path|
-      matching_nodes = node.xpath(path, IsoNamespaces.get_namespaces(node))
-      return matching_nodes if matching_nodes.size > 0
+      matching_nodes = node.at_xpath(path, IsoNamespaces.get_namespaces(node))
+      return matching_nodes.text.split(' ').first.strip unless matching_nodes.nil?
     end
+    text
   end
 
   def self.date_range(temporal_node, formatted = false)
@@ -141,5 +153,16 @@ module IsoToSolrFormat
   def self.format_date_for_index(date_str, default)
     date_str = default if date_str.eql?('')
     DateTime.parse(date_str).strftime('%C.%y%m%d')
+  end
+
+  def self.is_box_invalid(box)
+    box[:north].nil? || box[:north].empty? ||
+      box[:east].nil? || box[:east].empty? ||
+      box[:south].nil? || box[:south].empty? ||
+      box[:west].nil? || box[:west].empty?
+  end
+
+  def self.is_box_global(box)
+    box[:south].to_f < -89.0 && box[:north].to_f > 89.0
   end
 end

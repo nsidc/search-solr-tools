@@ -1,6 +1,6 @@
 require 'ade_harvester'
 require 'webmock/rspec'
-require 'ade_csw_iso_query_builder'
+require 'csw_iso_query_builder'
 
 describe ADEHarvester do
   describe 'Harvest process' do
@@ -22,20 +22,20 @@ describe ADEHarvester do
 
     describe 'Running CSW/ISO Queries against ACADIS GI-Cat' do
       it 'Builds a default request to query the ACADIS GI-Cat CSW/ISO service' do
-        expect(@ade_harvester.build_csw_request).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=25&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd')
+        expect(@ade_harvester.build_csw_request).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=25&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)')
       end
 
       it 'Builds a request to get the number of records from the ACADIS GI-Cat CSW/ISO service' do
         query_string = @ade_harvester.build_csw_request('hits', '1', '1')
 
-        expect(query_string).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=hits&outputFormat=application/xml&maxRecords=1&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd')
+        expect(query_string).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&ElementSetName=full&resultType=hits&outputFormat=application/xml&maxRecords=1&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)')
       end
 
     end
 
     describe 'Retrieving the records from GI-Cat' do
       it 'Builds a request to query the data from the ACADIS GI-Cat CSW/ISO service' do
-        expected_query = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=25&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd'
+        expected_query = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=25&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)'
         actual_query = @ade_harvester.build_csw_request('results', '25', '1')
 
         expect(actual_query).to eql(expected_query)
@@ -43,7 +43,8 @@ describe ADEHarvester do
 
       it 'Makes a request to the GI-Cat CSW/ISO service' do
         csw_iso_url = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso'
-        query_params = ADECswIsoQueryBuilder.query_params({
+        query_params = CswIsoQueryBuilder.query_params({
+          'namespace' => 'xmlns(gmd=http://www.isotc211.org/2005/gmd)',
           'resultType' => 'results',
           'maxRecords' => '25',
           'startPosition' => '1'
@@ -63,12 +64,12 @@ describe ADEHarvester do
 
       it 'constructs an xml document with <doc> children' do
         # the stubbed request for page 1 of results gets the fixture back
-        stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2')
+        stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)')
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
           .to_return(status: 200, body: File.open('spec/unit/fixtures/cisl_iso.xml'), headers: {})
 
         # the stubbed request for page 2 of results gets none back
-        stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=26&version=2.0.2')
+        stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=26&version=2.0.2&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)')
           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
           .to_return(status: 200, body: '', headers: {})
 

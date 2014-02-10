@@ -1,5 +1,5 @@
 # Constructs the string to query GI-Cat for CSW-ISO data
-class ADECswIsoQueryBuilder
+class CswIsoQueryBuilder
 
   # get the query string from a hash of parameters
   class QueryBuilder
@@ -13,7 +13,6 @@ class ADECswIsoQueryBuilder
     version: '2.0.2',
     request: 'GetRecords',
     'TypeNames' => 'gmd:MD_Metadata',
-    namespace: 'xmlns(gmd=http://www.isotc211.org/2005/gmd)',
     'ElementSetName' => 'full',
     'resultType' => 'results',
     'outputFormat' => 'application/xml',
@@ -22,10 +21,10 @@ class ADECswIsoQueryBuilder
     'outputSchema' => 'http://www.isotc211.org/2005/gmd'
   }
 
-  def self.get_query_string(query_params = {})
+  def self.get_query_string(url, query_params = {})
     all_params = query_params(query_params)
     builder = QueryBuilder.new
-    builder.assemble_query(all_params)
+    builder.assemble_query(all_params).prepend(url)
   end
 
   def self.query_params(query_params = {})

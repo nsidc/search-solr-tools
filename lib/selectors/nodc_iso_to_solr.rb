@@ -46,14 +46,14 @@ NODC = {
     multivalue: false
   },
   spatial_coverages: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_DISPLAY
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_INDEX
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_INDEX
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
@@ -86,9 +86,9 @@ NODC = {
       multivalue: false
   },
   facet_spatial_coverage: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
