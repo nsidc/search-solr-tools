@@ -3,15 +3,20 @@ require './lib/selectors/iso_namespaces'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
+  LONGITUDE_METERS_PER_DEGREE = 78_846.81
+  LATITUDE_METERS_PER_DEGREE = 111_131.75
   DATE = proc { |date | date_str date.text }
+
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
+  SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
+  REDUCE_SPATIAL_AREA = proc { |values| IsoToSolrFormat.reduce_spatial_area(values) }
+
   TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
+  REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
-
-  REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   def self.date_str(date)
     d = if date.is_a? String
@@ -40,6 +45,17 @@ module IsoToSolrFormat
      else
        [box[:west], box[:south], box[:east], box[:north]]
      end).join(' ')
+  end
+
+  def self.spatial_area_str(box_node)
+    box = bounding_box(box_node)
+    width = get_longitude_distance(box)
+    height = get_latitude_distance(box)
+    width.abs * height.abs
+  end
+
+  def self.reduce_spatial_area(values)
+    values.reduce { |a, e| a + e }
   end
 
   def self.temporal_display_str(temporal_node, formatted = false)
@@ -164,5 +180,17 @@ module IsoToSolrFormat
 
   def self.is_box_global(box)
     box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+  end
+
+  def self.get_longitude_distance(box)
+    x1 = (Math.cos(box[:north].to_f) * LONGITUDE_METERS_PER_DEGREE) * box[:west].to_f
+    x2 = (Math.cos(box[:north].to_f) * LONGITUDE_METERS_PER_DEGREE) * box[:east].to_f
+    x2 - x1
+  end
+
+  def self.get_latitude_distance(box)
+    y1 = LATITUDE_METERS_PER_DEGREE * box[:north].to_f
+    y2 = LATITUDE_METERS_PER_DEGREE * box[:south].to_f
+    y2 - y1
   end
 end

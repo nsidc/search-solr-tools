@@ -50,6 +50,11 @@ describe 'RDA ISO to Solr converter' do
       expected_text: '-180 15 180 90'
     },
     {
+      title: 'should calculate the correct spatial area',
+      xpath: "/doc/field[@name='spatial_area']",
+      expected_text: '106007213013771.9'
+    },
+    {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
       expected_text: '1899-01-01,2014-01-21'

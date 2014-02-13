@@ -67,6 +67,11 @@ describe 'NODC ISO to Solr converter' do
       expected_text: '-126 46 -124 48.5'
     },
     {
+      title: 'should calculate the correct spatial area',
+      xpath: "/doc/field[@name='spatial_area']",
+      expected_text: '8475792886.916916'
+    },
+    {
      title: 'should grab the correct temporal coverage',
      xpath: "/doc/field[@name='temporal_coverages']",
      expected_text: '1995-07-22T00:00:00Z,1995-07-28T00:00:00Z'

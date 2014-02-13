@@ -50,6 +50,12 @@ NMI = {
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_INDEX
   },
+  spatial_area: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: false,
+    reduce: IsoToSolrFormat::REDUCE_SPATIAL_AREA,
+    format: IsoToSolrFormat::SPATIAL_AREA
+  },
   dataset_url: {
       xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
       multivalue: false
