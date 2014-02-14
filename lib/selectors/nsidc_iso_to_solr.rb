@@ -142,5 +142,20 @@ NSIDC = {
               | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]'],
     multivalue: true,
     unique: true
-  }
+  },
+  facet_parameter_term: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ')[2] }
+  },
+  facet_parameter_detailed: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ').last }
+  },
+  facet_parameter_full: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ')[2..-1].join(' > ') }
+  },
 }
