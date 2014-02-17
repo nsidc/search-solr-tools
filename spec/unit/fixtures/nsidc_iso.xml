@@ -113,13 +113,14 @@
               Making Earth System Data Records for Use in Research Environments
             </gco:CharacterString>
           </gmd:organisationName>
+          <gmd:organisationShortName>
+            <gco:CharacterString>NSIDC_MEaSUREs</gco:CharacterString>
+          </gmd:organisationShortName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
               <gmd:onlineResource>
                 <gmd:CI_OnlineResource>
-                  <gmd:linkage>
-                    <gmd:URL>http://nsidc.org</gmd:URL>
-                  </gmd:linkage>
+                  <gmd:linkage gco:nilReason="missing"/>
                   <gmd:name gco:nilReason="missing"/>
                   <gmd:description gco:nilReason="missing"/>
                 </gmd:CI_OnlineResource>

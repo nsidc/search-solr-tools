@@ -142,5 +142,10 @@ NSIDC = {
               | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]'],
     multivalue: true,
     unique: true
+  },
+  facet_sponsored_program: {
+    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
+    multivalue: true,
+    format: proc { |program| (program.text.split '_')[1]}
   }
 }

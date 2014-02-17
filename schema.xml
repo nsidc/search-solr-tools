@@ -36,6 +36,7 @@
     <field name="facet_temporal_duration" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_sensors" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="facet_brokered" type="boolean" indexed="true" stored="true" multiValued="false" />
+    <field name="facet_sponsored_program" type="string" indexed="true" multiValued="true" />
 
   </fields>
 
