@@ -163,7 +163,6 @@ NSIDC = {
     multivalue: true,
     format: proc { |param| (param.text.split ' > ')[2..-1].join(' > ') }
   },
-  },
   facet_sponsored_program: {
     xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
     multivalue: true,
