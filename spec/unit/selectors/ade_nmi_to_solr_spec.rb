@@ -52,7 +52,7 @@ describe 'NMI ISO to Solr converter' do
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '42402885205508.766'
+      expected_text: '30.0'
     },
     {
       title: 'should grab the correct temporal coverage',

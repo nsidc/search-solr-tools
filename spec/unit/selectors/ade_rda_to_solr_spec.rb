@@ -52,7 +52,7 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '106007213013771.9'
+      expected_text: '75.0'
     },
     {
       title: 'should grab the correct temporal coverage',

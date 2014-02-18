@@ -1,8 +1,10 @@
 require 'date'
 require './lib/selectors/iso_namespaces'
+require 'rgeo'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
+  TOTAL_LONGITUDE_DEGREES = 360
   LONGITUDE_METERS_PER_DEGREE = 78_846.81
   LATITUDE_METERS_PER_DEGREE = 111_131.75
   DATE = proc { |date | date_str date.text }
@@ -49,13 +51,12 @@ module IsoToSolrFormat
 
   def self.spatial_area_str(box_node)
     box = bounding_box(box_node)
-    width = get_longitude_distance(box)
-    height = get_latitude_distance(box)
-    width.abs * height.abs
+    area = box[:north].to_f - box[:south].to_f
+    area
   end
 
   def self.reduce_spatial_area(values)
-    values.reduce { |a, e| a + e }
+    values.reduce { |a, e| a.to_f + e.to_f }
   end
 
   def self.temporal_display_str(temporal_node, formatted = false)
@@ -180,17 +181,5 @@ module IsoToSolrFormat
 
   def self.is_box_global(box)
     box[:south].to_f < -89.0 && box[:north].to_f > 89.0
-  end
-
-  def self.get_longitude_distance(box)
-    x1 = (Math.cos(box[:north].to_f) * LONGITUDE_METERS_PER_DEGREE) * box[:west].to_f
-    x2 = (Math.cos(box[:north].to_f) * LONGITUDE_METERS_PER_DEGREE) * box[:east].to_f
-    x2 - x1
-  end
-
-  def self.get_latitude_distance(box)
-    y1 = LATITUDE_METERS_PER_DEGREE * box[:north].to_f
-    y2 = LATITUDE_METERS_PER_DEGREE * box[:south].to_f
-    y2 - y1
   end
 end
