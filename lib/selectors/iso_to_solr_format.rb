@@ -1,18 +1,14 @@
 require 'date'
 require './lib/selectors/iso_namespaces'
-require 'rgeo'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
-  TOTAL_LONGITUDE_DEGREES = 360
-  LONGITUDE_METERS_PER_DEGREE = 78_846.81
-  LATITUDE_METERS_PER_DEGREE = 111_131.75
   DATE = proc { |date | date_str date.text }
 
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
   SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
-  REDUCE_SPATIAL_AREA = proc { |values| IsoToSolrFormat.reduce_spatial_area(values) }
+  TOTAL_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_total_spatial_area(values) }
 
   TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
   REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
@@ -55,7 +51,7 @@ module IsoToSolrFormat
     area
   end
 
-  def self.reduce_spatial_area(values)
+  def self.get_total_spatial_area(values)
     values.reduce { |a, e| a.to_f + e.to_f }
   end
 

@@ -85,7 +85,7 @@ NSIDC = {
   spatial_area: {
     xpaths: ['.//gmd:EX_GeographicBoundingBox'],
     multivalue: true,
-    reduce: IsoToSolrFormat::REDUCE_SPATIAL_AREA,
+    reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal_coverages: {
