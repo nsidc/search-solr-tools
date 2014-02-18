@@ -39,6 +39,7 @@
     <field name="facet_parameter_term" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_parameter_detailed" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_parameter_full" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="facet_sponsored_program" type="string" indexed="true" multiValued="true" />
 
   </fields>
 
