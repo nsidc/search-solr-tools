@@ -176,6 +176,6 @@ module IsoToSolrFormat
   end
 
   def self.is_box_global(box)
-    box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+    box[:south].to_f < -85.0 && box[:north].to_f > 85.0
   end
 end
