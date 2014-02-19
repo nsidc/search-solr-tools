@@ -113,6 +113,11 @@ describe 'NSIDC ISO to SOLR converter' do
       expected_text: '-180 -90 180 -39.23'
     },
     {
+      title: 'should calculate the correct spatial area',
+      xpath: "/doc/field[@name='spatial_area']",
+      expected_text: '109.78999999999999'
+    },
+    {
       title: 'should include the correct temporal coverages',
       xpath: "/doc/field[@name='temporal_coverages'][1]",
       expected_text: '1978-10-01,2011-12-31'

@@ -60,6 +60,11 @@ describe 'EOL ISO to Solr converter' do
       expected_text: '-156.64 71.275 -156.568 71.296'
     },
     {
+      title: 'should calculate the correct spatial area',
+      xpath: "/doc/field[@name='spatial_area']",
+      expected_text: '0.021000000000000796'
+    },
+    {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
       expected_text: '2002-08-01T00:00:00Z,2008-07-30T23:59:59Z'
