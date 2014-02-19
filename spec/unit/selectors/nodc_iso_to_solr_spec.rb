@@ -90,6 +90,11 @@ describe 'NODC ISO to Solr converter' do
       title: 'should grab the correct spatial facet',
       xpath: "/doc/field[@name='facet_spatial_coverage']",
       expected_text: 'Non Global'
+    },
+    {
+      title: 'should grab the correct spatial scope facet',
+      xpath: "/doc/field[@name='facet_spatial_scope']",
+      expected_text: 'Regional'
     }
   ]
 

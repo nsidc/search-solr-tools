@@ -58,7 +58,23 @@ describe 'RDA ISO to Solr converter' do
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
       expected_text: '18.990101 20.140121'
+    },
+    {
+      title: 'should calculate the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: '42024'
+    },
+    {
+      title: 'should grab the correct spatial facet',
+      xpath: "/doc/field[@name='facet_spatial_coverage']",
+      expected_text: 'Non Global'
+    },
+    {
+      title: 'should grab the correct spatial scope facet',
+      xpath: "/doc/field[@name='facet_spatial_scope']",
+      expected_text: 'Regional'
     }
+
   ]
 
   test_expectations.each do |expectation|

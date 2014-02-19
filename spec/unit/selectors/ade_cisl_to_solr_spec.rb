@@ -62,6 +62,16 @@ describe 'CISL ISO to Solr converter' do
       title: 'should calculate the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
       expected_text: '71'
+    },
+    {
+      title: 'should grab the correct spatial facet',
+      xpath: "/doc/field[@name='facet_spatial_coverage']",
+      expected_text: 'Global'
+    },
+    {
+      title: 'should grab the correct spatial scope facet',
+      xpath: "/doc/field[@name='facet_spatial_scope']",
+      expected_text: 'Global'
     }
   ]
 
