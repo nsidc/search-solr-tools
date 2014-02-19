@@ -171,6 +171,11 @@ describe 'NSIDC ISO to SOLR converter' do
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope'][1]",
       expected_text: 'Regional'
+    },
+    {
+      title: 'should include the sponsored program facet',
+      xpath: "/doc/field[@name='facet_sponsored_program']",
+      expected_text: 'MEaSUREs'
     }
   ]
 

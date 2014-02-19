@@ -147,5 +147,30 @@ NSIDC = {
               | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="metadata author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]'],
     multivalue: true,
     unique: true
+  },
+  facet_parameter: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ')[2] }
+  },
+  facet_parameter_term: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ')[2] }
+  },
+  facet_parameter_detailed: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ').last }
+  },
+  facet_parameter_full: {
+    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
+    multivalue: true,
+    format: proc { |param| (param.text.split ' > ')[2..-1].join(' > ') }
+  },
+  facet_sponsored_program: {
+    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
+    multivalue: true,
+    format: proc { |program| (program.text.split '_')[1] }
   }
 }
