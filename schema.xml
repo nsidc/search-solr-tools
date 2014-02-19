@@ -33,6 +33,7 @@
     <field name="facet_data_center" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="facet_popularity" type="int" indexed="true" stored="true" multiValued="false" />
     <field name="facet_spatial_coverage" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="facet_spatial_scope" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_temporal_duration" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_sensors" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="facet_brokered" type="boolean" indexed="true" stored="true" multiValued="false" />
