@@ -68,10 +68,10 @@ module IsoToSolrFormat
       facet = 'No Spatial Information'
     elsif is_box_global(box)
       facet = 'Global'
-    elsif is_box_regional(box)
-      facet = 'Regional'
-    else
+    elsif is_box_local(box)
       facet = 'Local'
+    else
+      facet = 'Regional'
     end
     facet
   end
@@ -179,11 +179,11 @@ module IsoToSolrFormat
   end
 
   def self.is_box_global(box)
-    box[:south].to_f < -89.0 && box[:north].to_f > 89.0
+    box[:south].to_f < -85.0 && box[:north].to_f > 85.0
   end
 
-  def self.is_box_regional(box)
+  def self.is_box_local(box)
     distance = box[:north].to_f - box[:south].to_f
-    distance > 1 && distance < 85.0
+    distance < 1
   end
 end
