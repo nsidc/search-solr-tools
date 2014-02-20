@@ -4,15 +4,18 @@ require './lib/selectors/iso_namespaces'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
+
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
+  SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
+  TOTAL_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_total_spatial_area(values) }
+
   TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
+  REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
   FACET_SPATIAL_SCOPE = proc { |node| IsoToSolrFormat.get_spatial_scope_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
-
-  REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   def self.date_str(date)
     d = if date.is_a? String
@@ -41,6 +44,16 @@ module IsoToSolrFormat
      else
        [box[:west], box[:south], box[:east], box[:north]]
      end).join(' ')
+  end
+
+  def self.spatial_area_str(box_node)
+    box = bounding_box(box_node)
+    area = box[:north].to_f - box[:south].to_f
+    area
+  end
+
+  def self.get_total_spatial_area(values)
+    values.reduce { |a, e| a.to_f + e.to_f }
   end
 
   def self.temporal_display_str(temporal_node, formatted = false)

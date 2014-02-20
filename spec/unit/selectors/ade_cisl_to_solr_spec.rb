@@ -49,6 +49,11 @@ describe 'CISL ISO to Solr converter' do
       expected_text: '-180 -90 180 90'
     },
     {
+      title: 'should calculate the correct spatial area',
+      xpath: "/doc/field[@name='spatial_area']",
+      expected_text: '180.0'
+    },
+    {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
       expected_text: '2012-06-09T06:00:00Z,2012-08-18T06:00:00Z'
