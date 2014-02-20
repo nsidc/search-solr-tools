@@ -34,6 +34,11 @@ describe 'ISO to SOLR format methods' do
     it 'should generate a WSEN space separated string from a GeographicBoundingBox node' do
       IsoToSolrFormat.spatial_index_str(geo_node).should eql '-180 30.98 180 90'
     end
+
+    it 'should calculate the correct spatial scope' do
+      IsoToSolrFormat.get_spatial_scope_facet(geo_node).should eql 'Regional'
+    end
+
   end
 
   describe 'temporal' do
