@@ -36,6 +36,7 @@ module SolrEnvironments
           repo_dir: '~/solr_repo/',
           oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
           nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
+          echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.iso19115',
           gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
           gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
           host: 'localhost'
@@ -44,6 +45,7 @@ module SolrEnvironments
                                              deployment_target: '/disks/integration/live/apps/nsidc-open-search-solr/',
                                              oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
                                              nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
+                                             echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.iso19115',
                                              gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
                                              gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
                                              host: 'liquid.colorado.edu'
@@ -52,6 +54,7 @@ module SolrEnvironments
                                     deployment_target: '/disks/qa/live/apps/nsidc-open-search-solr/',
                                     oai_url: 'http://brash.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
                                     nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
+                                    echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.iso19115',
                                     gi_cat_csw_url: 'http://brash.colorado.edu:11380/api/gi-cat/services/cswiso',
                                     gi_cat_url: 'http://brash.colorado.edu:11380/api/gi-cat',
                                     host: 'brash.colorado.edu'
@@ -60,6 +63,7 @@ module SolrEnvironments
                                          deployment_target: '/disks/staging/live/apps/nsidc-open-search-solr/',
                                          oai_url: 'http://freeze.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
                                          nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
+                                         echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.iso19115',
                                          gi_cat_csw_url: 'http://freeze.colorado.edu:11380/api/gi-cat/services/cswiso',
                                          gi_cat_url: 'http://freeze.colorado.edu:11380/api/gi-cat',
                                          host: 'freeze.colorado.edu'
@@ -68,6 +72,7 @@ module SolrEnvironments
                                          deployment_target: '/disks/production/live/apps/nsidc-open-search-solr/',
                                          oai_url: 'http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
                                          nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
+                                         echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.iso19115',
                                          gi_cat_csw_url: 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
                                          gi_cat_url: 'http://frozen.colorado.edu:11380/api/gi-cat',
                                          host: 'frozen.colorado.edu'
