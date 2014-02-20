@@ -168,6 +168,16 @@ describe 'NSIDC ISO to SOLR converter' do
       expected_text: '2013-05-28T00:00:00Z'
     },
     {
+      title: 'should grab the correct spatial facet',
+      xpath: "/doc/field[@name='facet_spatial_coverage'][1]",
+      expected_text: 'Non Global'
+    },
+    {
+      title: 'should grab the correct spatial scope facet',
+      xpath: "/doc/field[@name='facet_spatial_scope'][1]",
+      expected_text: 'Regional'
+    },
+    {
       title: 'should include the sponsored program facet',
       xpath: "/doc/field[@name='facet_sponsored_program'][1]",
       expected_text: 'NSIDC MEaSUREs User Services | MEaSUREs'

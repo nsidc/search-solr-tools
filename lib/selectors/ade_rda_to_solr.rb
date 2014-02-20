@@ -92,6 +92,11 @@ RDA = {
       multivalue: true,
       format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
+  facet_spatial_scope: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
+  },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,

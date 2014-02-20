@@ -14,6 +14,7 @@ module IsoToSolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
+  FACET_SPATIAL_SCOPE = proc { |node| IsoToSolrFormat.get_spatial_scope_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
   def self.date_str(date)
@@ -69,6 +70,21 @@ module IsoToSolrFormat
       facet = 'Global'
     else
       facet = 'Non Global'
+    end
+    facet
+  end
+
+  def self.get_spatial_scope_facet(box_node)
+    box = bounding_box(box_node)
+
+    if is_box_invalid(box)
+      facet = 'No Spatial Information'
+    elsif is_box_global(box)
+      facet = 'Global'
+    elsif is_box_regional(box)
+      facet = 'Regional'
+    else
+      facet = 'Local'
     end
     facet
   end
@@ -184,5 +200,10 @@ module IsoToSolrFormat
 
   def self.is_box_global(box)
     box[:south].to_f < -85.0 && box[:north].to_f > 85.0
+  end
+
+  def self.is_box_regional(box)
+    distance = box[:north].to_f - box[:south].to_f
+    distance > 1 && distance < 85.0
   end
 end
