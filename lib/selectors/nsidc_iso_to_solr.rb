@@ -144,8 +144,8 @@ NSIDC = {
     unique: true
   },
   facet_sponsored_program: {
-    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
+    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],
     multivalue: true,
-    format: proc { |program| (program.text.split '_')[1]}
+    format: proc { |node| IsoToSolrFormat.sponsored_program_facet node }
   }
 }

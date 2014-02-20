@@ -98,6 +98,13 @@ module IsoToSolrFormat
     "#{format_date_for_index dr[:start], MIN_DATE} #{format_date_for_index dr[:end], MAX_DATE}"
   end
 
+  def self.sponsored_program_facet(node)
+    long_name = node.xpath('.//gmd:individualName').text.strip
+    short_name = node.xpath('.//gmd:organisationShortName').text.strip.split('_')[1]
+
+    [long_name, short_name].join(' | ')
+  end
+
   private
 
   MIN_DATE = '00010101'

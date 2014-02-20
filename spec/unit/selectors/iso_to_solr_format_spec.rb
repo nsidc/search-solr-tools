@@ -68,5 +68,10 @@ describe 'ISO to SOLR format methods' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
       IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql '10+ years'
     end
+
+    it 'should set the organization short name and long name for the sponsored program' do
+      node = fixture.xpath('.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]').first
+      IsoToSolrFormat.sponsored_program_facet(node).should eql 'NSIDC MEaSUREs User Services | MEaSUREs'
+    end
   end
 end
