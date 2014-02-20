@@ -16,6 +16,7 @@
     <field name="published_date" type="date" indexed="true" stored="true" multiValued="false" />
     <field name="spatial_coverages" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="spatial" type="location_rpt" indexed="true" stored="true" multiValued="true" />
+    <field name="spatial_area" type="tfloat" indexed="true" stored="true" multiValued="false" />
     <field name="temporal_coverages" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="temporal" type="date_range" indexed="true" stored="true" multiValued="true" />
     <field name="temporal_duration" type="int" indexed="true" stored="true" multiValued="false" sortMissingLast="true" />
@@ -36,6 +37,10 @@
     <field name="facet_temporal_duration" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_sensors" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="facet_brokered" type="boolean" indexed="true" stored="true" multiValued="false" />
+    <field name="facet_parameter" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="facet_parameter_term" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="facet_parameter_detailed" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="facet_parameter_full" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_sponsored_program" type="string" indexed="true" multiValued="true" />
 
   </fields>

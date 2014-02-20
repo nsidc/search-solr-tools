@@ -7,7 +7,7 @@ require './lib/selectors/iso_to_solr_format'
 # reduce takes the formatted result of multiple nodes and produces a single
 #   result. This is for fields that are not multivalued, but their value should
 #   consider information from all the nodes (for example, storing only the
-#   maximum duration from multiple temporal coverage fields)
+#   maximum duration from multiple temporal coverage fields, taking the sum of multiple spatial areas)
 
 long_name = 'Advanced Cooperative Arctic Data and Information Service'
 short_name = 'ACADIS Gateway'
@@ -57,6 +57,12 @@ CISL = {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_INDEX
+  },
+  spatial_area: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: false,
+    reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
+    format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
