@@ -1,6 +1,6 @@
 # Helper class to provide default namespaces for XML document parsing.
 class IsoNamespaces
-  def self.get_namespaces(doc)
+  def self.namespaces(doc)
     ISO_NAMESPACES.merge(doc.namespaces)
   end
 

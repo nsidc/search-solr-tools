@@ -34,6 +34,11 @@ describe 'ISO to SOLR format methods' do
     it 'should generate a WSEN space separated string from a GeographicBoundingBox node' do
       IsoToSolrFormat.spatial_index_str(geo_node).should eql '-180 30.98 180 90'
     end
+
+    it 'should calculate the correct spatial scope' do
+      IsoToSolrFormat.get_spatial_scope_facet(geo_node).should eql 'Regional'
+    end
+
   end
 
   describe 'temporal' do
@@ -67,6 +72,11 @@ describe 'ISO to SOLR format methods' do
     it 'should set the duration(s) from a TemporalExtent node' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
       IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql '10+ years'
+    end
+
+    it 'should set the organization short name and long name for the sponsored program' do
+      node = fixture.xpath('.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]').first
+      IsoToSolrFormat.sponsored_program_facet(node).should eql 'Making Earth System Data Records for Use in Research Environments | MEaSUREs'
     end
   end
 end

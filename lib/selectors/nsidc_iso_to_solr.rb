@@ -136,6 +136,11 @@ NSIDC = {
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
+  facet_spatial_scope: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
+  },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
@@ -175,8 +180,8 @@ NSIDC = {
     format: proc { |param| (param.text.split ' > ')[2..-1].join(' > ') }
   },
   facet_sponsored_program: {
-    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
+    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],
     multivalue: true,
-    format: proc { |program| (program.text.split '_')[1] }
+    format: proc { |node| IsoToSolrFormat.sponsored_program_facet node }
   }
 }
