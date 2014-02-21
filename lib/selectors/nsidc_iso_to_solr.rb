@@ -142,6 +142,11 @@ NSIDC = {
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
+  facet_format: {
+    xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
+    default_values: ['N/A'],
+    multivalue: true,
+  },
   facet_author: {
     xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
               | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]

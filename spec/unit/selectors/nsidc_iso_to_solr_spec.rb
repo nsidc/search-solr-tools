@@ -171,6 +171,10 @@ describe 'NSIDC ISO to SOLR converter' do
       title: 'should include the sponsored program facet',
       xpath: "/doc/field[@name='facet_sponsored_program']",
       expected_text: 'MEaSUREs'
+    },
+    { title: 'should grab the correct format facet',
+      xpath: "/doc/field[@name='facet_format']",
+      expected_text: 'ASCII Text'
     }]
 
   test_expectations.each do |expectation|
