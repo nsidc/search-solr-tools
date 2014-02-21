@@ -175,7 +175,8 @@ describe 'NSIDC ISO to SOLR converter' do
     { title: 'should grab the correct format facet',
       xpath: "/doc/field[@name='facet_format']",
       expected_text: 'ASCII Text'
-    }]
+    }
+  ]
 
   test_expectations.each do |expectation|
     it expectation[:title] do
