@@ -180,7 +180,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the sponsored program facet',
       xpath: "/doc/field[@name='facet_sponsored_program'][1]",
-      expected_text: 'NSIDC MEaSUREs User Services | MEaSUREs'
+      expected_text: 'Making Earth System Data Records for Use in Research Environments | MEaSUREs'
     }]
 
   test_expectations.each do |expectation|

@@ -128,8 +128,8 @@ module IsoToSolrFormat
   end
 
   def self.sponsored_program_facet(node)
-    long_name = node.xpath('.//gmd:individualName').text.strip
-    short_name = node.xpath('.//gmd:organisationShortName').text.strip.split('_')[1]
+    long_name = node.xpath('.//gmd:organisationName', IsoNamespaces.namespaces(node)).text.strip
+    short_name = node.xpath('.//gmd:organisationShortName', IsoNamespaces.namespaces(node)).text.strip.split('_')[1]
 
     [long_name, short_name].join(' | ')
   end
@@ -156,15 +156,15 @@ module IsoToSolrFormat
   def self.get_first_matching_child(node, paths)
     text = ''
     paths.each do |path|
-      matching_nodes = node.at_xpath(path, IsoNamespaces.get_namespaces(node))
+      matching_nodes = node.at_xpath(path, IsoNamespaces.namespaces(node))
       return matching_nodes.text.split(' ').first.strip unless matching_nodes.nil?
     end
     text
   end
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
+    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.namespaces(temporal_node)).first.text
+    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.namespaces(temporal_node)).first.text
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
     {
