@@ -149,7 +149,7 @@ NSIDC = {
   },
   facet_format: {
     xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
-    default_values: ['N/A'],
+    default_values: ['Not specified'],
     multivalue: true,
   },
   facet_author: {
