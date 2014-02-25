@@ -7,6 +7,7 @@ SELECTORS = {
   cisl:   CISL,
   eol:    EOL,
   nmi:    NMI,
+  echo:   ECHO,
   nodc:   NODC,
   nsidc:  NSIDC,
   dryad:  DRYAD,
