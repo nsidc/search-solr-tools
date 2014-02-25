@@ -1,5 +1,6 @@
 require 'date'
-require './lib/selectors/iso_namespaces'
+require './lib/selectors/helpers/iso_namespaces'
+require './lib/selectors/helpers/nsidc_parameter_mapping'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
@@ -177,5 +178,21 @@ module IsoToSolrFormat
 
   def self.is_box_global(box)
     box[:south].to_f < -85.0 && box[:north].to_f > 85.0
+  end
+
+  def self.parameter_binning(parameter_string)
+    NsidcParameterMapping::MAPPING.each do |match_key, value|
+      parameter_string.match(match_key) do
+        return value
+      end
+    end
+
+    #use variable_level_1 if no mapping exists
+    parts = parameter_string.split '>'
+    if parts.length >= 4
+      return parts[3].strip
+    end
+
+    return nil
   end
 end
