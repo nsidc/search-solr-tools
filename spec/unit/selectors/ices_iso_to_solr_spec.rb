@@ -76,7 +76,7 @@ describe 'ICES ISO to Solr converter' do
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal'][1]",
-      expected_text: 'Unknown Unknown'
+      expected_text: '00.010101 30.000101'
     },
     {
       title: 'should grab the correct source',
