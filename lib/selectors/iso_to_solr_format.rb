@@ -215,12 +215,10 @@ module IsoToSolrFormat
       end
     end
 
-    #use variable_level_1 if no mapping exists
+    # use variable_level_1 if no mapping exists
     parts = parameter_string.split '>'
-    if parts.length >= 4
-      return parts[3].strip
-    end
+    return parts[3].strip if parts.length >= 4
 
-    return nil
+    nil
   end
 end
