@@ -38,7 +38,7 @@ class HarvesterBase
   # Get results from some ISO end point specified in the query string
   def get_results(request_url, metadata_path)
     doc = Nokogiri.XML(open(request_url, read_timeout: 1200))
-    doc.xpath(metadata_path, IsoNamespaces.get_namespaces(doc))
+    doc.xpath(metadata_path, IsoNamespaces.namespaces(doc))
   end
 
   # returns Nokogiri XML document with content

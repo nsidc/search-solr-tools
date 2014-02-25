@@ -147,6 +147,11 @@ NSIDC = {
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
+  facet_format: {
+    xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
+    default_values: ['Not specified'],
+    multivalue: true,
+  },
   facet_author: {
     xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
               | .//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="author"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
@@ -175,8 +180,8 @@ NSIDC = {
     format: proc { |param| (param.text.split ' > ')[2..-1].join(' > ') }
   },
   facet_sponsored_program: {
-    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
+    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],
     multivalue: true,
-    format: proc { |program| (program.text.split '_')[1] }
+    format: proc { |node| IsoToSolrFormat.sponsored_program_facet node }
   }
 }
