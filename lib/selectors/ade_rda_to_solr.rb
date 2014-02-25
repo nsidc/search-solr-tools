@@ -5,8 +5,8 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
-long_name = 'CISL Research Data Archive'
-short_name = 'RDA'
+long_name = 'UCAR/NCAR Research Data Archive'
+short_name = 'UCAR/NCAR RDA'
 
 RDA = {
   authoritative_id: {

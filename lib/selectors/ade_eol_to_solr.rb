@@ -6,7 +6,7 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths and multivalue are required, default_value and format are optional.
 
 long_name = 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'
-short_name = 'UCAR/NCAR EOL-CDS'
+short_name = 'UCAR/NCAR EOL'
 
 EOL = {
   authoritative_id: {
