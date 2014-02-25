@@ -171,7 +171,7 @@ module IsoToSolrFormat
   def self.temporal_duration_range(temporal_duration)
     years = temporal_duration / 365
     range = case years
-            when 0 then '< 1 years'
+            when 0 then '< 1 year'
             when 1..4 then '1 - 4 years'
             when 5..9 then '5 - 9 years'
             else '10+ years'
