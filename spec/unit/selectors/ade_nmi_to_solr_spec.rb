@@ -68,6 +68,16 @@ describe 'NMI ISO to Solr converter' do
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
       expected_text: '20.080602 20.111212'
+    },
+    {
+      title: 'should grab the correct spatial facet',
+      xpath: "/doc/field[@name='facet_spatial_coverage']",
+      expected_text: 'Non Global'
+    },
+    {
+      title: 'should grab the correct spatial scope facet',
+      xpath: "/doc/field[@name='facet_spatial_scope']",
+      expected_text: 'Regional'
     }
   ]
 
