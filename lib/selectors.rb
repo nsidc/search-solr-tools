@@ -12,5 +12,6 @@ SELECTORS = {
   nsidc:  NSIDC,
   dryad:  DRYAD,
   rda:    RDA,
-  gina:   GINA
+  gina:   GINA,
+  ices:   ICES
 }

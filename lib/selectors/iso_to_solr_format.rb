@@ -94,11 +94,11 @@ module IsoToSolrFormat
   def self.get_temporal_duration(temporal_node)
     dr = date_range(temporal_node)
 
-    if dr[:start].empty?
+    if dr[:start].empty? || dr[:start].eql?('Unknown') || dr[:end].eql?('Unknownj')
       duration = nil
     else
-      start_date = Date.parse(dr[:start])
-      end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
+      start_date = DateTime.parse(dr[:start])
+      end_date = dr[:end].empty? ? Time.now.to_date : DateTime.parse(dr[:end])
 
       # datasets that cover just one day would have end_date - start_date = 0,
       # so we need to add 1 to make sure the duration is the actual number of
@@ -161,8 +161,8 @@ module IsoToSolrFormat
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
     {
-      start: start_date.empty? ? '' : start_date,
-      end: end_date.empty? ? '' : end_date
+      start: start_date.empty? || start_date.eql?('Unknown') ? '' : start_date,
+      end: end_date.empty? || end_date.eql?('Unknown') ? '' : end_date
     }
   end
 

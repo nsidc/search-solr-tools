@@ -2,6 +2,7 @@ require './lib/ade_harvester.rb'
 require './lib/nsidc_harvester.rb'
 require './lib/nodc_harvester.rb'
 require './lib/echo_harvester.rb'
+require './lib/ices_harvester.rb'
 
 namespace :harvest do
 
@@ -24,6 +25,13 @@ namespace :harvest do
     harvester = EchoHarvester.new args[:environment]
 
     harvester.harvest_echo_into_solr
+  end
+
+  desc 'Harvest ICES data'
+  task :ices, :environment do |t, args|
+    harvester = IcesHarvester.new args[:environment]
+
+    harvester.harvest_ices_into_solr
   end
 
   desc 'Harvest ADE data'
