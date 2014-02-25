@@ -16,7 +16,7 @@ class IsoToSolr
   def eval_xpath(iso_xml_doc, xpath, multivalue, reduce)
     fields = []
     begin
-      iso_xml_doc.xpath(xpath, IsoNamespaces.get_namespaces(iso_xml_doc)).each do |f|
+      iso_xml_doc.xpath(xpath, IsoNamespaces.namespaces(iso_xml_doc)).each do |f|
         fields.push(f)
         break if multivalue == false && reduce.nil?
       end

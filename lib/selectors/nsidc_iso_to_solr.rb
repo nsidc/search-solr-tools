@@ -136,11 +136,21 @@ NSIDC = {
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
+  facet_spatial_scope: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
+  },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
+  },
+  facet_format: {
+    xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
+    default_values: ['Not specified'],
+    multivalue: true,
   },
   facet_author: {
     xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]
@@ -155,8 +165,8 @@ NSIDC = {
     format: proc { |param| IsoToSolrFormat.parameter_binning param.text }
   },
   facet_sponsored_program: {
-    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]//gmd:organisationShortName'],
+    xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],
     multivalue: true,
-    format: proc { |program| (program.text.split '_')[1] }
+    format: proc { |node| IsoToSolrFormat.sponsored_program_facet node }
   }
 }

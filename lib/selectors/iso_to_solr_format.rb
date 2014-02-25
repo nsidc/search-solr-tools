@@ -15,6 +15,7 @@ module IsoToSolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
 
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
+  FACET_SPATIAL_SCOPE = proc { |node| IsoToSolrFormat.get_spatial_scope_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
   def self.date_str(date)
@@ -74,6 +75,21 @@ module IsoToSolrFormat
     facet
   end
 
+  def self.get_spatial_scope_facet(box_node)
+    box = bounding_box(box_node)
+
+    if is_box_invalid(box)
+      facet = 'No Spatial Information'
+    elsif is_box_global(box)
+      facet = 'Global'
+    elsif is_box_local(box)
+      facet = 'Local'
+    else
+      facet = 'Regional'
+    end
+    facet
+  end
+
   # returns the temporal duration in days; returns -1 if there is not a valid
   # start date
   def self.get_temporal_duration(temporal_node)
@@ -112,6 +128,13 @@ module IsoToSolrFormat
     "#{format_date_for_index dr[:start], MIN_DATE} #{format_date_for_index dr[:end], MAX_DATE}"
   end
 
+  def self.sponsored_program_facet(node)
+    long_name = node.xpath('.//gmd:organisationName', IsoNamespaces.namespaces(node)).text.strip
+    short_name = node.xpath('.//gmd:organisationShortName', IsoNamespaces.namespaces(node)).text.strip.split('_')[1]
+
+    [long_name, short_name].join(' | ')
+  end
+
   private
 
   MIN_DATE = '00010101'
@@ -134,15 +157,15 @@ module IsoToSolrFormat
   def self.get_first_matching_child(node, paths)
     text = ''
     paths.each do |path|
-      matching_nodes = node.at_xpath(path, IsoNamespaces.get_namespaces(node))
+      matching_nodes = node.at_xpath(path, IsoNamespaces.namespaces(node))
       return matching_nodes.text.split(' ').first.strip unless matching_nodes.nil?
     end
     text
   end
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.get_namespaces(temporal_node)).first.text
+    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.namespaces(temporal_node)).first.text
+    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.namespaces(temporal_node)).first.text
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
     {
@@ -178,6 +201,11 @@ module IsoToSolrFormat
 
   def self.is_box_global(box)
     box[:south].to_f < -85.0 && box[:north].to_f > 85.0
+  end
+
+  def self.is_box_local(box)
+    distance = box[:north].to_f - box[:south].to_f
+    distance < 1
   end
 
   def self.parameter_binning(parameter_string)

@@ -168,9 +168,23 @@ describe 'NSIDC ISO to SOLR converter' do
       expected_text: '2013-05-28T00:00:00Z'
     },
     {
-      title: 'should include the sponsored program facet',
-      xpath: "/doc/field[@name='facet_sponsored_program']",
-      expected_text: 'MEaSUREs'
+        title: 'should grab the correct spatial facet',
+        xpath: "/doc/field[@name='facet_spatial_coverage'][1]",
+        expected_text: 'Non Global'
+    },
+    {
+        title: 'should grab the correct spatial scope facet',
+        xpath: "/doc/field[@name='facet_spatial_scope'][1]",
+        expected_text: 'Regional'
+    },
+    {
+        title: 'should include the sponsored program facet',
+        xpath: "/doc/field[@name='facet_sponsored_program'][1]",
+        expected_text: 'Making Earth System Data Records for Use in Research Environments | MEaSUREs'
+    },
+    {   title: 'should grab the correct format facet',
+        xpath: "/doc/field[@name='facet_format']",
+        expected_text: 'ASCII Text'
     }]
 
   test_expectations.each do |expectation|

@@ -5,10 +5,10 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
-long_name = 'NOAA National Oceanographic Data Center'
-short_name = 'NOAA NODC'
+long_name = 'NASA Earth Observing System (EOS) Clearing House (ECHO)'
+short_name = 'NASA ECHO'
 
-NODC = {
+ECHO = {
   authoritative_id: {
     xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
     multivalue: false
@@ -36,13 +36,12 @@ NODC = {
     multivalue: true
   },
   last_revision_date: {
-    xpaths: ['.//gmd:dateStamp/gco:Date'],
+    xpaths: ['.//gmd:dateStamp/gco:DateTime'],
     multivalue: false,
     format: IsoToSolrFormat::DATE
   },
   dataset_url: {
-    xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"ftp")]/gmd:linkage/gmd:URL',
-            './/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"FTP")]/gmd:linkage/gmd:URL'],
+    xpaths: [".//gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorTransferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[./gmd:function/gmd:CI_OnLineFunctionCode[@codeListValue='information']]/gmd:linkage/gmd:URL"],
     multivalue: false
   },
   spatial_coverages: {

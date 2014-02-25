@@ -1,32 +1,32 @@
 require 'iso_to_solr'
 
-describe 'NODC ISO to Solr converter' do
+describe 'ECHO ISO to Solr converter' do
 
   puts "\n\n-----------\n"
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/nodc_iso.xml')
-  iso_to_solr = IsoToSolr.new(:nodc)
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/echo_iso.xml')
+  iso_to_solr = IsoToSolr.new(:echo)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
    {
       title: 'should grab the correct authoritative id',
       xpath: "/doc/field[@name='authoritative_id']",
-      expected_text: 'gov.noaa.nodc:9900245'
+      expected_text: 'gov.nasa.echo:15 Minute Stream Flow Data: USGS (FIFE)'
     },
     {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
-      expected_text: 'PRESSURE - WATER and Other Data from MCARTHUR from 19950722 to 19950728 (NODC Accession 9900245)'
+      expected_text: 'doi:10.3334/ORNLDAAC/1 > 15 Minute Stream Flow Data: USGS (FIFE)'
     },
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: 'Test summary'
+      expected_text: 'ABSTRACT: USGS 15 minute stream flow data for Kings Creek on the Konza Prairie'
     },
     {
       title: 'should grab the correct data_centers',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'NOAA National Oceanographic Data Center'
+      expected_text: 'NASA Earth Observing System (EOS) Clearing House (ECHO)'
     },
     {
       title: 'should include the correct authors',
@@ -36,55 +36,47 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should include the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: 'oceanography'
+      expected_text: 'EARTH SCIENCE>HYDROSPHERE>SURFACE WATER>DISCHARGE/FLOW>NONE>NONE>NONEEARTH SCIENCE>HYDROSPHERE>SURFACE WATER>STAGE HEIGHT>NONE>NONE>NONEORNL_DAACFIFE > FIFEESIP > Earth Science Information Partners ProgramEOSDIS > Earth Observing System Data Information SystemSURFACE WATER WEIR > SURFACE WATER WEIRSTILLING WELL > STILLING WELL'
     },
-    {
-      # TODO: add a dummy sensor to the fixture [MB 2013-12-27]
-      title: 'should grab the correct first sensor',
-      xpath: "/doc/field[@name='sensors']",
-      expected_text: ''
-    },
-    {
+   {
       title: 'should grab the correct dataset_url link',
       xpath: "/doc/field[@name='dataset_url']",
-      # NOTE: I'm grabbing the FTP link explicitly.  NODC has really good data
-      # access links with other representations available.
-      expected_text: 'ftp://ftp.nodc.noaa.gov/nodc/archive/arc0001/9900245/'
+      expected_text: 'http://daac.ornl.gov/FIFE/guides/15_min_strm_flow.html'
     },
     {
       title: 'should grab the correct updated date',
       xpath: "/doc/field[@name='last_revision_date']",
-      expected_text: '2013-10-17T00:00:00Z'
+      expected_text: '2008-12-02T00:00:00Z'
     },
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '46 -126 48.5 -124'
+      expected_text: '39.1 -96.6 39.1 -96.6'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: '-126 46 -124 48.5'
+      expected_text: '-96.6 39.1 -96.6 39.1'
     },
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '2.5'
+      expected_text: '0.0'
     },
     {
      title: 'should grab the correct temporal coverage',
      xpath: "/doc/field[@name='temporal_coverages']",
-     expected_text: '1995-07-22T00:00:00Z,1995-07-28T00:00:00Z'
+     expected_text: '1984-12-25T00:00:00Z,1988-03-04T00:00:00Z'
     },
     {
       title: 'should grab the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '7'
+      expected_text: '1166'
     },
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
-      expected_text: '19.950722 19.950728'
+      expected_text: '19.841225 19.880304'
     },
     {
       title: 'should grab the correct source',
@@ -99,7 +91,7 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: 'Regional'
+      expected_text: 'Local'
     }
   ]
 

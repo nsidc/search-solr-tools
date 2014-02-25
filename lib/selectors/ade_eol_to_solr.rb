@@ -6,7 +6,7 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths and multivalue are required, default_value and format are optional.
 
 long_name = 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'
-short_name = 'UCAR/NCAR EOL-CDS'
+short_name = 'UCAR/NCAR EOL'
 
 EOL = {
   authoritative_id: {
@@ -102,6 +102,11 @@ EOL = {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
       format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
+  },
+  facet_spatial_scope: {
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
