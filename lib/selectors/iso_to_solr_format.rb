@@ -80,11 +80,11 @@ module IsoToSolrFormat
     if is_box_invalid(box)
       facet = 'No Spatial Information'
     elsif is_box_global(box)
-      facet = 'Global'
+      facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
     elsif is_box_local(box)
-      facet = 'Local'
+      facet = 'Less than 1 degree of latitude change | Local'
     else
-      facet = 'Regional'
+      facet = 'Between 1 and 170 degrees of latitude change | Regional'
     end
     facet
   end

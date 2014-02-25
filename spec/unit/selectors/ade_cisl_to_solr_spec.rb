@@ -76,7 +76,7 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: 'Global'
+      expected_text: 'Coverage from over 85 degrees North to -85 degrees South | Global'
     }
   ]
 

@@ -173,9 +173,9 @@ describe 'NSIDC ISO to SOLR converter' do
         expected_text: 'Non Global'
     },
     {
-        title: 'should grab the correct spatial scope facet',
-        xpath: "/doc/field[@name='facet_spatial_scope'][1]",
-        expected_text: 'Regional'
+      title: 'should grab the correct spatial scope facet',
+      xpath: "/doc/field[@name='facet_spatial_scope'][1]",
+      expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
     },
     {
         title: 'should include the sponsored program facet',

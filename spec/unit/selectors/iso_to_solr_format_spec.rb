@@ -36,7 +36,7 @@ describe 'ISO to SOLR format methods' do
     end
 
     it 'should calculate the correct spatial scope' do
-      IsoToSolrFormat.get_spatial_scope_facet(geo_node).should eql 'Regional'
+      IsoToSolrFormat.get_spatial_scope_facet(geo_node).should eql 'Between 1 and 170 degrees of latitude change | Regional'
     end
 
   end
