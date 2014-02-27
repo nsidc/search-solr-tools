@@ -7,15 +7,17 @@ require './lib/harvester_base'
 class EchoHarvester < HarvesterBase
   def initialize(env = 'development')
     super env
-    @page_size = 100
+    @page_size = 1000
     @translator = IsoToSolr.new :echo
   end
 
   # get translated entries from ECHO and add them to Solr
   # this is the main entry point for the class
   def harvest_echo_into_solr
-    while (entries = get_results_from_echo) && (entries.length > 0)
+    page_num = 1
+    while (entries = get_results_from_echo(page_num)) && (entries.length > 0)
       insert_solr_docs get_docs_with_translated_entries_from_echo(entries)
+      page_num += 1
     end
   end
 
@@ -23,8 +25,8 @@ class EchoHarvester < HarvesterBase
     SolrEnvironments[@environment][:echo_url]
   end
 
-  def get_results_from_echo
-    get_results echo_url, '//gmi:MI_Metadata'
+  def get_results_from_echo(page_num)
+    get_results build_request(@page_size, page_num), './/results/result', 'application/echo10+xml'
   end
 
   def get_docs_with_translated_entries_from_echo(entries)
@@ -32,4 +34,9 @@ class EchoHarvester < HarvesterBase
     entries.each { |r| docs.push(create_new_solr_add_doc_with_child(@translator.translate(r).root)) }
     docs
   end
+
+  def build_request(max_records = '25', page_num = '1')
+    echo_url + '?page_size=' + max_records.to_s + '&page_num=' + page_num.to_s
+  end
+
 end

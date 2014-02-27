@@ -4,6 +4,7 @@ require './lib/selectors/iso_namespaces'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
+  KEYWORDS = proc { |keywords| build_keyword_list keywords }
 
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
@@ -97,8 +98,8 @@ module IsoToSolrFormat
     if dr[:start].empty?
       duration = nil
     else
-      start_date = Date.parse(dr[:start])
-      end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
+      start_date = DateTime.parse(dr[:start])
+      end_date = dr[:end].empty? ? Time.now.to_date : DateTime.parse(dr[:end])
 
       # datasets that cover just one day would have end_date - start_date = 0,
       # so we need to add 1 to make sure the duration is the actual number of
@@ -134,16 +135,23 @@ module IsoToSolrFormat
     [long_name, short_name].join(' | ')
   end
 
+  def self.build_keyword_list(keywords)
+    category = keywords.xpath('.//CategoryKeyword').text
+    topic = keywords.xpath('.//TopicKeyword').text
+    term = keywords.xpath('.//TermKeyword').text
+    category << ' > ' << topic << ' > ' << term
+  end
+
   private
 
   MIN_DATE = '00010101'
   MAX_DATE = '30000101'
 
   def self.bounding_box(box_node)
-    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal'])
-    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal'])
-    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal'])
-    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal'])
+    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
+    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal', './SouthBoundingCoordinate'])
+    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal', './EastBoundingCoordinate'])
+    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal', './NorthBoundingCoordinate'])
 
     {
       west: west,
@@ -163,8 +171,8 @@ module IsoToSolrFormat
   end
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.namespaces(temporal_node)).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.namespaces(temporal_node)).first.text
+    start_date = temporal_node.xpath('.//gml:beginPosition | BeginningDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
+    end_date = temporal_node.xpath('.//gml:endPosition | EndingDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
     {

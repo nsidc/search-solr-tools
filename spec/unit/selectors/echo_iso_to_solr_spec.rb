@@ -1,9 +1,9 @@
 require 'iso_to_solr'
 
-describe 'ECHO ISO to Solr converter' do
+describe 'ECHO ECHO10 to Solr converter' do
 
   puts "\n\n-----------\n"
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/echo_iso.xml')
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/echo_echo10.xml')
   iso_to_solr = IsoToSolr.new(:echo)
   solr_doc = iso_to_solr.translate fixture
 
@@ -11,12 +11,12 @@ describe 'ECHO ISO to Solr converter' do
    {
       title: 'should grab the correct authoritative id',
       xpath: "/doc/field[@name='authoritative_id']",
-      expected_text: 'gov.nasa.echo:15 Minute Stream Flow Data: USGS (FIFE)'
+      expected_text: 'C179003030-ORNL_DAAC'
     },
     {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
-      expected_text: 'doi:10.3334/ORNLDAAC/1 > 15 Minute Stream Flow Data: USGS (FIFE)'
+      expected_text: '15 Minute Stream Flow Data: USGS (FIFE)'
     },
     {
       title: 'should grab the correct summary',
@@ -36,12 +36,12 @@ describe 'ECHO ISO to Solr converter' do
     {
       title: 'should include the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: 'EARTH SCIENCE>HYDROSPHERE>SURFACE WATER>DISCHARGE/FLOW>NONE>NONE>NONEEARTH SCIENCE>HYDROSPHERE>SURFACE WATER>STAGE HEIGHT>NONE>NONE>NONEORNL_DAACFIFE > FIFEESIP > Earth Science Information Partners ProgramEOSDIS > Earth Observing System Data Information SystemSURFACE WATER WEIR > SURFACE WATER WEIRSTILLING WELL > STILLING WELL'
+      expected_text: 'EARTH SCIENCE > HYDROSPHERE > SURFACE WATEREARTH SCIENCE > HYDROSPHERE > SURFACE WATEREARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > BIOLOGICAL CLASSIFICATION > ANIMALS/VERTEBRATESEARTH SCIENCE > BIOLOGICAL CLASSIFICATION > ANIMALS/VERTEBRATESEARTH SCIENCE > BIOSPHERE > ECOLOGICAL DYNAMICSEARTH SCIENCE > BIOSPHERE > VEGETATIONEARTH SCIENCE > HUMAN DIMENSIONS > HABITAT CONVERSION/FRAGMENTATIONEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > GROUND WATEREARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > LAND SURFACE > EROSION/SEDIMENTATIONEARTH SCIENCE > LAND SURFACE > EROSION/SEDIMENTATIONEARTH SCIENCE > LAND SURFACE > LAND USE/LAND COVEREARTH SCIENCE > LAND SURFACE > SOILSEARTH SCIENCE > SOLID EARTH > NATURAL RESOURCESEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > AIR QUALITYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRYEARTH SCIENCE > BIOLOGICAL CLASSIFICATION > ANIMALS/VERTEBRATESEARTH SCIENCE > BIOLOGICAL CLASSIFICATION > ANIMALS/VERTEBRATESEARTH SCIENCE > BIOSPHERE > ECOLOGICAL DYNAMICSEARTH SCIENCE > BIOSPHERE > VEGETATIONEARTH SCIENCE > HUMAN DIMENSIONS > HABITAT CONVERSION/FRAGMENTATIONEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > ENVIRONMENTAL IMPACTSEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > HUMAN DIMENSIONS > HUMAN HEALTHEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > GROUND WATEREARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > TERRESTRIAL HYDROSPHERE > WATER QUALITY/WATER CHEMISTRYEARTH SCIENCE > LAND SURFACE > EROSION/SEDIMENTATIONEARTH SCIENCE > LAND SURFACE > EROSION/SEDIMENTATIONEARTH SCIENCE > LAND SURFACE > LAND USE/LAND COVEREARTH SCIENCE > LAND SURFACE > SOILSEARTH SCIENCE > SOLID EARTH > NATURAL RESOURCES'
     },
-   {
+    {
       title: 'should grab the correct dataset_url link',
       xpath: "/doc/field[@name='dataset_url']",
-      expected_text: 'http://daac.ornl.gov/FIFE/guides/15_min_strm_flow.html'
+      expected_text: 'http://sedac.ciesin.columbia.edu/data/set/esi-pilot-environmental-sustainability-index-2000'
     },
     {
       title: 'should grab the correct updated date',
@@ -50,32 +50,32 @@ describe 'ECHO ISO to Solr converter' do
     },
     {
       title: 'should grab the correct spatial display bounds',
-      xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '39.1 -96.6 39.1 -96.6'
+      xpath: "/doc/field[@name='spatial_coverages'][1]",
+      expected_text: '-55 -180 90 180'
     },
     {
       title: 'should grab the correct spatial bounds',
-      xpath: "/doc/field[@name='spatial']",
-      expected_text: '-96.6 39.1 -96.6 39.1'
+      xpath: "/doc/field[@name='spatial'][1]",
+      expected_text: '-180 -55 180 90'
     },
     {
       title: 'should calculate the correct spatial area',
-      xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '0.0'
+      xpath: "/doc/field[@name='spatial_area'][1]",
+      expected_text: '290.0'
     },
     {
      title: 'should grab the correct temporal coverage',
-     xpath: "/doc/field[@name='temporal_coverages']",
+     xpath: "/doc/field[@name='temporal_coverages'][1]",
      expected_text: '1984-12-25T00:00:00Z,1988-03-04T00:00:00Z'
     },
     {
       title: 'should grab the correct temporal duration',
-      xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '1166'
+      xpath: "/doc/field[@name='temporal_duration'][1]",
+      expected_text: '8035'
     },
     {
       title: 'should grab the correct temporal range',
-      xpath: "/doc/field[@name='temporal']",
+      xpath: "/doc/field[@name='temporal'][1]",
       expected_text: '19.841225 19.880304'
     },
     {
@@ -85,13 +85,13 @@ describe 'ECHO ISO to Solr converter' do
     },
     {
       title: 'should grab the correct spatial facet',
-      xpath: "/doc/field[@name='facet_spatial_coverage']",
+      xpath: "/doc/field[@name='facet_spatial_coverage'][1]",
       expected_text: 'Non Global'
     },
     {
       title: 'should grab the correct spatial scope facet',
-      xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: 'Local'
+      xpath: "/doc/field[@name='facet_spatial_scope'][1]",
+      expected_text: 'Regional'
     }
   ]
 
