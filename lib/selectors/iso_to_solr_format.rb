@@ -169,7 +169,7 @@ module IsoToSolrFormat
   # takes a temporal_duration in days, returns a string representing the range
   # for faceting
   def self.temporal_duration_range(temporal_duration)
-    years = temporal_duration / 365
+    years = temporal_duration.to_i / 365
     range = case years
             when 0 then '< 1 years'
             when 1..4 then '1 - 4 years'
