@@ -95,11 +95,11 @@ module IsoToSolrFormat
   def self.get_temporal_duration(temporal_node)
     dr = date_range(temporal_node)
 
-    if dr[:start].empty?
+    if dr[:start].nil? || dr[:start].empty?
       duration = nil
     else
-      start_date = DateTime.parse(dr[:start])
-      end_date = dr[:end].empty? ? Time.now.to_date : DateTime.parse(dr[:end])
+      start_date = Date.parse(dr[:start])
+      end_date = dr[:end].empty? ? Time.now.to_date : Date.parse(dr[:end])
 
       # datasets that cover just one day would have end_date - start_date = 0,
       # so we need to add 1 to make sure the duration is the actual number of
@@ -171,20 +171,20 @@ module IsoToSolrFormat
   end
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = temporal_node.xpath('.//gml:beginPosition | BeginningDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition | EndingDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
+    start_date = temporal_node.xpath('.//gml:beginPosition | .//BeginningDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
+    end_date = temporal_node.xpath('.//gml:endPosition | .//EndingDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
     {
-      start: start_date.empty? ? '' : start_date,
-      end: end_date.empty? ? '' : end_date
+      start: start_date.empty? || start_date.eql?('Unknown') ? '' : start_date,
+      end: end_date.empty? || end_date.eql?('Unknown') ? '' : end_date
     }
   end
 
   # takes a temporal_duration in days, returns a string representing the range
   # for faceting
   def self.temporal_duration_range(temporal_duration)
-    years = temporal_duration / 365
+    years = temporal_duration.to_i / 365
     range = case years
             when 0 then '< 1 years'
             when 1..4 then '1 - 4 years'
