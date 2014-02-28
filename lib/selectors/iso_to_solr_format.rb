@@ -116,7 +116,7 @@ module IsoToSolrFormat
   end
 
   def self.reduce_temporal_duration(values)
-    values.reject { |v| v.nil? }.max
+    values.map { |v| Integer(v) rescue nil }.compact.max
   end
 
   # We are indexiong date ranges a spatial cordinates.
@@ -171,8 +171,10 @@ module IsoToSolrFormat
   end
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = temporal_node.xpath('.//gml:beginPosition | .//BeginningDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition | .//EndingDateTime', IsoNamespaces.namespaces(temporal_node)).first.text
+    start_date = temporal_node.xpath('.//gml:beginPosition | .//BeginningDateTime', IsoNamespaces.namespaces(temporal_node))
+    start_date = start_date.empty? ? '' : start_date.first.text
+    end_date = temporal_node.xpath('.//gml:endPosition | .//EndingDateTime', IsoNamespaces.namespaces(temporal_node))
+    end_date = end_date.empty? ? '' : end_date.first.text
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
     {
