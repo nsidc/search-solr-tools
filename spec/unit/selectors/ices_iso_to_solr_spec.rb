@@ -66,7 +66,7 @@ describe 'ICES ISO to Solr converter' do
     {
      title: 'should grab the correct temporal coverage',
      xpath: "/doc/field[@name='temporal_coverages'][1]",
-     expected_text: 'Unknown Unknown'
+     expected_text: ''
     },
     {
       title: 'should grab the correct temporal duration',

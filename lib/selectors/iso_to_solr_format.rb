@@ -20,11 +20,15 @@ module IsoToSolrFormat
 
   def self.date_str(date)
     d = if date.is_a? String
-          DateTime.parse(date.strip)
+          begin
+            DateTime.parse(date.strip)
+          rescue
+            nil
+          end
         else
           date
         end
-    "#{d.iso8601[0..-7]}Z"
+    "#{d.iso8601[0..-7]}Z" unless d.nil?
   end
 
   def self.fix_dryads_url(id_node)
@@ -59,7 +63,9 @@ module IsoToSolrFormat
 
   def self.temporal_display_str(temporal_node, formatted = false)
     dr = date_range(temporal_node, formatted)
-    "#{dr[:start]},#{dr[:end]}"
+    temporal_str = "#{dr[:start]}"
+    temporal_str += ",#{dr[:end]}" unless dr[:end].nil?
+    temporal_str
   end
 
   def self.get_spatial_facet(box_node)
@@ -173,13 +179,18 @@ module IsoToSolrFormat
   def self.date_range(temporal_node, formatted = false)
     start_date = temporal_node.xpath('.//gml:beginPosition | .//BeginningDateTime', IsoNamespaces.namespaces(temporal_node))
     start_date = start_date.empty? ? '' : start_date.first.text
+    start_date = start_date.eql?('Unknown') ? '' : start_date
+
     end_date = temporal_node.xpath('.//gml:endPosition | .//EndingDateTime', IsoNamespaces.namespaces(temporal_node))
     end_date = end_date.empty? ? '' : end_date.first.text
+    end_date = end_date.eql?('Unknown') ? '' : end_date
+
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
+
     {
-      start: start_date.empty? || start_date.eql?('Unknown') ? '' : start_date,
-      end: end_date.empty? || end_date.eql?('Unknown') ? '' : end_date
+      start: start_date,
+      end: end_date
     }
   end
 

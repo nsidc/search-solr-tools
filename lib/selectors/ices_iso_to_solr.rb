@@ -62,7 +62,7 @@ ICES = {
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
-    multivalue: true,
+    multivalue: false,
     format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
   },
   temporal_duration: {
