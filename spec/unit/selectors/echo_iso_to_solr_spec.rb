@@ -61,7 +61,7 @@ describe 'ECHO ECHO10 to Solr converter' do
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area'][1]",
-      expected_text: '290.0'
+      expected_text: '145.0'
     },
     {
      title: 'should grab the correct temporal coverage',

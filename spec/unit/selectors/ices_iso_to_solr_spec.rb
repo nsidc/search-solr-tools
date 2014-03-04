@@ -61,7 +61,7 @@ describe 'ICES ISO to Solr converter' do
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '180.0'
+      expected_text: '18.0'
     },
     {
      title: 'should grab the correct temporal coverage',
