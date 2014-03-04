@@ -87,7 +87,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: 'Local'
+      expected_text: 'Less than 1 degree of latitude change | Local'
     }
   ]
 

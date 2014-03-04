@@ -99,7 +99,7 @@ describe 'NODC ISO to Solr converter' do
     {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: 'Regional'
+      expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
     }
   ]
 
