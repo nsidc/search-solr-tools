@@ -1,5 +1,6 @@
 require 'date'
-require './lib/selectors/iso_namespaces'
+require './lib/selectors/helpers/iso_namespaces'
+require './lib/selectors/helpers/nsidc_parameter_mapping'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
@@ -190,7 +191,7 @@ module IsoToSolrFormat
   def self.temporal_duration_range(temporal_duration)
     years = temporal_duration.to_i / 365
     range = case years
-            when 0 then '< 1 years'
+            when 0 then '< 1 year'
             when 1..4 then '1 - 4 years'
             when 5..9 then '5 - 9 years'
             else '10+ years'
@@ -231,5 +232,19 @@ module IsoToSolrFormat
                    DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
                  end
     valid_date
+  end
+
+  def self.parameter_binning(parameter_string)
+    NsidcParameterMapping::MAPPING.each do |match_key, value|
+      parameter_string.match(match_key) do
+        return value
+      end
+    end
+
+    # use variable_level_1 if no mapping exists
+    parts = parameter_string.split '>'
+    return parts[3].strip if parts.length >= 4
+
+    nil
   end
 end
