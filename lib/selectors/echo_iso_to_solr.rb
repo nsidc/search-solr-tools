@@ -10,75 +10,71 @@ short_name = 'NASA ECHO'
 
 ECHO = {
   authoritative_id: {
-    xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
+    xpaths: ['.//@echo_dataset_id'],
     multivalue: false
   },
   title: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+    xpaths: ['.//Collection/LongName'],
     multivalue: false
   },
   summary: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
+    xpaths: ['.//Collection/Description'],
     multivalue: false
   },
   data_centers: {
-    xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+    xpaths: [''],
     default_values: [long_name],
     multivalue: false
   },
   authors: {
-    xpaths: [".//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
+    xpaths: [''],
     multivalue: true
   },
   keywords: {
-    xpaths: ['.//gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString',
-             './/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gmx:Anchor'],
-    multivalue: true
+    xpaths: ['.//Collection/ScienceKeywords/ScienceKeyword'],
+    multivalue: true,
+    format: IsoToSolrFormat::KEYWORDS
   },
   last_revision_date: {
-    xpaths: ['.//gmd:dateStamp/gco:DateTime'],
+    xpaths: ['.//Collection/LastUpdate'],
     multivalue: false,
     format: IsoToSolrFormat::DATE
   },
   dataset_url: {
-    xpaths: [".//gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorTransferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[./gmd:function/gmd:CI_OnLineFunctionCode[@codeListValue='information']]/gmd:linkage/gmd:URL"],
+    xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Description/text(),'data set homepage')]/URL"],
     multivalue: false
   },
   spatial_coverages: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: true,
     format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: true,
     format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: false,
-    reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
+    reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal_coverages: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
   },
   temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: false,
     reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: true,
     format: proc { |node| IsoToSolrFormat.temporal_index_str node }
-  },
-  sensors: {
-    xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-    multivalue: true
   },
   source: {
     xpaths: [''],
@@ -91,23 +87,23 @@ ECHO = {
       multivalue: false
   },
   facet_spatial_coverage: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
   },
   facet_spatial_scope: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
   },
   facet_temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//Collection/Temporal/RangeDateTime'],
     default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
   facet_author: {
-    xpaths: [".//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
+    xpaths: [''],
     multivalue: true,
     unique: true
   }

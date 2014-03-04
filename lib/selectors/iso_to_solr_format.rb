@@ -5,11 +5,12 @@ require './lib/selectors/helpers/nsidc_parameter_mapping'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
+  KEYWORDS = proc { |keywords| build_keyword_list keywords }
 
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
   SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
-  TOTAL_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_total_spatial_area(values) }
+  MAX_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_max_spatial_area(values) }
 
   TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
   REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
@@ -20,13 +21,15 @@ module IsoToSolrFormat
 
   def self.date_str(date)
     d = if date.is_a? String
-          DateTime.parse(date.strip)
+          DateTime.parse(date.strip) rescue nil
         else
           date
         end
-    "#{d.iso8601[0..-7]}Z"
+    "#{d.iso8601[0..-7]}Z" unless d.nil?
   end
 
+  # SR [03/04/2014]: Is this function necessary anymore?
+  # We are not supporting dryads... Even if we were, is this a good place for this?
   def self.fix_dryads_url(id_node)
     # Dryad does not provide links but this is a handy way to get to the datasets
     data_link = 'http://datadryad.org/handle/' + id_node
@@ -53,21 +56,23 @@ module IsoToSolrFormat
     area
   end
 
-  def self.get_total_spatial_area(values)
-    values.reduce { |a, e| a.to_f + e.to_f }
+  def self.get_max_spatial_area(values)
+    values.map { |v| v.to_f }.max
   end
 
   def self.temporal_display_str(temporal_node, formatted = false)
     dr = date_range(temporal_node, formatted)
-    "#{dr[:start]},#{dr[:end]}"
+    temporal_str = "#{dr[:start]}"
+    temporal_str += ",#{dr[:end]}" unless dr[:end].nil?
+    temporal_str
   end
 
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
 
-    if is_box_invalid(box)
+    if is_box_invalid?(box)
       facet = 'No Spatial Information'
-    elsif is_box_global(box)
+    elsif is_box_global?(box)
       facet = 'Global'
     else
       facet = 'Non Global'
@@ -78,11 +83,11 @@ module IsoToSolrFormat
   def self.get_spatial_scope_facet(box_node)
     box = bounding_box(box_node)
 
-    if is_box_invalid(box)
+    if is_box_invalid?(box)
       facet = 'No Spatial Information'
-    elsif is_box_global(box)
+    elsif is_box_global?(box)
       facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
-    elsif is_box_local(box)
+    elsif is_box_local?(box)
       facet = 'Less than 1 degree of latitude change | Local'
     else
       facet = 'Between 1 and 170 degrees of latitude change | Regional'
@@ -95,7 +100,7 @@ module IsoToSolrFormat
   def self.get_temporal_duration(temporal_node)
     dr = date_range(temporal_node)
 
-    if dr[:start].empty?
+    if dr[:start].nil? || dr[:start].empty?
       duration = nil
     else
       start_date = Date.parse(dr[:start])
@@ -116,7 +121,7 @@ module IsoToSolrFormat
   end
 
   def self.reduce_temporal_duration(values)
-    values.reject { |v| v.nil? }.max
+    values.map { |v| Integer(v) rescue nil }.compact.max
   end
 
   # We are indexiong date ranges a spatial cordinates.
@@ -135,16 +140,27 @@ module IsoToSolrFormat
     [long_name, short_name].join(' | ')
   end
 
+  def self.build_keyword_list(keywords)
+    category = keywords.xpath('.//CategoryKeyword').text
+    topic = keywords.xpath('.//TopicKeyword').text
+    term = keywords.xpath('.//TermKeyword').text
+    category << ' > ' << topic << ' > ' << term
+  end
+
   private
 
   MIN_DATE = '00010101'
   MAX_DATE = '30000101'
 
   def self.bounding_box(box_node)
-    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal'])
-    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal'])
-    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal'])
-    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal'])
+    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
+    west = west.split(' ').first.strip unless west.empty?
+    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal', './SouthBoundingCoordinate'])
+    south = south.split(' ').first.strip unless south.empty?
+    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal', './EastBoundingCoordinate'])
+    east = east.split(' ').first.strip unless east.empty?
+    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal', './NorthBoundingCoordinate'])
+    north = north.split(' ').first.strip unless north.empty?
 
     {
       west: west,
@@ -154,30 +170,26 @@ module IsoToSolrFormat
     }
   end
 
-  def self.get_first_matching_child(node, paths)
-    text = ''
-    paths.each do |path|
-      matching_nodes = node.at_xpath(path, IsoNamespaces.namespaces(node))
-      return matching_nodes.text.split(' ').first.strip unless matching_nodes.nil?
-    end
-    text
-  end
-
   def self.date_range(temporal_node, formatted = false)
-    start_date = temporal_node.xpath('.//gml:beginPosition', IsoNamespaces.namespaces(temporal_node)).first.text
-    end_date = temporal_node.xpath('.//gml:endPosition', IsoNamespaces.namespaces(temporal_node)).first.text
+    start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime'])
+    start_date = is_date?(start_date) ? start_date : ''
+
+    end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime'])
+    end_date = is_date?(end_date) ? end_date : ''
+
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
+
     {
-      start: start_date.empty? ? '' : start_date,
-      end: end_date.empty? ? '' : end_date
+      start: start_date,
+      end: end_date
     }
   end
 
   # takes a temporal_duration in days, returns a string representing the range
   # for faceting
   def self.temporal_duration_range(temporal_duration)
-    years = temporal_duration / 365
+    years = temporal_duration.to_i / 365
     range = case years
             when 0 then '< 1 year'
             when 1..4 then '1 - 4 years'
@@ -187,25 +199,39 @@ module IsoToSolrFormat
     range
   end
 
+  def self.get_first_matching_child(node, paths)
+    matching_nodes = node.at_xpath(paths.join(' | '), IsoNamespaces.namespaces(node))
+    matching_nodes.nil? ? '' : matching_nodes.text
+  end
+
   def self.format_date_for_index(date_str, default)
-    date_str = default if date_str.eql?('')
+    date_str = default unless is_date? date_str
     DateTime.parse(date_str).strftime('%C.%y%m%d')
   end
 
-  def self.is_box_invalid(box)
+  def self.is_box_invalid?(box)
     box[:north].nil? || box[:north].empty? ||
       box[:east].nil? || box[:east].empty? ||
       box[:south].nil? || box[:south].empty? ||
       box[:west].nil? || box[:west].empty?
   end
 
-  def self.is_box_global(box)
+  def self.is_box_global?(box)
     box[:south].to_f < -85.0 && box[:north].to_f > 85.0
   end
 
-  def self.is_box_local(box)
+  def self.is_box_local?(box)
     distance = box[:north].to_f - box[:south].to_f
     distance < 1
+  end
+
+  def self.is_date?(date)
+    valid_date = true
+    valid_date = if date.is_a? String
+                   d = DateTime.parse(date.strip) rescue false
+                   DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
+                 end
+    valid_date
   end
 
   def self.parameter_binning(parameter_string)

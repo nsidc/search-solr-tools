@@ -26,7 +26,7 @@ CISL = {
       multivalue: false
   },
   data_centers: {
-      xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor/gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+      xpaths: [''],
       default_values: [long_name],
       multivalue: false
   },
@@ -61,7 +61,7 @@ CISL = {
   spatial_area: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: false,
-    reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
+    reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal_coverages: {

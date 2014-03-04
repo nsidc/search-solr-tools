@@ -22,7 +22,7 @@ NMI = {
       multivalue: false
   },
   data_centers: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+      xpaths: [''],
       default_values: [long_name],
       multivalue: false
   },
@@ -53,7 +53,7 @@ NMI = {
   spatial_area: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: false,
-    reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
+    reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   dataset_url: {
