@@ -9,7 +9,7 @@ module IsoToSolrFormat
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
   SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
-  TOTAL_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_total_spatial_area(values) }
+  MAX_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_max_spatial_area(values) }
 
   TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
   REDUCE_TEMPORAL_DURATION = proc { |values| IsoToSolrFormat.reduce_temporal_duration(values) }
@@ -53,8 +53,8 @@ module IsoToSolrFormat
     area
   end
 
-  def self.get_total_spatial_area(values)
-    values.reduce { |a, e| a.to_f + e.to_f }
+  def self.get_max_spatial_area(values)
+    values.map { |v| v.to_f }.max
   end
 
   def self.temporal_display_str(temporal_node, formatted = false)
