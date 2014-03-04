@@ -57,7 +57,7 @@ ECHO = {
   spatial_area: {
     xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: false,
-    reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
+    reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal_coverages: {
