@@ -8,6 +8,11 @@ describe 'CISL ISO to Solr converter' do
 
   test_expectations = [
     {
+      title: 'should include the correct authoritative id',
+      xpath: "/doc/field[@name='authoritative_id']",
+      expected_text: 'oai:ACADIS:005f3222-7548-11e2-851e-00c0f03d5b7c'
+    },
+    {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
       expected_text: 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
@@ -24,9 +29,14 @@ describe 'CISL ISO to Solr converter' do
       expected_text: 'Advanced Cooperative Arctic Data and Information Service'
     },
     {
-      title: 'should grab the correct get data link',
-      xpath: "/doc/field[@name='dataset_url']",
-      expected_text: 'http://www.aoncadis.org/dataset/id/005f3222-7548-11e2-851e-00c0f03d5b7c.html'
+      title: 'should grab the correct author',
+      xpath: "/doc/field[@name='authors']",
+      expected_text: ''
+    },
+    {
+      title: 'should grab the correct keywords',
+      xpath: "/doc/field[@name='keywords']",
+      expected_text: "Land coverBio-geographical regionsSoilEARTH SCIENCELand Records\n/\nPaleosolsLand Records\n/\nIsotopesSoils\n/\nCarbonEcological Dynamics\n/\nBiogeochemical CyclesGeochemistry\n/\nBiogeochemistry"
     },
     {
       title: 'should grab the correct updated date',
@@ -34,9 +44,9 @@ describe 'CISL ISO to Solr converter' do
       expected_text: '2013-02-13T00:00:00Z'
     },
     {
-      title: 'should grab the correct source',
-      xpath: "/doc/field[@name='source']",
-      expected_text: 'ADE'
+      title: 'should grab the correct get data link',
+      xpath: "/doc/field[@name='dataset_url']",
+      expected_text: 'http://www.aoncadis.org/dataset/id/005f3222-7548-11e2-851e-00c0f03d5b7c.html'
     },
     {
       title: 'should grab the correct spatial display bounds',
@@ -69,6 +79,16 @@ describe 'CISL ISO to Solr converter' do
       expected_text: '71'
     },
     {
+      title: 'should grab the correct source',
+      xpath: "/doc/field[@name='source']",
+      expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct data center facet',
+      xpath: "/doc/field[@name='facet_data_center']",
+      expected_text: 'Advanced Cooperative Arctic Data and Information Service | ACADIS Gateway'
+    },
+    {
       title: 'should grab the correct spatial facet',
       xpath: "/doc/field[@name='facet_spatial_coverage']",
       expected_text: 'Global'
@@ -77,6 +97,16 @@ describe 'CISL ISO to Solr converter' do
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Coverage from over 85 degrees North to -85 degrees South | Global'
+    },
+    {
+      title: 'should grab the correct temporal duration facet',
+      xpath: "/doc/field[@name='facet_temporal_duration']",
+      expected_text: '< 1 year'
+    },
+    {
+      title: 'should grab the correct author facet',
+      xpath: "/doc/field[@name='facet_author']",
+      expected_text: ''
     }
   ]
 

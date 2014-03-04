@@ -10,8 +10,6 @@ SELECTORS = {
   echo:   ECHO,
   nodc:   NODC,
   nsidc:  NSIDC,
-  dryad:  DRYAD,
   rda:    RDA,
-  gina:   GINA,
   ices:   ICES
 }

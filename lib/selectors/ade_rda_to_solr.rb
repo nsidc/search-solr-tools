@@ -23,7 +23,7 @@ RDA = {
   },
   data_centers: {
       xpaths: [''],
-      default_values: ['UCAR/NCAR - Data Support Section, Computational and Information Systems Laboratory'],
+      default_values: [long_name],
       multivalue: false
   },
   authors: {

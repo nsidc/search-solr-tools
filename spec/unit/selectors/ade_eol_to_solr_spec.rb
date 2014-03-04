@@ -35,9 +35,9 @@ describe 'EOL ISO to Solr converter' do
       expected_text: 'Craig E. Tweedie, ctweedie AT utep dot edu'
     },
     {
-      title: 'should grab the correct get data link',
-      xpath: "/doc/field[@name='dataset_url']",
-      expected_text: 'http://data.eol.ucar.edu/codiac/dss/id=106.313'
+      title: 'should grab the correct keywords',
+      xpath: "/doc/field[@name='keywords']",
+      expected_text: 'Satellite, QuickBirdLand Character.Arctic'
     },
     {
       title: 'should grab the correct updated date',
@@ -45,9 +45,9 @@ describe 'EOL ISO to Solr converter' do
       expected_text: '2011-07-19T13:01:03Z'
     },
     {
-      title: 'should grab the correct source',
-      xpath: "/doc/field[@name='source']",
-      expected_text: 'ADE'
+      title: 'should grab the correct get data link',
+      xpath: "/doc/field[@name='dataset_url']",
+      expected_text: 'http://data.eol.ucar.edu/codiac/dss/id=106.313'
     },
     {
       title: 'should grab the correct spatial display bounds',
@@ -70,14 +70,24 @@ describe 'EOL ISO to Solr converter' do
       expected_text: '2002-08-01T00:00:00Z,2008-07-30T23:59:59Z'
     },
     {
+      title: 'should grab the correct temporal range',
+      xpath: "/doc/field[@name='temporal']",
+      expected_text: '20.020801 20.080730'
+    },
+    {
       title: 'should grab the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
       expected_text: '2191'
     },
     {
-      title: 'should grab the correct temporal range',
-      xpath: "/doc/field[@name='temporal']",
-      expected_text: '20.020801 20.080730'
+      title: 'should grab the correct source',
+      xpath: "/doc/field[@name='source']",
+      expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct data center facet',
+      xpath: "/doc/field[@name='facet_data_center']",
+      expected_text: 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility | UCAR/NCAR EOL'
     },
     {
       title: 'should grab the correct spatial facet',
@@ -88,6 +98,16 @@ describe 'EOL ISO to Solr converter' do
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Less than 1 degree of latitude change | Local'
+    },
+    {
+      title: 'should grab the correct temporal duration facet',
+      xpath: "/doc/field[@name='facet_temporal_duration']",
+      expected_text: '5 - 9 years'
+    },
+    {
+      title: 'should grab the correct author facet',
+      xpath: "/doc/field[@name='facet_author']",
+      expected_text: 'Craig E. Tweedie, ctweedie AT utep dot edu'
     }
   ]
 

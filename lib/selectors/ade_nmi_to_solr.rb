@@ -22,7 +22,7 @@ NMI = {
       multivalue: false
   },
   data_centers: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+      xpaths: [''],
       default_values: [long_name],
       multivalue: false
   },

@@ -48,6 +48,14 @@ EOL = {
       multivalue: false,
       format: IsoToSolrFormat::DATE
   },
+  dataset_url: {
+      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
+      multivalue: false,
+      format: proc do |node|
+                matches = node.text.match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
+                matches ? matches[0] : ''
+              end
+  },
   spatial_coverages: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
@@ -63,14 +71,6 @@ EOL = {
     multivalue: false,
     reduce: IsoToSolrFormat::TOTAL_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
-  },
-  dataset_url: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
-      multivalue: false,
-      format: proc do |node|
-                matches = node.text.match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
-                matches ? matches[0] : ''
-              end
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],

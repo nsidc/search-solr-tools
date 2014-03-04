@@ -24,7 +24,7 @@ describe 'NODC ISO to Solr converter' do
       expected_text: 'Test summary'
     },
     {
-      title: 'should grab the correct data_centers',
+      title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
       expected_text: 'NOAA National Oceanographic Data Center'
     },
@@ -39,10 +39,9 @@ describe 'NODC ISO to Solr converter' do
       expected_text: 'oceanography'
     },
     {
-      # TODO: add a dummy sensor to the fixture [MB 2013-12-27]
-      title: 'should grab the correct first sensor',
-      xpath: "/doc/field[@name='sensors']",
-      expected_text: ''
+      title: 'should grab the correct updated date',
+      xpath: "/doc/field[@name='last_revision_date']",
+      expected_text: '2013-10-17T00:00:00Z'
     },
     {
       title: 'should grab the correct dataset_url link',
@@ -50,11 +49,6 @@ describe 'NODC ISO to Solr converter' do
       # NOTE: I'm grabbing the FTP link explicitly.  NODC has really good data
       # access links with other representations available.
       expected_text: 'ftp://ftp.nodc.noaa.gov/nodc/archive/arc0001/9900245/'
-    },
-    {
-      title: 'should grab the correct updated date',
-      xpath: "/doc/field[@name='last_revision_date']",
-      expected_text: '2013-10-17T00:00:00Z'
     },
     {
       title: 'should grab the correct spatial display bounds',
@@ -77,19 +71,24 @@ describe 'NODC ISO to Solr converter' do
      expected_text: '1995-07-22T00:00:00Z,1995-07-28T00:00:00Z'
     },
     {
-      title: 'should grab the correct temporal duration',
-      xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '7'
-    },
-    {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
       expected_text: '19.950722 19.950728'
     },
     {
+      title: 'should grab the correct temporal duration',
+      xpath: "/doc/field[@name='temporal_duration']",
+      expected_text: '7'
+    },
+    {
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
       expected_text: 'ADE'
+    },
+    {
+      title: 'should grab the correct data center facet',
+      xpath: "/doc/field[@name='facet_data_center']",
+      expected_text: 'NOAA National Oceanographic Data Center | NOAA NODC'
     },
     {
       title: 'should grab the correct spatial facet',
@@ -100,6 +99,16 @@ describe 'NODC ISO to Solr converter' do
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
+    },
+    {
+      title: 'should grab the correct temporal duration facet',
+      xpath: "/doc/field[@name='facet_temporal_duration']",
+      expected_text: '< 1 year'
+    },
+    {
+      title: 'should grab the correct author facet',
+      xpath: "/doc/field[@name='facet_author']",
+      expected_text: ''
     }
   ]
 
