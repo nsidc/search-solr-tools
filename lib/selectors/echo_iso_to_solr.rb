@@ -41,7 +41,7 @@ ECHO = {
     format: IsoToSolrFormat::DATE
   },
   dataset_url: {
-    xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Description/text(),'data set homepage')]/URL"],
+    xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Type/text(),'static URL') | contains(./Type/text(), 'VIEW RELATED INFORMATION')]/URL"],
     multivalue: false
   },
   spatial_coverages: {
