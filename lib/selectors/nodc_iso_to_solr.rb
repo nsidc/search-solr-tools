@@ -37,6 +37,7 @@ NODC = {
   },
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],
+    default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
     multivalue: false,
     format: IsoToSolrFormat::DATE
   },

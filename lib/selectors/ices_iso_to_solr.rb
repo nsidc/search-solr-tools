@@ -36,7 +36,8 @@ ICES = {
     multivalue: true
   },
   last_revision_date: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:DateTime', './/gmd:dateStamp/gco:DateTime'],
+    xpaths: ['.//gmd:dateStamp/gco:Date', './/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:DateTime'],
+    default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
     multivalue: false,
     format: IsoToSolrFormat::DATE
   },

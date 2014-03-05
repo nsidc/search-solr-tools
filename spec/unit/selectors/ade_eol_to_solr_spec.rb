@@ -42,7 +42,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct updated date',
       xpath: "/doc/field[@name='last_revision_date']",
-      expected_text: '2011-07-19T13:01:03Z'
+      expected_text: '2011-07-19T00:00:00Z'
     },
     {
       title: 'should grab the correct get data link',
