@@ -43,7 +43,8 @@ ECHO = {
   },
   dataset_url: {
     xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Type/text(),'static URL')]/URL",
-             ".//Collection/OnlineResources/OnlineResource/contains(./Type/text(), 'VIEW RELATED INFORMATION')]/URL"],
+             ".//Collection/OnlineResources/OnlineResource/[contains(./Type/text(), 'VIEW RELATED INFORMATION')]/URL",
+             ".//Collection/OnlineAccessURLs/OnlineAccessURL/[contains(./URLDescription/text(), 'Data Access')]/URL"],
     multivalue: false
   },
   spatial_coverages: {
