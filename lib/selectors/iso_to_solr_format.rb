@@ -135,7 +135,7 @@ module IsoToSolrFormat
 
   def self.sponsored_program_facet(node)
     long_name = node.xpath('.//gmd:organisationName', IsoNamespaces.namespaces(node)).text.strip
-    short_name = node.xpath('.//gmd:organisationShortName', IsoNamespaces.namespaces(node)).text.strip.split('_')[1]
+    short_name = node.xpath('.//gmd:organisationShortName', IsoNamespaces.namespaces(node)).text.strip
 
     [long_name, short_name].join(' | ')
   end
