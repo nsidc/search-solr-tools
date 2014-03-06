@@ -106,15 +106,15 @@
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
           <gmd:individualName>
-            <gco:CharacterString>NSIDC MEaSUREs User Services</gco:CharacterString>
+            <gco:CharacterString>User Services</gco:CharacterString>
           </gmd:individualName>
           <gmd:organisationName>
             <gco:CharacterString>
-              Making Earth System Data Records for Use in Research Environments
+              NASA DAAC at the National Snow and Ice Data Center
             </gco:CharacterString>
           </gmd:organisationName>
           <gmd:organisationShortName>
-            <gco:CharacterString>NSIDC_MEaSUREs</gco:CharacterString>
+            <gco:CharacterString>NASA DAAC</gco:CharacterString>
           </gmd:organisationShortName>
           <gmd:contactInfo>
             <gmd:CI_Contact>

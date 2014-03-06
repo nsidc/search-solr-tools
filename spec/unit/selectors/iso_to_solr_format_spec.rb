@@ -76,7 +76,7 @@ describe 'ISO to SOLR format methods' do
 
     it 'should set the organization short name and long name for the sponsored program' do
       node = fixture.xpath('.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]').first
-      IsoToSolrFormat.sponsored_program_facet(node).should eql 'Making Earth System Data Records for Use in Research Environments | MEaSUREs'
+      IsoToSolrFormat.sponsored_program_facet(node).should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
     end
   end
 end
