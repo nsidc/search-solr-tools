@@ -1,6 +1,5 @@
 # Constructs the string to query GI-Cat for CSW-ISO data
 class CswIsoQueryBuilder
-
   # get the query string from a hash of parameters
   class QueryBuilder
     def assemble_query(params)

@@ -12,16 +12,16 @@ class NsidcHarvester < HarvesterBase
   # get translated entries from NSIDC OAI and add them to Solr
   # this is the main entry point for the class
   def harvest_nsidc_oai_into_solr
-    insert_solr_docs get_docs_with_translated_entries_from_nsidc
+    insert_solr_docs docs_with_translated_entries_from_nsidc
   end
 
-  def get_results_from_nsidc
+  def results_from_nsidc
     get_results SolrEnvironments[@environment][:oai_url], '//gmi:MI_Metadata'
   end
 
-  def get_docs_with_translated_entries_from_nsidc
+  def docs_with_translated_entries_from_nsidc
     docs = []
-    get_results_from_nsidc.each { |r| docs.push(create_new_solr_add_doc_with_child(@translator.translate(r).root)) }
+    results_from_nsidc.each { |r| docs.push(create_new_solr_add_doc_with_child(@translator.translate(r).root)) }
     docs
   end
 end

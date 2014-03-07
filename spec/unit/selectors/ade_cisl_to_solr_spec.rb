@@ -20,7 +20,7 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "Dataset consists of compound specific carbon isotopic values of alkanes\nextracted from paleosols." +
+      expected_text: "Dataset consists of compound specific carbon isotopic values of alkanes\nextracted from paleosols." \
       " Values represent the mean of duplicate\nmeasurements."
     },
     {

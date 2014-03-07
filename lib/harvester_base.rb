@@ -29,7 +29,7 @@ class HarvesterBase
   def insert_solr_doc(doc)
     url = solr_url + '/update?commit=true'
     success = false
-    RestClient.post(url, (doc.respond_to?(:to_xml) ? doc.to_xml : doc), { content_type: 'text/xml; charset=utf-8' }) do |response, request, result|
+    RestClient.post(url, (doc.respond_to?(:to_xml) ? doc.to_xml : doc),  content_type: 'text/xml; charset=utf-8') do |response, request, result|
       response.code == 200 ? success = true : puts(response.body)
     end
     success

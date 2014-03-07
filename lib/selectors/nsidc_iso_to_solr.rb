@@ -150,7 +150,7 @@ NSIDC = {
   facet_format: {
     xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
     default_values: ['Not specified'],
-    multivalue: true,
+    multivalue: true
   },
   facet_author: {
     xpaths: ['.//gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="principalInvestigator"]//gmd:individualName[not(contains(gco:CharacterString, "NSIDC User Services"))]

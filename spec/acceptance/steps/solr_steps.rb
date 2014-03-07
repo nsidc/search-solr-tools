@@ -14,7 +14,7 @@ module SolrSteps
   end
 
   step 'I should get a valid response with results' do
-    @page.is_valid?.should be true
+    @page.valid?.should be true
     @page.total_results.should be > 0
     @page.results.size.should be <= @page.total_results
   end
