@@ -71,5 +71,4 @@ class IsoToSolr
     end
     solr_xml_doc.doc
   end
-
 end

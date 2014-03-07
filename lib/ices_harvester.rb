@@ -36,12 +36,11 @@ class IcesHarvester < HarvesterBase
   end
 
   def build_csw_request(resultType = 'results', maxRecords = '25', startPosition = '1')
-    CswIsoQueryBuilder.get_query_string(ices_url, {
-      'resultType' => resultType,
-      'maxRecords' => maxRecords,
-      'startPosition' => startPosition,
-      'constraintLanguage' => 'CQL_TEXT'
-    })
+    CswIsoQueryBuilder.get_query_string(ices_url,
+                                        'resultType' => resultType,
+                                        'maxRecords' => maxRecords,
+                                        'startPosition' => startPosition,
+                                        'constraintLanguage' => 'CQL_TEXT'
+    )
   end
-
 end

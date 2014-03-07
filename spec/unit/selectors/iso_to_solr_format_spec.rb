@@ -51,12 +51,12 @@ describe 'ISO to SOLR format methods' do
     end
 
     it 'should calculate a duration in days from a TemporalExtent node' do
-      IsoToSolrFormat.get_temporal_duration(temporal_node).should eql 12145
+      IsoToSolrFormat.get_temporal_duration(temporal_node).should eql 12_145
     end
 
     it 'should use only the maximum duration when a dataset has multiple temporal ranges' do
-      durations = [27, 123, 325, 234, 19032, 3]
-      IsoToSolrFormat.reduce_temporal_duration(durations).should eql 19032
+      durations = [27, 123, 325, 234, 19_032, 3]
+      IsoToSolrFormat.reduce_temporal_duration(durations).should eql 19_032
     end
   end
 

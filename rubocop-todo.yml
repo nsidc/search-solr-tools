@@ -9,17 +9,6 @@
 AccessorMethodName:
   Enabled: false
 
-# Offence count: 71
-# Cop supports --auto-correct.
-AlignArray:
-  Enabled: false
-
-# Offence count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-BracesAroundHashParameters:
-  Enabled: false
-
 # Offence count: 1
 CyclomaticComplexity:
   Max: 8
@@ -27,26 +16,6 @@ CyclomaticComplexity:
 # Offence count: 1
 Documentation:
   Enabled: false
-
-# Offence count: 4
-# Cop supports --auto-correct.
-EmptyLinesAroundBody:
-  Enabled: false
-
-# Offence count: 1
-# Cop supports --auto-correct.
-FinalNewline:
-  Enabled: false
-
-# Offence count: 5
-# Cop supports --auto-correct.
-LineEndConcatenation:
-  Enabled: false
-
-# Offence count: 3
-# Cop supports --auto-correct.
-NumericLiterals:
-  MinDigits: 5
 
 # Offence count: 5
 # Configuration parameters: NamePrefixBlacklist.

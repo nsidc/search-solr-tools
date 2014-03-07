@@ -43,12 +43,12 @@ describe ADEHarvester do
 
       it 'Makes a request to the GI-Cat CSW/ISO service' do
         csw_iso_url = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso'
-        query_params = CswIsoQueryBuilder.query_params({
+        query_params = CswIsoQueryBuilder.query_params(
           'namespace' => 'xmlns(gmd=http://www.isotc211.org/2005/gmd)',
           'resultType' => 'results',
           'maxRecords' => '25',
           'startPosition' => '1'
-        })
+        )
 
         stub_request(:get, csw_iso_url).with(query: query_params)
         .to_return(status: 200, body: '<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"><foo/></gmd:MD_Metadata>')

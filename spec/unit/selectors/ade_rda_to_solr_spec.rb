@@ -15,7 +15,7 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: 'The 5-degree latitude/longitude grids contained in this dataset make up the longest continuous set of ' +
+      expected_text: 'The 5-degree latitude/longitude grids contained in this dataset make up the longest continuous set of ' \
       'daily gridded Northern Hemisphere sea-level pressure data in the DSS archive. For more information, ' +
       'see the documentation [http://rda.ucar.edu/datasets/ds010.0/docs/] about original data points.'
     },

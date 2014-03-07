@@ -36,12 +36,12 @@ class NodcHarvester < HarvesterBase
   end
 
   def build_csw_request(resultType = 'results', maxRecords = '25', startPosition = '1')
-    CswIsoQueryBuilder.get_query_string(nodc_url, {
-      'resultType' => resultType,
-      'maxRecords' => maxRecords,
-      'startPosition' => startPosition,
-      'constraint' => get_bbox_constraint
-    })
+    CswIsoQueryBuilder.get_query_string(nodc_url,
+                                        'resultType' => resultType,
+                                        'maxRecords' => maxRecords,
+                                        'startPosition' => startPosition,
+                                        'constraint' => get_bbox_constraint
+    )
   end
 
   def get_bbox_constraint
@@ -52,7 +52,7 @@ class NodcHarvester < HarvesterBase
       north: '90'
     }
 
-    URI.encode '<Filter xmlns:ogc="http://www.opengis.net/ogc" ' +
+    URI.encode '<Filter xmlns:ogc="http://www.opengis.net/ogc" ' \
       'xmlns:gml="http://www.opengis.net/gml" ' +
       'xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">' +
       '<ogc:BBOX><PropertyName>apiso:BoundingBox</PropertyName><gml:Envelope>' +
