@@ -4,7 +4,3 @@
 # one by one as the offences are removed from the code base.
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
-
-# Offence count: 1
-CyclomaticComplexity:
-  Max: 8

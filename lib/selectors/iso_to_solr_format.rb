@@ -210,10 +210,7 @@ module IsoToSolrFormat
   end
 
   def self.box_invalid?(box)
-    box[:north].nil? || box[:north].empty? ||
-      box[:east].nil? || box[:east].empty? ||
-      box[:south].nil? || box[:south].empty? ||
-      box[:west].nil? || box[:west].empty?
+    [:north, :south, :east, :west].any? { |d| box[d].nil? || box[d].empty? }
   end
 
   def self.box_global?(box)
