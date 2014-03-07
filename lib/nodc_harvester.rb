@@ -40,11 +40,11 @@ class NodcHarvester < HarvesterBase
                                         'resultType' => resultType,
                                         'maxRecords' => maxRecords,
                                         'startPosition' => startPosition,
-                                        'constraint' => get_bbox_constraint
+                                        'constraint' => bbox_constraint
     )
   end
 
-  def get_bbox_constraint
+  def bbox_constraint
     bbox = {
       west: '-180',
       south: '45',

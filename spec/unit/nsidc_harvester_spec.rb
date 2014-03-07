@@ -11,7 +11,7 @@ describe NsidcHarvester do
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<gmi:MI_Metadata xmlns:gmi="http://www.isotc211.org/2005/gmi"><foo/></gmi:MI_Metadata>')
 
-    @harvester.get_results_from_nsidc.first.first_element_child.to_xml.should eql('<foo/>')
+    @harvester.results_from_nsidc.first.first_element_child.to_xml.should eql('<foo/>')
   end
 
   describe 'Adding documents to Solr' do
@@ -20,7 +20,7 @@ describe NsidcHarvester do
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_iso.xml'), headers: {})
 
-      @harvester.get_docs_with_translated_entries_from_nsidc.first.root.first_element_child.name.should eql('doc')
+      @harvester.docs_with_translated_entries_from_nsidc.first.root.first_element_child.name.should eql('doc')
     end
 
     it 'Issues a request to update Solr with data' do
