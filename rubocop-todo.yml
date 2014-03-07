@@ -12,7 +12,3 @@ AccessorMethodName:
 # Offence count: 1
 CyclomaticComplexity:
   Max: 8
-
-# Offence count: 1
-UselessAssignment:
-  Enabled: false

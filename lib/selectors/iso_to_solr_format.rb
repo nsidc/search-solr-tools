@@ -226,7 +226,6 @@ module IsoToSolrFormat
   end
 
   def self.date?(date)
-    valid_date = true
     valid_date = if date.is_a? String
                    d = DateTime.parse(date.strip) rescue false
                    DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
