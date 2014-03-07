@@ -23,10 +23,5 @@ PredicateName:
   Enabled: false
 
 # Offence count: 1
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-TrailingComma:
-  Enabled: false
-
-# Offence count: 1
 UselessAssignment:
   Enabled: false
