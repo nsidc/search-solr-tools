@@ -13,10 +13,6 @@ AccessorMethodName:
 CyclomaticComplexity:
   Max: 8
 
-# Offence count: 1
-Documentation:
-  Enabled: false
-
 # Offence count: 5
 # Configuration parameters: NamePrefixBlacklist.
 PredicateName:
