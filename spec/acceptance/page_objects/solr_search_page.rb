@@ -14,7 +14,7 @@ class SolrSearchPage
     @response_doc = Nokogiri.XML @response.body
   end
 
-  def is_valid?
+  def valid?
     @response.code.eql?(200)
   end
 

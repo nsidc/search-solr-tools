@@ -70,9 +70,9 @@ module IsoToSolrFormat
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
 
-    if is_box_invalid?(box)
+    if box_invalid?(box)
       facet = 'No Spatial Information'
-    elsif is_box_global?(box)
+    elsif box_global?(box)
       facet = 'Global'
     else
       facet = 'Non Global'
@@ -83,11 +83,11 @@ module IsoToSolrFormat
   def self.get_spatial_scope_facet(box_node)
     box = bounding_box(box_node)
 
-    if is_box_invalid?(box)
+    if box_invalid?(box)
       facet = 'No Spatial Information'
-    elsif is_box_global?(box)
+    elsif box_global?(box)
       facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
-    elsif is_box_local?(box)
+    elsif box_local?(box)
       facet = 'Less than 1 degree of latitude change | Local'
     else
       facet = 'Between 1 and 170 degrees of latitude change | Regional'
@@ -172,10 +172,10 @@ module IsoToSolrFormat
 
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime'])
-    start_date = is_date?(start_date) ? start_date : ''
+    start_date = date?(start_date) ? start_date : ''
 
     end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime'])
-    end_date = is_date?(end_date) ? end_date : ''
+    end_date = date?(end_date) ? end_date : ''
 
     formatted ? start_date = date_str(start_date) : start_date
     formatted ? end_date = date_str(end_date) : end_date
@@ -205,27 +205,27 @@ module IsoToSolrFormat
   end
 
   def self.format_date_for_index(date_str, default)
-    date_str = default unless is_date? date_str
+    date_str = default unless date? date_str
     DateTime.parse(date_str).strftime('%C.%y%m%d')
   end
 
-  def self.is_box_invalid?(box)
+  def self.box_invalid?(box)
     box[:north].nil? || box[:north].empty? ||
       box[:east].nil? || box[:east].empty? ||
       box[:south].nil? || box[:south].empty? ||
       box[:west].nil? || box[:west].empty?
   end
 
-  def self.is_box_global?(box)
+  def self.box_global?(box)
     box[:south].to_f < -85.0 && box[:north].to_f > 85.0
   end
 
-  def self.is_box_local?(box)
+  def self.box_local?(box)
     distance = box[:north].to_f - box[:south].to_f
     distance < 1
   end
 
-  def self.is_date?(date)
+  def self.date?(date)
     valid_date = true
     valid_date = if date.is_a? String
                    d = DateTime.parse(date.strip) rescue false
