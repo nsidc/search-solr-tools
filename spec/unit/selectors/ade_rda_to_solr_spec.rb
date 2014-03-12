@@ -78,8 +78,12 @@ describe 'RDA ISO to Solr converter' do
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
+    },
+    {
+      title: 'should grab the correct temporal duration facet',
+      xpath: "/doc/field[@name='facet_temporal_duration']",
+      expected_text: '1+ years5+ years10+ years'
     }
-
   ]
 
   test_expectations.each do |expectation|

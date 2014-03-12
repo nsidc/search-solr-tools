@@ -61,13 +61,23 @@ class IsoToSolr
   def translate(iso_xml_doc)
     solr_xml_doc = Nokogiri::XML::Builder.new do |xml|
       xml.doc_ do
-        @fields.each do |field_name, selector|
-          create_solr_fields(iso_xml_doc, selector).each do |value|
-            xml.field_({ name: field_name }, value) unless value.nil? || value.eql?('')
-          end
-        end
+        build_fields(xml, iso_xml_doc)
       end
     end
     solr_xml_doc.doc
+  end
+
+  def build_fields(xml, iso_xml_doc)
+    @fields.each do |field_name, selector|
+      create_solr_fields(iso_xml_doc, selector).each do |value|
+        if value.is_a? Array
+          value.each do |v|
+            xml.field_({ name: field_name }, v) unless v.nil? || v.eql?('')
+          end
+        else
+          xml.field_({ name: field_name }, value) unless value.nil? || value.eql?('')
+        end
+      end
+    end
   end
 end

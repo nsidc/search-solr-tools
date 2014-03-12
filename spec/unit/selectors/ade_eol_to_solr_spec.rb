@@ -102,7 +102,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
-      expected_text: '5 - 9 years'
+      expected_text: '1+ years5+ years'
     },
     {
       title: 'should grab the correct author facet',

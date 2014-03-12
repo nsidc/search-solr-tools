@@ -71,7 +71,7 @@ describe 'ISO to SOLR format methods' do
 
     it 'should set the duration(s) from a TemporalExtent node' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
-      IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql '10+ years'
+      IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql ['1+ years', '5+ years', '10+ years']
     end
 
     it 'should set the organization short name and long name for the sponsored program' do

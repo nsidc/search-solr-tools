@@ -117,7 +117,10 @@ module IsoToSolrFormat
 
   def self.get_temporal_duration_facet(temporal_node)
     duration = get_temporal_duration(temporal_node)
-    temporal_duration_range(duration)
+    return 'No Temporal Information' if duration.nil?
+
+    years = duration.to_i / 365
+    temporal_duration_range(years)
   end
 
   def self.reduce_temporal_duration(values)
@@ -188,14 +191,14 @@ module IsoToSolrFormat
 
   # takes a temporal_duration in days, returns a string representing the range
   # for faceting
-  def self.temporal_duration_range(temporal_duration)
-    years = temporal_duration.to_i / 365
-    range = case years
-            when 0 then '< 1 year'
-            when 1..4 then '1 - 4 years'
-            when 5..9 then '5 - 9 years'
-            else '10+ years'
-            end
+  def self.temporal_duration_range(years)
+    range = []
+
+    range.push '< 1 year' if years >= 0 && years < 1
+    range.push '1+ years' if years >= 1
+    range.push '5+ years' if years >= 5
+    range.push '10+ years' if years >= 10
+
     range
   end
 
