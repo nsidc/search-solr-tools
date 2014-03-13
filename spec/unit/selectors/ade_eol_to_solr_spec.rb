@@ -27,7 +27,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'
+      expected_text: 'UCAR/NCAR - Earth Observing Laboratory'
     },
     {
       title: 'should grab the correct author(s)',
@@ -87,7 +87,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct data center facet',
       xpath: "/doc/field[@name='facet_data_center']",
-      expected_text: 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility | UCAR/NCAR EOL'
+      expected_text: 'UCAR/NCAR - Earth Observing Laboratory | UCAR/NCAR EOL'
     },
     {
       title: 'should grab the correct spatial facet',

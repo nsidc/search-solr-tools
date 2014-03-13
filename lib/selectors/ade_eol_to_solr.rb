@@ -5,7 +5,7 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
-long_name = 'UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility'
+long_name = 'UCAR/NCAR - Earth Observing Laboratory'
 short_name = 'UCAR/NCAR EOL'
 
 EOL = {

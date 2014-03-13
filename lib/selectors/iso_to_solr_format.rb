@@ -189,7 +189,7 @@ module IsoToSolrFormat
     }
   end
 
-  # takes a temporal_duration in days, returns a string representing the range
+  # takes a temporal_duration in years, returns a string representing the range
   # for faceting
   def self.temporal_duration_range(years)
     range = []
