@@ -19,23 +19,6 @@ module IsoToSolrFormat
   FACET_SPATIAL_SCOPE = proc { |node| IsoToSolrFormat.get_spatial_scope_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
-  def self.date_str(date)
-    d = if date.is_a? String
-          DateTime.parse(date.strip) rescue nil
-        else
-          date
-        end
-    "#{d.iso8601[0..-7]}Z" unless d.nil?
-  end
-
-  # SR [03/04/2014]: Is this function necessary anymore?
-  # We are not supporting dryads... Even if we were, is this a good place for this?
-  def self.fix_dryads_url(id_node)
-    # Dryad does not provide links but this is a handy way to get to the datasets
-    data_link = 'http://datadryad.org/handle/' + id_node
-    data_link.gsub! 'oai:datadryad.org:', ''
-  end
-
   def self.spatial_display_str(box_node)
     box = bounding_box(box_node)
     "#{box[:south]} #{box[:west]} #{box[:north]} #{box[:east]}"
@@ -58,13 +41,6 @@ module IsoToSolrFormat
 
   def self.get_max_spatial_area(values)
     values.map { |v| v.to_f }.max
-  end
-
-  def self.temporal_display_str(temporal_node, formatted = false)
-    dr = date_range(temporal_node, formatted)
-    temporal_str = "#{dr[:start]}"
-    temporal_str += ",#{dr[:end]}" unless dr[:end].nil?
-    temporal_str
   end
 
   def self.get_spatial_facet(box_node)
@@ -93,6 +69,13 @@ module IsoToSolrFormat
       facet = 'Between 1 and 170 degrees of latitude change | Regional'
     end
     facet
+  end
+
+  def self.temporal_display_str(temporal_node, formatted = false)
+    dr = date_range(temporal_node, formatted)
+    temporal_str = "#{dr[:start]}"
+    temporal_str += ",#{dr[:end]}" unless dr[:end].nil?
+    temporal_str
   end
 
   # returns the temporal duration in days; returns -1 if there is not a valid
@@ -173,6 +156,15 @@ module IsoToSolrFormat
     }
   end
 
+  def self.date_str(date)
+    d = if date.is_a? String
+          DateTime.parse(date.strip) rescue nil
+        else
+          date
+        end
+    "#{d.iso8601[0..-7]}Z" unless d.nil?
+  end
+
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime'])
     start_date = date?(start_date) ? start_date : ''
@@ -245,5 +237,9 @@ module IsoToSolrFormat
     return parts[3].strip if parts.length >= 4
 
     nil
+  end
+
+  def self.ices_dataset_url(auth_id)
+    'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
   end
 end

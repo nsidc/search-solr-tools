@@ -41,7 +41,7 @@ describe 'ICES ISO to Solr converter' do
    {
      title: 'should grab the correct dataset_url link',
      xpath: "/doc/field[@name='dataset_url']",
-     expected_text: 'http://www.searchmesh.net/default.aspx?page=1974'
+     expected_text: 'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=b8ca014e-1bb8-4bda-8a8b-ba2b38e6eb4c'
    },
    {
      title: 'should grab the correct updated date',

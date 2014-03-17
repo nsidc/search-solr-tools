@@ -42,8 +42,9 @@ ICES = {
     format: IsoToSolrFormat::DATE
   },
   dataset_url: {
-    xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[./gmd:protocol/gco:CharacterString="WWW:LINK-1.0-http--link"]/gmd:linkage/gmd:URL'],
-    multivalue: false
+    xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
+    multivalue: false,
+    format: proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
   },
   spatial_coverages: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
