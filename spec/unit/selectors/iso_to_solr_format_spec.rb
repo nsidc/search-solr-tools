@@ -78,5 +78,20 @@ describe 'ISO to SOLR format methods' do
       node = fixture.xpath('.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]').first
       IsoToSolrFormat.sponsored_program_facet(node).should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
     end
+
+    it 'should set the data format' do
+      node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[0].text
+      IsoToSolrFormat.format_binning(node).should eql 'HTML'
+    end
+
+    it 'should bin the data format' do
+      node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[1].text
+      IsoToSolrFormat.format_binning(node).should eql 'ASCII Text'
+    end
+
+    it 'should not set excluded data formats' do
+      node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[2].text
+      IsoToSolrFormat.format_binning(node).should eql nil
+    end
   end
 end

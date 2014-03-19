@@ -145,7 +145,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the correct distribution formats',
       xpath: "/doc/field[@name='distribution_formats'][1]",
-      expected_text: 'ASCII Text'
+      expected_text: 'HTML'
     },
     {
       title: 'should include the correct popularity',
@@ -189,7 +189,7 @@ describe 'NSIDC ISO to SOLR converter' do
     },
     {
       title: 'should grab the correct format facet',
-      xpath: "/doc/field[@name='facet_format']",
+      xpath: "/doc/field[@name='facet_format'][2]",
       expected_text: 'ASCII Text'
     }
   ]

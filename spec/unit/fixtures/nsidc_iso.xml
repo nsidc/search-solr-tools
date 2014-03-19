@@ -562,10 +562,30 @@
       <gmd:distributionFormat>
         <gmd:MD_Format>
           <gmd:name>
-            <gco:CharacterString>ASCII Text</gco:CharacterString>
+            <gco:CharacterString>HTML</gco:CharacterString>
           </gmd:name>
           <gmd:specification>
-            <gco:CharacterString>FTP</co:CharacterString>
+            <gco:CharacterString>Online (HTTP)</gco:CharacterString>
+          </gmd:specification>
+        </gmd:MD_Format>
+      </gmd:distributionFormat>
+      <gmd:distributionFormat>
+        <gmd:MD_Format>
+          <gmd:name>
+            <gco:CharacterString>ASCII Text (.txt)</gco:CharacterString>
+          </gmd:name>
+          <gmd:specification>
+            <gco:CharacterString>FTP</gco:CharacterString>
+          </gmd:specification>
+        </gmd:MD_Format>
+      </gmd:distributionFormat>
+      <gmd:distributionFormat>
+        <gmd:MD_Format>
+          <gmd:name>
+            <gco:CharacterString>DXF</gco:CharacterString>
+          </gmd:name>
+          <gmd:specification>
+            <gco:CharacterString>FTP</gco:CharacterString>
           </gmd:specification>
         </gmd:MD_Format>
       </gmd:distributionFormat>

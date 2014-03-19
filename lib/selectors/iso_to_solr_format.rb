@@ -1,6 +1,7 @@
 require 'date'
 require './lib/selectors/helpers/iso_namespaces'
 require './lib/selectors/helpers/nsidc_parameter_mapping'
+require './lib/selectors/helpers/nsidc_format_mapping'
 
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
@@ -225,21 +226,45 @@ module IsoToSolrFormat
     valid_date
   end
 
-  def self.parameter_binning(parameter_string)
-    NsidcParameterMapping::MAPPING.each do |match_key, value|
-      parameter_string.match(match_key) do
-        return value
-      end
+  def self.format_binning(format_string)
+    binned_format = bin(NsidcFormatMapping::MAPPING, format_string)
+
+    if binned_format.nil?
+      return format_string
+    elsif binned_format.eql?('exclude')
+      return nil
+    else
+      return binned_format
     end
 
+    nil
+  end
+
+  def self.parameter_binning(parameter_string)
+    binned_parameter = bin(NsidcParameterMapping::MAPPING, parameter_string)
+
     # use variable_level_1 if no mapping exists
-    parts = parameter_string.split '>'
-    return parts[3].strip if parts.length >= 4
+    if binned_parameter.nil?
+      parts = parameter_string.split '>'
+      return parts[3].strip if parts.length >= 4
+    else
+      return binned_parameter
+    end
 
     nil
   end
 
   def self.ices_dataset_url(auth_id)
     'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
+  end
+
+  def self.bin(mappings, term)
+    mappings.each do |match_key, value|
+      term.match(match_key) do
+        return value
+      end
+    end
+
+    nil
   end
 end
