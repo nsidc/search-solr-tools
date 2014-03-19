@@ -1,0 +1,73 @@
+{"authoritativeId": "G02199", "title": "Dust Count Observations March 1933 - August 1933 in College-Fairbanks, AK",
+  "summary": "These data are daily dust count observations taken in College-Fairbanks, Alaska from 23 March 1933 to 29 August 1933. The data are part of a larger collection titled \"Second International Polar Year Records, 1931-1936, Department of Terrestrial Magnetism, Carnegie Institute of Washington.\" Within this larger collection, the data are identified as \"Series 1: College-Fairbanks IPY Station Records and Data, 1932-1934: Subseries C: Auroral and Meterological Records and Data, 1932-1933: Dust Count Observations, March 1933 - August 1933.\"\r\n\r\nThe data are provided in a PDF copy of the handwritten entries (Dust_Count_Observations_March1933_to_August1933.pdf). Two supporting files are also included in this data set. The first is a copy of the handwritten data transcribed to a Microsoft Excel spreadsheet (Dust_Count_Observations_March1933_to_August1933.xls). The second is a PDF document that explains the larger collection (DTM_Collection_Description.pdf).\r\n\r\nThe entries were recorded using an Aitken Dust Counter. Each entry includes up to 10 counts per day with measurements of wind, clouds, and visibility. The handwritten copy has the most complete data, as some of the handwritten notes were not transcribed into the computer spreadsheet. For example, handwritten notes concerning problems with the counter itself were not transcribed into the computer spreadsheet.\r\n\r\nThe data are available via FTP. \r\n\r\nNOAA@NSIDC believes these data to be of value but is unable to provide documentation. If you have information about this data set that others would find useful, please contact <a href=\"mailto:nsidc@nsidc.org\">NSIDC User Services</a>.",
+  "personnel": [
+  {
+    "role": "technical contact",
+    "firstName": "NSIDC",
+    "middleName": "",
+    "lastName": "User Services"
+  },
+  {
+    "role": "investigator",
+    "firstName": "K.",
+    "middleName": "L.",
+    "lastName": "Sherman"
+  }],
+  "internalDataCenters": [
+  {
+    "shortName": "NOAA @ NSIDC",
+    "longName": "NSIDC National Oceanic and Atmospheric Administration",
+    "url": "http://nsidc.org/noaa/"
+  }],
+  "datasetState": "Published No QC",
+  "majorVersion": {
+    "version": 2,
+    "summary": "changed for testing"
+  },
+  "documentationLink": "",
+  "dataAccessLinks": [
+  {
+    "uri": "http://localhost:11580/forms/G02199_or.html",
+    "displayText": "FTP"
+  }],
+  "sampleMediaLinks": [],
+  "newestPublishedMajorVersion": null,
+  "seeAlsoResources": [
+  {
+    "uri": "http://classic.ipy.org/development/history.htm",
+    "displayText": "Website for International Polar Year, including historical information about the 2nd IPY."
+  },
+  {
+    "uri": "http://classic.ipy.org/development/history.htm",
+    "displayText": "History of IPY"
+  }],
+  "brokered": false,
+  "parameters": [
+  {
+    "category": "EARTH SCIENCE",
+    "topic": "Atmosphere",
+    "term": "Air Quality",
+    "variableLevel1": "",
+    "variableLevel2": "",
+    "variableLevel3": "",
+    "detailedVariable": null
+  },
+  {
+    "category": "EARTH SCIENCE",
+    "topic": "Atmosphere",
+    "term": "Atmospheric Winds",
+    "variableLevel1": "",
+    "variableLevel2": "",
+    "variableLevel3": "",
+    "detailedVariable": null
+  },
+  {
+    "category": "EARTH SCIENCE",
+    "topic": "Atmosphere",
+    "term": "Clouds",
+    "variableLevel1": "Cloud Amount/Frequency",
+    "variableLevel2": "",
+    "variableLevel3": "",
+    "detailedVariable": null
+  }],
+  "instruments": []}

@@ -1,10 +1,15 @@
 require 'rest-client'
 require 'nokogiri'
 require 'open-uri'
+require 'multi_json'
+require './lib/selectors/helpers/iso_namespaces'
 
 # base class for solr harvesters
 class HarvesterBase
   attr_accessor :environment
+
+  XML_CONTENT_TYPE = 'text/xml; charset=utf-8'
+  JSON_CONTENT_TYPE = 'application/json; charset=utf-8'
 
   def initialize(env = 'development')
     @environment = env
@@ -16,23 +21,34 @@ class HarvesterBase
   end
 
   # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents
-  def insert_solr_docs(docs)
+  def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE)
     success = 0
     failure = 0
     docs.each do |doc|
-      insert_solr_doc(doc) ? success += 1 : failure += 1
+      insert_solr_doc(doc, content_type) ? success += 1 : failure += 1
     end
     puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
     puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
   end
 
-  def insert_solr_doc(doc)
+  def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE)
     url = solr_url + '/update?commit=true'
     success = false
-    RestClient.post(url, (doc.respond_to?(:to_xml) ? doc.to_xml : doc),  content_type: 'text/xml; charset=utf-8') do |response, request, result|
+    doc_serialized = get_serialized_doc(doc, content_type)
+    RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
       response.code == 200 ? success = true : puts(response.body)
     end
     success
+  end
+
+  def get_serialized_doc(doc, content_type)
+    if content_type.eql?(XML_CONTENT_TYPE)
+      return doc.respond_to?(:to_xml) ? doc.to_xml : doc
+    elsif content_type.eql?(JSON_CONTENT_TYPE)
+      return MultiJson.dump(doc)
+    else
+      return doc
+    end
   end
 
   # Get results from some ISO end point specified in the query string

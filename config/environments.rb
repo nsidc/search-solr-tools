@@ -35,6 +35,8 @@ module SolrEnvironments
           port: '8983',
           repo_dir: '~/solr_repo/',
           oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+          nsidc_oai_identifiers_url: 'http://localhost:1580/oai?verb=ListIdentifiers&metadata_prefix=iso', # 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+          nsidc_dataset_metadata_url: 'http://localhost:1580/', # 'http://integration.nsidc.org/api/dataset/metadata/',
           nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
           echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10',
           ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',
@@ -45,6 +47,8 @@ module SolrEnvironments
       integration: COMMON.clone.merge(
                                              deployment_target: '/disks/integration/live/apps/nsidc-open-search-solr/',
                                              oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+                                             nsidc_oai_identifiers_url: 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+                                             nsidc_dataset_metadata_url: 'http://integration.nsidc.org/api/dataset/metadata/',
                                              nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
                                              echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10',
                                              ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',
@@ -55,6 +59,8 @@ module SolrEnvironments
       qa: COMMON.clone.merge(
                                     deployment_target: '/disks/qa/live/apps/nsidc-open-search-solr/',
                                     oai_url: 'http://brash.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+                                    nsidc_oai_identifiers_url: 'http://qa.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+                                    nsidc_dataset_metadata_url: 'http://qa.nsidc.org/api/dataset/metadata/',
                                     nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
                                     echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10',
                                     ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',
@@ -65,6 +71,8 @@ module SolrEnvironments
       staging: COMMON.clone.merge(
                                          deployment_target: '/disks/staging/live/apps/nsidc-open-search-solr/',
                                          oai_url: 'http://freeze.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+                                         nsidc_oai_identifiers_url: 'http://staging.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+                                         nsidc_dataset_metadata_url: 'http://staging.nsidc.org/api/dataset/metadata/',
                                          nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
                                          echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10',
                                          ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',
@@ -75,6 +83,8 @@ module SolrEnvironments
       production: COMMON.clone.merge(
                                          deployment_target: '/disks/production/live/apps/nsidc-open-search-solr/',
                                          oai_url: 'http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+                                         nsidc_oai_identifiers_url: 'http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+                                         nsidc_dataset_metadata_url: 'http://nsidc.org/api/dataset/metadata/',
                                          nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
                                          echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10',
                                          ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',

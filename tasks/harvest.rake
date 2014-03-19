@@ -1,5 +1,6 @@
 require './lib/ade_harvester.rb'
 require './lib/nsidc_harvester.rb'
+require './lib/nsidc_json_harvester.rb'
 require './lib/nodc_harvester.rb'
 require './lib/echo_harvester.rb'
 require './lib/ices_harvester.rb'
@@ -11,6 +12,13 @@ namespace :harvest do
     harvester = NsidcHarvester.new args[:environment]
 
     harvester.harvest_nsidc_oai_into_solr
+  end
+
+  desc 'Harvest NSIDC JSON data'
+  task :nsidc_json, :environment do |t, args|
+    harvester = NsidcJsonHarvester.new args[:environment]
+
+    harvester.harvest_nsidc_json_into_solr
   end
 
   desc 'Harvest NODC data'
