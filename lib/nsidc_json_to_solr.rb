@@ -12,6 +12,27 @@ class NsidcJsonToSolr
       'dataset_version' => json_doc['majorVersion']['version'],
       'data_centers' => DATA_CENTER_LONG_NAME,
       'facet_data_center' => "#{DATA_CENTER_LONG_NAME} | #{DATA_CENTER_SHORT_NAME}"
+      # task 709 start
+
+      # task 709 end
+      # task 710 start
+
+      # task 710 end
+      # task 711 start
+
+      # task 711 end
+      # task 712 start
+
+      # task 712 end
+      # task 713 start
+
+      # task 713 end
+      # task 714 start
+
+      # task 714 end
+      # task 715 start
+
+      # task 715 end
     )
   end
 end
