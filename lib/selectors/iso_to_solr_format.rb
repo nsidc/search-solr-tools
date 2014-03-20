@@ -229,6 +229,7 @@ module IsoToSolrFormat
   def self.format_binning(format_string)
     binned_format = bin(NsidcFormatMapping::MAPPING, format_string)
 
+    # use metadata format if no mapping exists
     if binned_format.nil?
       return format_string
     elsif binned_format.eql?('exclude')

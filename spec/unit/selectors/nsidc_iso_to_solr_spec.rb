@@ -60,7 +60,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the correct first parameter',
       xpath: "/doc/field[@name='parameters'][1]",
-      expected_text: 'Discipline'
+      expected_text: 'EARTH SCIENCE'
     },
     {
       title: 'should include the correct second parameter',
@@ -70,7 +70,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the correct full string parameters',
       xpath: "/doc/field[@name='full_parameters'][1]",
-      expected_text: 'Discipline > SubDiscipline'
+      expected_text: 'EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent'
     },
     {
       title: 'should include the correct platforms',
@@ -186,6 +186,12 @@ describe 'NSIDC ISO to SOLR converter' do
       title: 'should include the sponsored program facet',
       xpath: "/doc/field[@name='facet_sponsored_program'][1]",
       expected_text: 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
+    },
+    {
+      title: 'should grab the correct parameter',
+      xpath: "/doc/field[@name='facet_parameter'][1]",
+      expected_text: 'Ice Extent'
+
     },
     {
       title: 'should grab the correct format facet',

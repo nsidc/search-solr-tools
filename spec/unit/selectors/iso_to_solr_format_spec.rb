@@ -79,6 +79,21 @@ describe 'ISO to SOLR format methods' do
       IsoToSolrFormat.sponsored_program_facet(node).should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
     end
 
+    it 'should set the parameter for a variable level_1' do
+      node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[0].text
+      IsoToSolrFormat.parameter_binning(node).should eql 'Ice Extent'
+    end
+
+    it 'should bin the parameter' do
+      node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[1].text
+      IsoToSolrFormat.parameter_binning(node).should eql 'Ocean Properties (other)'
+    end
+
+    it 'should not set parameters that do not have variable level_1' do
+      node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[2].text
+      IsoToSolrFormat.parameter_binning(node).should eql nil
+    end
+
     it 'should set the data format' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[0].text
       IsoToSolrFormat.format_binning(node).should eql 'HTML'
