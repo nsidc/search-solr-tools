@@ -12,8 +12,8 @@ class NsidcJsonToSolr
       'data_centers' => DATA_CENTER_LONG_NAME,
       'facet_data_center' => "#{DATA_CENTER_LONG_NAME} | #{DATA_CENTER_SHORT_NAME}",
       # task 709 start
-      'authors' => translate_personnel_to_authors(['personnel']),
-      'facet_author' => translate_personnel_to_authors(['personnel']),
+      'authors' => translate_personnel_to_authors(json_doc['personnel']),
+      'facet_author' => translate_personnel_to_authors(json_doc['personnel']),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
       # task 709 end
       # task 710 start
