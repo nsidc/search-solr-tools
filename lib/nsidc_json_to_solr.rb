@@ -1,3 +1,5 @@
+require './lib/selectors/iso_to_solr_format'
+
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
   DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
@@ -17,7 +19,9 @@ class NsidcJsonToSolr
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
       # task 709 end
       # task 710 start
-
+      'parameters' => translate_parameters(json_doc['parameters']),
+      'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
+      'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters'])
       # task 710 end
       # task 711 start
 
@@ -58,4 +62,38 @@ class NsidcJsonToSolr
     authors
   end
   # rubocop:enable CyclomaticComplexity
+
+  def translate_parameters(parameters_json)
+    parameters = []
+    parameters_json.each do |param_json|
+      parameters.concat(generate_parameters_array(param_json))
+    end
+    parameters
+  end
+
+  def translate_parameters_to_string(parameters_json)
+    parameters_strings = []
+    parameters_json.each do |param_json|
+      parameters_strings << generate_parameters_array(param_json).join(' > ')
+    end
+    parameters_strings.uniq!
+  end
+
+  def translate_parameters_to_facet_parameters(parameters_json)
+    parameters_strings = translate_parameters_to_string(parameters_json)
+    return [] if parameters_strings.nil?
+    facet_params = []
+    parameters_strings.each do |str|
+      facet_params << IsoToSolrFormat.parameter_binning(str)
+    end
+    facet_params
+  end
+
+  def generate_parameters_array(param_json)
+    parameter_parts = []
+    param_json.each do |k, v|
+      parameter_parts << v unless v.nil? || v.empty?
+    end
+    parameter_parts
+  end
 end
