@@ -45,15 +45,14 @@ class NsidcJsonToSolr
     iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
   end
 
-  # rubocop:disable CyclomaticComplexity
   def translate_personnel_to_authors(personnel_json)
     authors = []
     personnel_json.each do |person|
       unless person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
         author_string = person['firstName']
-        author_string = author_string + ' ' + person['middleName'] unless person['middleName'].nil? || person['middleName'].length.eql?(0)
-        author_string = author_string + ' ' + person['lastName'] unless person['lastName'].nil? || person['lastName'].length.eql?(0)
-        unless author_string.nil? || author_string.length.eql?(0)
+        author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
+        author_string = author_string + ' ' + person['lastName'] unless person['lastName'].to_s.empty?
+        unless author_string.to_s.empty?
           author_string.strip!
           authors << author_string
         end
@@ -61,7 +60,6 @@ class NsidcJsonToSolr
     end
     authors
   end
-  # rubocop:enable CyclomaticComplexity
 
   def translate_parameters(parameters_json)
     parameters = []
