@@ -26,7 +26,7 @@ describe 'ICES ISO to Solr converter' do
    {
      title: 'should grab the correct data_centers',
      xpath: "/doc/field[@name='data_centers']",
-     expected_text: 'International Council for the Exploration of the Sea (ICES)'
+     expected_text: 'International Council for the Exploration of the Sea'
    },
    {
      title: 'should include the correct authors',

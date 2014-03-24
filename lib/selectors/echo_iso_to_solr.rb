@@ -5,7 +5,7 @@ require './lib/selectors/iso_to_solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
-long_name = 'NASA Earth Observing System (EOS) Clearing House (ECHO)'
+long_name = 'NASA Earth Observing System (EOS) Clearing House'
 short_name = 'NASA ECHO'
 
 ECHO = {
