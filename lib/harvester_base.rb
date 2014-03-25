@@ -28,7 +28,7 @@ class HarvesterBase
       insert_solr_doc(doc, content_type) ? success += 1 : failure += 1
     end
     puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
-    puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
+    puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr.\n\n"
   end
 
   def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE)
@@ -53,7 +53,24 @@ class HarvesterBase
 
   # Get results from some ISO end point specified in the query string
   def get_results(request_url, metadata_path, content_type = 'application/xml')
-    doc = Nokogiri.XML(open(request_url, read_timeout: 1200, 'Content-Type' => content_type))
+    timeout = 300
+    retries_left = 3
+
+    begin
+      puts "Request:"
+      puts request_url
+      response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
+    rescue Timeout::Error
+      retries_left -= 1
+      puts "\n## TIMEOUT::ERROR ## Request Failed! Retrying #{retries_left} more times..."
+      if retries_left > 0
+        sleep 5
+        retry
+      else
+        return
+      end
+    end
+    doc = Nokogiri.XML(response)
     doc.xpath(metadata_path, IsoNamespaces.namespaces(doc))
   end
 
