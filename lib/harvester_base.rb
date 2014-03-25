@@ -57,18 +57,13 @@ class HarvesterBase
     retries_left = 3
 
     begin
-      puts "Request:"
-      puts request_url
+      puts 'Request:' + request_url
       response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
     rescue Timeout::Error
       retries_left -= 1
       puts "\n## TIMEOUT::ERROR ## Request Failed! Retrying #{retries_left} more times..."
-      if retries_left > 0
-        sleep 5
-        retry
-      else
-        return
-      end
+      retries_left > 0 ? sleep(5) : return
+      retry
     end
     doc = Nokogiri.XML(response)
     doc.xpath(metadata_path, IsoNamespaces.namespaces(doc))
