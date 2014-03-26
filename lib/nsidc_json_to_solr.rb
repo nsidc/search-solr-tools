@@ -5,6 +5,7 @@ class NsidcJsonToSolr
   DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
   DATA_CENTER_SHORT_NAME = 'NSIDC'
 
+# rubocop:disable MethodLength
   def translate(json_doc)
     copy_keys = %w(title summary keywords)
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
@@ -21,7 +22,7 @@ class NsidcJsonToSolr
       # task 710 start
       'parameters' => translate_parameters(json_doc['parameters']),
       'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
-      'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters'])
+      'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       # task 710 end
       # task 711 start
 
@@ -36,13 +37,24 @@ class NsidcJsonToSolr
 
       # task 714 end
       # task 715 start
-
+      'source' => %w(NSIDC, ADE),
+      'popularity' => json_doc['popularity'],
+      'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters'])
       # task 715 end
     )
   end
+# rubocop:enable MethodLength
 
   def translate_iso_topic_categories(iso_topic_categories_json)
     iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
+  end
+
+  def translate_internal_data_centers_to_facet_sponsored_program(internal_datacenters_json)
+    internal_data_centers = []
+    internal_datacenters_json.each do |datacenter|
+      internal_data_centers << datacenter['longName'] + ' | ' + datacenter['shortName']
+    end
+    internal_data_centers
   end
 
   def translate_personnel_to_authors(personnel_json)

@@ -5,6 +5,14 @@ describe NsidcJsonToSolr do
     @translator = described_class.new
   end
 
+  it 'translates NSIDC internal data center to facet_sponsored_program string' do
+    internal_datacenters_json = [{ 'shortName' => 'NASA DAAC', 'longName' => 'NASA DAAC at the National Snow and Ice Data Center', 'url' => 'http://nsidc.org/daac/index.html' },
+                                 { 'shortName' => 'NOAA @ NSIDC', 'longName' => 'NSIDC National Oceanic and Atmospheric Administration', 'url' => 'http://nsidc.org/noaa/' }]
+    facet_values = @translator.translate_internal_data_centers_to_facet_sponsored_program(internal_datacenters_json)
+    facet_values[0].should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
+    facet_values[1].should eql 'NSIDC National Oceanic and Atmospheric Administration | NOAA @ NSIDC'
+  end
+
   it 'translates NSIDC personnel json to authors list' do
     personnel_json = [{ 'role' => 'technical contact', 'firstName' => 'NSIDC', 'middleName' => '', 'lastName' => 'User Services' },
                       { 'role' => 'investigator', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
