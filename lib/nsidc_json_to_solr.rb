@@ -37,7 +37,7 @@ class NsidcJsonToSolr
       'last_revision_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
-      'facet_format' => json_doc['distributionFormats'],
+      'facet_format' => ((json_doc['distributionFormats'].size == 0) ? ['Not specified'] : json_doc['distributionFormats']),
       # task 714 end
       # task 715 start
       'source' => %w(NSIDC ADE),
