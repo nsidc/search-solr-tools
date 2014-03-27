@@ -17,8 +17,6 @@ class NsidcJsonToSolr
       'authors' => translate_personnel_to_authors(json_doc['personnel']),
       'facet_author' => translate_personnel_to_authors(json_doc['personnel']),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
-      # task 709 end
-      # task 710 start
       'parameters' => translate_parameters(json_doc['parameters']),
       'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
@@ -34,7 +32,7 @@ class NsidcJsonToSolr
       'last_revision_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
-      'facet_format' => json_doc['distributionFormats'],
+      'facet_format' => ((json_doc['distributionFormats'].size == 0) ? ['Not specified'] : json_doc['distributionFormats']),
       'source' => %w(NSIDC, ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters'])
