@@ -40,7 +40,7 @@ class NsidcJsonToSolr
       'facet_format' => json_doc['distributionFormats'],
       # task 714 end
       # task 715 start
-      'source' => %w(NSIDC, ADE),
+      'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters'])
       # task 715 end
