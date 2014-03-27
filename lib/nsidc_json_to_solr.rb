@@ -17,6 +17,8 @@ class NsidcJsonToSolr
       'authors' => translate_personnel_to_authors(json_doc['personnel']),
       'facet_author' => translate_personnel_to_authors(json_doc['personnel']),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
+      # task 709 end
+      # task 710 start
       'parameters' => translate_parameters(json_doc['parameters']),
       'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
