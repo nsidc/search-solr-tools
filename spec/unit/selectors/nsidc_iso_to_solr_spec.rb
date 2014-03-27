@@ -140,7 +140,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should include the third correct temporal values',
       xpath: "/doc/field[@name='temporal'][3]",
-      expected_text: '19.781001 30.000101'
+      expected_text: "19.781001 #{Time.now.strftime("%Y%m%d").insert(2, '.')}"
     },
     {
       title: 'should include the correct distribution formats',

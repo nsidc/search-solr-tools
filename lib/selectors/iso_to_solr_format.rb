@@ -117,7 +117,7 @@ module IsoToSolrFormat
   # See http://wiki.apache.org/solr/SpatialForTimeDurations
   def self.temporal_index_str(temporal_node)
     dr = date_range(temporal_node)
-    "#{format_date_for_index dr[:start], MIN_DATE} #{format_date_for_index dr[:end], MAX_DATE}"
+    "#{format_date_for_index dr[:start], MIN_DATE} #{format_date_for_index(dr[:end], MAX_DATE)}"
   end
 
   def self.sponsored_program_facet(node)
@@ -137,7 +137,7 @@ module IsoToSolrFormat
   private
 
   MIN_DATE = '00010101'
-  MAX_DATE = '30000101'
+  MAX_DATE = Time.now.strftime('%Y%m%d')
 
   def self.bounding_box(box_node)
     west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
