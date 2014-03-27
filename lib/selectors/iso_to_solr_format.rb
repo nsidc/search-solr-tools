@@ -6,6 +6,7 @@ require './lib/selectors/helpers/nsidc_format_mapping'
 # Methods for generating formatted strings that can be indexed by SOLR
 module IsoToSolrFormat
   DATE = proc { |date | date_str date.text }
+  STRING_DATE = proc { |date| date_str date }
   KEYWORDS = proc { |keywords| build_keyword_list keywords }
 
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
