@@ -33,8 +33,11 @@ describe NsidcJsonHarvester do
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['authoritative_id'].should eql('G02199')
+      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['brokered'].should eql(false)
       @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['dataset_version'].should eql(2)
       @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['data_centers'].should eql('National Snow and Ice Data Center')
+      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['published_date'].should eql('2013-01-01T00:00:00Z')
+      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['last_revision_date'].should eql('2013-03-12T21:18:12Z')
     end
   end
 end

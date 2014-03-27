@@ -7,43 +7,35 @@ class NsidcJsonToSolr
 
 # rubocop:disable MethodLength
   def translate(json_doc)
-    copy_keys = %w(title summary keywords)
+    copy_keys = %w(title summary keywords brokered)
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
       'dataset_version' => json_doc['majorVersion']['version'],
       'data_centers' => DATA_CENTER_LONG_NAME,
       'facet_data_center' => "#{DATA_CENTER_LONG_NAME} | #{DATA_CENTER_SHORT_NAME}",
-      # task 709 start
       'authors' => translate_personnel_to_authors(json_doc['personnel']),
       'facet_author' => translate_personnel_to_authors(json_doc['personnel']),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
-      # task 709 end
-      # task 710 start
       'parameters' => translate_parameters(json_doc['parameters']),
       'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
-      # task 710 end
-      # task 711 start
-
-      # task 711 end
+      'platforms' => translate_json_string(json_doc['platforms']),
+      'sensors' => translate_json_string(json_doc['instruments']),
+      'published_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['releaseDate']),
       # task 712 start
 
       # task 712 end
       # task 713 start
 
       # task 713 end
-      # task 714 start
       'last_revision_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
       'facet_format' => json_doc['distributionFormats'],
-      # task 714 end
-      # task 715 start
-      'source' => %w(NSIDC ADE),
+      'source' => %w(NSIDC, ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters'])
-      # task 715 end
     )
   end
 # rubocop:enable MethodLength
@@ -79,7 +71,7 @@ class NsidcJsonToSolr
   def translate_parameters(parameters_json)
     parameters = []
     parameters_json.each do |param_json|
-      parameters.concat(generate_parameters_array(param_json))
+      parameters.concat(generate_part_array(param_json))
     end
     parameters
   end
@@ -87,7 +79,7 @@ class NsidcJsonToSolr
   def translate_parameters_to_string(parameters_json)
     parameters_strings = []
     parameters_json.each do |param_json|
-      parameters_strings << generate_parameters_array(param_json).join(' > ')
+      parameters_strings << generate_part_array(param_json).join(' > ')
     end
     parameters_strings.uniq!
   end
@@ -102,11 +94,23 @@ class NsidcJsonToSolr
     facet_params
   end
 
-  def generate_parameters_array(param_json)
-    parameter_parts = []
-    param_json.each do |k, v|
-      parameter_parts << v unless v.nil? || v.empty?
+  def translate_json_string(json)
+    json_string = []
+
+    json.each do |item|
+      json_string << generate_part_array(item).join(' > ')
     end
-    parameter_parts
+
+    json_string
+  end
+
+  def generate_part_array(json)
+    parts =  []
+
+    json.each do |k, v|
+      parts << v unless v.to_s.empty?
+    end
+
+    parts
   end
 end

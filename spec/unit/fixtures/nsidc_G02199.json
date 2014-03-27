@@ -70,11 +70,14 @@
     "variableLevel3": "",
     "detailedVariable": null
   }],
+  "platforms": [],
   "instruments": [],
+  "releaseDate": "2013-01-01T00:00:00-07:00",
   "popularity": 4,
   "lastRevisionDate": "2013-03-12T21:18:12-06:00",
   "datasetUrl": "http://127.0.0.1:11580/data/G02199",
   "distributionFormats": [
     "PDF",
     "Microsoft Excel"
-  ]}
+  ]
+ }

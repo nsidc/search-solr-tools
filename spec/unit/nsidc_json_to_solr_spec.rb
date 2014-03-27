@@ -65,4 +65,24 @@ describe NsidcJsonToSolr do
     params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
     params.should include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
   end
+
+  it 'translates NSIDC platforms json to solr platforms json' do
+    platforms_json = [{ 'shortName' => 'AQUA', 'longName' => 'Earth Observing System, AQUA' },
+                      { 'shortName' => 'DMSP 5D-2/F11', 'longName' => 'Defense Meteorological Satellite Program-F11' }]
+
+    platforms = @translator.translate_json_string platforms_json
+
+    platforms.should include('AQUA > Earth Observing System, AQUA')
+    platforms.should include('DMSP 5D-2/F11 > Defense Meteorological Satellite Program-F11')
+  end
+
+  it 'translates NSIDC instruments json to solr instruments json' do
+    instruments_json = [{ 'shortName' => 'AMSR-E', 'longName' => 'Advanced Microwave Scanning Radiometer-EOS' },
+                        { 'shortName' => 'SSM/I', 'longName' => 'Special Sensor Microwave/Imager' }]
+
+    instruments = @translator.translate_json_string instruments_json
+
+    instruments.should include('AMSR-E > Advanced Microwave Scanning Radiometer-EOS')
+    instruments.should include('SSM/I > Special Sensor Microwave/Imager')
+  end
 end
