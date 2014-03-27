@@ -38,6 +38,7 @@ describe NsidcJsonHarvester do
       @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['data_centers'].should eql('National Snow and Ice Data Center')
       @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['published_date'].should eql('2013-01-01T00:00:00Z')
       @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['last_revision_date'].should eql('2013-03-12T21:18:12Z')
+      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['facet_format'].should eql(['PDF', 'Microsoft Excel'])
     end
   end
 end
