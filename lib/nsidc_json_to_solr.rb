@@ -33,7 +33,7 @@ class NsidcJsonToSolr
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
       'facet_format' => ((json_doc['distributionFormats'].size == 0) ? ['Not specified'] : json_doc['distributionFormats']),
-      'source' => %w(NSIDC, ADE),
+      'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters'])
     )
