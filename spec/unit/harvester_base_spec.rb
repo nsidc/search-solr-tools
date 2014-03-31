@@ -53,4 +53,13 @@ describe HarvesterBase do
 
     harvester.insert_solr_doc(add_doc).should eql(true)
   end
+
+  describe 'insert_solr_docs' do
+    it 'raises an error if some documents are not successfully added' do
+      harvester = described_class.new 'integration'
+      allow(harvester).to receive('insert_solr_doc').and_return(false, true)
+
+      expect { harvester.insert_solr_docs(%w(doc1 doc2 doc3)) }.to raise_error
+    end
+  end
 end

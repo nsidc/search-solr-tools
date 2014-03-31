@@ -14,26 +14,34 @@ class NsidcJsonHarvester < HarvesterBase
   # get translated entries from NSIDC OAI and add them to Solr
   # this is the main entry point for the class
   def harvest_nsidc_json_into_solr
-    insert_solr_docs docs_with_translated_entries_from_nsidc, HarvesterBase::JSON_CONTENT_TYPE
+    result = docs_with_translated_entries_from_nsidc
+    insert_solr_docs result[:add_docs], HarvesterBase::JSON_CONTENT_TYPE
+    fail 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
   end
 
   def result_ids_from_nsidc
     get_results SolrEnvironments[@environment][:nsidc_oai_identifiers_url], '//xmlns:identifier'
   end
 
-  def fetch_json_from_nsidc(oai_id)
-    id = oai_id.split('/').last
+  def fetch_json_from_nsidc(id)
     json_response = RestClient.get(SolrEnvironments[@environment][:nsidc_dataset_metadata_url] + id + '.json')
     JSON.parse(json_response)
   end
 
   def docs_with_translated_entries_from_nsidc
     docs = []
+    failure_ids = []
 
     result_ids_from_nsidc.each do |r|
-      docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(r.text)) } }
+      id = r.text.split('/').last
+      begin
+        docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
+      rescue => e
+        puts "Failed to fetch #{id} with error: #{e}"
+        failure_ids << id
+      end
     end
 
-    docs
+    { add_docs: docs, failure_ids: failure_ids }
   end
 end

@@ -29,6 +29,7 @@ class HarvesterBase
     end
     puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
     puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr.\n\n"
+    fail 'Some documents failed to be inserted into Solr' if failure > 0
   end
 
   def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE)

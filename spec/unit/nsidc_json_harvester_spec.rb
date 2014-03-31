@@ -32,13 +32,38 @@ describe NsidcJsonHarvester do
       .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['authoritative_id'].should eql('G02199')
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['brokered'].should eql(false)
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['dataset_version'].should eql(2)
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['data_centers'].should eql('National Snow and Ice Data Center')
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['published_date'].should eql('2013-01-01T00:00:00Z')
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['last_revision_date'].should eql('2013-03-12T21:18:12Z')
-      @harvester.docs_with_translated_entries_from_nsidc.first['add']['doc']['facet_format'].should eql(['PDF', 'Microsoft Excel'])
+      result = @harvester.docs_with_translated_entries_from_nsidc
+      result[:add_docs].first['add']['doc']['authoritative_id'].should eql('G02199')
+      result[:add_docs].first['add']['doc']['brokered'].should eql(false)
+      result[:add_docs].first['add']['doc']['dataset_version'].should eql(2)
+      result[:add_docs].first['add']['doc']['data_centers'].should eql('National Snow and Ice Data Center')
+      result[:add_docs].first['add']['doc']['published_date'].should eql('2013-01-01T00:00:00Z')
+      result[:add_docs].first['add']['doc']['last_revision_date'].should eql('2013-03-12T21:18:12Z')
+      result[:add_docs].first['add']['doc']['facet_format'].should eql(['PDF', 'Microsoft Excel'])
+    end
+
+    it 'constructs a sucessful doc children hash and an errors hash for failured ids' do
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso')
+      .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
+      .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
+
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/G02199.json')
+      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .to_return(status: 500)
+
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0419.json')
+      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
+
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0582.json')
+      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
+
+      result = @harvester.docs_with_translated_entries_from_nsidc
+      result[:add_docs].first['add']['doc']['authoritative_id'].should eql('G02199')
+      result[:add_docs].length.should eql 2
+      result[:failure_ids].first.should eql('G02199')
+      result[:failure_ids].length.should eql 1
     end
   end
 end
