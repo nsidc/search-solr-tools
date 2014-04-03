@@ -16,7 +16,11 @@ class EchoHarvester < HarvesterBase
   def harvest_echo_into_solr
     page_num = 1
     while (entries = get_results_from_echo(page_num)) && (entries.length > 0)
-      insert_solr_docs get_docs_with_translated_entries_from_echo(entries)
+      begin
+        insert_solr_docs get_docs_with_translated_entries_from_echo(entries)
+      rescue Exception => e
+        puts "ERROR: #{e}\n\n"
+      end
       page_num += 1
     end
   end

@@ -28,7 +28,7 @@ class HarvesterBase
       insert_solr_doc(doc, content_type) ? success += 1 : failure += 1
     end
     puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
-    puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr.\n\n"
+    puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
     fail 'Some documents failed to be inserted into Solr' if failure > 0
   end
 
@@ -58,7 +58,7 @@ class HarvesterBase
     retries_left = 3
 
     begin
-      puts 'Request:' + request_url
+      puts "\nRequest: #{request_url}"
       response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
     rescue Timeout::Error
       retries_left -= 1

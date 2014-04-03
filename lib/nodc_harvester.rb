@@ -16,7 +16,11 @@ class NodcHarvester < HarvesterBase
   def harvest_nodc_into_solr
     start_index = 1
     while (entries = get_results_from_nodc(start_index)) && (entries.length > 0)
-      insert_solr_docs get_docs_with_translated_entries_from_nodc(entries)
+      begin
+        insert_solr_docs get_docs_with_translated_entries_from_nodc(entries)
+      rescue Exception => e
+        puts "ERROR: #{e}"
+      end
       start_index += @page_size
     end
   end

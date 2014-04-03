@@ -38,7 +38,11 @@ class ADEHarvester < HarvesterBase
   def harvest_iso_documents
     start_index = 1
     while (entries = get_results_from_gi_cat(start_index)) && (entries.length > 0)
-      insert_solr_docs get_docs_with_translated_entries_from_gi_cat(entries)
+      begin
+        insert_solr_docs get_docs_with_translated_entries_from_gi_cat(entries)
+      rescue Exception => e
+        puts "ERROR: #{e}"
+      end
       start_index += @page_size
     end
   end
