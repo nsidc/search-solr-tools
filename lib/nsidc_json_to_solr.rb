@@ -28,12 +28,10 @@ class NsidcJsonToSolr
       # task 712 start
 
       # task 712 end
-      # task 713 start
       'temporal_coverages' => temporal_values['temporal_coverages'],
       'temporal_duration' => temporal_values['temporal_duration'],
       'temporal' => temporal_values['temporal'],
       'facet_temporal_duration' => temporal_values['facet_temporal_duration'],
-      # task 713 end
       'last_revision_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
