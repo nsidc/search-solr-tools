@@ -40,7 +40,7 @@ class ADEHarvester < HarvesterBase
     while (entries = get_results_from_gi_cat(start_index)) && (entries.length > 0)
       begin
         insert_solr_docs get_docs_with_translated_entries_from_gi_cat(entries)
-      rescue Exception => e
+      rescue => e
         puts "ERROR: #{e}"
       end
       start_index += @page_size
