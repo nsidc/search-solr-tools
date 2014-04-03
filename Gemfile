@@ -16,6 +16,8 @@ gem 'rb-readline'
 gem 'gi_cat_driver', '~> 0.3.0'
 gem 'nsidc_git_workflow', '~> 0.10.0'
 gem 'multi_json'
+gem 'rgeo'
+gem 'rgeo-geojson'
 
 # to use the debugger:
 # - uncomment gems below

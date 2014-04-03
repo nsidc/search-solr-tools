@@ -28,7 +28,7 @@ module IsoToSolrFormat
 
   def self.spatial_index_str(box_node)
     box = bounding_box(box_node)
-    (if box[:west] == box[:east] && box[:east] == box[:north]
+    (if box[:west] == box[:east] && box[:south] == box[:north]
        [box[:west], box[:south]]
      else
        [box[:west], box[:south], box[:east], box[:north]]
@@ -61,11 +61,15 @@ module IsoToSolrFormat
   def self.get_spatial_scope_facet(box_node)
     box = bounding_box(box_node)
 
-    if box_invalid?(box)
+    get_spatial_scope_facet_with_bounding_box(box)
+  end
+
+  def self.get_spatial_scope_facet_with_bounding_box(bbox)
+    if bbox.nil? || box_invalid?(bbox)
       facet = 'No Spatial Information'
-    elsif box_global?(box)
+    elsif box_global?(bbox)
       facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
-    elsif box_local?(box)
+    elsif box_local?(bbox)
       facet = 'Less than 1 degree of latitude change | Local'
     else
       facet = 'Between 1 and 170 degrees of latitude change | Regional'

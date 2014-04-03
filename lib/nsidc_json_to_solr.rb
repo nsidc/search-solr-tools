@@ -1,5 +1,6 @@
 # rubocop:disable ClassLength
 require './lib/selectors/iso_to_solr_format'
+require 'rgeo/geo_json'
 
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
@@ -25,9 +26,11 @@ class NsidcJsonToSolr
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
       'published_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['releaseDate']),
-      # task 712 start
-
-      # task 712 end
+      'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatial_coverages']),
+      'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatial_coverages']),
+      'spatial_area' => translate_spatial_coverage_geom_to_spatial_area(json_doc['spatial_coverages']),
+      'facet_spatial_coverage' => translate_spatial_coverage_geom_to_global_facet(json_doc['spatial_coverages']),
+      'facet_spatial_scope' => translate_spatial_coverage_geom_to_spatial_scope_facet(json_doc['spatial_coverages']),
       'temporal_coverages' => temporal_values['temporal_coverages'],
       'temporal_duration' => temporal_values['temporal_duration'],
       'temporal' => temporal_values['temporal'],
@@ -122,6 +125,75 @@ class NsidcJsonToSolr
     authors
   end
 
+  def translate_spatial_coverage_geom_to_spatial_display_str(spatial_coverage_geom)
+    spatial_coverage_strs = []
+    spatial_coverage_geom.each do |geom|
+      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
+      bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
+      spatial_coverage_strs << "#{bbox.min_y} #{bbox.min_x} #{bbox.max_y} #{bbox.max_x}"
+    end
+    spatial_coverage_strs
+  end
+
+  def translate_spatial_coverage_geom_to_spatial_index_str(spatial_coverage_geom)
+    spatial_index_strs = []
+    spatial_coverage_geom.each do |geom|
+      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
+      if geo_json.geometry_type.to_s.downcase.eql?('point')
+        spatial_index_strs << "#{geo_json.x} #{geo_json.y}"
+      else
+        bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
+        spatial_index_strs << "#{bbox.min_x} #{bbox.min_y} #{bbox.max_x} #{bbox.max_y}"
+      end
+    end
+    spatial_index_strs
+  end
+
+  def translate_spatial_coverage_geom_to_spatial_area(spatial_coverage_geom)
+    spatial_areas = []
+    spatial_coverage_geom.each do |geom|
+      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
+      if geo_json.geometry_type.to_s.downcase.eql?('point')
+        spatial_areas << 0.0
+      else
+        bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
+        spatial_areas << (bbox.max_y - bbox.min_y)
+      end
+    end
+
+    return nil if spatial_areas.empty?
+
+    spatial_areas.sort.last
+  end
+
+  def translate_spatial_coverage_geom_to_global_facet(spatial_coverage_geom)
+    return 'No Spatial Information' if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
+
+    spatial_coverage_geom.each do |geom|
+      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
+      bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
+      return 'Global' if IsoToSolrFormat.box_global?(bbox_hash)
+    end
+
+    'Non Global'
+  end
+
+  def translate_spatial_coverage_geom_to_spatial_scope_facet(spatial_coverage_geom)
+    scopes = []
+
+    if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
+      scopes << IsoToSolrFormat.get_spatial_scope_facet_with_bounding_box(nil)
+    else
+      spatial_coverage_geom.each do |geom|
+        geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
+        bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
+        scopes << IsoToSolrFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
+      end
+    end
+
+    scopes.uniq
+  end
+
   def translate_parameters(parameters_json)
     parameters = []
     parameters_json.each do |param_json|
@@ -166,6 +238,15 @@ class NsidcJsonToSolr
     end
 
     parts
+  end
+
+  def self.bounding_box_hash(geometry)
+    if geometry.geometry_type.to_s.downcase.eql?('point')
+      return { west: geometry.x.to_s, south: geometry.y.to_s, east: geometry.x.to_s, north: geometry.y.to_s }
+    else
+      bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geometry)
+      return { west: bbox.min_x.to_s, south: bbox.min_y.to_s, east: bbox.max_x.to_s, north: bbox.max_y.to_s }
+    end
   end
 end
 # rubocop:disable ClassLength
