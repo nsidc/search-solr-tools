@@ -70,11 +70,6 @@ describe 'RDA ISO to Solr converter' do
       expected_text: '42024'
     },
     {
-      title: 'should grab the correct spatial facet',
-      xpath: "/doc/field[@name='facet_spatial_coverage']",
-      expected_text: 'Non Global'
-    },
-    {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Between 1 and 170 degrees of latitude change | Regional'

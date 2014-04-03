@@ -92,11 +92,6 @@ NODC = {
       default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
-  facet_spatial_coverage: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-    multivalue: true,
-    format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
-  },
   facet_spatial_scope: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: true,
@@ -107,10 +102,5 @@ NODC = {
     default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
-  },
-  facet_author: {
-    xpaths: [".//gmd:CI_ResponsibleParty[./gmd:role/gmd:CI_RoleCode[@codeListValue='principalInvestigator']]/gmd:individualName/gco:CharacterString"],
-    multivalue: true,
-    unique: true
   }
 }

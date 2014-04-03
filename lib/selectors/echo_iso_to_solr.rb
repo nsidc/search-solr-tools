@@ -89,11 +89,6 @@ ECHO = {
       default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
-  facet_spatial_coverage: {
-    xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
-    multivalue: true,
-    format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
-  },
   facet_spatial_scope: {
     xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],
     multivalue: true,
@@ -104,10 +99,5 @@ ECHO = {
     default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
-  },
-  facet_author: {
-    xpaths: [''],
-    multivalue: true,
-    unique: true
   }
 }

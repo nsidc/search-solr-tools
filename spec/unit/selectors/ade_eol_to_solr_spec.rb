@@ -90,11 +90,6 @@ describe 'EOL ISO to Solr converter' do
       expected_text: 'UCAR/NCAR - Earth Observing Laboratory | UCAR/NCAR EOL'
     },
     {
-      title: 'should grab the correct spatial facet',
-      xpath: "/doc/field[@name='facet_spatial_coverage']",
-      expected_text: 'Non Global'
-    },
-    {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Less than 1 degree of latitude change | Local'
@@ -103,11 +98,6 @@ describe 'EOL ISO to Solr converter' do
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
       expected_text: '1+ years5+ years'
-    },
-    {
-      title: 'should grab the correct author facet',
-      xpath: "/doc/field[@name='facet_author']",
-      expected_text: 'Craig E. Tweedie, ctweedie AT utep dot edu'
     }
   ]
 

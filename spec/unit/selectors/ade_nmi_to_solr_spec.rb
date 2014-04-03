@@ -30,11 +30,6 @@ describe 'NMI ISO to Solr converter' do
       expected_text: 'Norwegian Meteorological Institute'
     },
     {
-      title: 'should grab the correct author',
-      xpath: "/doc/field[@name='authors']",
-      expected_text: ''
-    },
-    {
       title: 'should grab the correct keywords',
       xpath: "/doc/field[@name='keywords']",
       expected_text: 'ECMWF IPY / ECMWF INTERNATIONAL POLAR YEAR'
@@ -90,11 +85,6 @@ describe 'NMI ISO to Solr converter' do
       expected_text: 'Norwegian Meteorological Institute | Met.no'
     },
     {
-      title: 'should grab the correct spatial facet',
-      xpath: "/doc/field[@name='facet_spatial_coverage']",
-      expected_text: 'Non Global'
-    },
-    {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
@@ -103,11 +93,6 @@ describe 'NMI ISO to Solr converter' do
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
       expected_text: '1+ years'
-    },
-    {
-      title: 'should grab the correct author facet',
-      xpath: "/doc/field[@name='facet_author']",
-      expected_text: ''
     }
   ]
 

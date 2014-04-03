@@ -29,11 +29,6 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
      expected_text: 'NOAA National Oceanographic Data Center'
    },
    {
-     title: 'should include the correct authors',
-     xpath: "/doc/field[@name='authors']",
-     expected_text: ''
-   },
-   {
      title: 'should include the correct keywords',
      xpath: "/doc/field[@name='keywords']",
      expected_text: 'oceanography'
@@ -49,11 +44,6 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
      # NOTE: I'm grabbing the FTP link explicitly.  NODC has really good data
      # access links with other representations available.
      expected_text: 'ftp://ftp.nodc.noaa.gov/nodc/archive/arc0016/0001497/'
-   },
-   {
-     title: 'should grab the correct spatial display bounds',
-     xpath: "/doc/field[@name='spatial_coverages']",
-     expected_text: '60 90'
    },
    {
      title: 'should grab the correct spatial bounds',
@@ -91,11 +81,6 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
      expected_text: 'NOAA National Oceanographic Data Center | NOAA NODC'
    },
    {
-     title: 'should grab the correct spatial facet',
-     xpath: "/doc/field[@name='facet_spatial_coverage']",
-     expected_text: 'No Spatial Information'
-   },
-   {
      title: 'should grab the correct spatial scope facet',
      xpath: "/doc/field[@name='facet_spatial_scope']",
      expected_text: 'No Spatial Information'
@@ -104,11 +89,6 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
      title: 'should grab the correct temporal duration facet',
      xpath: "/doc/field[@name='facet_temporal_duration']",
      expected_text: '1+ years5+ years'
-   },
-   {
-     title: 'should grab the correct author facet',
-     xpath: "/doc/field[@name='facet_author']",
-     expected_text: ''
    }
   ]
 

@@ -98,11 +98,6 @@ EOL = {
       default_values: ["#{long_name} | #{short_name}"],
       multivalue: false
   },
-  facet_spatial_coverage: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::FACET_SPATIAL_COVERAGE
-  },
   facet_spatial_scope: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
     multivalue: true,
@@ -113,14 +108,5 @@ EOL = {
     default_values: ['No Temporal Information'],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
-  },
-  facet_author: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
-    multivalue: true,
-    unique: true,
-    format: proc do |node|
-              matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
-              matches ? node.xpath('./gmd:organisationName/gco:CharacterString') : ''
-            end
   }
 }

@@ -89,11 +89,6 @@ describe 'CISL ISO to Solr converter' do
       expected_text: 'Advanced Cooperative Arctic Data and Information Service | ACADIS Gateway'
     },
     {
-      title: 'should grab the correct spatial facet',
-      xpath: "/doc/field[@name='facet_spatial_coverage']",
-      expected_text: 'Global'
-    },
-    {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
       expected_text: 'Coverage from over 85 degrees North to -85 degrees South | Global'
@@ -102,11 +97,6 @@ describe 'CISL ISO to Solr converter' do
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
       expected_text: '< 1 year'
-    },
-    {
-      title: 'should grab the correct author facet',
-      xpath: "/doc/field[@name='facet_author']",
-      expected_text: ''
     }
   ]
 

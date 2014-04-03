@@ -29,11 +29,6 @@ describe 'ICES ISO to Solr converter' do
      expected_text: 'International Council for the Exploration of the Sea'
    },
    {
-     title: 'should include the correct authors',
-     xpath: "/doc/field[@name='authors']",
-     expected_text: ''
-   },
-   {
      title: 'should include the correct keywords',
      xpath: "/doc/field[@name='keywords'][1]",
      expected_text: 'Habitat, Biocenosis, Biotope, EUNIS'
@@ -82,11 +77,6 @@ describe 'ICES ISO to Solr converter' do
      title: 'should grab the correct source',
      xpath: "/doc/field[@name='source']",
      expected_text: 'ADE'
-   },
-   {
-     title: 'should grab the correct spatial facet',
-     xpath: "/doc/field[@name='facet_spatial_coverage'][1]",
-     expected_text: 'Non Global'
    },
    {
      title: 'should grab the correct spatial scope facet',
