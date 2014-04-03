@@ -52,7 +52,7 @@ class NsidcJsonToSolr
       start_time = DateTime.parse(coverage['start']) unless coverage['start'].to_s.empty?
       end_time = DateTime.parse(coverage['end']) unless coverage['end'].to_s.empty?
       temporal_duration = generate_temporal_duration_value start_time, end_time
-      time_strings = generate_temporal_time_strings start_time, end_time
+      time_strings = generate_time_strings start_time, end_time
       max_temporal_duration = compare_temporal_duration(max_temporal_duration, temporal_duration)
       temporal_coverages << time_strings['start_date'] + ', ' + time_strings['end_date']
       temporal << time_strings['start_integer'] + ' ' + time_strings['end_integer']
@@ -76,7 +76,7 @@ class NsidcJsonToSolr
     Integer(end_time - start_time).abs + 1
   end
 
-  def generate_temporal_time_strings(start_time, end_time)
+  def generate_time_strings(start_time, end_time)
     time_strings = {}
     if start_time.nil?
       time_strings.merge!('start_date' => '', 'start_integer' => DateTime.parse('00010101').strftime('%C.%y%m%d'))
