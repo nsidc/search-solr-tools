@@ -12,7 +12,7 @@ describe NsidcJsonToSolr do
     temporal_values['temporal_coverages'][0].should eql('1986-12-14, 1992-11-13')
     temporal_values['temporal_duration'].should eql 2162
     temporal_values['temporal'][0].should eql '19.861214 19.921113'
-    temporal_values['facet_temporal_values'].should eql ['1+ years', '5+ years']
+    temporal_values['facet_temporal_duration'].should eql ['1+ years', '5+ years']
   end
 
   it 'generates temporal value defaults when there are none present in NSIDC JSON' do
@@ -20,7 +20,7 @@ describe NsidcJsonToSolr do
     temporal_values['temporal_coverages'].should eql []
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql []
-    temporal_values['facet_temporal_values'].should eql ['No Temporal Information']
+    temporal_values['facet_temporal_duration'].should eql ['No Temporal Information']
   end
 
   it 'generates a temporal duration value based on the longest single temporal coverage' do
@@ -28,7 +28,7 @@ describe NsidcJsonToSolr do
                                { 'start' => '1994-01-01T00:00:00-07:00', 'end' => '1996-01-01T00:00:00-07:00' }]
     temporal_values = @translator.generate_temporal_values(temporal_coverages_json)
     temporal_values['temporal_duration'].should eql 2923
-    temporal_values['facet_temporal_values'].should eql ['1+ years', '5+ years']
+    temporal_values['facet_temporal_duration'].should eql ['1+ years', '5+ years']
   end
 
   it 'generates correct start values when no start date is specified' do
@@ -37,7 +37,7 @@ describe NsidcJsonToSolr do
     temporal_values['temporal_coverages'].should eql [', 1992-01-01']
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql ['00.010101 19.920101']
-    temporal_values['facet_temporal_values'].should eql ['No Temporal Information']
+    temporal_values['facet_temporal_duration'].should eql ['No Temporal Information']
   end
 
   it 'generates a temporal duration value' do
