@@ -40,6 +40,7 @@
     <field name="facet_parameter" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="facet_sponsored_program" type="string" indexed="true" multiValued="true" />
     <field name="facet_format" type="string" indexed="true" multiValued="true" />
+    <field name="facet_temporal_resolution" type="string" indexed="true" multiValued="true" />
   </fields>
 
   <uniqueKey>

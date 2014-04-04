@@ -81,5 +81,6 @@
     "PDF",
     "Microsoft Excel"
   ],
-  "temporalCoverages": [{"start": "1933-03-23T00:00:00-07:00", "end": "1933-08-29T00:00:00-07:00"}]
+  "temporalCoverages": [{"start": "1933-03-23T00:00:00-07:00", "end": "1933-08-29T00:00:00-07:00"}],
+  "facet_temporal_resolution": ["1 day"]
  }

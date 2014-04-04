@@ -41,7 +41,8 @@ class NsidcJsonToSolr
       'facet_format' => ((json_doc['distributionFormats'].empty?) ? ['Not specified'] : json_doc['distributionFormats']),
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
-      'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters'])
+      'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
+      'facet_temporal_resolution' => json_doc['temporalResolution']
     )
   end
 
@@ -89,6 +90,7 @@ class NsidcJsonToSolr
     else
       time_strings.merge!('end_date' => end_time.strftime('%Y-%m-%d'), 'end_integer' => end_time.strftime('%C.%y%m%d'))
     end
+    time_strings
   end
 
   def generate_facet_temporal_value(duration)
