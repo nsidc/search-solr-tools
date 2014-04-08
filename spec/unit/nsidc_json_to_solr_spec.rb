@@ -250,8 +250,8 @@ describe NsidcJsonToSolr do
     end
 
     it 'bins 2 years and 30 years as Yearly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2Y').should eql 'Multiyear'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P30Y').should eql 'Multiyear'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2Y').should eql 'Multiyearly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P30Y').should eql 'Multiyearly'
     end
 
     it 'bins range and varies as Other' do

@@ -131,7 +131,7 @@ class NsidcJsonToSolr
     elsif dur == ISO8601::Duration.new('P1Y')
       return 'Yearly'
     elsif dur.years.to_i >= 2
-      return 'Multiyear'
+      return 'Multiyearly'
     end
 
     'Other'
