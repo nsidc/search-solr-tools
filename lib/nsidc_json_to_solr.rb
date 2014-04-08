@@ -1,6 +1,7 @@
 # rubocop:disable ClassLength
 require './lib/selectors/iso_to_solr_format'
 require 'rgeo/geo_json'
+require 'iso8601'
 
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
@@ -41,7 +42,7 @@ class NsidcJsonToSolr
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
-      'facet_temporal_resolution' => json_doc['temporalResolution']
+      'facet_temporal_resolution' => generate_temporal_resolution_facet_values(json_doc['parameters'])
     )
   end
 
@@ -97,6 +98,45 @@ class NsidcJsonToSolr
     years = duration.to_i / 365
     IsoToSolrFormat.temporal_duration_range(years)
   end
+
+  def generate_temporal_resolution_facet_values(parameters_json)
+    temporal_resolutions = []
+    parameters_json.each do |param_json|
+      binned_temporal_res = bin_temporal_resolution_value(param_json['temporalResolution'])
+      temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
+    end
+    temporal_resolutions.uniq
+  end
+
+  # rubocop:disable MethodLength, CyclomaticComplexity
+  def bin_temporal_resolution_value(temporal_resolution)
+    return 'Other' unless temporal_resolution['type'].eql?('single')
+
+    return nil if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
+
+    dur = ISO8601::Duration.new(temporal_resolution['resolution'])
+    dur_sec = dur.to_seconds
+    if dur_sec < 3600
+      return 'Subhourly'
+    elsif dur_sec == 3600
+      return 'Hourly'
+    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
+      return 'Subdaily'
+    elsif dur_sec == 86_400
+      return 'Daily'
+    elsif dur_sec >= 604_800 && dur.to_seconds <= 691_200 # 7 to 8 days
+      return 'Weekly'
+    elsif dur == ISO8601::Duration.new('P1M')
+      return 'Monthly'
+    elsif dur == ISO8601::Duration.new('P1Y')
+      return 'Yearly'
+    elsif dur.years.to_i >= 2
+      return 'Multiyear'
+    end
+
+    'Other'
+  end
+  # rubocop:enable LineLength, CyclomaticComplexity
 
   def translate_iso_topic_categories(iso_topic_categories_json)
     iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
@@ -198,7 +238,7 @@ class NsidcJsonToSolr
   def translate_parameters(parameters_json)
     parameters = []
     parameters_json.each do |param_json|
-      parameters.concat(generate_part_array(param_json))
+      parameters.concat(generate_parameters_part_array(param_json))
     end
     parameters
   end
@@ -206,7 +246,7 @@ class NsidcJsonToSolr
   def translate_parameters_to_string(parameters_json)
     parameters_strings = []
     parameters_json.each do |param_json|
-      parameters_strings << generate_part_array(param_json).join(' > ')
+      parameters_strings << generate_parameters_part_array(param_json).join(' > ')
     end
     parameters_strings.uniq!
   end
@@ -229,6 +269,11 @@ class NsidcJsonToSolr
     end
 
     json_string
+  end
+
+  def generate_parameters_part_array(json)
+    gcmd_var_hash = json.select { |k, v| %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable).include?(k) }
+    generate_part_array(gcmd_var_hash)
   end
 
   def generate_part_array(json)

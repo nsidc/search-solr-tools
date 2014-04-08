@@ -45,6 +45,8 @@
   "brokered": false,
   "parameters": [
   {
+    "name": "Air Quality",
+    "temporalResolution": "P1Y",
     "category": "EARTH SCIENCE",
     "topic": "Atmosphere",
     "term": "Air Quality",
@@ -52,8 +54,11 @@
     "variableLevel2": "",
     "variableLevel3": "",
     "detailedVariable": null
+
   },
   {
+    "name":"Atmospheric Winds",
+    "temporalResolution": "PT3H26M",
     "category": "EARTH SCIENCE",
     "topic": "Atmosphere",
     "term": "Atmospheric Winds",
@@ -63,6 +68,8 @@
     "detailedVariable": null
   },
   {
+    "name":"Cloud Amount/Frequency",
+    "temporalResolution": "P8D",
     "category": "EARTH SCIENCE",
     "topic": "Atmosphere",
     "term": "Clouds",
@@ -81,6 +88,5 @@
     "PDF",
     "Microsoft Excel"
   ],
-  "temporalCoverages": [{"start": "1933-03-23T00:00:00-07:00", "end": "1933-08-29T00:00:00-07:00"}],
-  "facet_temporal_resolution": ["1 day"]
+  "temporalCoverages": [{"start": "1933-03-23T00:00:00-07:00", "end": "1933-08-29T00:00:00-07:00"}]
  }

@@ -90,7 +90,7 @@ describe NsidcJsonToSolr do
   end
 
   it 'translates NSIDC parameters json to parameter strings' do
-    parameters_json = [{ 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => 'test detail' },
+    parameters_json = [{ 'name' => 'test detail', 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => 'test detail' },
                        { 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
@@ -202,5 +202,73 @@ describe NsidcJsonToSolr do
 
     instruments.should include('AMSR-E > Advanced Microwave Scanning Radiometer-EOS')
     instruments.should include('SSM/I > Special Sensor Microwave/Imager')
+  end
+
+  describe 'temporal resolution faceting' do
+    it 'translates NSIDC temporal resolutions to solr facet temporal resolution values' do
+      parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
+                         { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' } },
+                         { 'name' => 'test3', 'temporalResolution' => { 'type' => 'varies' } }]
+      facets = @translator.generate_temporal_resolution_facet_values(parameters_json)
+      facets.should eql %w(Subdaily Other)
+    end
+
+    it 'bins second and 59 minute values as Subhourly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT1S').should eql 'Subhourly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT59M59S').should eql 'Subhourly'
+    end
+
+    it 'bins 1 hour value as Hourly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT60M').should eql 'Hourly'
+    end
+
+    it 'bins 1:00:01 and 23:59:59 values as Subdaily' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT1H0M1S').should eql 'Subdaily'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT23H59M59S').should eql 'Subdaily'
+    end
+
+    it 'bins 1:00:01 and 23:59:59 values as Subdaily' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT1H0M1S').should eql 'Subdaily'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT23H59M59S').should eql 'Subdaily'
+    end
+
+    it 'bins 1 day as Daily' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1D').should eql 'Daily'
+    end
+
+    it 'bins 7 and 8 days as Weekly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P7D').should eql 'Weekly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P8D').should eql 'Weekly'
+    end
+
+    it 'bins 1 month as Monthly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1M').should eql 'Monthly'
+    end
+
+    it 'bins 1 year as Yearly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y').should eql 'Yearly'
+    end
+
+    it 'bins 2 years and 30 years as Yearly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2Y').should eql 'Multiyear'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P30Y').should eql 'Multiyear'
+    end
+
+    it 'bins range and varies as Other' do
+      @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D')
+        .should eql 'Other'
+      @translator.bin_temporal_resolution_value('type' => 'varies').should eql 'Other'
+    end
+
+    it 'bins values close to 1 year as Other' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y1D').should eql 'Other'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P364D').should eql 'Other'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P11M').should eql 'Other'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P13M').should eql 'Other'
+    end
+
+    it 'returns nil if the value is blank' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => '').should be_nil
+    end
   end
 end

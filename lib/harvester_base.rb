@@ -37,7 +37,7 @@ class HarvesterBase
     success = false
     doc_serialized = get_serialized_doc(doc, content_type)
     RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
-      response.code == 200 ? success = true : puts(response.body)
+      response.code == 200 ? success = true : puts("Error for #{doc_serialized} \n\n response: #{response.body}")
     end
     success
   end

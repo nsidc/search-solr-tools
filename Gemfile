@@ -18,6 +18,7 @@ gem 'nsidc_git_workflow', '~> 0.10.0'
 gem 'multi_json'
 gem 'rgeo'
 gem 'rgeo-geojson'
+gem 'iso8601'
 
 # to use the debugger:
 # - uncomment gems below
