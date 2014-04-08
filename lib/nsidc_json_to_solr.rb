@@ -110,6 +110,7 @@ class NsidcJsonToSolr
 
   # rubocop:disable MethodLength, CyclomaticComplexity
   def bin_temporal_resolution_value(temporal_resolution)
+    return nil if temporal_resolution.nil? || temporal_resolution.empty?
     return 'Other' unless temporal_resolution['type'].eql?('single')
 
     return nil if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
