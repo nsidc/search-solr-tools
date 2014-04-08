@@ -207,10 +207,10 @@ describe NsidcJsonToSolr do
   describe 'temporal resolution faceting' do
     it 'translates NSIDC temporal resolutions to solr facet temporal resolution values' do
       parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
-                         { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' } },
+                         { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'P3D', 'max_resolution' => 'P20D' } },
                          { 'name' => 'test3', 'temporalResolution' => { 'type' => 'varies' } }]
       facets = @translator.generate_temporal_resolution_facet_values(parameters_json)
-      facets.should eql %w(Subdaily Other)
+      facets.should eql %w(Subdaily Weekly Submonthly Varies)
     end
 
     it 'bins second and 59 minute values as Subhourly' do
@@ -227,48 +227,57 @@ describe NsidcJsonToSolr do
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT23H59M59S').should eql 'Subdaily'
     end
 
-    it 'bins 1:00:01 and 23:59:59 values as Subdaily' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT1H0M1S').should eql 'Subdaily'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT23H59M59S').should eql 'Subdaily'
-    end
-
-    it 'bins 1 day as Daily' do
+    it 'bins 1 and 2 day as Daily' do
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1D').should eql 'Daily'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2D').should eql 'Daily'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1DT12H').should eql 'Daily'
     end
 
-    it 'bins 7 and 8 days as Weekly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P7D').should eql 'Weekly'
+    it 'bins 3 and 8 days as Weekly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P3D').should eql 'Weekly'
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P8D').should eql 'Weekly'
     end
 
-    it 'bins 1 month as Monthly' do
+    it 'bins 9 and 20 days as Submonthly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P9D').should eql 'Submonthly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P20D').should eql 'Submonthly'
+    end
+
+    it 'bins 1 month, 21 days and 31 days as Monthly' do
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1M').should eql 'Monthly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P21D').should eql 'Monthly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P31D').should eql 'Monthly'
+    end
+
+    it 'bins values less then 1 year as Subyearly' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P364D').should eql 'Subyearly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P11M').should eql 'Subyearly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P3M').should eql 'Subyearly'
     end
 
     it 'bins 1 year as Yearly' do
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y').should eql 'Yearly'
     end
 
-    it 'bins 2 years and 30 years as Yearly' do
+    it 'bins values greater then 1 year as Multiyearly' do
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2Y').should eql 'Multiyearly'
       @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P30Y').should eql 'Multiyearly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y1D').should eql 'Multiyearly'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P13M').should eql 'Multiyearly'
     end
 
-    it 'bins range and varies as Other' do
+    it 'bins range as range of facet values' do
       @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D')
-        .should eql 'Other'
-      @translator.bin_temporal_resolution_value('type' => 'varies').should eql 'Other'
+        .should eql %w(Subdaily Daily Weekly Submonthly)
     end
 
-    it 'bins values close to 1 year as Other' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y1D').should eql 'Other'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P364D').should eql 'Other'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P11M').should eql 'Other'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P13M').should eql 'Other'
+    it 'bins varies as varies' do
+      @translator.bin_temporal_resolution_value('type' => 'varies').should eql 'Varies'
     end
 
-    it 'returns nil if the value is blank' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => '').should be_nil
+    it 'returns not specified if the value is blank' do
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => '').should eql 'Not specified'
+      @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => '', 'max_resolution' => '').should eql 'Not specified'
     end
   end
 end

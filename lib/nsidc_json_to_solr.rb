@@ -7,6 +7,19 @@ require 'iso8601'
 class NsidcJsonToSolr
   DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
   DATA_CENTER_SHORT_NAME = 'NSIDC'
+  NOT_SPECIFIED_FACET_VALUE = 'Not specified'
+
+  TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
+  SUBHOURLY_INDEX = 0
+  HOURLY_INDEX = 1
+  SUBDAILY_INDEX = 2
+  DAILY_INDEX = 3
+  WEEKLY_INDEX = 4
+  SUBMONTHLY_INDEX = 5
+  MONTHLY_INDEX = 6
+  SUBYEARLY_INDEX = 7
+  YEARLY_INDEX = 8
+  MULTIYEARLY_INDEX = 9
 
 # rubocop:disable MethodLength
   def translate(json_doc)
@@ -105,39 +118,55 @@ class NsidcJsonToSolr
       binned_temporal_res = bin_temporal_resolution_value(param_json['temporalResolution'])
       temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
     end
-    temporal_resolutions.uniq
+    temporal_resolutions.flatten.uniq
   end
 
   # rubocop:disable MethodLength, CyclomaticComplexity
   def bin_temporal_resolution_value(temporal_resolution)
-    return nil if temporal_resolution.nil? || temporal_resolution.empty?
-    return 'Other' unless temporal_resolution['type'].eql?('single')
+    return NOT_SPECIFIED_FACET_VALUE if temporal_resolution.nil? || temporal_resolution.empty?
 
-    return nil if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
-
-    dur = ISO8601::Duration.new(temporal_resolution['resolution'])
-    dur_sec = dur.to_seconds
-    if dur_sec < 3600
-      return 'Subhourly'
-    elsif dur_sec == 3600
-      return 'Hourly'
-    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
-      return 'Subdaily'
-    elsif dur_sec == 86_400
-      return 'Daily'
-    elsif dur_sec >= 604_800 && dur.to_seconds <= 691_200 # 7 to 8 days
-      return 'Weekly'
-    elsif dur == ISO8601::Duration.new('P1M')
-      return 'Monthly'
-    elsif dur == ISO8601::Duration.new('P1Y')
-      return 'Yearly'
-    elsif dur.years.to_i >= 2
-      return 'Multiyearly'
+    if temporal_resolution['type'] == 'single'
+      return 'Not specified' if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
+      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['resolution'])
+      return TEMPORAL_RESOLUTION_FACET_VALUES[i]
+    elsif temporal_resolution['type'] == 'range'
+      return 'Not specified' if temporal_resolution['min_resolution'].nil? || temporal_resolution['min_resolution'].empty?
+      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['min_resolution'])
+      j = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['max_resolution'])
+      return TEMPORAL_RESOLUTION_FACET_VALUES[i..j]
+    elsif temporal_resolution['type'] == 'varies'
+      return 'Varies'
+    else
+      return NOT_SPECIFIED_FACET_VALUE
     end
-
-    'Other'
   end
-  # rubocop:enable LineLength, CyclomaticComplexity
+
+  def find_index_for_single_temporal_resolution_value(iso8601_duration)
+    dur_sec = iso8601_duration.to_seconds
+    if dur_sec < 3600
+      return SUBHOURLY_INDEX
+    elsif dur_sec == 3600
+      return HOURLY_INDEX
+    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
+      return SUBDAILY_INDEX
+    elsif dur_sec <= 172_800 # && dur_sec >= 86_400 - This is 1 to 2 days
+      return DAILY_INDEX
+    elsif dur_sec <= 691_200 # && dur_sec >= 172_800 - This is 3 to 8 days
+      return WEEKLY_INDEX
+    elsif dur_sec <= 1_728_000 # && dur_sec >= 691200 - This is 8 to 20 days
+      return SUBMONTHLY_INDEX
+    elsif iso8601_duration == ISO8601::Duration.new('P1M') || dur_sec <= 2_678_400 # && dur_sec >= 2_678_400 - 21 to 31 days
+      return MONTHLY_INDEX
+    elsif (iso8601_duration.months.to_i > 1 && iso8601_duration.months.to_i < 12 && iso8601_duration.years.to_i == 0) ||
+        (dur_sec < 31_536_000)
+      return SUBYEARLY_INDEX
+    elsif iso8601_duration == ISO8601::Duration.new('P1Y')
+      return YEARLY_INDEX
+    else # elsif dur_sec > 31536000
+      return MULTIYEARLY_INDEX
+    end
+  end
+  # rubocop:enable MethodLength, CyclomaticComplexity
 
   def translate_iso_topic_categories(iso_topic_categories_json)
     iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
