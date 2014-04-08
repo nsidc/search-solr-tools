@@ -19,6 +19,7 @@ gem 'multi_json'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'iso8601'
+gem 'parallel'
 
 # to use the debugger:
 # - uncomment gems below

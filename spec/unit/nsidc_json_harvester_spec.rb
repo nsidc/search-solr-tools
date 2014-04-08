@@ -32,7 +32,7 @@ describe NsidcJsonHarvester do
       .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
-      result = @harvester.docs_with_translated_entries_from_nsidc
+      result = @harvester.docs_with_translated_entries_from_nsidc(0)
       result[:add_docs].first['add']['doc']['authoritative_id'].should eql('G02199')
       result[:add_docs].first['add']['doc']['brokered'].should eql(false)
       result[:add_docs].first['add']['doc']['dataset_version'].should eql(2)
@@ -59,7 +59,7 @@ describe NsidcJsonHarvester do
       .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
-      result = @harvester.docs_with_translated_entries_from_nsidc
+      result = @harvester.docs_with_translated_entries_from_nsidc(0)
       result[:add_docs].first['add']['doc']['authoritative_id'].should eql('G02199')
       result[:add_docs].length.should eql 2
       result[:failure_ids].first.should eql('G02199')

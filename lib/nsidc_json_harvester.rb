@@ -3,6 +3,7 @@ require 'rest-client'
 require './lib/harvester_base'
 require './lib/nsidc_json_to_solr'
 require 'json'
+require 'parallel'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
 class NsidcJsonHarvester < HarvesterBase
@@ -28,11 +29,11 @@ class NsidcJsonHarvester < HarvesterBase
     JSON.parse(json_response)
   end
 
-  def docs_with_translated_entries_from_nsidc
+  def docs_with_translated_entries_from_nsidc(processes = 3)
     docs = []
     failure_ids = []
 
-    result_ids_from_nsidc.each do |r|
+    Parallel.each(result_ids_from_nsidc, in_processes: processes) do |r|
       id = r.text.split('/').last
       begin
         docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
