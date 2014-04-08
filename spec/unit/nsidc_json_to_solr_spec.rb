@@ -207,10 +207,9 @@ describe NsidcJsonToSolr do
   describe 'temporal resolution faceting' do
     it 'translates NSIDC temporal resolutions to solr facet temporal resolution values' do
       parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
-                         { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'P3D', 'max_resolution' => 'P20D' } },
-                         { 'name' => 'test3', 'temporalResolution' => { 'type' => 'varies' } }]
+                         { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'P3D', 'max_resolution' => 'P20D' } }]
       facets = @translator.generate_temporal_resolution_facet_values(parameters_json)
-      facets.should eql %w(Subdaily Weekly Submonthly Varies)
+      facets.should eql %w(Subdaily Weekly Submonthly)
     end
 
     it 'bins second and 59 minute values as Subhourly' do
@@ -272,7 +271,7 @@ describe NsidcJsonToSolr do
     end
 
     it 'bins varies as varies' do
-      @translator.bin_temporal_resolution_value('type' => 'varies').should eql 'Varies'
+      @translator.bin_temporal_resolution_value('type' => 'varies').should eql 'Not specified'
     end
 
     it 'returns not specified if the value is blank' do

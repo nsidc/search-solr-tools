@@ -134,8 +134,6 @@ class NsidcJsonToSolr
       i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['min_resolution'])
       j = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['max_resolution'])
       return TEMPORAL_RESOLUTION_FACET_VALUES[i..j]
-    elsif temporal_resolution['type'] == 'varies'
-      return 'Varies'
     else
       return NOT_SPECIFIED_FACET_VALUE
     end
