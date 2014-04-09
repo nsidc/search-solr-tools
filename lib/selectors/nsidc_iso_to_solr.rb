@@ -1,4 +1,5 @@
 require './lib/selectors/iso_to_solr_format'
+require './lib/selectors/solr_string_format'
 
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
@@ -70,12 +71,12 @@ NSIDC = {
   published_date: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
     multivalue: false,
-    format: IsoToSolrFormat::DATE
+    format: SolrStringFormat::DATE
   },
   spatial_coverages: {
     xpaths: ['.//gmd:EX_GeographicBoundingBox'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.spatial_display_str node }
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
     xpaths: ['.//gmd:EX_GeographicBoundingBox'],
@@ -91,23 +92,23 @@ NSIDC = {
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_display_str node }
+    format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
-    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
+    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
   },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+    format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],
     multivalue: false,
-    format: IsoToSolrFormat::DATE
+    format: SolrStringFormat::DATE
   },
   dataset_url: {
     xpaths: ['.//gmd:dataSetURI'],
@@ -144,23 +145,23 @@ NSIDC = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
     multivalue: true
   },
   facet_format: {
     xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
     default_values: ['Not specified'],
     multivalue: true,
-    format: proc { |format| IsoToSolrFormat.format_binning format.text }
+    format: SolrStringFormat::FORMAT_BINNING
   },
   facet_parameter: {
     xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
     multivalue: true,
-    format: proc { |param| IsoToSolrFormat.parameter_binning param.text }
+    format: SolrStringFormat::PARAMETER_BINNING
   },
   facet_sponsored_program: {
     xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.sponsored_program_facet node }
+    format: IsoToSolrFormat::FACET_SPONSORED_PROGRAM
   }
 }

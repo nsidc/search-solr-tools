@@ -1,4 +1,5 @@
 require './lib/selectors/iso_to_solr_format'
+require './lib/selectors/solr_string_format'
 
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
@@ -44,9 +45,9 @@ EOL = {
   },
   last_revision_date: {
       xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
-      default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+      default_values: [SolrStringFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
-      format: IsoToSolrFormat::DATE
+      format: SolrStringFormat::DATE
   },
   dataset_url: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
@@ -59,7 +60,7 @@ EOL = {
   spatial_coverages: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
       multivalue: true,
-      format: proc { |node| IsoToSolrFormat.spatial_display_str node }
+      format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
@@ -75,18 +76,18 @@ EOL = {
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_display_str node }
+    format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+    format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
-    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
+    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
   },
   source: {
       xpaths: [''],
@@ -106,7 +107,7 @@ EOL = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
     multivalue: true
   }
 }

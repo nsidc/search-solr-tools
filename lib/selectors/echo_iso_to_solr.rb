@@ -1,4 +1,5 @@
 require './lib/selectors/iso_to_solr_format'
+require './lib/selectors/solr_string_format'
 
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
@@ -37,9 +38,9 @@ ECHO = {
   },
   last_revision_date: {
     xpaths: ['.//Collection/LastUpdate'],
-    default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    default_values: [SolrStringFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
     multivalue: false,
-    format: IsoToSolrFormat::DATE
+    format: SolrStringFormat::DATE
   },
   dataset_url: {
     xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Type/text(),'static URL')]/URL",
@@ -66,18 +67,18 @@ ECHO = {
   temporal_coverages: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
+    format:  IsoToSolrFormat::TEMPORAL_DISPLAY_STRING_FORMATTED
   },
   temporal_duration: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: false,
-    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
+    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
   },
   temporal: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+    format:  IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   source: {
     xpaths: [''],
@@ -97,7 +98,7 @@ ECHO = {
   facet_temporal_duration: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
     multivalue: true
   }
 }

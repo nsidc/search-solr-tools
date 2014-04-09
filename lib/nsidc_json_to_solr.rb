@@ -38,7 +38,7 @@ class NsidcJsonToSolr
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
-      'published_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['releaseDate']),
+      'published_date' => (SolrStringFormat::STRING_DATE.call json_doc['releaseDate']),
       'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatial_coverages']),
       'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatial_coverages']),
       'spatial_area' => translate_spatial_coverage_geom_to_spatial_area(json_doc['spatial_coverages']),
@@ -48,7 +48,7 @@ class NsidcJsonToSolr
       'temporal_duration' => temporal_values['temporal_duration'],
       'temporal' => temporal_values['temporal'],
       'facet_temporal_duration' => temporal_values['facet_temporal_duration'],
-      'last_revision_date' => (IsoToSolrFormat::STRING_DATE.call json_doc['lastRevisionDate']),
+      'last_revision_date' => (SolrStringFormat::STRING_DATE.call json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
       'facet_format' => ((json_doc['distributionFormats'].empty?) ? ['Not specified'] : json_doc['distributionFormats']),
@@ -58,67 +58,22 @@ class NsidcJsonToSolr
       'facet_temporal_resolution' => generate_temporal_resolution_facet_values(json_doc['parameters'])
     )
   end
+# rubocop:enable MethodLength
 
   def generate_temporal_values(temporal_coverages_json)
     temporal_coverages = []
     temporal = []
-    max_temporal_duration = nil
+    temporal_durations = []
     temporal_coverages_json.each do |coverage|
-      start_time = DateTime.parse(coverage['start']) unless coverage['start'].to_s.empty?
-      end_time = DateTime.parse(coverage['end']) unless coverage['end'].to_s.empty?
-      temporal_duration = generate_temporal_duration_value start_time, end_time
-      time_strings = generate_time_strings start_time, end_time
-      max_temporal_duration = compare_temporal_duration(max_temporal_duration, temporal_duration)
-      temporal_coverages << time_strings['start_date'] + ', ' + time_strings['end_date']
-      temporal << time_strings['start_integer'] + ' ' + time_strings['end_integer']
+      start_time = Time.parse(coverage['start']) unless coverage['start'].to_s.empty?
+      end_time = Time.parse(coverage['end']) unless coverage['end'].to_s.empty?
+      temporal_durations << (SolrStringFormat.get_temporal_duration start_time, end_time)
+      temporal_coverages << SolrStringFormat.temporal_display_str({:start => (start_time.to_s.empty? ? nil : start_time.strftime('%Y-%m-%d')), :end => (end_time.to_s.empty? ? nil : end_time.strftime('%Y-%m-%d'))})
+      temporal << SolrStringFormat.temporal_index_str({:start => start_time.to_s, :end => end_time.to_s})
     end unless temporal_coverages_json.nil?
-    facet = generate_facet_temporal_value(max_temporal_duration)
+    max_temporal_duration = SolrStringFormat.reduce_temporal_duration temporal_durations
+    facet = SolrStringFormat.get_temporal_duration_facet max_temporal_duration
     { 'temporal_coverages' => temporal_coverages, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal, 'facet_temporal_duration' => facet  }
-  end
-
-# rubocop:enable MethodLength
-
-  def compare_temporal_duration(max_temporal_duration, temporal_duration)
-    if max_temporal_duration.nil? || max_temporal_duration < temporal_duration
-      max_temporal_duration = temporal_duration
-    end unless temporal_duration.nil?
-    max_temporal_duration
-  end
-
-  def generate_temporal_duration_value(start_datetime, end_datetime)
-    start_datetime.nil? ? (return nil) : start_time = start_datetime
-    end_datetime.nil? ?  end_time = DateTime.now : end_time = end_datetime
-    Integer(end_time - start_time).abs + 1
-  end
-
-  def generate_time_strings(start_time, end_time)
-    time_strings = {}
-    if start_time.nil?
-      time_strings.merge!('start_date' => '', 'start_integer' => DateTime.parse('00010101').strftime('%C.%y%m%d'))
-    else
-      time_strings.merge!('start_date' => start_time.strftime('%Y-%m-%d'), 'start_integer' => start_time.strftime('%C.%y%m%d'))
-    end
-    if end_time.nil?
-      time_strings.merge!('end_date' => '', 'end_integer' => DateTime.now.strftime('%C.%y%m%d'))
-    else
-      time_strings.merge!('end_date' => end_time.strftime('%Y-%m-%d'), 'end_integer' => end_time.strftime('%C.%y%m%d'))
-    end
-    time_strings
-  end
-
-  def generate_facet_temporal_value(duration)
-    return ['No Temporal Information'] if duration.nil?
-    years = duration.to_i / 365
-    IsoToSolrFormat.temporal_duration_range(years)
-  end
-
-  def generate_temporal_resolution_facet_values(parameters_json)
-    temporal_resolutions = []
-    parameters_json.each do |param_json|
-      binned_temporal_res = bin_temporal_resolution_value(param_json['temporalResolution'])
-      temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
-    end
-    temporal_resolutions.flatten.uniq
   end
 
   # rubocop:disable MethodLength, CyclomaticComplexity
@@ -241,7 +196,7 @@ class NsidcJsonToSolr
     spatial_coverage_geom.each do |geom|
       geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
       bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
-      return 'Global' if IsoToSolrFormat.box_global?(bbox_hash)
+      return 'Global' if SolrStringFormat.box_global?(bbox_hash)
     end
 
     'Non Global'
@@ -251,12 +206,12 @@ class NsidcJsonToSolr
     scopes = []
 
     if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
-      scopes << IsoToSolrFormat.get_spatial_scope_facet_with_bounding_box(nil)
+      scopes << SolrStringFormat.get_spatial_scope_facet_with_bounding_box(nil)
     else
       spatial_coverage_geom.each do |geom|
         geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
         bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
-        scopes << IsoToSolrFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
+        scopes << SolrStringFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
       end
     end
 
@@ -284,7 +239,7 @@ class NsidcJsonToSolr
     return [] if parameters_strings.nil?
     facet_params = []
     parameters_strings.each do |str|
-      facet_params << IsoToSolrFormat.parameter_binning(str)
+      facet_params << SolrStringFormat.parameter_binning(str)
     end
     facet_params
   end

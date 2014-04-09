@@ -1,4 +1,6 @@
 require './lib/selectors/iso_to_solr_format'
+require './lib/selectors/solr_string_format'
+
 
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
@@ -37,9 +39,9 @@ NODC = {
   },
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],
-    default_values: [IsoToSolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    default_values: [SolrStringFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
     multivalue: false,
-    format: IsoToSolrFormat::DATE
+    format: SolrStringFormat::DATE
   },
   dataset_url: {
     xpaths: ['.//gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(./gmd:protocol/gco:CharacterString/text(),"ftp")]/gmd:linkage/gmd:URL',
@@ -65,18 +67,18 @@ NODC = {
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
+    format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING_FORMATTED
   },
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
-    reduce: IsoToSolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
+    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
   },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
-    format: proc { |node| IsoToSolrFormat.temporal_index_str node }
+    format:  IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   sensors: {
     xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
@@ -100,7 +102,7 @@ NODC = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
     multivalue: true
   }
 }

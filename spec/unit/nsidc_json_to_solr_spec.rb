@@ -7,9 +7,11 @@ describe NsidcJsonToSolr do
 
   it 'generates temporal values from NSIDC JSON' do
     temporal_coverages_json = [{ 'start' => '1986-12-14T00:00:00-07:00', 'end' => '1992-11-13T00:00:00-07:00' },
-                               { 'start' => '', 'end' => '1992-01-18T00:00:00-07:00' }]
+                               { 'start' => '', 'end' => '1992-01-18T00:00:00-07:00' },
+                               { 'start' => '', 'end' => '' },
+                               { 'start' => '1986-12-01T00:00:00-04:00', 'end' => '1986-12-02T00:00:00-04:00'}]
     temporal_values = @translator.generate_temporal_values(temporal_coverages_json)
-    temporal_values['temporal_coverages'][0].should eql('1986-12-14, 1992-11-13')
+    temporal_values['temporal_coverages'][0].should eql('1986-12-14,1992-11-13')
     temporal_values['temporal_duration'].should eql 2162
     temporal_values['temporal'][0].should eql '19.861214 19.921113'
     temporal_values['facet_temporal_duration'].should eql ['1+ years', '5+ years']
@@ -20,7 +22,7 @@ describe NsidcJsonToSolr do
     temporal_values['temporal_coverages'].should eql []
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql []
-    temporal_values['facet_temporal_duration'].should eql ['No Temporal Information']
+    temporal_values['facet_temporal_duration'].should eql 'No Temporal Information'
   end
 
   it 'generates a temporal duration value based on the longest single temporal coverage' do
@@ -34,19 +36,15 @@ describe NsidcJsonToSolr do
   it 'generates correct start values when no start date is specified' do
     temporal_coverages_json = [{ 'start' => '', 'end' => '1992-01-01T00:00:00-07:00' }]
     temporal_values = @translator.generate_temporal_values(temporal_coverages_json)
-    temporal_values['temporal_coverages'].should eql [', 1992-01-01']
+    temporal_values['temporal_coverages'].should eql [',1992-01-01']
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql ['00.010101 19.920101']
-    temporal_values['facet_temporal_duration'].should eql ['No Temporal Information']
-  end
-
-  it 'generates a temporal duration value' do
-    @translator.generate_temporal_duration_value(DateTime.parse('1956-01-01T00:00:00-07:00'), DateTime.parse('1958-01-01T00:00:00-07:00')).should eql 732
+    temporal_values['facet_temporal_duration'].should eql 'No Temporal Information'
   end
 
   it 'translates NSIDC JSON date to SOLR format iso8601 date' do
     date = '2013-03-12T21:18:12-06:00'
-    (IsoToSolrFormat::STRING_DATE.call date).should eql '2013-03-12T21:18:12Z'
+    (SolrStringFormat::STRING_DATE.call date).should eql '2013-03-12T21:18:12Z'
   end
 
   it 'translates NSIDC internal data center to facet_sponsored_program string' do

@@ -8,24 +8,6 @@ describe 'ISO to SOLR format methods' do
   bad_geo_node = bad_fixture.xpath('.//gmd:EX_GeographicBoundingBox').first
   temporal_node = fixture.xpath('.//gmd:EX_TemporalExtent').first
 
-  describe 'date' do
-    it 'should generate a SOLR readable ISO 8601 string from a date obect' do
-      IsoToSolrFormat.date_str(DateTime.new(2013, 1, 1)).should eql '2013-01-01T00:00:00Z'
-    end
-
-    it 'should generate a SOLR readable ISO 8601 string from a string' do
-      IsoToSolrFormat.date_str('2013-01-01').should eql '2013-01-01T00:00:00Z'
-    end
-
-    it 'should generate a SOLR readable ISO 8601 string string with extra spaces' do
-      IsoToSolrFormat.date_str('    2013-01-01 ').should eql '2013-01-01T00:00:00Z'
-    end
-
-    it 'should generate a SOLR readable ISO 8601 string using the DATE helper' do
-      IsoToSolrFormat::DATE.call(fixture.xpath('.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date')).should eql '2004-05-10T00:00:00Z'
-    end
-  end
-
   describe 'spatial' do
     it 'should generate a SWEN space separated string from a GeographicBoundingBox node' do
       IsoToSolrFormat.spatial_display_str(geo_node).should eql '30.98 -180 90 180'
@@ -38,40 +20,34 @@ describe 'ISO to SOLR format methods' do
     it 'should calculate the correct spatial scope' do
       IsoToSolrFormat.get_spatial_scope_facet(geo_node).should eql 'Between 1 and 170 degrees of latitude change | Regional'
     end
-
   end
 
   describe 'temporal' do
     it 'should generate a start/end date comma separated string from a TemporalExtent node' do
-      IsoToSolrFormat.temporal_display_str(temporal_node).should eql '1978-10-01,2011-12-31'
+      IsoToSolrFormat.temporal_display_str_from_xml(temporal_node).should eql '1978-10-01,2011-12-31'
     end
 
     it 'should generate a stripped start/end date space separated string from a TemporalExtent node' do
-      IsoToSolrFormat.temporal_index_str(temporal_node).should eql '19.781001 20.111231'
+      IsoToSolrFormat.temporal_index_str_from_xml(temporal_node).should eql '19.781001 20.111231'
     end
 
     it 'should calculate a duration in days from a TemporalExtent node' do
-      IsoToSolrFormat.get_temporal_duration(temporal_node).should eql 12_145
-    end
-
-    it 'should use only the maximum duration when a dataset has multiple temporal ranges' do
-      durations = [27, 123, 325, 234, 19_032, 3]
-      IsoToSolrFormat.reduce_temporal_duration(durations).should eql 19_032
+      IsoToSolrFormat.get_temporal_duration_from_xml_node(temporal_node).should eql 12_145
     end
   end
 
   describe 'facets' do
     it 'should set the spatial coverage(s) from a GeographicBoundingBox node' do
-      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Non Global'
+      IsoToSolrFormat.get_spatial_facet_from_xml_node(geo_node).should eql 'Non Global'
     end
 
     it 'should set the spatial coverage(s) to "No Spatial Information" when missing bounds' do
-      IsoToSolrFormat.get_spatial_facet(bad_geo_node).should eql 'No Spatial Information'
+      IsoToSolrFormat.get_spatial_facet_from_xml_node(bad_geo_node).should eql 'No Spatial Information'
     end
 
     it 'should set the duration(s) from a TemporalExtent node' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
-      IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql ['1+ years', '5+ years', '10+ years']
+      IsoToSolrFormat.get_temporal_duration_facet_from_xml_node(temporal_nodes).should eql ['1+ years', '5+ years', '10+ years']
     end
 
     it 'should set the organization short name and long name for the sponsored program' do
@@ -79,34 +55,5 @@ describe 'ISO to SOLR format methods' do
       IsoToSolrFormat.sponsored_program_facet(node).should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
     end
 
-    it 'should set the parameter for a variable level_1' do
-      node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[0].text
-      IsoToSolrFormat.parameter_binning(node).should eql 'Ice Extent'
-    end
-
-    it 'should bin the parameter' do
-      node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[1].text
-      IsoToSolrFormat.parameter_binning(node).should eql 'Ocean Properties (other)'
-    end
-
-    it 'should not set parameters that do not have variable level_1' do
-      node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[2].text
-      IsoToSolrFormat.parameter_binning(node).should eql nil
-    end
-
-    it 'should set the data format' do
-      node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[0].text
-      IsoToSolrFormat.format_binning(node).should eql 'HTML'
-    end
-
-    it 'should bin the data format' do
-      node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[1].text
-      IsoToSolrFormat.format_binning(node).should eql 'ASCII Text'
-    end
-
-    it 'should not set excluded data formats' do
-      node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[2].text
-      IsoToSolrFormat.format_binning(node).should eql nil
-    end
   end
 end
