@@ -76,6 +76,15 @@ class NsidcJsonToSolr
     { 'temporal_coverages' => temporal_coverages, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal, 'facet_temporal_duration' => facet  }
   end
 
+  def generate_temporal_resolution_facet_values(parameters_json)
+    temporal_resolutions = []
+    parameters_json.each do |param_json|
+      binned_temporal_res = bin_temporal_resolution_value(param_json['temporalResolution'])
+      temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
+    end
+    temporal_resolutions.flatten.uniq
+  end
+
   # rubocop:disable MethodLength, CyclomaticComplexity
   def bin_temporal_resolution_value(temporal_resolution)
     return NOT_SPECIFIED_FACET_VALUE if temporal_resolution.nil? || temporal_resolution.empty?
