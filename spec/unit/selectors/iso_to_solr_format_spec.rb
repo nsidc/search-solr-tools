@@ -1,5 +1,5 @@
 require 'nokogiri'
-require './lib/selectors/iso_to_solr_format'
+require './lib/selectors/helpers/iso_to_solr_format'
 
 describe 'ISO to SOLR format methods' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')

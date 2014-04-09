@@ -2,7 +2,7 @@ require 'date'
 require './lib/selectors/helpers/iso_namespaces'
 require './lib/selectors/helpers/nsidc_parameter_mapping'
 require './lib/selectors/helpers/nsidc_format_mapping'
-require './lib/selectors/solr_string_format'
+require './lib/selectors/helpers/solr_format'
 
 # Methods for generating formatted strings from ISO xml nodes that can be indexed by SOLR
 module IsoToSolrFormat

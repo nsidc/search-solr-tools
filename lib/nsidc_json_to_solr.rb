@@ -1,5 +1,5 @@
 # rubocop:disable ClassLength
-require './lib/selectors/iso_to_solr_format'
+require './lib/selectors/helpers/iso_to_solr_format'
 require 'rgeo/geo_json'
 require 'iso8601'
 
