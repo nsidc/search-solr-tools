@@ -1,7 +1,6 @@
 require './lib/selectors/iso_to_solr_format'
 require './lib/selectors/solr_string_format'
 
-
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
 # xpaths resolved to a value and formatting the field.
@@ -73,7 +72,7 @@ NODC = {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
     reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
@@ -102,7 +101,7 @@ NODC = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   }
 }

@@ -76,7 +76,7 @@ RDA = {
     default_values: [-2],
     multivalue: false,
     reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
       xpaths: [''],
@@ -95,7 +95,7 @@ RDA = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   }
 }

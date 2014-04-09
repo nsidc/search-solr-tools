@@ -24,30 +24,30 @@ describe 'ISO to SOLR format methods' do
 
   describe 'temporal' do
     it 'should generate a start/end date comma separated string from a TemporalExtent node' do
-      IsoToSolrFormat.temporal_display_str_from_xml(temporal_node).should eql '1978-10-01,2011-12-31'
+      IsoToSolrFormat.temporal_display_str(temporal_node).should eql '1978-10-01,2011-12-31'
     end
 
     it 'should generate a stripped start/end date space separated string from a TemporalExtent node' do
-      IsoToSolrFormat.temporal_index_str_from_xml(temporal_node).should eql '19.781001 20.111231'
+      IsoToSolrFormat.temporal_index_str(temporal_node).should eql '19.781001 20.111231'
     end
 
     it 'should calculate a duration in days from a TemporalExtent node' do
-      IsoToSolrFormat.get_temporal_duration_from_xml_node(temporal_node).should eql 12_145
+      IsoToSolrFormat.get_temporal_duration(temporal_node).should eql 12_145
     end
   end
 
   describe 'facets' do
     it 'should set the spatial coverage(s) from a GeographicBoundingBox node' do
-      IsoToSolrFormat.get_spatial_facet_from_xml_node(geo_node).should eql 'Non Global'
+      IsoToSolrFormat.get_spatial_facet(geo_node).should eql 'Non Global'
     end
 
     it 'should set the spatial coverage(s) to "No Spatial Information" when missing bounds' do
-      IsoToSolrFormat.get_spatial_facet_from_xml_node(bad_geo_node).should eql 'No Spatial Information'
+      IsoToSolrFormat.get_spatial_facet(bad_geo_node).should eql 'No Spatial Information'
     end
 
     it 'should set the duration(s) from a TemporalExtent node' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
-      IsoToSolrFormat.get_temporal_duration_facet_from_xml_node(temporal_nodes).should eql ['1+ years', '5+ years', '10+ years']
+      IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql ['1+ years', '5+ years', '10+ years']
     end
 
     it 'should set the organization short name and long name for the sponsored program' do

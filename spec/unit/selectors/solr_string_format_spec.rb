@@ -3,11 +3,6 @@ require './lib/selectors/solr_string_format'
 
 describe 'SOLR format methods' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
-  bad_fixture = Nokogiri.XML File.open('spec/unit/fixtures/nodc_iso_bad_spatial.xml')
-  geo_node = fixture.xpath('.//gmd:EX_GeographicBoundingBox').first
-  bad_geo_node = bad_fixture.xpath('.//gmd:EX_GeographicBoundingBox').first
-  temporal_node = fixture.xpath('.//gmd:EX_TemporalExtent').first
-
 
   describe 'date' do
     it 'should generate a SOLR readable ISO 8601 string using the DATE helper' do
@@ -67,6 +62,4 @@ describe 'SOLR format methods' do
       SolrStringFormat.format_binning(node).should eql nil
     end
   end
-
-
 end

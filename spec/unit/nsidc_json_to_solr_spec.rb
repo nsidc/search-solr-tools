@@ -9,7 +9,7 @@ describe NsidcJsonToSolr do
     temporal_coverages_json = [{ 'start' => '1986-12-14T00:00:00-07:00', 'end' => '1992-11-13T00:00:00-07:00' },
                                { 'start' => '', 'end' => '1992-01-18T00:00:00-07:00' },
                                { 'start' => '', 'end' => '' },
-                               { 'start' => '1986-12-01T00:00:00-04:00', 'end' => '1986-12-02T00:00:00-04:00'}]
+                               { 'start' => '1986-12-01T00:00:00-04:00', 'end' => '1986-12-02T00:00:00-04:00' }]
     temporal_values = @translator.generate_temporal_values(temporal_coverages_json)
     temporal_values['temporal_coverages'][0].should eql('1986-12-14,1992-11-13')
     temporal_values['temporal_duration'].should eql 2162
@@ -44,7 +44,7 @@ describe NsidcJsonToSolr do
 
   it 'translates NSIDC JSON date to SOLR format iso8601 date' do
     date = '2013-03-12T21:18:12-06:00'
-    (SolrStringFormat::STRING_DATE.call date).should eql '2013-03-12T21:18:12Z'
+    (SolrStringFormat.date_str date).should eql '2013-03-12T21:18:12Z'
   end
 
   it 'translates NSIDC internal data center to facet_sponsored_program string' do

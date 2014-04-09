@@ -38,7 +38,7 @@ class NsidcJsonToSolr
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
-      'published_date' => (SolrStringFormat::STRING_DATE.call json_doc['releaseDate']),
+      'published_date' => (SolrStringFormat.date_str json_doc['releaseDate']),
       'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatial_coverages']),
       'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatial_coverages']),
       'spatial_area' => translate_spatial_coverage_geom_to_spatial_area(json_doc['spatial_coverages']),
@@ -48,7 +48,7 @@ class NsidcJsonToSolr
       'temporal_duration' => temporal_values['temporal_duration'],
       'temporal' => temporal_values['temporal'],
       'facet_temporal_duration' => temporal_values['facet_temporal_duration'],
-      'last_revision_date' => (SolrStringFormat::STRING_DATE.call json_doc['lastRevisionDate']),
+      'last_revision_date' => (SolrStringFormat.date_str json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
       'facet_format' => ((json_doc['distributionFormats'].empty?) ? ['Not specified'] : json_doc['distributionFormats']),
@@ -68,8 +68,8 @@ class NsidcJsonToSolr
       start_time = Time.parse(coverage['start']) unless coverage['start'].to_s.empty?
       end_time = Time.parse(coverage['end']) unless coverage['end'].to_s.empty?
       temporal_durations << (SolrStringFormat.get_temporal_duration start_time, end_time)
-      temporal_coverages << SolrStringFormat.temporal_display_str({:start => (start_time.to_s.empty? ? nil : start_time.strftime('%Y-%m-%d')), :end => (end_time.to_s.empty? ? nil : end_time.strftime('%Y-%m-%d'))})
-      temporal << SolrStringFormat.temporal_index_str({:start => start_time.to_s, :end => end_time.to_s})
+      temporal_coverages << SolrStringFormat.temporal_display_str(start: (start_time.to_s.empty? ? nil : start_time.strftime('%Y-%m-%d')), end: (end_time.to_s.empty? ? nil : end_time.strftime('%Y-%m-%d')))
+      temporal << SolrStringFormat.temporal_index_str(start: start_time.to_s, end: end_time.to_s)
     end unless temporal_coverages_json.nil?
     max_temporal_duration = SolrStringFormat.reduce_temporal_duration temporal_durations
     facet = SolrStringFormat.get_temporal_duration_facet max_temporal_duration

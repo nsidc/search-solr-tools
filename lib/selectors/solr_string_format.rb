@@ -1,11 +1,8 @@
 require 'date'
 
+#  Methods for generating formatted strings that can be indexed by SOLR
 module SolrStringFormat
-
-  FACET_TEMPORAL_DURATION = proc { |duration| SolrStringFormat.get_temporal_duration_facet(duration) }
-  TEMPORAL_DURATION = proc { |start_time, end_time| SolrStringFormat.get_temporal_duration(start_time, end_time)}
   REDUCE_TEMPORAL_DURATION = proc { |values| SolrStringFormat.reduce_temporal_duration(values) }
-  STRING_DATE = proc { |date| date_str date }
   FORMAT_BINNING = proc { |format| SolrStringFormat.format_binning format.text }
   PARAMETER_BINNING = proc { |param| SolrStringFormat.parameter_binning param.text }
   DATE = proc { |date | SolrStringFormat.date_str date.text }
@@ -33,12 +30,12 @@ module SolrStringFormat
     if start_time.to_s.empty?
       duration = nil
     else
-      if end_time.to_s.empty? then end_time = Time.now end
+      end_time = Time.now if end_time.to_s.empty?
       # datasets that cover just one day would have end_date - start_date = 0,
       # so we need to add 1 to make sure the duration is the actual number of
       # days; if the end date and start date are flipped in the metadata, a
       # negative duration doesn't make sense so use the absolute value
-      duration = Integer((end_time - start_time).abs / 86400 ) + 1
+      duration = Integer((end_time - start_time).abs / 86_400) + 1
     end
     duration
   end
@@ -146,10 +143,6 @@ module SolrStringFormat
     end
 
     nil
-  end
-
-  def self.ices_dataset_url(auth_id)
-    'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
   end
 
   def self.bin(mappings, term)

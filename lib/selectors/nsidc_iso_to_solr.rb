@@ -98,7 +98,7 @@ NSIDC = {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
     reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
@@ -145,7 +145,7 @@ NSIDC = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
   facet_format: {

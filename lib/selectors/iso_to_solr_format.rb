@@ -4,7 +4,7 @@ require './lib/selectors/helpers/nsidc_parameter_mapping'
 require './lib/selectors/helpers/nsidc_format_mapping'
 require './lib/selectors/solr_string_format'
 
-# Methods for generating formatted strings that can be indexed by SOLR
+# Methods for generating formatted strings from ISO xml nodes that can be indexed by SOLR
 module IsoToSolrFormat
   KEYWORDS = proc { |keywords| build_keyword_list keywords }
 
@@ -12,16 +12,18 @@ module IsoToSolrFormat
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
   SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
   MAX_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_max_spatial_area(values) }
-  TEMPORAL_DURATION_FROM_XML = proc { |node| IsoToSolrFormat.get_temporal_duration_from_xml_node(node) }
+  TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
 
   FACET_SPONSORED_PROGRAM = proc { |node| IsoToSolrFormat.sponsored_program_facet node }
-  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet_from_xml_node(node) }
+  FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
   FACET_SPATIAL_SCOPE = proc { |node| IsoToSolrFormat.get_spatial_scope_facet(node) }
-  FACET_TEMPORAL_DURATION_FROM_XML = proc { |node| IsoToSolrFormat.get_temporal_duration_facet_from_xml_node(node) }
+  FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
-  TEMPORAL_INDEX_STRING = proc { |node| IsoToSolrFormat.temporal_index_str_from_xml node }
-  TEMPORAL_DISPLAY_STRING = proc { |node| IsoToSolrFormat.temporal_display_str_from_xml node }
-  TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str_from_xml(node, true) }
+  TEMPORAL_INDEX_STRING = proc { |node| IsoToSolrFormat.temporal_index_str node }
+  TEMPORAL_DISPLAY_STRING = proc { |node| IsoToSolrFormat.temporal_display_str node }
+  TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
+
+  ICES_DATASET_URL = proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
 
   def self.spatial_display_str(box_node)
     box = bounding_box(box_node)
@@ -47,7 +49,7 @@ module IsoToSolrFormat
     values.map { |v| v.to_f }.max
   end
 
-  def self.get_spatial_facet_from_xml_node(box_node)
+  def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
     SolrStringFormat.get_spatial_facet(box)
   end
@@ -57,23 +59,23 @@ module IsoToSolrFormat
     SolrStringFormat.get_spatial_scope_facet_with_bounding_box(box)
   end
 
-  def self.temporal_display_str_from_xml(temporal_node, formatted = false )
+  def self.temporal_display_str(temporal_node, formatted = false)
     SolrStringFormat.temporal_display_str(date_range(temporal_node, formatted))
   end
 
-  def self.get_temporal_duration_from_xml_node(temporal_node)
+  def self.get_temporal_duration(temporal_node)
     dr = date_range(temporal_node)
     dr[:end].to_s.empty? ? end_time = Time.now : end_time = Time.parse(dr[:end])
-    dr[:start].to_s.empty? ? duration = nil : duration = SolrStringFormat::TEMPORAL_DURATION.call(Time.parse(dr[:start]), end_time)
+    dr[:start].to_s.empty? ? duration = nil : duration = SolrStringFormat.get_temporal_duration(Time.parse(dr[:start]), end_time)
     duration
   end
 
-  def self.get_temporal_duration_facet_from_xml_node(temporal_node)
-    duration = get_temporal_duration_from_xml_node(temporal_node)
+  def self.get_temporal_duration_facet(temporal_node)
+    duration = get_temporal_duration(temporal_node)
     SolrStringFormat.get_temporal_duration_facet(duration)
   end
 
-  def self.temporal_index_str_from_xml(temporal_node)
+  def self.temporal_index_str(temporal_node)
     dr = date_range(temporal_node)
     SolrStringFormat.temporal_index_str(dr)
   end
@@ -94,33 +96,24 @@ module IsoToSolrFormat
 
   private
 
-  def self.date?(date)
-    valid_date = if date.is_a? String
-                   d = DateTime.parse(date.strip) rescue false
-                   DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
-                 end
-    valid_date
-  end
-
-  def self.format_date_for_index(date_str, default)
-    date_str = default unless date? date_str
-    DateTime.parse(date_str).strftime('%C.%y%m%d')
-  end
-
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime'])
-    start_date = date?(start_date) ? start_date : ''
+    start_date = SolrStringFormat.date?(start_date) ? start_date : ''
 
     end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime'])
-    end_date = date?(end_date) ? end_date : ''
+    end_date = SolrStringFormat.date?(end_date) ? end_date : ''
 
-    formatted ? start_date = SolrStringFormat::STRING_DATE.call(start_date) : start_date   ## Fix this
-    formatted ? end_date = SolrStringFormat::STRING_DATE.call(end_date) : end_date
+    formatted ? start_date = SolrStringFormat.date_str(start_date) : start_date
+    formatted ? end_date = SolrStringFormat.date_str(end_date) : end_date
 
     {
         start: start_date,
         end: end_date
     }
+  end
+
+  def self.ices_dataset_url(auth_id)
+    'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
   end
 
   def self.get_first_matching_child(node, paths)
@@ -145,7 +138,4 @@ module IsoToSolrFormat
         north: north
     }
   end
-
-
-
 end

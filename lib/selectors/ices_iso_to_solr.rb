@@ -45,7 +45,7 @@ ICES = {
   dataset_url: {
     xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
     multivalue: false,
-    format: proc { |node| SolrStringFormat.ices_dataset_url(node) }
+    format: IsoToSolrFormat:: ICES_DATASET_URL
   },
   spatial_coverages: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
@@ -72,7 +72,7 @@ ICES = {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
     reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
@@ -101,7 +101,7 @@ ICES = {
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   }
 }

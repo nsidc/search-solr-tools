@@ -73,7 +73,7 @@ ECHO = {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: false,
     reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION_FROM_XML
+    format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
@@ -98,7 +98,7 @@ ECHO = {
   facet_temporal_duration: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     default_values: ['No Temporal Information'],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION_FROM_XML,
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   }
 }
