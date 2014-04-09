@@ -24,7 +24,7 @@ class NsidcJsonToSolr
 # rubocop:disable MethodLength
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
-    temporal_values = generate_temporal_values(json_doc['temporalCoverages'])
+    temporal_coverage_values = generate_temporal_coverage_values(json_doc['temporalCoverages'])
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
@@ -44,10 +44,10 @@ class NsidcJsonToSolr
       'spatial_area' => translate_spatial_coverage_geom_to_spatial_area(json_doc['spatial_coverages']),
       'facet_spatial_coverage' => translate_spatial_coverage_geom_to_global_facet(json_doc['spatial_coverages']),
       'facet_spatial_scope' => translate_spatial_coverage_geom_to_spatial_scope_facet(json_doc['spatial_coverages']),
-      'temporal_coverages' => temporal_values['temporal_coverages'],
-      'temporal_duration' => temporal_values['temporal_duration'],
-      'temporal' => temporal_values['temporal'],
-      'facet_temporal_duration' => temporal_values['facet_temporal_duration'],
+      'temporal_coverages' => temporal_coverage_values['temporal_coverages'],
+      'temporal_duration' => temporal_coverage_values['temporal_duration'],
+      'temporal' => temporal_coverage_values['temporal'],
+      'facet_temporal_duration' => temporal_coverage_values['facet_temporal_duration'],
       'last_revision_date' => (SolrFormat.date_str json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
@@ -60,7 +60,7 @@ class NsidcJsonToSolr
   end
 # rubocop:enable MethodLength
 
-  def generate_temporal_values(temporal_coverages_json)
+  def generate_temporal_coverage_values(temporal_coverages_json)
     temporal_coverages = []
     temporal = []
     temporal_durations = []

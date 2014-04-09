@@ -1,6 +1,6 @@
 require 'date'
 
-#  Methods for generating formatted strings that can be indexed by SOLR
+#  Methods for generating formatted values that can be indexed by SOLR
 module SolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| SolrFormat.reduce_temporal_duration(values) }
   FORMAT_BINNING = proc { |format| SolrFormat.format_binning format.text }
