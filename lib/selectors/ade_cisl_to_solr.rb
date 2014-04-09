@@ -41,9 +41,9 @@ CISL = {
   },
   last_revision_date: {
       xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
-      default_values: [SolrStringFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+      default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
-      format: SolrStringFormat::DATE
+      format: SolrFormat::DATE
   },
   dataset_url: {
       xpaths: ['.//gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
@@ -78,7 +78,7 @@ CISL = {
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
-    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {

@@ -1,11 +1,11 @@
 require 'date'
 
 #  Methods for generating formatted strings that can be indexed by SOLR
-module SolrStringFormat
-  REDUCE_TEMPORAL_DURATION = proc { |values| SolrStringFormat.reduce_temporal_duration(values) }
-  FORMAT_BINNING = proc { |format| SolrStringFormat.format_binning format.text }
-  PARAMETER_BINNING = proc { |param| SolrStringFormat.parameter_binning param.text }
-  DATE = proc { |date | SolrStringFormat.date_str date.text }
+module SolrFormat
+  REDUCE_TEMPORAL_DURATION = proc { |values| SolrFormat.reduce_temporal_duration(values) }
+  FORMAT_BINNING = proc { |format| SolrFormat.format_binning format.text }
+  PARAMETER_BINNING = proc { |param| SolrFormat.parameter_binning param.text }
+  DATE = proc { |date | SolrFormat.date_str date.text }
 
   def self.get_spatial_facet(box)
     if box_invalid?(box)

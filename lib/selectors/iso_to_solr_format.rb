@@ -51,33 +51,33 @@ module IsoToSolrFormat
 
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
-    SolrStringFormat.get_spatial_facet(box)
+    SolrFormat.get_spatial_facet(box)
   end
 
   def self.get_spatial_scope_facet(box_node)
     box = bounding_box(box_node)
-    SolrStringFormat.get_spatial_scope_facet_with_bounding_box(box)
+    SolrFormat.get_spatial_scope_facet_with_bounding_box(box)
   end
 
   def self.temporal_display_str(temporal_node, formatted = false)
-    SolrStringFormat.temporal_display_str(date_range(temporal_node, formatted))
+    SolrFormat.temporal_display_str(date_range(temporal_node, formatted))
   end
 
   def self.get_temporal_duration(temporal_node)
     dr = date_range(temporal_node)
     dr[:end].to_s.empty? ? end_time = Time.now : end_time = Time.parse(dr[:end])
-    dr[:start].to_s.empty? ? duration = nil : duration = SolrStringFormat.get_temporal_duration(Time.parse(dr[:start]), end_time)
+    dr[:start].to_s.empty? ? duration = nil : duration = SolrFormat.get_temporal_duration(Time.parse(dr[:start]), end_time)
     duration
   end
 
   def self.get_temporal_duration_facet(temporal_node)
     duration = get_temporal_duration(temporal_node)
-    SolrStringFormat.get_temporal_duration_facet(duration)
+    SolrFormat.get_temporal_duration_facet(duration)
   end
 
   def self.temporal_index_str(temporal_node)
     dr = date_range(temporal_node)
-    SolrStringFormat.temporal_index_str(dr)
+    SolrFormat.temporal_index_str(dr)
   end
 
   def self.sponsored_program_facet(node)
@@ -98,13 +98,13 @@ module IsoToSolrFormat
 
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime'])
-    start_date = SolrStringFormat.date?(start_date) ? start_date : ''
+    start_date = SolrFormat.date?(start_date) ? start_date : ''
 
     end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime'])
-    end_date = SolrStringFormat.date?(end_date) ? end_date : ''
+    end_date = SolrFormat.date?(end_date) ? end_date : ''
 
-    formatted ? start_date = SolrStringFormat.date_str(start_date) : start_date
-    formatted ? end_date = SolrStringFormat.date_str(end_date) : end_date
+    formatted ? start_date = SolrFormat.date_str(start_date) : start_date
+    formatted ? end_date = SolrFormat.date_str(end_date) : end_date
 
     {
         start: start_date,

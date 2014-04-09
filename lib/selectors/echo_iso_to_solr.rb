@@ -38,9 +38,9 @@ ECHO = {
   },
   last_revision_date: {
     xpaths: ['.//Collection/LastUpdate'],
-    default_values: [SolrStringFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
     multivalue: false,
-    format: SolrStringFormat::DATE
+    format: SolrFormat::DATE
   },
   dataset_url: {
     xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Type/text(),'static URL')]/URL",
@@ -72,7 +72,7 @@ ECHO = {
   temporal_duration: {
     xpaths: ['.//Collection/Temporal/RangeDateTime'],
     multivalue: false,
-    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {

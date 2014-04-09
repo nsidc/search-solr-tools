@@ -44,7 +44,7 @@ describe NsidcJsonToSolr do
 
   it 'translates NSIDC JSON date to SOLR format iso8601 date' do
     date = '2013-03-12T21:18:12-06:00'
-    (SolrStringFormat.date_str date).should eql '2013-03-12T21:18:12Z'
+    (SolrFormat.date_str date).should eql '2013-03-12T21:18:12Z'
   end
 
   it 'translates NSIDC internal data center to facet_sponsored_program string' do

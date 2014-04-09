@@ -71,7 +71,7 @@ NSIDC = {
   published_date: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
     multivalue: false,
-    format: SolrStringFormat::DATE
+    format: SolrFormat::DATE
   },
   spatial_coverages: {
     xpaths: ['.//gmd:EX_GeographicBoundingBox'],
@@ -97,7 +97,7 @@ NSIDC = {
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: false,
-    reduce: SolrStringFormat::REDUCE_TEMPORAL_DURATION,
+    reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
@@ -108,7 +108,7 @@ NSIDC = {
   last_revision_date: {
     xpaths: ['.//gmd:dateStamp/gco:Date'],
     multivalue: false,
-    format: SolrStringFormat::DATE
+    format: SolrFormat::DATE
   },
   dataset_url: {
     xpaths: ['.//gmd:dataSetURI'],
@@ -152,12 +152,12 @@ NSIDC = {
     xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
     default_values: ['Not specified'],
     multivalue: true,
-    format: SolrStringFormat::FORMAT_BINNING
+    format: SolrFormat::FORMAT_BINNING
   },
   facet_parameter: {
     xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
     multivalue: true,
-    format: SolrStringFormat::PARAMETER_BINNING
+    format: SolrFormat::PARAMETER_BINNING
   },
   facet_sponsored_program: {
     xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],

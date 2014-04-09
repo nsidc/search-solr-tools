@@ -38,7 +38,7 @@ class NsidcJsonToSolr
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
-      'published_date' => (SolrStringFormat.date_str json_doc['releaseDate']),
+      'published_date' => (SolrFormat.date_str json_doc['releaseDate']),
       'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatial_coverages']),
       'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatial_coverages']),
       'spatial_area' => translate_spatial_coverage_geom_to_spatial_area(json_doc['spatial_coverages']),
@@ -48,7 +48,7 @@ class NsidcJsonToSolr
       'temporal_duration' => temporal_values['temporal_duration'],
       'temporal' => temporal_values['temporal'],
       'facet_temporal_duration' => temporal_values['facet_temporal_duration'],
-      'last_revision_date' => (SolrStringFormat.date_str json_doc['lastRevisionDate']),
+      'last_revision_date' => (SolrFormat.date_str json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
       'facet_format' => ((json_doc['distributionFormats'].empty?) ? ['Not specified'] : json_doc['distributionFormats']),
@@ -67,12 +67,12 @@ class NsidcJsonToSolr
     temporal_coverages_json.each do |coverage|
       start_time = Time.parse(coverage['start']) unless coverage['start'].to_s.empty?
       end_time = Time.parse(coverage['end']) unless coverage['end'].to_s.empty?
-      temporal_durations << (SolrStringFormat.get_temporal_duration start_time, end_time)
-      temporal_coverages << SolrStringFormat.temporal_display_str(start: (start_time.to_s.empty? ? nil : start_time.strftime('%Y-%m-%d')), end: (end_time.to_s.empty? ? nil : end_time.strftime('%Y-%m-%d')))
-      temporal << SolrStringFormat.temporal_index_str(start: start_time.to_s, end: end_time.to_s)
+      temporal_durations << (SolrFormat.get_temporal_duration start_time, end_time)
+      temporal_coverages << SolrFormat.temporal_display_str(start: (start_time.to_s.empty? ? nil : start_time.strftime('%Y-%m-%d')), end: (end_time.to_s.empty? ? nil : end_time.strftime('%Y-%m-%d')))
+      temporal << SolrFormat.temporal_index_str(start: start_time.to_s, end: end_time.to_s)
     end unless temporal_coverages_json.nil?
-    max_temporal_duration = SolrStringFormat.reduce_temporal_duration temporal_durations
-    facet = SolrStringFormat.get_temporal_duration_facet max_temporal_duration
+    max_temporal_duration = SolrFormat.reduce_temporal_duration temporal_durations
+    facet = SolrFormat.get_temporal_duration_facet max_temporal_duration
     { 'temporal_coverages' => temporal_coverages, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal, 'facet_temporal_duration' => facet  }
   end
 
@@ -196,7 +196,7 @@ class NsidcJsonToSolr
     spatial_coverage_geom.each do |geom|
       geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
       bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
-      return 'Global' if SolrStringFormat.box_global?(bbox_hash)
+      return 'Global' if SolrFormat.box_global?(bbox_hash)
     end
 
     'Non Global'
@@ -206,12 +206,12 @@ class NsidcJsonToSolr
     scopes = []
 
     if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
-      scopes << SolrStringFormat.get_spatial_scope_facet_with_bounding_box(nil)
+      scopes << SolrFormat.get_spatial_scope_facet_with_bounding_box(nil)
     else
       spatial_coverage_geom.each do |geom|
         geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
         bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
-        scopes << SolrStringFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
+        scopes << SolrFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
       end
     end
 
@@ -239,7 +239,7 @@ class NsidcJsonToSolr
     return [] if parameters_strings.nil?
     facet_params = []
     parameters_strings.each do |str|
-      facet_params << SolrStringFormat.parameter_binning(str)
+      facet_params << SolrFormat.parameter_binning(str)
     end
     facet_params
   end
