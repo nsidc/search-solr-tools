@@ -237,9 +237,10 @@ class NsidcJsonToSolr
   def translate_parameters_to_string(parameters_json)
     parameters_strings = []
     parameters_json.each do |param_json|
-      parameters_strings << generate_parameters_part_array(param_json).join(' > ')
+      param_string = generate_parameters_part_array(param_json).join(' > ')
+      parameters_strings << param_string unless param_string.empty?
     end
-    parameters_strings.uniq!
+    parameters_strings.uniq
   end
 
   def translate_parameters_to_facet_parameters(parameters_json)
