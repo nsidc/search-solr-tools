@@ -31,7 +31,7 @@ class NsidcJsonToSolr
       'dataset_version' => json_doc['majorVersion']['version'],
       'data_centers' => DATA_CENTER_LONG_NAME,
       'facet_data_center' => "#{DATA_CENTER_LONG_NAME} | #{DATA_CENTER_SHORT_NAME}",
-      'authors' => translate_personnel_to_authors(json_doc['personnel']),
+      'authors' => translate_personnel_and_creators_to_authors(json_doc['personnel'], json_doc['dataCitation']['creators']),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
       'parameters' => translate_parameters(json_doc['parameters']),
       'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
@@ -142,9 +142,10 @@ class NsidcJsonToSolr
     internal_data_centers
   end
 
-  def translate_personnel_to_authors(personnel_json)
+  def translate_personnel_and_creators_to_authors(personnel_json, creator_json)
     authors = []
-    personnel_json.each do |person|
+    contact_array = personnel_json | creator_json
+    contact_array.each do |person|
       unless person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
         author_string = person['firstName']
         author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
