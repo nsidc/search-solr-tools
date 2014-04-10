@@ -122,6 +122,21 @@ describe NsidcJsonToSolr do
     params.length.should eql 4
   end
 
+  it 'translates G00799 parameters to parameter string' do
+    parameters_json = [{ 'name' => 'Ice Extent', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Ice Extent', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
+                       { 'name' => 'Ice Extent', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Terrestrial Hydrosphere', 'term' => 'Snow/Ice', 'variableLevel1' => 'Ice Extent', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
+                       { 'name' => 'Ice Extent', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Ice Extent', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
+                       { 'name' => 'Sea Ice Concentration', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
+                       { 'name' => 'Sea Ice Concentration', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
+
+    params = @translator.translate_parameters_to_string parameters_json
+    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
+    params.should include('EARTH SCIENCE > Terrestrial Hydrosphere > Snow/Ice > Ice Extent')
+    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
+    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
+    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
+  end
+
   it 'translates GeoJSON polygon to spatial display str' do
     spatial_coverages_json = [{ 'geom4326' => { 'type' => 'Polygon', 'coordinates' => [[[-180.0, 90.0], [180.0, 90.0], [180.0, 30.98], [-180.0, 30.98], [-180.0, 90.0]]] } },
                               { 'geom4326' => { 'type' => 'Polygon', 'coordinates' => [[[-180.0, -39.23], [180.0, -39.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -39.23]]] } }]
