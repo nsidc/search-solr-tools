@@ -83,7 +83,7 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
    {
      title: 'should grab the correct spatial scope facet',
      xpath: "/doc/field[@name='facet_spatial_scope']",
-     expected_text: 'No Spatial Information'
+     expected_text: ''
    },
    {
      title: 'should grab the correct temporal duration facet',

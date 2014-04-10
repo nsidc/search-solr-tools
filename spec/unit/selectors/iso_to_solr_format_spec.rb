@@ -45,6 +45,10 @@ describe 'ISO to SOLR format methods' do
       IsoToSolrFormat.get_spatial_facet(bad_geo_node).should eql 'No Spatial Information'
     end
 
+    it 'should set the spatial scope to "No Spatial Information" when missing bounds' do
+      IsoToSolrFormat.get_spatial_scope_facet(bad_geo_node).should eql nil
+    end
+
     it 'should set the duration(s) from a TemporalExtent node' do
       temporal_nodes = fixture.xpath('.//gmd:extent').first
       IsoToSolrFormat.get_temporal_duration_facet(temporal_nodes).should eql ['1+ years', '5+ years', '10+ years']

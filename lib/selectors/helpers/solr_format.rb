@@ -60,7 +60,7 @@ module SolrFormat
 
   def self.get_spatial_scope_facet_with_bounding_box(bbox)
     if bbox.nil? || box_invalid?(bbox)
-      facet = 'No Spatial Information'
+      return nil
     elsif box_global?(bbox)
       facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
     elsif box_local?(bbox)
