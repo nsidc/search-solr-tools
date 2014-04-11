@@ -9,6 +9,7 @@ class NsidcJsonToSolr
   DATA_CENTER_SHORT_NAME = 'NSIDC'
   NOT_SPECIFIED_FACET_VALUE = 'Not specified'
 
+  PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
   TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
   SUBHOURLY_INDEX = 0
   HOURLY_INDEX = 1
@@ -236,18 +237,13 @@ class NsidcJsonToSolr
   def translate_parameters(parameters_json)
     parameters = []
     parameters_json.each do |param_json|
-      parameters.concat(generate_parameters_part_array(param_json))
+      parameters.concat(generate_part_array(param_json, PARAMETER_PARTS))
     end
     parameters
   end
 
   def translate_parameters_to_string(parameters_json)
-    parameters_strings = []
-    parameters_json.each do |param_json|
-      param_string = generate_parameters_part_array(param_json).join(' > ')
-      parameters_strings << param_string unless param_string.empty?
-    end
-    parameters_strings.uniq
+    translate_json_string(parameters_json, PARAMETER_PARTS)
   end
 
   def translate_parameters_to_facet_parameters(parameters_json)
@@ -271,23 +267,20 @@ class NsidcJsonToSolr
     facet_format
   end
 
-  def translate_json_string(json)
-    json_string = []
+  def translate_json_string(json, limit_values = nil)
+    json_strings = []
 
     json.each do |item|
-      json_string << generate_part_array(item).join(' > ')
+      json_string = generate_part_array(item, limit_values).join(' > ')
+      json_strings << json_string unless json_string.empty?
     end
 
-    json_string
+    json_strings.uniq
   end
 
-  def generate_parameters_part_array(json)
-    gcmd_var_hash = json.select { |k, v| %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable).include?(k) }
-    generate_part_array(gcmd_var_hash)
-  end
-
-  def generate_part_array(json)
+  def generate_part_array(json, limit_values = nil)
     parts =  []
+    json = json.select { |k, v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
 
     json.each do |k, v|
       parts << v unless v.to_s.empty?
