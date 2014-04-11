@@ -1,6 +1,6 @@
 require 'ade_harvester'
 require 'webmock/rspec'
-require 'csw_iso_query_builder'
+require 'selectors/helpers/csw_iso_query_builder'
 
 describe ADEHarvester do
   describe 'Harvest process' do

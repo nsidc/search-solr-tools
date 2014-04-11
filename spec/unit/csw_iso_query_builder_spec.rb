@@ -1,4 +1,4 @@
-require 'csw_iso_query_builder'
+require 'selectors/helpers/csw_iso_query_builder'
 
 describe CswIsoQueryBuilder do
 
