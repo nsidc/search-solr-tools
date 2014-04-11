@@ -213,7 +213,6 @@ describe NsidcJsonToSolr do
     spatial_coverages_json = []
     scope_facet = @translator.translate_spatial_coverage_geom_to_spatial_scope_facet(spatial_coverages_json)
     scope_facet.length.should eql 0
-    scope_facet[0].should eql nil
   end
 
   it 'translates NSIDC platforms json to solr platforms json' do
