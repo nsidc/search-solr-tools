@@ -39,7 +39,7 @@ describe NsidcJsonHarvester do
       result[:add_docs].first['add']['doc']['data_centers'].should eql('National Snow and Ice Data Center')
       result[:add_docs].first['add']['doc']['published_date'].should eql('2013-01-01T00:00:00Z')
       result[:add_docs].first['add']['doc']['last_revision_date'].should eql('2013-03-12T21:18:12Z')
-      result[:add_docs].first['add']['doc']['facet_format'].should eql(%w(Documents Excel))
+      result[:add_docs].first['add']['doc']['facet_format'].should eql(['Not specified'])
     end
 
     it 'constructs a sucessful doc children hash and an errors hash for failured ids' do

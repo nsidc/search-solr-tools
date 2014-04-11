@@ -84,9 +84,6 @@
   "popularity": 4,
   "lastRevisionDate": "2013-03-12T21:18:12-06:00",
   "datasetUrl": "http://127.0.0.1:11580/data/G02199",
-  "distributionFormats": [
-    "PDF",
-    "Microsoft Excel"
-  ],
+  "distributionFormats": [],
   "temporalCoverages": [{"start": "1933-03-23T00:00:00-07:00", "end": "1933-08-29T00:00:00-07:00"}]
  }
