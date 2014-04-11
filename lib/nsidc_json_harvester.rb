@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'rest-client'
 require './lib/harvester_base'
-require './lib/nsidc_json_to_solr'
+require './lib/selectors/nsidc_json_to_solr'
 require 'json'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated

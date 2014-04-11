@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'date'
-require './lib/selectors.rb'
+require './lib/selectors/helpers/selectors'
 
 # Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object
 # This class should be constructed passing the selector file hash as a parameter (see selectors.rb)

@@ -1,5 +1,5 @@
 require 'nokogiri'
-require './lib/iso_to_solr'
+require './lib/selectors/helpers/iso_to_solr'
 require './lib/harvester_base'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated

@@ -1,6 +1,6 @@
 require 'gi_cat_driver'
-require './lib/csw_iso_query_builder'
-require './lib/iso_to_solr'
+require './lib/selectors/helpers/csw_iso_query_builder'
+require './lib/selectors/helpers/iso_to_solr'
 require './lib/harvester_base'
 
 # Harvests data from GI-Cat and inserts it into Solr after it has been translated
