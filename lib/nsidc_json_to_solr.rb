@@ -25,13 +25,14 @@ class NsidcJsonToSolr
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
     temporal_coverage_values = generate_temporal_coverage_values(json_doc['temporalCoverages'])
+
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
       'dataset_version' => json_doc['majorVersion']['version'],
       'data_centers' => DATA_CENTER_LONG_NAME,
       'facet_data_center' => "#{DATA_CENTER_LONG_NAME} | #{DATA_CENTER_SHORT_NAME}",
-      'authors' => translate_personnel_to_authors(json_doc['personnel']),
+      'authors' => translate_personnel_and_creators_to_authors(json_doc['personnel'], generate_data_citation_creators(json_doc['dataCitation'])),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
       'parameters' => translate_parameters(json_doc['parameters']),
       'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
@@ -59,6 +60,11 @@ class NsidcJsonToSolr
     )
   end
 # rubocop:enable MethodLength
+
+  def generate_data_citation_creators(data_citation)
+    data_citation.nil? ? creators = [] : creators = data_citation['creators']
+    creators
+  end
 
   def generate_temporal_coverage_values(temporal_coverages_json)
     temporal_coverages = []
@@ -142,9 +148,10 @@ class NsidcJsonToSolr
     internal_data_centers
   end
 
-  def translate_personnel_to_authors(personnel_json)
+  def translate_personnel_and_creators_to_authors(personnel_json, creator_json)
     authors = []
-    personnel_json.each do |person|
+    contact_array = personnel_json.to_a | creator_json.to_a
+    contact_array.each do |person|
       unless person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
         author_string = person['firstName']
         author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
@@ -155,7 +162,7 @@ class NsidcJsonToSolr
         end
       end
     end
-    authors
+    authors.uniq
   end
 
   def translate_spatial_coverage_geom_to_spatial_display_str(spatial_coverage_geom)

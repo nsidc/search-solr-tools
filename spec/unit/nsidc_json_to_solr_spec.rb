@@ -55,17 +55,51 @@ describe NsidcJsonToSolr do
     facet_values[1].should eql 'NSIDC National Oceanic and Atmospheric Administration | NOAA @ NSIDC'
   end
 
+  it 'translates NSIDC citation creators to authors list' do
+    creator_json = { 'creators' => [
+                   { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
+                   { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+                   { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
+                   { 'role' => '',       'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' }] }
+    authors = @translator.translate_personnel_and_creators_to_authors(nil, @translator.generate_data_citation_creators(creator_json))
+    authors[0].should eql('Claire L. Parkinson')
+    authors[1].should eql('Per Gloersen')
+    authors[2].should eql('H. Jay Zwally')
+  end
+
   it 'translates NSIDC personnel json to authors list' do
     personnel_json = [{ 'role' => 'technical contact', 'firstName' => 'NSIDC', 'middleName' => '', 'lastName' => 'User Services' },
                       { 'role' => 'investigator', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
                       { 'role' => 'investigator', 'firstName' => 'Per', 'middleName' => '', 'lastName' => 'Gloersen' },
                       { 'role' => 'investigator', 'firstName' => 'H. Jay', 'middleName' => '', 'lastName' => 'Zwally' }]
 
-    authors = @translator.translate_personnel_to_authors personnel_json
+    authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(nil))
     authors[0].should_not include('NSIDC User Services')
     authors[0].should eql('Claire L. Parkinson')
     authors[1].should eql('Per Gloersen')
     authors[2].should eql('H. Jay Zwally')
+  end
+
+  it 'translates NSIDC citation creators and personnel json to authors list without duplicates' do
+
+    personnel_json = [{ 'role' => 'technical contact', 'firstName' => 'NSIDC', 'middleName' => '', 'lastName' => 'User Services' },
+                      { 'role' => 'investigator', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+                      { 'role' => 'investigator', 'firstName' => 'Per', 'middleName' => '', 'lastName' => 'Gloersen' },
+                      { 'role' => 'investigator', 'firstName' => 'H. Jay', 'middleName' => '', 'lastName' => 'Zwally' }]
+
+    creator_json = { 'creators' => [
+                    { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
+                    { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+                    { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
+                    { 'role' => 'author', 'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' },
+                    { 'role' => 'author', 'firstName' => 'Ian',    'middleName' => 'M',  'lastName' => 'Banks' }] }
+
+    authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(creator_json))
+    authors.length.should eql 4
+    authors[0].should eql('Claire L. Parkinson')
+    authors[1].should eql('Per Gloersen')
+    authors[2].should eql('H. Jay Zwally')
+    authors[3].should eql('Ian M Banks')
   end
 
   it 'translates NSIDC parameters json to parameters' do
