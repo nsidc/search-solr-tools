@@ -51,7 +51,7 @@ class NsidcJsonToSolr
       'last_revision_date' => (SolrFormat.date_str json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
-      'facet_format' => ((json_doc['distributionFormats'].empty?) ? ['Not specified'] : json_doc['distributionFormats']),
+      'facet_format' => translate_format_to_facet_format(json_doc['distributionFormats']),
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
@@ -251,6 +251,17 @@ class NsidcJsonToSolr
       facet_params << SolrFormat.parameter_binning(str)
     end
     facet_params
+  end
+
+  def translate_format_to_facet_format(format_json)
+    return [] if format_json.nil?
+
+    facet_format = []
+
+    format_json.each do |format|
+      facet_format << SolrFormat.format_binning(format)
+    end
+    facet_format
   end
 
   def translate_json_string(json)

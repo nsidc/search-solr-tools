@@ -236,6 +236,15 @@ describe NsidcJsonToSolr do
     instruments.should include('SSM/I > Special Sensor Microwave/Imager')
   end
 
+  it 'translates NSIDC distribution formats json to solr format facet json' do
+    format_json = ['.dat', 'PDF']
+
+    formats = @translator.translate_format_to_facet_format(format_json)
+
+    formats.should include('.dat')
+    formats.should include('Documents')
+  end
+
   describe 'temporal resolution faceting' do
     it 'translates NSIDC temporal resolutions to solr facet temporal resolution values' do
       parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
