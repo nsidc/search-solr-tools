@@ -1,4 +1,4 @@
-require 'iso_to_solr'
+require 'selectors/helpers/iso_to_solr'
 
 describe 'ICES ISO to Solr converter' do
 

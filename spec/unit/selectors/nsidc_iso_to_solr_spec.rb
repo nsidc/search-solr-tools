@@ -1,4 +1,4 @@
-require 'iso_to_solr'
+require 'selectors/helpers/iso_to_solr'
 require 'date'
 
 describe 'NSIDC ISO to SOLR converter' do

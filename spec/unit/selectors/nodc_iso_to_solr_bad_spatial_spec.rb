@@ -1,4 +1,4 @@
-require 'iso_to_solr'
+require 'selectors/helpers/iso_to_solr'
 
 describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
 

@@ -1,4 +1,4 @@
-require 'nsidc_json_to_solr'
+require 'selectors/nsidc_json_to_solr'
 
 describe NsidcJsonToSolr do
   before :each do
