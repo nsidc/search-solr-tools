@@ -9,5 +9,5 @@ task restart_with_clean_nsidc_harvest: ['server:stop', 'build:setup', 'server:st
   puts 'Sleeping 10 seconds for server to start'
   sleep(10)
   Rake::Task['harvest:delete_all'].invoke
-  Rake::Task['harvest:nsidc_oai_iso'].invoke
+  Rake::Task['harvest:nsidc_json'].invoke
 end
