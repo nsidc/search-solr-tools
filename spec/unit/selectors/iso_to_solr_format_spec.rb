@@ -42,7 +42,7 @@ describe 'ISO to SOLR format methods' do
     end
 
     it 'should set the spatial coverage(s) to "No Spatial Information" when missing bounds' do
-      IsoToSolrFormat.get_spatial_facet(bad_geo_node).should eql 'No Spatial Information'
+      IsoToSolrFormat.get_spatial_facet(bad_geo_node).should be_nil
     end
 
     it 'should set the spatial scope to "No Spatial Information" when missing bounds' do

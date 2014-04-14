@@ -229,7 +229,7 @@ describe NsidcJsonToSolr do
   it 'translates GeoJSON without geometries to single no spatial facet value' do
     spatial_coverages_json = []
     global_facet = @translator.translate_spatial_coverage_geom_to_global_facet(spatial_coverages_json)
-    global_facet.should eql 'No Spatial Information'
+    global_facet.should be_nil
   end
 
   it 'translates GeoJSON with multiple geometries to multiple scope values' do

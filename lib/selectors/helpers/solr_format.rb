@@ -9,7 +9,7 @@ module SolrFormat
 
   def self.get_spatial_facet(box)
     if box_invalid?(box)
-      facet = 'No Spatial Information'
+      facet = nil
     elsif box_global?(box)
       facet = 'Global'
     else

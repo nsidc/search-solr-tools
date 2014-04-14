@@ -208,7 +208,7 @@ class NsidcJsonToSolr
   end
 
   def translate_spatial_coverage_geom_to_global_facet(spatial_coverage_geom)
-    return 'No Spatial Information' if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
+    return nil if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
 
     spatial_coverage_geom.each do |geom|
       geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
