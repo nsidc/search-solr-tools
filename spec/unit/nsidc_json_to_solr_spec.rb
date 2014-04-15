@@ -22,7 +22,7 @@ describe NsidcJsonToSolr do
     temporal_values['temporal_coverages'].should eql []
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql []
-    temporal_values['facet_temporal_duration'].should eql 'No Temporal Information'
+    temporal_values['facet_temporal_duration'].should eql SolrFormat::NOT_SPECIFIED
   end
 
   it 'generates a temporal duration value based on the longest single temporal coverage' do
@@ -39,7 +39,7 @@ describe NsidcJsonToSolr do
     temporal_values['temporal_coverages'].should eql [',1992-01-01']
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql ['00.010101 19.920101']
-    temporal_values['facet_temporal_duration'].should eql 'No Temporal Information'
+    temporal_values['facet_temporal_duration'].should eql SolrFormat::NOT_SPECIFIED
   end
 
   it 'translates NSIDC JSON date to SOLR format iso8601 date' do

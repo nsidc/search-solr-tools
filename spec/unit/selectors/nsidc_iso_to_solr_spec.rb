@@ -160,7 +160,7 @@ describe 'NSIDC ISO to SOLR converter' do
     {
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
-      expected_text: '1+ years5+ years10+ yearsNo Temporal Information1+ years5+ years10+ years'
+      expected_text: '1+ years5+ years10+ yearsNot specified1+ years5+ years10+ years'
     },
     {
       title: 'should include the sponsored program facet',

@@ -7,6 +7,8 @@ module SolrFormat
   PARAMETER_BINNING = proc { |param| SolrFormat.parameter_binning param.text }
   DATE = proc { |date | SolrFormat.date_str date.text }
 
+  NOT_SPECIFIED = 'Not specified'
+
   def self.get_spatial_facet(box)
     if box_invalid?(box)
       facet = nil
@@ -41,7 +43,7 @@ module SolrFormat
   end
 
   def self.get_temporal_duration_facet(duration)
-    return 'No Temporal Information' if duration.nil?
+    return NOT_SPECIFIED if duration.nil?
     years = duration.to_i / 365
     temporal_duration_range(years)
   end

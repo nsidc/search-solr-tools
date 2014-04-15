@@ -7,7 +7,7 @@ require 'iso8601'
 class NsidcJsonToSolr
   DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
   DATA_CENTER_SHORT_NAME = 'NSIDC'
-  NOT_SPECIFIED_FACET_VALUE = 'Not specified'
+  NOT_SPECIFIED = SolrFormat::NOT_SPECIFIED
 
   PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
   TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
@@ -53,7 +53,7 @@ class NsidcJsonToSolr
       'last_revision_date' => (SolrFormat.date_str json_doc['lastRevisionDate']),
       'dataset_url' => json_doc['datasetUrl'],
       'distribution_formats' => json_doc['distributionFormats'],
-      'facet_format' => (json_doc['distributionFormats'].empty?) ? ['Not specified'] : translate_format_to_facet_format(json_doc['distributionFormats']),
+      'facet_format' => (json_doc['distributionFormats'].empty?) ? [NOT_SPECIFIED] : translate_format_to_facet_format(json_doc['distributionFormats']),
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
@@ -94,19 +94,19 @@ class NsidcJsonToSolr
 
   # rubocop:disable MethodLength, CyclomaticComplexity
   def bin_temporal_resolution_value(temporal_resolution)
-    return NOT_SPECIFIED_FACET_VALUE if temporal_resolution.nil? || temporal_resolution.empty?
+    return NOT_SPECIFIED if temporal_resolution.nil? || temporal_resolution.empty?
 
     if temporal_resolution['type'] == 'single'
-      return 'Not specified' if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
+      return NOT_SPECIFIED if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
       i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['resolution'])
       return TEMPORAL_RESOLUTION_FACET_VALUES[i]
     elsif temporal_resolution['type'] == 'range'
-      return 'Not specified' if temporal_resolution['min_resolution'].nil? || temporal_resolution['min_resolution'].empty?
+      return NOT_SPECIFIED if temporal_resolution['min_resolution'].nil? || temporal_resolution['min_resolution'].empty?
       i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['min_resolution'])
       j = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['max_resolution'])
       return TEMPORAL_RESOLUTION_FACET_VALUES[i..j]
     else
-      return NOT_SPECIFIED_FACET_VALUE
+      return NOT_SPECIFIED
     end
   end
 

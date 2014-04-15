@@ -106,7 +106,7 @@ EOL = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
-    default_values: ['No Temporal Information'],
+    default_values: [SolrFormat::NOT_SPECIFIED],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   }

@@ -144,13 +144,13 @@ NSIDC = {
   },
   facet_temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
-    default_values: ['No Temporal Information'],
+    default_values: [SolrFormat::NOT_SPECIFIED],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
   facet_format: {
     xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
-    default_values: ['Not specified'],
+    default_values: [SolrFormat::NOT_SPECIFIED],
     multivalue: true,
     format: SolrFormat::FORMAT_BINNING
   },
