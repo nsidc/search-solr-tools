@@ -345,12 +345,12 @@ describe NsidcJsonToSolr do
     end
 
     it 'bins varies as varies' do
-      @translator.bin_temporal_resolution_value('type' => 'varies').should eql 'Not specified'
+      @translator.bin_temporal_resolution_value('type' => 'varies').should eql SolrFormat::NOT_SPECIFIED
     end
 
     it 'returns not specified if the value is blank' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => '').should eql 'Not specified'
-      @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => '', 'max_resolution' => '').should eql 'Not specified'
+      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => '').should eql SolrFormat::NOT_SPECIFIED
+      @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => '', 'max_resolution' => '').should eql SolrFormat::NOT_SPECIFIED
     end
   end
 end
