@@ -216,14 +216,14 @@ describe NsidcJsonToSolr do
                               { 'geom4326' => { 'type' => 'Polygon', 'coordinates' => [[[-180.0, -31.23], [180.0, -31.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -31.23]]] } },
                               { 'geom4326' => { 'type' => 'Point', 'coordinates' => [166.0, -85.0] } }]
     global_facet = @translator.translate_spatial_coverage_geom_to_global_facet(spatial_coverages_json)
-    global_facet.should eql 'Global'
+    global_facet.should eql 'Show Global Only'
   end
 
   it 'translates GeoJSON geometries with no global values to single non-global facet value' do
     spatial_coverages_json = [{ 'geom4326' => { 'type' => 'Polygon', 'coordinates' => [[[-180.0, -31.23], [180.0, -31.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -31.23]]] } },
                               { 'geom4326' => { 'type' => 'Point', 'coordinates' => [166.0, -85.0] } }]
     global_facet = @translator.translate_spatial_coverage_geom_to_global_facet(spatial_coverages_json)
-    global_facet.should eql 'Non Global'
+    global_facet.should be_nil
   end
 
   it 'translates GeoJSON without geometries to single no spatial facet value' do

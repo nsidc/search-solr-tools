@@ -212,10 +212,10 @@ class NsidcJsonToSolr
     spatial_coverage_geom.each do |geom|
       geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
       bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
-      return 'Global' if SolrFormat.box_global?(bbox_hash)
+      return 'Show Global Only' if SolrFormat.box_global?(bbox_hash)
     end
 
-    'Non Global'
+    nil
   end
 
   def translate_spatial_coverage_geom_to_spatial_scope_facet(spatial_coverage_geom)
