@@ -16,7 +16,7 @@ module NsidcFormatMapping
     '.*Microsoft Word.*' => 'Documents',
     '.*Paper.*' => 'Documents',
     '.*PDF.*' => 'Documents',
-    '.*Microsoft Excel.*' => 'Excel',
+    '.*Microsoft Excel.*' => 'Microsoft Excel',
     '.*Geographic Tagged Image File Format \(GeoTIFF\) \(\.geotiff\).*' => 'GeoTIFF',
     '.*HDF.*' => 'HDF/HDF-EOS',
     '.*HDF-EOS.*' => 'HDF/HDF-EOS',
