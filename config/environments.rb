@@ -81,6 +81,16 @@ module SolrEnvironments
                                          gi_cat_csw_url: 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
                                          gi_cat_url: 'http://frozen.colorado.edu:11380/api/gi-cat',
                                          host: 'frozen.colorado.edu'
-                                     )
+                                     ),
+      vm_production: COMMON.clone.merge(
+        setup_dir: '/opt/solr-search/'
+        deployment_target: '/opt/solr-search/',
+        oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+        nsidc_oai_identifiers_url: 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+        nsidc_dataset_metadata_url: 'http://integration.nsidc.org/api/dataset/metadata/',
+        gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
+        gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
+        host: 'localhost'
+      )
   }
 end

@@ -12,7 +12,7 @@ cd $SCRIPT_PATH
 set -x
 set -e
 export RUBY_BIN=/opt/ruby19-local/bin/
-export LOCATION=/live/apps/nsidc-open-search-solr
+export LOCATION=/opt/solr-search
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
@@ -24,7 +24,7 @@ bundle install
 if [[ -z "$2" ]]
 then
   env="integration"
-elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ]
+elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ] || [ "$2" == "blue" ]
 then
   env="$2"
 else
@@ -50,7 +50,13 @@ then
    bundle exec rake harvest:nsidc_json[$env]
 elif [ "$1" == "harvest-ade" ]
 then 
-   bundle exec rake harvest:ade[$env,$profile]
+   bundle exec rake harvest:ade[$env,CISL]
+   bundle exec rake harvest:echo[$env]
+   bundle exec rake harvest:ade[$env,EOL]
+   bundle exec rake harvest:ices[$env]
+   bundle exec rake harvest:ade[$env,NMI]
+   bundle exec rake harvest:nodc[$env]
+   bundle exec rake harvest:ade[$env,RDA]
 elif [ "$1" == "delete" ]
 then
    bundle exec rake harvest:delete_all[$env]
