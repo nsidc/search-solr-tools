@@ -4,6 +4,7 @@ function stop_solr(){
     if [ -e "$PFILE" ]
     then
       PID=$(cat $PFILE)
+      rm $PFILE
       kill -0 $PID || true
       if [ $? -eq 0 ]
       then
@@ -14,7 +15,6 @@ function stop_solr(){
       then
         kill -9 $PID
       fi
-      rm $PFILE
     else
       echo "SOLR is already stopped"
     fi
