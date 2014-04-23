@@ -1,4 +1,5 @@
 require 'date'
+require './lib/selectors/helpers/bounding_box_util'
 
 #  Methods for generating formatted values that can be indexed by SOLR
 module SolrFormat
@@ -10,9 +11,9 @@ module SolrFormat
   NOT_SPECIFIED = 'Not specified'
 
   def self.get_spatial_facet(box)
-    if box_invalid?(box)
+    if BoundingBoxUtil.box_invalid?(box)
       facet = nil
-    elsif box_global?(box)
+    elsif BoundingBoxUtil.box_global?(box)
       facet = 'Global'
     else
       facet = 'Non Global'
@@ -61,11 +62,11 @@ module SolrFormat
   end
 
   def self.get_spatial_scope_facet_with_bounding_box(bbox)
-    if bbox.nil? || box_invalid?(bbox)
+    if bbox.nil? || BoundingBoxUtil.box_invalid?(bbox)
       return nil
-    elsif box_global?(bbox)
+    elsif BoundingBoxUtil.box_global?(bbox)
       facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
-    elsif box_local?(bbox)
+    elsif BoundingBoxUtil.box_local?(bbox)
       facet = 'Less than 1 degree of latitude change | Local'
     else
       facet = 'Between 1 and 170 degrees of latitude change | Regional'
@@ -155,18 +156,5 @@ module SolrFormat
     end
 
     nil
-  end
-
-  def self.box_invalid?(box)
-    [:north, :south, :east, :west].any? { |d| box[d].nil? || box[d].empty? }
-  end
-
-  def self.box_global?(box)
-    box[:south].to_f < -85.0 && box[:north].to_f > 85.0
-  end
-
-  def self.box_local?(box)
-    distance = box[:north].to_f - box[:south].to_f
-    distance < 1
   end
 end

@@ -1,7 +1,8 @@
 # rubocop:disable ClassLength
-require './lib/selectors/helpers/iso_to_solr_format'
-require 'rgeo/geo_json'
 require 'iso8601'
+require 'rgeo/geo_json'
+require './lib/selectors/helpers/bounding_box_util'
+require './lib/selectors/helpers/iso_to_solr_format'
 
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
@@ -211,8 +212,8 @@ class NsidcJsonToSolr
 
     spatial_coverage_geom.each do |geom|
       geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-      bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
-      return 'Show Global Only' if SolrFormat.box_global?(bbox_hash)
+      bbox_hash = BoundingBoxUtil.bounding_box_hash_from_geo_json(geo_json)
+      return 'Show Global Only' if BoundingBoxUtil.box_global?(bbox_hash)
     end
 
     nil
@@ -224,7 +225,7 @@ class NsidcJsonToSolr
     unless spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
       spatial_coverage_geom.each do |geom|
         geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-        bbox_hash = NsidcJsonToSolr.bounding_box_hash(geo_json)
+        bbox_hash = BoundingBoxUtil.bounding_box_hash_from_geo_json(geo_json)
         scope = SolrFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
         scopes << scope unless scope.nil?
       end
@@ -286,15 +287,6 @@ class NsidcJsonToSolr
     end
 
     parts
-  end
-
-  def self.bounding_box_hash(geometry)
-    if geometry.geometry_type.to_s.downcase.eql?('point')
-      return { west: geometry.x.to_s, south: geometry.y.to_s, east: geometry.x.to_s, north: geometry.y.to_s }
-    else
-      bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geometry)
-      return { west: bbox.min_x.to_s, south: bbox.min_y.to_s, east: bbox.max_x.to_s, north: bbox.max_y.to_s }
-    end
   end
 end
 # rubocop:disable ClassLength

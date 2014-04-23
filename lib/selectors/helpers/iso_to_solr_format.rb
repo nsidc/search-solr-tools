@@ -132,10 +132,10 @@ module IsoToSolrFormat
     north = north.split(' ').first.strip unless north.empty?
 
     {
-        west: west,
-        south: south,
-        east: east,
-        north: north
+      west: west,
+      south: south,
+      east: east,
+      north: north
     }
   end
 end
