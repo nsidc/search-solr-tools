@@ -1,7 +1,7 @@
 require 'date'
 require './lib/selectors/helpers/iso_namespaces'
-require './lib/selectors/helpers/nsidc_parameter_mapping'
 require './lib/selectors/helpers/nsidc_format_mapping'
+require './lib/selectors/helpers/nsidc_parameter_mapping'
 require './lib/selectors/helpers/solr_format'
 
 # Methods for generating formatted strings from ISO xml nodes that can be indexed by SOLR
@@ -51,7 +51,15 @@ module IsoToSolrFormat
 
   def self.get_spatial_facet(box_node)
     box = bounding_box(box_node)
-    SolrFormat.get_spatial_facet(box)
+
+    if BoundingBoxUtil.box_invalid?(box)
+      facet = nil
+    elsif BoundingBoxUtil.box_global?(box)
+      facet = 'Global'
+    else
+      facet = 'Non Global'
+    end
+    facet
   end
 
   def self.get_spatial_scope_facet(box_node)

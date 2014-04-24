@@ -4,22 +4,9 @@ require './lib/selectors/helpers/bounding_box_util'
 #  Methods for generating formatted values that can be indexed by SOLR
 module SolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| SolrFormat.reduce_temporal_duration(values) }
-  FORMAT_BINNING = proc { |format| SolrFormat.format_binning format.text }
-  PARAMETER_BINNING = proc { |param| SolrFormat.parameter_binning param.text }
   DATE = proc { |date | SolrFormat.date_str date.text }
 
   NOT_SPECIFIED = 'Not specified'
-
-  def self.get_spatial_facet(box)
-    if BoundingBoxUtil.box_invalid?(box)
-      facet = nil
-    elsif BoundingBoxUtil.box_global?(box)
-      facet = 'Global'
-    else
-      facet = 'Non Global'
-    end
-    facet
-  end
 
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"
@@ -61,64 +48,6 @@ module SolrFormat
     values.map { |v| Integer(v) rescue nil }.compact.max
   end
 
-  def self.get_spatial_scope_facet_with_bounding_box(bbox)
-    if bbox.nil? || BoundingBoxUtil.box_invalid?(bbox)
-      return nil
-    elsif BoundingBoxUtil.box_global?(bbox)
-      facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
-    elsif BoundingBoxUtil.box_local?(bbox)
-      facet = 'Less than 1 degree of latitude change | Local'
-    else
-      facet = 'Between 1 and 170 degrees of latitude change | Regional'
-    end
-    facet
-  end
-
-  private
-
-  def self.date_str(date)
-    d = if date.is_a? String
-          DateTime.parse(date.strip) rescue nil
-        else
-          date
-        end
-    "#{d.iso8601[0..-7]}Z" unless d.nil?
-  end
-
-  def self.date?(date)
-    valid_date = if date.is_a? String
-                   d = DateTime.parse(date.strip) rescue false
-                   DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
-                 end
-    valid_date
-  end
-
-  MIN_DATE = '00010101'
-  MAX_DATE = Time.now.strftime('%Y%m%d')
-
-  def self.format_date_for_index(date_str, default)
-    date_str = default unless date? date_str
-    DateTime.parse(date_str).strftime('%C.%y%m%d')
-  end
-
-  # takes a temporal_duration in years, returns a string representing the range
-  # for faceting
-  def self.temporal_duration_range(years)
-    range = []
-
-    range.push '< 1 year' if years >= 0 && years < 1
-    range.push '1+ years' if years >= 1
-    range.push '5+ years' if years >= 5
-    range.push '10+ years' if years >= 10
-
-    range
-  end
-
-  def self.format_date_for_index(date_str, default)
-    date_str = default unless date? date_str
-    DateTime.parse(date_str).strftime('%C.%y%m%d')
-  end
-
   def self.format_binning(format_string)
     binned_format = bin(NsidcFormatMapping::MAPPING, format_string)
 
@@ -148,6 +77,21 @@ module SolrFormat
     nil
   end
 
+  def self.get_spatial_scope_facet_with_bounding_box(bbox)
+    if bbox.nil? || BoundingBoxUtil.box_invalid?(bbox)
+      return nil
+    elsif BoundingBoxUtil.box_global?(bbox)
+      facet = 'Coverage from over 85 degrees North to -85 degrees South | Global'
+    elsif BoundingBoxUtil.box_local?(bbox)
+      facet = 'Less than 1 degree of latitude change | Local'
+    else
+      facet = 'Between 1 and 170 degrees of latitude change | Regional'
+    end
+    facet
+  end
+
+  private
+
   def self.bin(mappings, term)
     mappings.each do |match_key, value|
       term.match(match_key) do
@@ -156,5 +100,43 @@ module SolrFormat
     end
 
     nil
+  end
+
+  def self.date_str(date)
+    d = if date.is_a? String
+          DateTime.parse(date.strip) rescue nil
+        else
+          date
+        end
+    "#{d.iso8601[0..-7]}Z" unless d.nil?
+  end
+
+  def self.date?(date)
+    valid_date = if date.is_a? String
+                   d = DateTime.parse(date.strip) rescue false
+                   DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
+                 end
+    valid_date
+  end
+
+  MIN_DATE = '00010101'
+  MAX_DATE = Time.now.strftime('%Y%m%d')
+
+  # takes a temporal_duration in years, returns a string representing the range
+  # for faceting
+  def self.temporal_duration_range(years)
+    range = []
+
+    range.push '< 1 year' if years >= 0 && years < 1
+    range.push '1+ years' if years >= 1
+    range.push '5+ years' if years >= 5
+    range.push '10+ years' if years >= 10
+
+    range
+  end
+
+  def self.format_date_for_index(date_str, default)
+    date_str = default unless date? date_str
+    DateTime.parse(date_str).strftime('%C.%y%m%d')
   end
 end

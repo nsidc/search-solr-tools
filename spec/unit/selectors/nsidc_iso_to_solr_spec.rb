@@ -166,17 +166,6 @@ describe 'NSIDC ISO to SOLR converter' do
       title: 'should include the sponsored program facet',
       xpath: "/doc/field[@name='facet_sponsored_program'][1]",
       expected_text: 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
-    },
-    {
-      title: 'should grab the correct parameter',
-      xpath: "/doc/field[@name='facet_parameter'][1]",
-      expected_text: 'Ice Extent'
-
-    },
-    {
-      title: 'should grab the correct format facet',
-      xpath: "/doc/field[@name='facet_format'][2]",
-      expected_text: 'ASCII Text'
     }
   ]
 

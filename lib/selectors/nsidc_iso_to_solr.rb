@@ -148,17 +148,6 @@ NSIDC = {
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   },
-  facet_format: {
-    xpaths: ['.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString'],
-    default_values: [SolrFormat::NOT_SPECIFIED],
-    multivalue: true,
-    format: SolrFormat::FORMAT_BINNING
-  },
-  facet_parameter: {
-    xpaths: ['.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString'],
-    multivalue: true,
-    format: SolrFormat::PARAMETER_BINNING
-  },
   facet_sponsored_program: {
     xpaths: ['.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]'],
     multivalue: true,
