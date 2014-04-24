@@ -10,7 +10,7 @@ describe NsidcJsonToSolr do
                                { 'start' => '', 'end' => '1992-01-18T00:00:00-07:00' },
                                { 'start' => '', 'end' => '' },
                                { 'start' => '1986-12-01T00:00:00-04:00', 'end' => '1986-12-02T00:00:00-04:00' }]
-    temporal_values = @translator.generate_temporal_coverage_values(temporal_coverages_json)
+    temporal_values = @translator.translate_temporal_coverage_values(temporal_coverages_json)
     temporal_values['temporal_coverages'][0].should eql('1986-12-14,1992-11-13')
     temporal_values['temporal_duration'].should eql 2162
     temporal_values['temporal'][0].should eql '19.861214 19.921113'
@@ -18,7 +18,7 @@ describe NsidcJsonToSolr do
   end
 
   it 'generates temporal value defaults when there are none present in NSIDC JSON' do
-    temporal_values = @translator.generate_temporal_coverage_values([])
+    temporal_values = @translator.translate_temporal_coverage_values([])
     temporal_values['temporal_coverages'].should eql []
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql []
@@ -28,14 +28,14 @@ describe NsidcJsonToSolr do
   it 'generates a temporal duration value based on the longest single temporal coverage' do
     temporal_coverages_json = [{ 'start' => '1956-01-01T00:00:00-07:00', 'end' => '1964-01-01T00:00:00-07:00' },
                                { 'start' => '1994-01-01T00:00:00-07:00', 'end' => '1996-01-01T00:00:00-07:00' }]
-    temporal_values = @translator.generate_temporal_coverage_values(temporal_coverages_json)
+    temporal_values = @translator.translate_temporal_coverage_values(temporal_coverages_json)
     temporal_values['temporal_duration'].should eql 2923
     temporal_values['facet_temporal_duration'].should eql ['1+ years', '5+ years']
   end
 
   it 'generates correct start values when no start date is specified' do
     temporal_coverages_json = [{ 'start' => '', 'end' => '1992-01-01T00:00:00-07:00' }]
-    temporal_values = @translator.generate_temporal_coverage_values(temporal_coverages_json)
+    temporal_values = @translator.translate_temporal_coverage_values(temporal_coverages_json)
     temporal_values['temporal_coverages'].should eql [',1992-01-01']
     temporal_values['temporal_duration'].should eql nil
     temporal_values['temporal'].should eql ['00.010101 19.920101']
@@ -133,7 +133,7 @@ describe NsidcJsonToSolr do
                        { 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'name' => 'ignore name', 'temporalResolution' => '', 'category' => '', 'topic' => '', 'term' => '', 'variableLevel1' => '', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
-    params = @translator.translate_parameters_to_string parameters_json
+    params = @translator.translate_json_string(parameters_json, NsidcJsonToSolr::PARAMETER_PARTS)
     params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration > test detail')
     params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
     params.should include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
@@ -147,7 +147,7 @@ describe NsidcJsonToSolr do
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => '', 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => '', 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
-    params = @translator.translate_parameters_to_string parameters_json
+    params = @translator.translate_json_string(parameters_json, NsidcJsonToSolr::PARAMETER_PARTS)
     params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
     params.should include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
     params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
@@ -163,7 +163,7 @@ describe NsidcJsonToSolr do
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
-    params = @translator.translate_parameters_to_string parameters_json
+    params = @translator.translate_json_string(parameters_json, NsidcJsonToSolr::PARAMETER_PARTS)
     params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
     params.should include('EARTH SCIENCE > Terrestrial Hydrosphere > Snow/Ice > Ice Extent')
     params.should include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
@@ -282,75 +282,8 @@ describe NsidcJsonToSolr do
     it 'translates NSIDC temporal resolutions to solr facet temporal resolution values' do
       parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
                          { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'P3D', 'max_resolution' => 'P20D' } }]
-      facets = @translator.generate_temporal_resolution_facet_values(parameters_json)
+      facets = @translator.translate_temporal_resolution_facet_values(parameters_json)
       facets.should eql %w(Subdaily Weekly Submonthly)
-    end
-
-    it 'bins second and 59 minute values as Subhourly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT1S').should eql 'Subhourly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT59M59S').should eql 'Subhourly'
-    end
-
-    it 'bins 1 hour value as Hourly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT60M').should eql 'Hourly'
-    end
-
-    it 'bins 1:00:01 and 23:59:59 values as Subdaily' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT1H0M1S').should eql 'Subdaily'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'PT23H59M59S').should eql 'Subdaily'
-    end
-
-    it 'bins 1 and 2 day as Daily' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1D').should eql 'Daily'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2D').should eql 'Daily'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1DT12H').should eql 'Daily'
-    end
-
-    it 'bins 3 and 8 days as Weekly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P3D').should eql 'Weekly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P8D').should eql 'Weekly'
-    end
-
-    it 'bins 9 and 20 days as Submonthly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P9D').should eql 'Submonthly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P20D').should eql 'Submonthly'
-    end
-
-    it 'bins 1 month, 21 days and 31 days as Monthly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1M').should eql 'Monthly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P21D').should eql 'Monthly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P31D').should eql 'Monthly'
-    end
-
-    it 'bins values less then 1 year as Subyearly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P364D').should eql 'Subyearly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P11M').should eql 'Subyearly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P3M').should eql 'Subyearly'
-    end
-
-    it 'bins 1 year as Yearly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y').should eql 'Yearly'
-    end
-
-    it 'bins values greater then 1 year as Multiyearly' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P2Y').should eql 'Multiyearly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P30Y').should eql 'Multiyearly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y1D').should eql 'Multiyearly'
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => 'P13M').should eql 'Multiyearly'
-    end
-
-    it 'bins range as range of facet values' do
-      @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D')
-        .should eql %w(Subdaily Daily Weekly Submonthly)
-    end
-
-    it 'bins varies as varies' do
-      @translator.bin_temporal_resolution_value('type' => 'varies').should eql SolrFormat::NOT_SPECIFIED
-    end
-
-    it 'returns not specified if the value is blank' do
-      @translator.bin_temporal_resolution_value('type' => 'single', 'resolution' => '').should eql SolrFormat::NOT_SPECIFIED
-      @translator.bin_temporal_resolution_value('type' => 'range', 'min_resolution' => '', 'max_resolution' => '').should eql SolrFormat::NOT_SPECIFIED
     end
   end
 end

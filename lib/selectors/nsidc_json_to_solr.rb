@@ -1,42 +1,27 @@
 # rubocop:disable ClassLength
-require 'iso8601'
 require 'rgeo/geo_json'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/iso_to_solr_format'
 
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
-  DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
-  DATA_CENTER_SHORT_NAME = 'NSIDC'
-
   PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
-  TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
-  SUBHOURLY_INDEX = 0
-  HOURLY_INDEX = 1
-  SUBDAILY_INDEX = 2
-  DAILY_INDEX = 3
-  WEEKLY_INDEX = 4
-  SUBMONTHLY_INDEX = 5
-  MONTHLY_INDEX = 6
-  SUBYEARLY_INDEX = 7
-  YEARLY_INDEX = 8
-  MULTIYEARLY_INDEX = 9
 
 # rubocop:disable MethodLength
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
-    temporal_coverage_values = generate_temporal_coverage_values(json_doc['temporalCoverages'])
+    temporal_coverage_values = translate_temporal_coverage_values(json_doc['temporalCoverages'])
 
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
       'dataset_version' => json_doc['majorVersion']['version'],
-      'data_centers' => DATA_CENTER_LONG_NAME,
-      'facet_data_center' => "#{DATA_CENTER_LONG_NAME} | #{DATA_CENTER_SHORT_NAME}",
+      'data_centers' => SolrFormat::DATA_CENTER_LONG_NAME,
+      'facet_data_center' => "#{SolrFormat::DATA_CENTER_LONG_NAME} | #{SolrFormat::DATA_CENTER_SHORT_NAME}",
       'authors' => translate_personnel_and_creators_to_authors(json_doc['personnel'], generate_data_citation_creators(json_doc['dataCitation'])),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
       'parameters' => translate_parameters(json_doc['parameters']),
-      'full_parameters' => translate_parameters_to_string(json_doc['parameters']),
+      'full_parameters' => translate_json_string(json_doc['parameters'], PARAMETER_PARTS),
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
@@ -57,17 +42,12 @@ class NsidcJsonToSolr
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
-      'facet_temporal_resolution' => generate_temporal_resolution_facet_values(json_doc['parameters'])
+      'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters'])
     )
   end
 # rubocop:enable MethodLength
 
-  def generate_data_citation_creators(data_citation)
-    data_citation.nil? ? creators = [] : creators = data_citation['creators']
-    creators
-  end
-
-  def generate_temporal_coverage_values(temporal_coverages_json)
+  def translate_temporal_coverage_values(temporal_coverages_json)
     temporal_coverages = []
     temporal = []
     temporal_durations = []
@@ -83,59 +63,14 @@ class NsidcJsonToSolr
     { 'temporal_coverages' => temporal_coverages, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal, 'facet_temporal_duration' => facet  }
   end
 
-  def generate_temporal_resolution_facet_values(parameters_json)
+  def translate_temporal_resolution_facet_values(parameters_json)
     temporal_resolutions = []
     parameters_json.each do |param_json|
-      binned_temporal_res = bin_temporal_resolution_value(param_json['temporalResolution'])
+      binned_temporal_res = SolrFormat.temporal_resolution_value(param_json['temporalResolution'])
       temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
     end
     temporal_resolutions.flatten.uniq
   end
-
-  # rubocop:disable MethodLength, CyclomaticComplexity
-  def bin_temporal_resolution_value(temporal_resolution)
-    return SolrFormat::NOT_SPECIFIED if temporal_resolution.nil? || temporal_resolution.empty?
-
-    if temporal_resolution['type'] == 'single'
-      return SolrFormat::NOT_SPECIFIED if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
-      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['resolution'])
-      return TEMPORAL_RESOLUTION_FACET_VALUES[i]
-    elsif temporal_resolution['type'] == 'range'
-      return SolrFormat::NOT_SPECIFIED if temporal_resolution['min_resolution'].nil? || temporal_resolution['min_resolution'].empty?
-      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['min_resolution'])
-      j = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['max_resolution'])
-      return TEMPORAL_RESOLUTION_FACET_VALUES[i..j]
-    else
-      return SolrFormat::NOT_SPECIFIED
-    end
-  end
-
-  def find_index_for_single_temporal_resolution_value(iso8601_duration)
-    dur_sec = iso8601_duration.to_seconds
-    if dur_sec < 3600
-      return SUBHOURLY_INDEX
-    elsif dur_sec == 3600
-      return HOURLY_INDEX
-    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
-      return SUBDAILY_INDEX
-    elsif dur_sec <= 172_800 # && dur_sec >= 86_400 - This is 1 to 2 days
-      return DAILY_INDEX
-    elsif dur_sec <= 691_200 # && dur_sec >= 172_800 - This is 3 to 8 days
-      return WEEKLY_INDEX
-    elsif dur_sec <= 1_728_000 # && dur_sec >= 691200 - This is 8 to 20 days
-      return SUBMONTHLY_INDEX
-    elsif iso8601_duration == ISO8601::Duration.new('P1M') || dur_sec <= 2_678_400 # && dur_sec >= 2_678_400 - 21 to 31 days
-      return MONTHLY_INDEX
-    elsif (iso8601_duration.months.to_i > 1 && iso8601_duration.months.to_i < 12 && iso8601_duration.years.to_i == 0) ||
-        (dur_sec < 31_536_000)
-      return SUBYEARLY_INDEX
-    elsif iso8601_duration == ISO8601::Duration.new('P1Y')
-      return YEARLY_INDEX
-    else # elsif dur_sec > 31536000
-      return MULTIYEARLY_INDEX
-    end
-  end
-  # rubocop:enable MethodLength, CyclomaticComplexity
 
   def translate_iso_topic_categories(iso_topic_categories_json)
     iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
@@ -242,12 +177,8 @@ class NsidcJsonToSolr
     parameters
   end
 
-  def translate_parameters_to_string(parameters_json)
-    translate_json_string(parameters_json, PARAMETER_PARTS)
-  end
-
   def translate_parameters_to_facet_parameters(parameters_json)
-    parameters_strings = translate_parameters_to_string(parameters_json)
+    parameters_strings = translate_json_string(parameters_json, PARAMETER_PARTS)
     return [] if parameters_strings.nil?
     facet_params = []
     parameters_strings.each do |str|
@@ -276,6 +207,11 @@ class NsidcJsonToSolr
     end
 
     json_strings.uniq
+  end
+
+  def generate_data_citation_creators(data_citation)
+    data_citation.nil? ? creators = [] : creators = data_citation['creators']
+    creators
   end
 
   def generate_part_array(json, limit_values = nil)

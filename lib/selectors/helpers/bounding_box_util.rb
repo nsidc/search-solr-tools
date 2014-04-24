@@ -2,6 +2,9 @@ require './lib/selectors/helpers/iso_namespaces'
 
 # Utility methods for dealing with bounding boxes.
 module BoundingBoxUtil
+  SOUTHERN_GLOBAL_BOUNDARY = -85.0
+  NORTHERN_GLOBAL_BOUNDARY = 85.0
+
   def self.bounding_box_hash_from_geo_json(geometry)
     if geometry.geometry_type.to_s.downcase.eql?('point')
       return { west: geometry.x.to_s, south: geometry.y.to_s, east: geometry.x.to_s, north: geometry.y.to_s }
@@ -12,7 +15,7 @@ module BoundingBoxUtil
   end
 
   def self.box_global?(box)
-    box[:south].to_f < -85.0 && box[:north].to_f > 85.0
+    box[:south].to_f < SOUTHERN_GLOBAL_BOUNDARY && box[:north].to_f > NORTHERN_GLOBAL_BOUNDARY
   end
 
   def self.box_local?(box)

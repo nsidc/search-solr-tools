@@ -1,12 +1,27 @@
 require 'date'
+require 'iso8601'
 require './lib/selectors/helpers/bounding_box_util'
 
 #  Methods for generating formatted values that can be indexed by SOLR
 module SolrFormat
+  DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
+  DATA_CENTER_SHORT_NAME = 'NSIDC'
+  TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
+  NOT_SPECIFIED = 'Not specified'
+
+  SUBHOURLY_INDEX = 0
+  HOURLY_INDEX = 1
+  SUBDAILY_INDEX = 2
+  DAILY_INDEX = 3
+  WEEKLY_INDEX = 4
+  SUBMONTHLY_INDEX = 5
+  MONTHLY_INDEX = 6
+  SUBYEARLY_INDEX = 7
+  YEARLY_INDEX = 8
+  MULTIYEARLY_INDEX = 9
+
   REDUCE_TEMPORAL_DURATION = proc { |values| SolrFormat.reduce_temporal_duration(values) }
   DATE = proc { |date | SolrFormat.date_str date.text }
-
-  NOT_SPECIFIED = 'Not specified'
 
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"
@@ -77,6 +92,25 @@ module SolrFormat
     nil
   end
 
+  # rubocop:disable CyclomaticComplexity
+  def self.temporal_resolution_value(temporal_resolution)
+    return SolrFormat::NOT_SPECIFIED if temporal_resolution.nil? || temporal_resolution.empty?
+
+    if temporal_resolution['type'] == 'single'
+      return SolrFormat::NOT_SPECIFIED if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
+      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['resolution'])
+      return SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES[i]
+    elsif temporal_resolution['type'] == 'range'
+      return SolrFormat::NOT_SPECIFIED if temporal_resolution['min_resolution'].nil? || temporal_resolution['min_resolution'].empty?
+      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['min_resolution'])
+      j = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['max_resolution'])
+      return SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES[i..j]
+    else
+      return SolrFormat::NOT_SPECIFIED
+    end
+  end
+  # rubocop:enable CyclomaticComplexity
+
   def self.get_spatial_scope_facet_with_bounding_box(bbox)
     if bbox.nil? || BoundingBoxUtil.box_invalid?(bbox)
       return nil
@@ -90,7 +124,19 @@ module SolrFormat
     facet
   end
 
+  def self.date_str(date)
+    d = if date.is_a? String
+          DateTime.parse(date.strip) rescue nil
+        else
+          date
+        end
+    "#{d.iso8601[0..-7]}Z" unless d.nil?
+  end
+
   private
+
+  MIN_DATE = '00010101'
+  MAX_DATE = Time.now.strftime('%Y%m%d')
 
   def self.bin(mappings, term)
     mappings.each do |match_key, value|
@@ -102,25 +148,33 @@ module SolrFormat
     nil
   end
 
-  def self.date_str(date)
-    d = if date.is_a? String
-          DateTime.parse(date.strip) rescue nil
-        else
-          date
-        end
-    "#{d.iso8601[0..-7]}Z" unless d.nil?
+  # rubocop:disable MethodLength, CyclomaticComplexity
+  def self.find_index_for_single_temporal_resolution_value(iso8601_duration)
+    dur_sec = iso8601_duration.to_seconds
+    if dur_sec < 3600
+      return SUBHOURLY_INDEX
+    elsif dur_sec == 3600
+      return HOURLY_INDEX
+    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
+      return SUBDAILY_INDEX
+    elsif dur_sec <= 172_800 # && dur_sec >= 86_400 - This is 1 to 2 days
+      return DAILY_INDEX
+    elsif dur_sec <= 691_200 # && dur_sec >= 172_800 - This is 3 to 8 days
+      return WEEKLY_INDEX
+    elsif dur_sec <= 1_728_000 # && dur_sec >= 691200 - This is 8 to 20 days
+      return SUBMONTHLY_INDEX
+    elsif iso8601_duration == ISO8601::Duration.new('P1M') || dur_sec <= 2_678_400 # && dur_sec >= 2_678_400 - 21 to 31 days
+      return MONTHLY_INDEX
+    elsif (iso8601_duration.months.to_i > 1 && iso8601_duration.months.to_i < 12 && iso8601_duration.years.to_i == 0) ||
+      (dur_sec < 31_536_000)
+      return SUBYEARLY_INDEX
+    elsif iso8601_duration == ISO8601::Duration.new('P1Y')
+      return YEARLY_INDEX
+    else # elsif dur_sec > 31536000
+      return MULTIYEARLY_INDEX
+    end
   end
-
-  def self.date?(date)
-    valid_date = if date.is_a? String
-                   d = DateTime.parse(date.strip) rescue false
-                   DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
-                 end
-    valid_date
-  end
-
-  MIN_DATE = '00010101'
-  MAX_DATE = Time.now.strftime('%Y%m%d')
+  # rubocop:enable MethodLength, CyclomaticComplexity
 
   # takes a temporal_duration in years, returns a string representing the range
   # for faceting
@@ -133,6 +187,14 @@ module SolrFormat
     range.push '10+ years' if years >= 10
 
     range
+  end
+
+  def self.date?(date)
+    valid_date = if date.is_a? String
+                   d = DateTime.parse(date.strip) rescue false
+                   DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
+                 end
+    valid_date
   end
 
   def self.format_date_for_index(date_str, default)
