@@ -14,6 +14,7 @@ set -e
 export RUBY_BIN=/opt/ruby19-local/bin/
 export LOCATION=/live/apps/nsidc-open-search-solr
 if [ "$2" == "vm_production" ]
+then
   export LOCATION=/opt/solr-search
 fi
 export LOCATION=/opt/solr-search
