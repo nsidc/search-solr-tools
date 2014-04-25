@@ -9,7 +9,6 @@ SELECTORS = {
   nmi:    NMI,
   echo:   ECHO,
   nodc:   NODC,
-  nsidc:  NSIDC,
   rda:    RDA,
   ices:   ICES
 }

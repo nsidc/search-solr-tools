@@ -1,4 +1,3 @@
-require './lib/nsidc_harvester.rb'
 require './lib/nsidc_json_harvester.rb'
 
 namespace :harvest do
@@ -15,13 +14,6 @@ namespace :harvest do
     sleep(10)
     Rake::Task['harvest:delete_all'].invoke
     Rake::Task['harvest:nsidc_json'].invoke
-  end
-
-  desc 'Harvest NSIDC_OAI data'
-  task :nsidc_oai_iso, :environment do |t, args|
-    harvester = NsidcHarvester.new args[:environment]
-
-    harvester.harvest_nsidc_oai_into_solr
   end
 
   desc 'Harvest NSIDC JSON data'
