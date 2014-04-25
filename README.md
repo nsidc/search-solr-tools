@@ -20,7 +20,7 @@ To set up and run your local instance of Solr, run:
 
 Manipulating data in Solr can be done with the `harvest` tasks.
 
-* `rake harvest:ade` gathers data for the Arctic Data Explorer and inserts it into Solr.
+* `rake harvest:all_ade` gathers data for the Arctic Data Explorer and inserts it into Solr.
 * `rake harvest:nsidc_json` will gather data for NSIDC search.
 * `rake harvest:delete_all` wipes out the database in your local Solr.
 

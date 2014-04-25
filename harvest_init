@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function rake_harvest(task){
+   bundle exec rake harvest:$task
+}
+
 usage()
 {
     echo "Usage: ${0##*/} {harvest|harvest-ade|environment|delete} {integration|qa|staging|production} {eol|cisl|nodc|nmi|default}"
@@ -52,19 +56,16 @@ fi
 
 if [ "$1" == "harvest" ]
 then
-   bundle exec rake harvest:nsidc_json[$env]
+  rake_harvest("nsidc_json[$env]")
+elif [ "$1 == "harvest-nsidc" ]
+then
+  rake_harvest("nsidc_json[$env]")
 elif [ "$1" == "harvest-ade" ]
 then 
-   bundle exec rake harvest:ade[$env,CISL]
-   bundle exec rake harvest:echo[$env]
-   bundle exec rake harvest:ade[$env,EOL]
-   bundle exec rake harvest:ices[$env]
-   bundle exec rake harvest:ade[$env,NMI]
-   bundle exec rake harvest:nodc[$env]
-   bundle exec rake harvest:ade[$env,RDA]
+  rake_harvest("all_ade[$env]")
 elif [ "$1" == "delete" ]
 then
-   bundle exec rake harvest:delete_all[$env]
+  rake_harvest("delete_all[$env]")
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"

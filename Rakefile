@@ -2,12 +2,5 @@ require 'fileutils'
 require './lib/build_subs.rb'
 require File.join('.', 'config', 'environments.rb')
 
+# All tasks are defined within specific rake files within the tasks directory
 Dir.glob('./tasks/*.rake').each { |r| import r }
-
-desc 'Run server:stop, rake build:setup, server:start, harvest:delete_all, harvest:nsidc_oai_iso in one task'
-task restart_with_clean_nsidc_harvest: ['server:stop', 'build:setup', 'server:start'] do
-  puts 'Sleeping 10 seconds for server to start'
-  sleep(10)
-  Rake::Task['harvest:delete_all'].invoke
-  Rake::Task['harvest:nsidc_json'].invoke
-end

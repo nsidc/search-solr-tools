@@ -1,11 +1,15 @@
-require './lib/ade_harvester.rb'
 require './lib/nsidc_harvester.rb'
 require './lib/nsidc_json_harvester.rb'
-require './lib/nodc_harvester.rb'
-require './lib/echo_harvester.rb'
-require './lib/ices_harvester.rb'
 
 namespace :harvest do
+
+  desc 'Run server:stop, rake build:setup, server:start, harvest:delete_all, harvest:nsidc_oai_iso in one task'
+  task restart_with_clean_nsidc_harvest: ['server:stop', 'build:setup', 'server:start'] do
+    puts 'Sleeping 10 seconds for server to start'
+    sleep(10)
+    Rake::Task['harvest:delete_all'].invoke
+    Rake::Task['harvest:nsidc_json'].invoke
+  end
 
   desc 'Harvest NSIDC_OAI data'
   task :nsidc_oai_iso, :environment do |t, args|
@@ -19,33 +23,6 @@ namespace :harvest do
     harvester = NsidcJsonHarvester.new args[:environment]
 
     harvester.harvest_nsidc_json_into_solr
-  end
-
-  desc 'Harvest NODC data'
-  task :nodc, :environment do |t, args|
-    harvester = NodcHarvester.new args[:environment]
-
-    harvester.harvest_nodc_into_solr
-  end
-
-  desc 'Harvest ECHO data'
-  task :echo, :environment do |t, args|
-    harvester = EchoHarvester.new args[:environment]
-
-    harvester.harvest_echo_into_solr
-  end
-
-  desc 'Harvest ICES data'
-  task :ices, :environment do |t, args|
-    harvester = IcesHarvester.new args[:environment]
-
-    harvester.harvest_ices_into_solr
-  end
-
-  desc 'Harvest ADE data'
-  task :ade, :environment, :profile do |t, args|
-    harvester = ADEHarvester.new(args[:environment], args[:profile])
-    harvester.harvest_gi_cat_into_solr
   end
 
   desc 'Delete all documents from the index'
