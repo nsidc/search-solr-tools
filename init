@@ -39,7 +39,7 @@ usage()
 APP_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PFILE=$APP_HOME/solr.pid
 cd $APP_HOME
-export PATH=/usr/java/jdk/bin/:$PATH   #Adding Java to the path
+export PATH=/opt/jdk/bin/:/usr/java/jdk/bin/:$PATH   #Adding Java to the path
 set -x
 set -e
 umask 002
