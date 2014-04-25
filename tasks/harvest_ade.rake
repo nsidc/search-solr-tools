@@ -5,20 +5,20 @@ require './lib/ices_harvester.rb'
 
 namespace :harvest do
 
-  desc "Harvest all ADE data"
+  desc 'Harvest all ADE data'
   task :all_ade, :environment do |t, args|
-    Rake::Task[ :cisl ].execute($env)
-    Rake::Task[ :echo ].execute($env)
-    Rake::Task[ :eol ].execute($env)
-    Rake::Task[ :ices ].execute($env)
-    Rake::Task[ :nmi ].execute($env)
-    Rake::Task[ :nodc ].execute($env)
-    Rake::Task[ :rda ].execute($env)
+    Rake::Task["harvest:cisl"].invoke(args[:environment])
+    Rake::Task["harvest:echo"].invoke(args[:environment])
+    Rake::Task["harvest:eol"].invoke(args[:environment])
+    Rake::Task["harvest:ices"].invoke(args[:environment])
+    Rake::Task["harvest:nmi"].invoke(args[:environment])
+    Rake::Task["harvest:nodc"].invoke(args[:environment])
+    Rake::Task["harvest:rda"].invoke(args[:environment])
   end
 
   desc 'Harvest CISL data'
   task :cisl, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], "CISL")
+    harvester = ADEHarvester.new(args[:environment], 'CISL')
     harvester.harvest_gi_cat_into_solr
   end
 
@@ -31,7 +31,7 @@ namespace :harvest do
 
   desc 'Harvest EOL data'
   task :eol, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], "EOL")
+    harvester = ADEHarvester.new(args[:environment], 'EOL')
     harvester.harvest_gi_cat_into_solr
   end
 
@@ -44,7 +44,7 @@ namespace :harvest do
 
   desc 'Harvest NMI data'
   task :nmi, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], "NMI")
+    harvester = ADEHarvester.new(args[:environment], 'NMI')
     harvester.harvest_gi_cat_into_solr
   end
 
@@ -57,7 +57,7 @@ namespace :harvest do
 
   desc 'Harvest RDA data'
   task :rda, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], "RDA")
+    harvester = ADEHarvester.new(args[:environment], 'RDA')
     harvester.harvest_gi_cat_into_solr
   end
 
