@@ -42,7 +42,8 @@ class NsidcJsonToSolr
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
       'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
-      'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters'])
+      'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters']),
+      'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
     )
   end
 # rubocop:enable MethodLength
@@ -70,6 +71,15 @@ class NsidcJsonToSolr
       temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
     end
     temporal_resolutions.flatten.uniq
+  end
+
+  def translate_spatial_resolution_facet_values(parameters_json)
+    spatial_resolutions = []
+    parameters_json.each do |param_json|
+      binned_res = SolrFormat.spatial_resolution_value(param_json['spatialYResolution'])
+      spatial_resolutions << binned_res unless binned_res.nil? || binned_res.empty?
+    end
+    spatial_resolutions.flatten.uniq
   end
 
   def translate_iso_topic_categories(iso_topic_categories_json)

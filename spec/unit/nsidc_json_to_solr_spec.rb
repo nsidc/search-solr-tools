@@ -286,4 +286,18 @@ describe NsidcJsonToSolr do
       facets.should eql %w(Subdaily Weekly Submonthly)
     end
   end
+
+  describe 'spatial resolution faceting' do
+    it 'translates NSIDC spatial resolutions to solr facet spatial resolution values' do
+      parameters_json = [{ 'name' => 'test1',
+                           'spatialXResolution' => { 'type' => 'single', 'resolution' => '5000 m' },
+                           'spatialYResolution' => { 'type' => 'single', 'resolution' => '100000 m' } },
+                         { 'name' => 'test2',
+                           'spatialXResolution' => { 'type' => 'range', 'min_resolution' => '300 m', 'max_resolution' => '2200 m' },
+                           'spatialYResolution' => { 'type' => 'range', 'min_resolution' => '300 m', 'max_resolution' => '2200 m' } }]
+      facets = @translator.translate_spatial_resolution_facet_values(parameters_json)
+      facets.sort.should eql ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '>30 km'].sort
+    end
+
+  end
 end

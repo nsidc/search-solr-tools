@@ -6,9 +6,9 @@ require './lib/selectors/helpers/bounding_box_util'
 module SolrFormat
   DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
   DATA_CENTER_SHORT_NAME = 'NSIDC'
-  TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
   NOT_SPECIFIED = 'Not specified'
 
+  TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
   SUBHOURLY_INDEX = 0
   HOURLY_INDEX = 1
   SUBDAILY_INDEX = 2
@@ -19,6 +19,14 @@ module SolrFormat
   SUBYEARLY_INDEX = 7
   YEARLY_INDEX = 8
   MULTIYEARLY_INDEX = 9
+
+  SPATIAL_RESOLUTION_FACET_VALUES = ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '6 - 15 km', '16 - 30 km', '>30 km']
+  SPATIAL_0_500_INDEX = 0
+  SPATIAL_501_1_INDEX = 1
+  SPATIAL_2_5_INDEX = 2
+  SPATIAL_6_15_INDEX = 3
+  SPATIAL_16_30_INDEX = 4
+  SPATIAL_GREATER_30_INDEX = 5
 
   REDUCE_TEMPORAL_DURATION = proc { |values| SolrFormat.reduce_temporal_duration(values) }
   DATE = proc { |date | SolrFormat.date_str date.text }
@@ -92,19 +100,27 @@ module SolrFormat
     nil
   end
 
-  # rubocop:disable CyclomaticComplexity
   def self.temporal_resolution_value(temporal_resolution)
-    return SolrFormat::NOT_SPECIFIED if temporal_resolution.nil? || temporal_resolution.empty?
+    resolution_value(temporal_resolution, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)
+  end
 
-    if temporal_resolution['type'] == 'single'
-      return SolrFormat::NOT_SPECIFIED if temporal_resolution['resolution'].nil? || temporal_resolution['resolution'].empty?
-      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['resolution'])
-      return SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES[i]
-    elsif temporal_resolution['type'] == 'range'
-      return SolrFormat::NOT_SPECIFIED if temporal_resolution['min_resolution'].nil? || temporal_resolution['min_resolution'].empty?
-      i = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['min_resolution'])
-      j = find_index_for_single_temporal_resolution_value ISO8601::Duration.new(temporal_resolution['max_resolution'])
-      return SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES[i..j]
+  def self.spatial_resolution_value(spatial_resolution)
+    resolution_value(spatial_resolution, :find_index_for_single_spatial_resolution_value, SolrFormat::SPATIAL_RESOLUTION_FACET_VALUES)
+  end
+
+  # rubocop:disable CyclomaticComplexity
+  def self.resolution_value(resolution, find_index_method, resolution_values)
+    return SolrFormat::NOT_SPECIFIED if resolution.nil? || resolution.empty?
+
+    if resolution['type'] == 'single'
+      return SolrFormat::NOT_SPECIFIED if resolution['resolution'].nil? || resolution['resolution'].empty?
+      i = send(find_index_method, resolution['resolution'])
+      return resolution_values[i]
+    elsif resolution['type'] == 'range'
+      return SolrFormat::NOT_SPECIFIED if resolution['min_resolution'].nil? || resolution['min_resolution'].empty?
+      i = send(find_index_method, resolution['min_resolution'])
+      j = send(find_index_method, resolution['max_resolution'])
+      return resolution_values[i..j]
     else
       return SolrFormat::NOT_SPECIFIED
     end
@@ -149,7 +165,8 @@ module SolrFormat
   end
 
   # rubocop:disable MethodLength, CyclomaticComplexity
-  def self.find_index_for_single_temporal_resolution_value(iso8601_duration)
+  def self.find_index_for_single_temporal_resolution_value(string_duration)
+    iso8601_duration = ISO8601::Duration.new(string_duration)
     dur_sec = iso8601_duration.to_seconds
     if dur_sec < 3600
       return SUBHOURLY_INDEX
@@ -172,6 +189,36 @@ module SolrFormat
       return YEARLY_INDEX
     else # elsif dur_sec > 31536000
       return MULTIYEARLY_INDEX
+    end
+  end
+
+  def self.find_index_for_single_spatial_resolution_value(string_duration)
+    value, units = string_duration.split(' ')
+    value = value.to_f
+    if units == 'deg'
+      if value <= 0.05
+        return SPATIAL_2_5_INDEX
+      elsif value < 0.5 # && value > .05
+        return SPATIAL_16_30_INDEX
+      else # value >= .5
+        return SPATIAL_GREATER_30_INDEX
+      end
+    elsif units == 'm'
+      if value <= 500
+        return SPATIAL_0_500_INDEX
+      elsif value <= 1_000 # && value > 500
+        return SPATIAL_501_1_INDEX
+      elsif value <= 5_000 # && value > 1000
+        return SPATIAL_2_5_INDEX
+      elsif value <= 15_000 # && value > 5000
+        return SPATIAL_6_15_INDEX
+      elsif value <= 30_000 # && value > 15000
+        return SPATIAL_16_30_INDEX
+      else # value > 30000
+        return SPATIAL_GREATER_30_INDEX
+      end
+    else
+      return nil
     end
   end
   # rubocop:enable MethodLength, CyclomaticComplexity
