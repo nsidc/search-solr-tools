@@ -67,8 +67,8 @@ class NsidcJsonToSolr
   def translate_temporal_resolution_facet_values(parameters_json)
     temporal_resolutions = []
     parameters_json.each do |param_json|
-      binned_temporal_res = SolrFormat.temporal_resolution_value(param_json['temporalResolution'])
-      temporal_resolutions << binned_temporal_res unless binned_temporal_res.nil? || binned_temporal_res.empty?
+      binned_temporal_res = SolrFormat.resolution_value(param_json['temporalResolution'], :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)
+      temporal_resolutions << binned_temporal_res unless binned_temporal_res.to_s.empty?
     end
     temporal_resolutions.flatten.uniq
   end
@@ -76,8 +76,8 @@ class NsidcJsonToSolr
   def translate_spatial_resolution_facet_values(parameters_json)
     spatial_resolutions = []
     parameters_json.each do |param_json|
-      binned_res = SolrFormat.spatial_resolution_value(param_json['spatialYResolution'])
-      spatial_resolutions << binned_res unless binned_res.nil? || binned_res.empty?
+      binned_res = SolrFormat.resolution_value(param_json['spatialYResolution'], :find_index_for_single_spatial_resolution_value, SolrFormat::SPATIAL_RESOLUTION_FACET_VALUES)
+      spatial_resolutions << binned_res unless binned_res.to_s.empty?
     end
     spatial_resolutions.flatten.uniq
   end

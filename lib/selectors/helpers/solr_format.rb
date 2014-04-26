@@ -28,8 +28,8 @@ module SolrFormat
   SPATIAL_16_30_INDEX = 4
   SPATIAL_GREATER_30_INDEX = 5
 
-  REDUCE_TEMPORAL_DURATION = proc { |values| SolrFormat.reduce_temporal_duration(values) }
-  DATE = proc { |date | SolrFormat.date_str date.text }
+  REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
+  DATE = proc { |date | date_str date.text }
 
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"
@@ -100,32 +100,22 @@ module SolrFormat
     nil
   end
 
-  def self.temporal_resolution_value(temporal_resolution)
-    resolution_value(temporal_resolution, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)
-  end
-
-  def self.spatial_resolution_value(spatial_resolution)
-    resolution_value(spatial_resolution, :find_index_for_single_spatial_resolution_value, SolrFormat::SPATIAL_RESOLUTION_FACET_VALUES)
-  end
-
-  # rubocop:disable CyclomaticComplexity
   def self.resolution_value(resolution, find_index_method, resolution_values)
-    return SolrFormat::NOT_SPECIFIED if resolution.nil? || resolution.empty?
+    return NOT_SPECIFIED if resolution.to_s.empty?
 
     if resolution['type'] == 'single'
-      return SolrFormat::NOT_SPECIFIED if resolution['resolution'].nil? || resolution['resolution'].empty?
+      return NOT_SPECIFIED if resolution['resolution'].to_s.empty?
       i = send(find_index_method, resolution['resolution'])
       return resolution_values[i]
     elsif resolution['type'] == 'range'
-      return SolrFormat::NOT_SPECIFIED if resolution['min_resolution'].nil? || resolution['min_resolution'].empty?
+      return NOT_SPECIFIED if resolution['min_resolution'].to_s.empty?
       i = send(find_index_method, resolution['min_resolution'])
       j = send(find_index_method, resolution['max_resolution'])
       return resolution_values[i..j]
     else
-      return SolrFormat::NOT_SPECIFIED
+      return NOT_SPECIFIED
     end
   end
-  # rubocop:enable CyclomaticComplexity
 
   def self.get_spatial_scope_facet_with_bounding_box(bbox)
     if bbox.nil? || BoundingBoxUtil.box_invalid?(bbox)

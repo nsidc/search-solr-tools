@@ -62,70 +62,70 @@ describe 'SOLR format methods' do
 
     describe 'temporal resolution facet' do
       it 'bins second and 59 minute values as Subhourly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'PT1S').should eql 'Subhourly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'PT59M59S').should eql 'Subhourly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'PT1S' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subhourly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'PT59M59S' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subhourly'
       end
 
       it 'bins 1 hour value as Hourly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'PT60M').should eql 'Hourly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'PT60M' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Hourly'
       end
 
       it 'bins 1:00:01 and 23:59:59 values as Subdaily' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'PT1H0M1S').should eql 'Subdaily'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'PT23H59M59S').should eql 'Subdaily'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'PT1H0M1S' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subdaily'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'PT23H59M59S' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subdaily'
       end
 
       it 'bins 1 and 2 day as Daily' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P1D').should eql 'Daily'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P2D').should eql 'Daily'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P1DT12H').should eql 'Daily'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P1D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Daily'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P2D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Daily'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P1DT12H' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Daily'
       end
 
       it 'bins 3 and 8 days as Weekly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P3D').should eql 'Weekly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P8D').should eql 'Weekly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P3D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Weekly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P8D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Weekly'
       end
 
       it 'bins 9 and 20 days as Submonthly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P9D').should eql 'Submonthly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P20D').should eql 'Submonthly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P9D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Submonthly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P20D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Submonthly'
       end
 
       it 'bins 1 month, 21 days and 31 days as Monthly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P1M').should eql 'Monthly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P21D').should eql 'Monthly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P31D').should eql 'Monthly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P1M' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Monthly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P21D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Monthly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P31D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Monthly'
       end
 
       it 'bins values less then 1 year as Subyearly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P364D').should eql 'Subyearly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P11M').should eql 'Subyearly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P3M').should eql 'Subyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P364D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P11M' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P3M' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Subyearly'
       end
 
       it 'bins 1 year as Yearly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y').should eql 'Yearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P1Y' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Yearly'
       end
 
       it 'bins values greater then 1 year as Multiyearly' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P2Y').should eql 'Multiyearly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P30Y').should eql 'Multiyearly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P1Y1D').should eql 'Multiyearly'
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => 'P13M').should eql 'Multiyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P2Y' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Multiyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P30Y' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Multiyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P1Y1D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Multiyearly'
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => 'P13M' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql 'Multiyearly'
       end
 
       it 'bins range as range of facet values' do
-        SolrFormat.temporal_resolution_value('type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D')
+        SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)
         .should eql %w(Subdaily Daily Weekly Submonthly)
       end
 
       it 'bins varies as varies' do
-        SolrFormat.temporal_resolution_value('type' => 'varies').should eql SolrFormat::NOT_SPECIFIED
+        SolrFormat.resolution_value({ 'type' => 'varies' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
       end
 
       it 'returns not specified if the value is blank' do
-        SolrFormat.temporal_resolution_value('type' => 'single', 'resolution' => '').should eql SolrFormat::NOT_SPECIFIED
-        SolrFormat.temporal_resolution_value('type' => 'range', 'min_resolution' => '', 'max_resolution' => '').should eql SolrFormat::NOT_SPECIFIED
+        SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => '' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
+        SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => '', 'max_resolution' => '' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
       end
     end
 
@@ -139,7 +139,7 @@ describe 'SOLR format methods' do
       value_bins.each do |bin, values|
         values.each do |val|
           it "bins #{val} as #{bin}" do
-            SolrFormat.spatial_resolution_value('type' => 'single', 'resolution' => val).should eql bin
+            SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => val }, :find_index_for_single_spatial_resolution_value, SolrFormat::SPATIAL_RESOLUTION_FACET_VALUES).should eql bin
           end
         end
       end
