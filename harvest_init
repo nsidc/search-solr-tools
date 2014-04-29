@@ -1,6 +1,7 @@
 #!/bin/bash
 
-function rake_harvest(){
+rake_harvest() {
+   echo "Running harvest ${1}"
    bundle exec rake harvest:$1
 }
 
@@ -55,16 +56,16 @@ fi
 
 if [ "$1" == "harvest" ]
 then
-  rake_harvest("nsidc_json[$env]")
+  rake_harvest("nsidc_json[${env}]")
 elif [ "$1 == "harvest-nsidc" ]
 then
-  rake_harvest("nsidc_json[$env]")
+  rake_harvest("nsidc_json[${env}]")
 elif [ "$1" == "harvest-ade" ]
 then
-  rake_harvest("all_ade[$env]")
+  rake_harvest("all_ade[${env}]")
 elif [ "$1" == "delete" ]
 then
-  rake_harvest("delete_all[$env]")
+  rake_harvest("delete_all[${env}]")
 elif [ "$1" == "environment" ]
 then
   echo "Environment setup complete"
