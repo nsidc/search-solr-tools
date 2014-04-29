@@ -11,6 +11,12 @@ namespace :build do
     create_tarball(args, env)
   end
 
+  desc 'Build Artifact No Solr'
+  task :artifact_no_solr, :environment do |t, args|
+    env = SolrEnvironments[args[:environment]]
+    create_tarball_no_solr(args, env)
+  end
+
   desc 'Clean deployment target'
   task :clean, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
