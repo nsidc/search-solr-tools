@@ -21,7 +21,6 @@ if [ "$2" == "vm_production" ]
 then
   export LOCATION=/opt/solr-search
 fi
-export LOCATION=/opt/solr-search
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
