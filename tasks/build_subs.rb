@@ -56,9 +56,9 @@ def create_tarball(args, env)
   sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar solr solr-4.3.0/contrib solr-4.3.0/dist solr-4.3.0/example Rakefile Gemfile* lib tasks harvest_init init config"
 end
 
-def create_tarball_no_solr(args, env)
+def create_tarball_no_solr(args)
   version_id = generate_version_id
-  sh "tar -cvzf #{env[:repo_dir]}/nsidc_solr_search#{version_id}.tar Rakefile Gemfile* lib tasks harvest_init init config"
+  sh "tar -cvzf #{SolrEnvironments[:integration][:repo_dir]}/nsidc_solr_search#{version_id}.tar Rakefile Gemfile* lib tasks harvest_init init config"
 end
 
 def configure_collection(collection, target, environment)
