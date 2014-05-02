@@ -19,7 +19,7 @@ set -e
 export RUBY_BIN=/usr/bin
 export PATH=$RUBY_BIN:$PATH
 
-gem install bundler
+sudo gem install bundler
 bundle install
 
 if [[ -z "$2" ]]
