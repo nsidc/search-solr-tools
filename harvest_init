@@ -16,12 +16,8 @@ cd $SCRIPT_PATH
 
 set -x
 set -e
-export RUBY_BIN=/opt/ruby19-local/bin/
-export LOCATION=/live/apps/nsidc-open-search-solr
-if [ "$2" == "vm_production" ]
-then
-  export LOCATION=/opt/solr-search
-fi
+export RUBY_BIN=/usr/bin
+export LOCATION=/var/lib
 export GEM_HOME=$LOCATION/gem
 export GEM_PATH=$GEM_HOME/bin
 export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
@@ -33,7 +29,7 @@ bundle install
 if [[ -z "$2" ]]
 then
   env="integration"
-elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ] || [ "$2" == "vm_production" ]
+elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ] || [ "$2" == "production" ]
 then
   env="$2"
 else
