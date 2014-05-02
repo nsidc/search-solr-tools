@@ -17,11 +17,7 @@ cd $SCRIPT_PATH
 set -x
 set -e
 export RUBY_BIN=/usr/bin
-export LOCATION=/var/lib
-export GEM_HOME=$LOCATION/gem
-export GEM_PATH=$GEM_HOME/bin
-export PATH=$RUBY_BIN:$GEM_HOME:$GEM_PATH:$PATH
-export PATH=/opt/jdk/bin/:$PATH   #Adding Java to the path
+export PATH=$RUBY_BIN:$PATH
 
 gem install bundler
 bundle install
