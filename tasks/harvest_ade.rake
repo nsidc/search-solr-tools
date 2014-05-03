@@ -7,13 +7,13 @@ namespace :harvest do
 
   desc 'Harvest all ADE data'
   task :all_ade, :environment do |t, args|
-    Rake::Task['harvest:cisl'].invoke(args[:environment])
-    Rake::Task['harvest:echo'].invoke(args[:environment])
-    Rake::Task['harvest:eol'].invoke(args[:environment])
-    Rake::Task['harvest:ices'].invoke(args[:environment])
-    Rake::Task['harvest:nmi'].invoke(args[:environment])
-    Rake::Task['harvest:nodc'].invoke(args[:environment])
-    Rake::Task['harvest:rda'].invoke(args[:environment])
+    Rake::Task['harvest:cisl'].invoke(args)
+    Rake::Task['harvest:echo'].invoke(args)
+    Rake::Task['harvest:eol'].invoke(args)
+    Rake::Task['harvest:ices'].invoke(args)
+    Rake::Task['harvest:nmi'].invoke(args)
+    Rake::Task['harvest:nodc'].invoke(args)
+    Rake::Task['harvest:rda'].invoke(args)
   end
 
   desc 'Harvest CISL data'

@@ -4,8 +4,8 @@ namespace :harvest do
 
   desc 'Harvest all of NSIDC and ADE data'
   task :all, :environment do |t, args|
-    Rake::Task['harvest:nsidc_json']
-    Rake::Task['harvest:all_ade']
+    Rake::Task['harvest:nsidc_json'].invoke(args)
+    Rake::Task['harvest:all_ade'].invoke(args)
   end
 
   desc 'Run server:stop, rake build:setup, server:start, harvest:delete_all, harvest:nsidc_oai_iso in one task'
