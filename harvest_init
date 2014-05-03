@@ -2,7 +2,7 @@
 
 rake_harvest() {
    echo "Running harvest ${1}"
-   bundle exec rake harvest:$1
+   sudo bundle exec rake harvest:$1
 }
 
 usage()
@@ -42,8 +42,7 @@ then
   rake_harvest "all_ade[$env]"
 elif [ "$1" == "harvest-all" ]
 then
-  rake_harvest "nsidc_json[$env]"
-  rake_harvest "all_ade[$env]"
+  rake_harvest "all[$env]"
 elif [ "$1" == "delete" ]
 then
   rake_harvest "delete_all[$env]"
