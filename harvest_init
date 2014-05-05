@@ -25,7 +25,7 @@ bundle install
 if [[ -z "$2" ]]
 then
   env="integration"
-elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ] || [ "$2" == "production" ]
+elif [ "$2" == "integration" ] || [ "$2" == "qa" ] || [ "$2" == "staging" ] || [ "$2" == "production" ]
 then
   env="$2"
 else
