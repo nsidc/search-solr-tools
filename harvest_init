@@ -36,16 +36,16 @@ fi
 
 if [ "$1" == "harvest" ] || [ "$1" == "harvest-nsidc" ]
 then
-  rake_harvest "nsidc_json[$env]"
+  rake_harvest("nsidc_json[$env]")
 elif [ "$1" == "harvest-ade" ]
 then
-  rake_harvest "all_ade[$env]"
+  rake_harvest("all_ade[$env]")
 elif [ "$1" == "harvest-all" ]
 then
-  rake_harvest "all[$env]"
+  rake_harvest("all[$env]")
 elif [ "$1" == "delete" ]
 then
-  rake_harvest "delete_all[$env]"
+  rake_harvest("delete_all[$env]")
 elif [ "$1" == "environment" ]
 then
   echo 'Environment setup complete'
