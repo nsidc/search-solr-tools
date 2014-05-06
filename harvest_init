@@ -2,7 +2,7 @@
 
 rake_harvest() {
    echo "Running harvest ${1}"
-   sudo bundle exec rake harvest:$1
+   rake harvest:$1
 }
 
 usage()
