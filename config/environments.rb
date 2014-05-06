@@ -54,7 +54,7 @@ module SolrEnvironments
       nsidc_dataset_metadata_url: 'http://integration.nsidc.org/api/dataset/metadata/',
       gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
       gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
-      host: 'localhost'
+      host: 'integration.solr-search.apps.int.nsidc.org'
     ),
     qa: COMMON.clone.merge(
       deployment_target: '/opt/solr-search/',
@@ -63,7 +63,7 @@ module SolrEnvironments
       nsidc_dataset_metadata_url: 'http://qa.nsidc.org/api/dataset/metadata/',
       gi_cat_csw_url: 'http://brash.colorado.edu:11380/api/gi-cat/services/cswiso',
       gi_cat_url: 'http://brash.colorado.edu:11380/api/gi-cat',
-      host: 'localhost'
+      host: 'qa.solr-search.apps.int.nsidc.org'
     ),
     staging: COMMON.clone.merge(
       deployment_target: '/opt/solr-search/',
@@ -72,7 +72,7 @@ module SolrEnvironments
       nsidc_dataset_metadata_url: 'http://staging.nsidc.org/api/dataset/metadata/',
       gi_cat_csw_url: 'http://freeze.colorado.edu:11380/api/gi-cat/services/cswiso',
       gi_cat_url: 'http://freeze.colorado.edu:11380/api/gi-cat',
-      host: 'localhost'
+      host: 'staging.solr-search.apps.int.nsidc.org'
     ),
     production: COMMON.clone.merge(
       deployment_target: '/opt/solr-search/',
@@ -81,7 +81,7 @@ module SolrEnvironments
       nsidc_dataset_metadata_url: 'http://nsidc.org/api/dataset/metadata/',
       gi_cat_csw_url: 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
       gi_cat_url: 'http://frozen.colorado.edu:11380/api/gi-cat',
-      host: 'localhost'
+      host: 'blue.solr-search.apps.int.nsidc.org'
     )
   }
 end
