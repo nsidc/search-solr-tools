@@ -82,7 +82,7 @@ describe ADEHarvester do
       end
 
       it 'Issues a request to update Solr with data' do
-        stub_request(:post, 'http://localhost:9283/solr/update?commit=true')
+        stub_request(:post, 'http://integration.solr-search.apps.int.nsidc.org:9283/solr/update?commit=true')
           .with(body: Nokogiri.XML('<add><foo></add>').to_xml,
                 headers: {
                   'Accept' => '*/*; q=0.5, application/xml',
