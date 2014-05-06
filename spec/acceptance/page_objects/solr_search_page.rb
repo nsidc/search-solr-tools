@@ -10,8 +10,6 @@ class SolrSearchPage
   def query(terms)
     query_url = "#{@url.dup}/select?q=#{URI.encode(terms)}&qf=title&defType=edismax"
 
-    puts query_url
-
     @response = RestClient.get query_url
     @response_doc = Nokogiri.XML @response.body
   end

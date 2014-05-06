@@ -6,6 +6,8 @@ module SolrSteps
   step 'I am using the current environment settings' do
     @target_env = ENV['TARGET_ENVIRONMENT'] || 'development'
     @environment = SolrEnvironments[@target_env]
+    puts @target_env
+    puts @environment
   end
 
   step 'I search for :terms' do |terms|
