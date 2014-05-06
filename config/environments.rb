@@ -46,6 +46,7 @@ module SolrEnvironments
       gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
       host: 'localhost'
     },
+    vm: COMMON.clone.merge(),
     integration: COMMON.clone.merge(
       deployment_target: '/opt/solr-search/',
       oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',

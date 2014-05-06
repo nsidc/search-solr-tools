@@ -2,11 +2,8 @@
 
 This is a collection of:
 
-* SOLR schema and configuration files
 * Ruby files and rake tasks to transform ISO into SOLR documents
-* Rake tasks to run a SOLR instance
 * Rake tasks to harvest NSIDC and ADE data
-* Rake tasks to deploy a SOLR instance
 
 ## Working on the Project
 
@@ -20,6 +17,7 @@ To set up and run your local instance of Solr, run:
 
 Manipulating data in Solr can be done with the `harvest` tasks.
 
+* `rake harvest:all` retrieves and inserts data for both NSIDC search and the Arctic Data Explorer.
 * `rake harvest:all_ade` gathers data for the Arctic Data Explorer and inserts it into Solr.
 * `rake harvest:nsidc_json` will gather data for NSIDC search.
 * `rake harvest:delete_all` wipes out the database in your local Solr.
