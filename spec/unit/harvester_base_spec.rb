@@ -25,7 +25,7 @@ describe HarvesterBase do
     add_doc = { 'add' => { 'doc' => { 'authoritative_id' => 'TEST-0001' } } }
     serialized_add_doc = "{\"add\":{\"doc\":{\"authoritative_id\":\"TEST-0001\"}}}"
 
-    stub_request(:post, 'http://liquid.colorado.edu:9283/solr/update?commit=true')
+    stub_request(:post, 'http://localhost:9283/solr/update?commit=true')
     .with(body: serialized_add_doc,
           headers: {
               'Accept' => '*/*; q=0.5, application/xml',
@@ -41,7 +41,7 @@ describe HarvesterBase do
   it 'serializes an XML add document and adds it to solr in XML format' do
     harvester = described_class.new 'integration'
     add_doc = Nokogiri.XML('<add><doc><field name="authoritative_id">TEST-0001</field></doc></add>')
-    stub_request(:post, 'http://liquid.colorado.edu:9283/solr/update?commit=true')
+    stub_request(:post, 'http://localhost:9283/solr/update?commit=true')
     .with(body: add_doc.to_xml,
           headers: {
               'Accept' => '*/*; q=0.5, application/xml',
