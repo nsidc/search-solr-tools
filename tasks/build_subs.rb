@@ -58,7 +58,7 @@ end
 
 def create_tarball_no_solr(args)
   version_id = generate_version_id
-  sh "tar -cvzf #{SolrEnvironments[:integration][:repo_dir]}/nsidc_solr_search#{version_id}.tar schema.xml Rakefile Gemfile* lib tasks init config"
+  sh "tar -cvzf #{SolrEnvironments[:integration][:repo_dir]}/nsidc_solr_search#{version_id}.tgz schema.xml Rakefile Gemfile* lib tasks init config"
 end
 
 def configure_collection(collection, target, environment)
