@@ -36,9 +36,9 @@ namespace :build do
   task :add_build_version_to_log, :environment, :build do |t, args|
     env = SolrEnvironments[args[:environment]]
     version_id = args[:build] || generate_version_id
-    deployment_log = "#{env[:repo_dir]}/deployable_version_" + [args[:environment]][0]
+    deployment_log = "#{env[:repo_dir]}/deployable_versions_" + [args[:environment]][0]
     unless File.exists?(deployment_log)
-      File.open(deployment_log, 'w') { |f| f.write('buildVersion=') }
+      File.open(deployment_log, 'w') { |f| f.write('buildVersion=\nlatestVersion=') }
     end
     version_in_list = nil
     File.open(deployment_log, 'r') { |f| version_in_list = f.read =~ /[=,]#{version_id}\,/ }
@@ -54,7 +54,7 @@ namespace :build do
   desc 'Display the latest artifact version from the specified log'
   task :latest_build_version, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
-    deployment_log = "#{env[:repo_dir]}/deployable_version_" + [args[:environment]][0]
+    deployment_log = "#{env[:repo_dir]}/deployable_versions_" + [args[:environment]][0]
     version_id = File.open(deployment_log, 'r') { |f| f.read.split('=')[1].split(',')[0] }
     puts version_id
   end
