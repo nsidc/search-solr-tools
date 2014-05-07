@@ -38,7 +38,10 @@ namespace :build do
     version_id = args[:build] || generate_version_id
     deployment_log = "#{env[:repo_dir]}/deployable_versions_" + [args[:environment]][0]
     unless File.exists?(deployment_log)
-      File.open(deployment_log, 'w') { |f| f.write('buildVersion=\nlatestVersion=') }
+      File.open(deployment_log, 'w') { |f|
+        f << 'buildVersion='
+        f << 'latestVersion='
+      }
     end
     version_in_list = nil
     File.open(deployment_log, 'r') { |f| version_in_list = f.read =~ /[=,]#{version_id}\,/ }
