@@ -44,7 +44,8 @@ namespace :build do
     File.open(deployment_log, 'r') { |f| version_in_list = f.read =~ /[=,]#{version_id}\,/ }
     if !version_in_list
       puts "Adding version #{version_id} to #{deployment_log}"
-      `sed -i "s/buildVersion=/buildVersion=#{version_id},/" #{deployment_log}`
+      `sed -i "s/buildVersions=/buildVersions=#{version_id},/" #{deployment_log}`
+      `sed -i "s/latestVersion=/latestVersion=#{version_id},/" #{deployment_log}`
     else
       puts "version #{version_id} is already in the deployment list."
     end
