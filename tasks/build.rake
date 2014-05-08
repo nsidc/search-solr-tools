@@ -40,7 +40,7 @@ namespace :build do
     unless File.exists?(deployment_log)
       File.open(deployment_log, 'w') do |f|
         f << "buildVersion=\n"
-        f << "latestVersion="
+        f << 'latestVersion='
       end
     end
     version_in_list = nil
