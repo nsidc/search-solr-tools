@@ -48,7 +48,7 @@ namespace :build do
     if !version_in_list
       puts "Adding version #{version_id} to #{deployment_log}"
       `sed -i "s/buildVersions=/buildVersions=#{version_id},/" #{deployment_log}`
-      `sed -i "s/latestVersion=/latestVersion=#{version_id},/" #{deployment_log}`
+      `sed -i "s/latestVersion=.*/latestVersion=#{version_id}/" #{deployment_log}`
     else
       puts "version #{version_id} is already in the deployment list."
     end
