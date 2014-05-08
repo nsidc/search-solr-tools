@@ -58,7 +58,7 @@ namespace :build do
   task :latest_build_version, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
     deployment_log = "#{env[:repo_dir]}/deployable_versions_" + [args[:environment]][0]
-    version_id = `grep latestVersion= deployable_versions_vm | awk -F \= {'print $2'}`
+    version_id = `grep latestVersion= #{deployment_log} | awk -F \= {'print $2'}`
     puts version_id
   end
 end
