@@ -39,7 +39,7 @@ namespace :build do
     deployment_log = "#{env[:repo_dir]}/deployable_versions_" + [args[:environment]][0]
     unless File.exists?(deployment_log)
       File.open(deployment_log, 'w') do |f|
-        f << 'buildVersion='
+        f << 'buildVersion=\n'
         f << 'latestVersion='
       end
     end
@@ -58,7 +58,7 @@ namespace :build do
   task :latest_build_version, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]
     deployment_log = "#{env[:repo_dir]}/deployable_versions_" + [args[:environment]][0]
-    version_id = File.open(deployment_log, 'r') { |f| f.read.split('=')[1].split(',')[0] }
+    version_id = `grep latestVersion= deployable_versions_vm | awk -F \= {'print $2'}`
     puts version_id
   end
 end
