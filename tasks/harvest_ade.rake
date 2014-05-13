@@ -18,52 +18,81 @@ namespace :harvest do
 
   desc 'Harvest CISL data'
   task :cisl, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], 'CISL')
-    harvester.harvest_gi_cat_into_solr
+    begin
+      harvester = ADEHarvester.new(args[:environment], 'CISL')
+      harvester.harvest_gi_cat_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest ECHO data'
   task :echo, :environment do |t, args|
-    harvester = EchoHarvester.new args[:environment]
-
-    harvester.harvest_echo_into_solr
+    begin
+      harvester = EchoHarvester.new args[:environment]
+      harvester.harvest_echo_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest EOL data'
   task :eol, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], 'EOL')
-    harvester.harvest_gi_cat_into_solr
+    begin
+      harvester = ADEHarvester.new(args[:environment], 'EOL')
+      harvester.harvest_gi_cat_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest ICES data'
   task :ices, :environment do |t, args|
-    harvester = IcesHarvester.new args[:environment]
-
-    harvester.harvest_ices_into_solr
+    begin
+      harvester = IcesHarvester.new args[:environment]
+      harvester.harvest_ices_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest NMI data'
   task :nmi, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], 'NMI')
-    harvester.harvest_gi_cat_into_solr
+    begin
+      harvester = ADEHarvester.new(args[:environment], 'NMI')
+      harvester.harvest_gi_cat_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest NODC data'
   task :nodc, :environment do |t, args|
-    harvester = NodcHarvester.new args[:environment]
-
-    harvester.harvest_nodc_into_solr
+    begin
+      harvester = NodcHarvester.new args[:environment]
+      harvester.harvest_nodc_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest RDA data'
   task :rda, :environment do |t, args|
-    harvester = ADEHarvester.new(args[:environment], 'RDA')
-    harvester.harvest_gi_cat_into_solr
+    begin
+      harvester = ADEHarvester.new(args[:environment], 'RDA')
+      harvester.harvest_gi_cat_into_solr
+    rescue
+      next
+    end
   end
 
   desc 'Harvest ADE data from GI-Cat'
   task :ade, :environment, :profile do |t, args|
-    harvester = ADEHarvester.new(args[:environment], args[:profile])
-    harvester.harvest_gi_cat_into_solr
+    begin
+      harvester = ADEHarvester.new(args[:environment], args[:profile])
+      harvester.harvest_gi_cat_into_solr
+    rescue
+      next
+    end
   end
 end
