@@ -74,7 +74,7 @@ module SolrEnvironments
       gi_cat_url: 'http://freeze.colorado.edu:11380/api/gi-cat',
       host: 'staging.solr-search.apps.int.nsidc.org'
     ),
-    production: COMMON.clone.merge(
+    blue: COMMON.clone.merge(
       deployment_target: '/opt/solr-search/',
       oai_url: 'http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
       nsidc_oai_identifiers_url: 'http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
@@ -82,6 +82,15 @@ module SolrEnvironments
       gi_cat_csw_url: 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
       gi_cat_url: 'http://frozen.colorado.edu:11380/api/gi-cat',
       host: 'blue.solr-search.apps.int.nsidc.org'
+    ),
+    production: COMMON.clone.merge(
+      deployment_target: '/opt/solr-search/',
+      oai_url: 'http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
+      nsidc_oai_identifiers_url: 'http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso',
+      nsidc_dataset_metadata_url: 'http://nsidc.org/api/dataset/metadata/',
+      gi_cat_csw_url: 'http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso',
+      gi_cat_url: 'http://frozen.colorado.edu:11380/api/gi-cat',
+      host: 'solr-search.apps.int.nsidc.org'
     )
   }
 end

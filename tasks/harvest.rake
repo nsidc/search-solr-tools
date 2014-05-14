@@ -18,9 +18,13 @@ namespace :harvest do
 
   desc 'Harvest NSIDC JSON data'
   task :nsidc_json, :environment do |t, args|
-    harvester = NsidcJsonHarvester.new args[:environment]
-
-    harvester.harvest_nsidc_json_into_solr
+    begin
+      harvester = NsidcJsonHarvester.new args[:environment]
+      harvester.harvest_nsidc_json_into_solr
+    rescue Exception => e
+      puts 'Harvest failed for NSIDC: #{e}'
+      next
+    end
   end
 
   desc 'Delete all documents from the index'

@@ -22,6 +22,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'CISL')
       harvester.harvest_gi_cat_into_solr
     rescue
+      puts 'Harvest failed for CISL: #{e.message}'
       next
     end
   end
@@ -32,6 +33,7 @@ namespace :harvest do
       harvester = EchoHarvester.new args[:environment]
       harvester.harvest_echo_into_solr
     rescue
+      puts 'Harvest failed for ECHO: #{e.message}'
       next
     end
   end
@@ -42,6 +44,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'EOL')
       harvester.harvest_gi_cat_into_solr
     rescue
+      puts 'Harvest failed for EOL: #{e.message}'
       next
     end
   end
@@ -52,6 +55,7 @@ namespace :harvest do
       harvester = IcesHarvester.new args[:environment]
       harvester.harvest_ices_into_solr
     rescue
+      puts 'Harvest failed for ICES: #{e.message}'
       next
     end
   end
@@ -62,6 +66,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'NMI')
       harvester.harvest_gi_cat_into_solr
     rescue
+      puts 'Harvest failed for NMI: #{e.message}'
       next
     end
   end
@@ -72,6 +77,7 @@ namespace :harvest do
       harvester = NodcHarvester.new args[:environment]
       harvester.harvest_nodc_into_solr
     rescue
+      puts 'Harvest failed for NODC: #{e.message}'
       next
     end
   end
@@ -82,6 +88,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'RDA')
       harvester.harvest_gi_cat_into_solr
     rescue
+      puts 'Harvest failed for RDA: #{e.message}'
       next
     end
   end
@@ -92,6 +99,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], args[:profile])
       harvester.harvest_gi_cat_into_solr
     rescue
+      puts 'Harvest failed for #{args[:profile]}: #{e}'
       next
     end
   end
