@@ -21,8 +21,8 @@ namespace :harvest do
     begin
       harvester = NsidcJsonHarvester.new args[:environment]
       harvester.harvest_nsidc_json_into_solr
-    rescue Exception => e
-      puts 'Harvest failed for NSIDC: #{e}'
+    rescue
+      puts 'Harvest failed for NSIDC'
       next
     end
   end
