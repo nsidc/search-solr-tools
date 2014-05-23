@@ -9,11 +9,12 @@ This is a collection of:
 
 Be sure to run `bundle install`.
 
-To set up and run your local instance of Solr, run:
-
-* `rake build:setup`
-* `rake server:start`
-
+To set up and run your local instance of Solr, first provision your VM with the solr puppet module (the dev VM has this). For only NSIDC results run the task `dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections do these steps:
+* `rake dev:deploy_schema`
+* `rake dev:restart`
+* `rake harvest:delete_all`
+* Harvest the feeds you want here.
+The above is what dev:restart_with_clean_nsidc_harvest does with the last step being a harvest:nsidc_json
 
 Manipulating data in Solr can be done with the `harvest` tasks.
 

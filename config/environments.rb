@@ -28,15 +28,8 @@ module SolrEnvironments
   }
 
   SOLR_ENVIRONMENTS = {
-    development: {
-      setup_dir: '/opt/solr/dev',
-      deployment_target: '~/solr_deploy/',
-      run_dir: '/opt/solr/dev',
-      collection_name: 'collection1',
-      collection_path: 'solr',
+    development: COMMON.clone.merge(
       prefix: 'sudo',
-      port: '8983',
-      repo_dir: '~/solr_repo/',
       oai_url: 'http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso',
       nsidc_oai_identifiers_url: 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso', # 'http://localhost:1580/oai?verb=ListIdentifiers&metadata_prefix=iso'
       nsidc_dataset_metadata_url: 'http://integration.nsidc.org/api/dataset/metadata/', # 'http://localhost:1580/'
@@ -45,7 +38,7 @@ module SolrEnvironments
       gi_cat_csw_url: 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso',
       gi_cat_url: 'http://liquid.colorado.edu:11380/api/gi-cat',
       host: 'localhost'
-    },
+    ),
     vm: COMMON.clone,
     integration: COMMON.clone.merge(
       deployment_target: '/opt/solr-search/',

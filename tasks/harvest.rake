@@ -8,14 +8,6 @@ namespace :harvest do
     Rake::Task['harvest:all_ade'].invoke(args[:environment])
   end
 
-  desc 'Run server:stop, rake build:setup, server:start, harvest:delete_all, harvest:nsidc_oai_iso in one task'
-  task restart_with_clean_nsidc_harvest: ['server:stop', 'build:setup', 'server:start'] do
-    puts 'Sleeping 10 seconds for server to start'
-    sleep(10)
-    Rake::Task['harvest:delete_all'].invoke
-    Rake::Task['harvest:nsidc_json'].invoke
-  end
-
   desc 'Harvest NSIDC JSON data'
   task :nsidc_json, :environment do |t, args|
     begin
