@@ -9,7 +9,6 @@ namespace :dev do
     sh 'sudo service solr start'
   end
 
-  desc 'Stop the server'
   task :stop do
     sh 'sudo service solr stop'
   end
