@@ -42,13 +42,23 @@
     <field name="facet_format" type="string" indexed="true" multiValued="true" />
     <field name="facet_temporal_resolution" type="string" indexed="true" multiValued="true" />
     <field name="facet_spatial_resolution" type="string" indexed="true" multiValued="true" />
+
+    <field name="auto_suggest" type="text_suggest" indexed="true" stored="true" multiValued="true" />
   </fields>
 
   <uniqueKey>
     authoritative_id
   </uniqueKey>
-  <copyField source="authoritative_id" dest="normalized_authoritative_id" />
+  <copyField source="normalized_authoritative_id" dest="normalized_authoritative_id" />
   <copyField source="popularity" dest="facet_popularity" />
+
+  <copyField source="authoritative_id" dest="auto_suggest" />
+  <copyField source="title" dest="auto_suggest" />
+  <copyField source="parameters" dest="auto_suggest" />
+  <copyField source="platforms" dest="auto_suggest" />
+  <copyField source="sensors" dest="auto_suggest" />
+  <copyField source="authors" dest="auto_suggest" />
+
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.
        It supports doc values but in that case the field needs to be
@@ -205,6 +215,17 @@
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
         <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+    <fieldType name="text_suggest" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
