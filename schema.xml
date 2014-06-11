@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- Overview of filters: https://cwiki.apache.org/confluence/display/solr/Filter+Descriptions
+     Overview of tokenizers: https://cwiki.apache.org/confluence/display/solr/Tokenizers -->
 <schema name="NSIDC" version="1.5">
   <fields>
     <field name="authoritative_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
@@ -221,7 +223,9 @@
 
     <fieldType name="text_suggest" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <tokenizer class="solr.PatternTokenizerFactory" pattern=" > " group="-1"/>
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="0" catenateAll="0" splitOnNumerics="0" splitOnCaseChange="0" preserveOriginal="1" stemEnglishPossessive="0"/>
+        <filter class="solr.KeywordRepeatFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
       <analyzer type="query">
