@@ -6,7 +6,7 @@ namespace :dev do
 
   task :deploy_config, :config_dir do |t, args|
     args.with_defaults(config_dir: '~/puppet-solr')
-    sh "sudo cp #{args[:config_dir]}/files/solr.xml /opt/solr/solr/nnsolr.xml"
+    sh "sudo cp #{args[:config_dir]}/files/solr.xml /opt/solr/solr/solr.xml"
     sh "sudo cp #{args[:config_dir]}/files/solrconfig.xml /opt/solr/solr/nsidc_oai/conf/solrconfig.xml"
   end
 
