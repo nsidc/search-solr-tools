@@ -1,4 +1,4 @@
-require './lib/harvester_base'
+require './lib/nsidc_json_harvester'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
 class DevelopmentNsidcJsonHarvester < NsidcJsonHarvester
