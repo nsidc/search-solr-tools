@@ -1,3 +1,5 @@
+require './lib/development_nsidc_json_harvester.rb'
+
 namespace :dev do
   desc 'Deploy configuration files'
   task :deploy_schema do
@@ -44,4 +46,11 @@ namespace :dev do
     Rake::Task['harvest:delete_all'].invoke
     Rake::Task['harvest:nsidc_json'].invoke
   end
+
+  desc 'Development harvest of subset of ids'
+  task :dev_nsidc_json_harvest do
+    harvester = DevelopmentNsidcJsonHarvester.new
+    harvester.harvest_nsidc_json_into_solr
+  end
+
 end
