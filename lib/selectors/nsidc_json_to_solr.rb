@@ -25,6 +25,7 @@ class NsidcJsonToSolr
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
+      'facet_sensor' => translate_short_long_names_to_facet_value(json_doc['instruments']),
       'published_date' => (SolrFormat.date_str json_doc['releaseDate']),
       'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatialCoverages']),
       'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatialCoverages']),
@@ -41,7 +42,7 @@ class NsidcJsonToSolr
       'facet_format' => (json_doc['distributionFormats'].empty?) ? [SolrFormat::NOT_SPECIFIED] : translate_format_to_facet_format(json_doc['distributionFormats']),
       'source' => %w(NSIDC ADE),
       'popularity' => json_doc['popularity'],
-      'facet_sponsored_program' => translate_internal_data_centers_to_facet_sponsored_program(json_doc['internalDataCenters']),
+      'facet_sponsored_program' => translate_short_long_names_to_facet_value(json_doc['internalDataCenters']),
       'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters']),
       'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
     )
@@ -86,12 +87,13 @@ class NsidcJsonToSolr
     iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
   end
 
-  def translate_internal_data_centers_to_facet_sponsored_program(internal_datacenters_json)
-    internal_data_centers = []
-    internal_datacenters_json.each do |datacenter|
-      internal_data_centers << datacenter['longName'] + ' | ' + datacenter['shortName']
+  def translate_short_long_names_to_facet_value(json)
+    facet_values = []
+    return facet_values if json.nil?
+    json.each do |json_entry|
+      facet_values << json_entry['longName'] + ' | ' + json_entry['shortName']
     end
-    internal_data_centers
+    facet_values
   end
 
   def translate_personnel_and_creators_to_authors(personnel_json, creator_json)

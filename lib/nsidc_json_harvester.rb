@@ -37,7 +37,7 @@ class NsidcJsonHarvester < HarvesterBase
       begin
         docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
       rescue => e
-        puts "Failed to fetch #{id} with error: #{e}"
+        puts "Failed to fetch #{id} with error #{e}: #{e.backtrace}"
         failure_ids << id
       end
     end

@@ -50,7 +50,7 @@ describe NsidcJsonToSolr do
   it 'translates NSIDC internal data center to facet_sponsored_program string' do
     internal_datacenters_json = [{ 'shortName' => 'NASA DAAC', 'longName' => 'NASA DAAC at the National Snow and Ice Data Center', 'url' => 'http://nsidc.org/daac/index.html' },
                                  { 'shortName' => 'NOAA @ NSIDC', 'longName' => 'NSIDC National Oceanic and Atmospheric Administration', 'url' => 'http://nsidc.org/noaa/' }]
-    facet_values = @translator.translate_internal_data_centers_to_facet_sponsored_program(internal_datacenters_json)
+    facet_values = @translator.translate_short_long_names_to_facet_value(internal_datacenters_json)
     facet_values[0].should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
     facet_values[1].should eql 'NSIDC National Oceanic and Atmospheric Administration | NOAA @ NSIDC'
   end
