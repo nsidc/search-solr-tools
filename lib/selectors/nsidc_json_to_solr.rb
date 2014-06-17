@@ -91,8 +91,10 @@ class NsidcJsonToSolr
     facet_values = []
     return facet_values if json.nil?
     json.each do |json_entry|
-      name_arr = [json_entry['longName'], json_entry['shortName']]
-      facet_values << name_arr.reject { |name| name.nil? }.join(' | ')
+      long_name = json_entry['longName'].nil? ? '' : json_entry['longName']
+      short_name = json_entry['shortName'].nil? ? '' : json_entry['shortName']
+
+      facet_values << "#{long_name} | #{short_name}"
     end
     facet_values
   end

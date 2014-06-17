@@ -55,6 +55,16 @@ describe NsidcJsonToSolr do
     facet_values[1].should eql 'NSIDC National Oceanic and Atmospheric Administration | NOAA @ NSIDC'
   end
 
+  it 'translates NSIDC sensors to facet_sensor string' do
+    internal_datacenters_json = [{ 'shortName' => 'SMMR', 'longName' => 'Scanning Multichannel Microwave Radiometer' },
+                                 { 'shortName' => 'MISC', 'longName' => '' },
+                                 { 'shortName' => 'missing', 'longName' => nil }]
+    facet_values = @translator.translate_short_long_names_to_facet_value(internal_datacenters_json)
+    facet_values[0].should eql 'Scanning Multichannel Microwave Radiometer | SMMR'
+    facet_values[1].should eql ' | MISC'
+    facet_values[2].should eql ' | missing'
+  end
+
   it 'translates NSIDC citation creators to authors list' do
     creator_json = { 'creators' => [
                    { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
