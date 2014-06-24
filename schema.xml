@@ -46,6 +46,7 @@
     <field name="facet_temporal_resolution" type="string" indexed="true" multiValued="true" />
 
     <field name="auto_suggest" type="text_suggest" indexed="true" stored="true" multiValued="true" />
+    <field name="text_suggest_infix" type="text_suggest_infix" indexed="true" stored="true" multiValued="true" />
   </fields>
 
   <uniqueKey>
@@ -54,12 +55,12 @@
   <copyField source="normalized_authoritative_id" dest="normalized_authoritative_id" />
   <copyField source="popularity" dest="facet_popularity" />
 
-  <copyField source="authoritative_id" dest="auto_suggest" />
-  <copyField source="title" dest="auto_suggest" />
-  <copyField source="parameters" dest="auto_suggest" />
-  <copyField source="platforms" dest="auto_suggest" />
-  <copyField source="sensors" dest="auto_suggest" />
-  <copyField source="authors" dest="auto_suggest" />
+  <copyField source="authoritative_id" dest="text_suggest_infix" />
+  <copyField source="title" dest="text_suggest_infix" />
+  <copyField source="parameters" dest="text_suggest_infix" />
+  <copyField source="platforms" dest="text_suggest_infix" />
+  <copyField source="sensors" dest="text_suggest_infix" />
+  <copyField source="authors" dest="text_suggest_infix" />
 
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.
@@ -243,5 +244,34 @@
     <fieldType name="date_range"
                class="solr.SpatialRecursivePrefixTreeFieldType"
                geo="true" distErrPct="0" maxDistErr="0.0000009" units="degrees" />
+
+    <fieldType name="text_suggest_infix" class="solr.TextField">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EdgeNGramFilterFactory" maxGramSize="20" minGramSize="1"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="0"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="^(.{20})(.*)?" replacement="$1" replace="all"/>
+      </analyzer>
+    </fieldType>
+
+    <fieldType name="alphaNumericSort" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+      <analyzer>
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory" />
+        <filter class="solr.TrimFilterFactory" />
+        <filter class="solr.PatternReplaceFilterFactory"
+                pattern="^(a |the |les |la |le |l'|de la |du |des )" replacement="" replace="all"/>
+        <filter class="solr.PatternReplaceFilterFactory"
+                pattern="([^a-z0-9])" replacement="" replace="all"/>
+      </analyzer>
+    </fieldType>
   </types>
 </schema>
