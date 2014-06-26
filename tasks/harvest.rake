@@ -25,4 +25,11 @@ namespace :harvest do
     sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'"
     sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'"
   end
+
+  desc 'Delete all documents from the auto suggest index'
+  task :delete_all_auto_suggest, :environment do |t, args|
+    env = SolrEnvironments[args[:environment]]
+    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/auto_suggest/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'"
+    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/auto_suggest/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'"
+  end
 end

@@ -4,12 +4,14 @@ namespace :dev do
   desc 'Deploy configuration files'
   task :deploy_schema do
     sh 'sudo cp schema.xml /opt/solr/solr/nsidc_oai/conf/schema.xml'
+    sh 'sudo cp schema.autosuggest.xml /opt/solr/solr/auto_suggest/conf/schema.xml'
   end
 
   task :deploy_config, :config_dir do |t, args|
     args.with_defaults(config_dir: '~/puppet-solr')
     sh "sudo cp #{args[:config_dir]}/files/solr.xml /opt/solr/solr/solr.xml"
-    sh "sudo cp #{args[:config_dir]}/files/solrconfig.xml /opt/solr/solr/nsidc_oai/conf/solrconfig.xml"
+    sh "sudo cp #{args[:config_dir]}/files/solrconfig.nsidc_oai.xml /opt/solr/solr/nsidc_oai/conf/solrconfig.xml"
+    sh "sudo cp #{args[:config_dir]}/files/solrconfig.autosuggest.xml /opt/solr/solr/auto_suggest/conf/solrconfig.xml"
   end
 
   desc 'Start the server'
@@ -51,6 +53,25 @@ namespace :dev do
   task :dev_nsidc_json_harvest do
     harvester = DevelopmentNsidcJsonHarvester.new
     harvester.harvest_nsidc_json_into_solr
+  end
+
+  desc 'Development autosuggest harvest'
+  task :dev_auto_suggest_harvest do
+    body = '{
+        "add": {"doc": {"text_suggest" : "sea ice concentration"} },
+        "add": {"doc": {"text_suggest" : "ice extent"} },
+        "add": {"doc": {"text_suggest" : "sea ice elevation"} },
+        "add": {"doc": {"text_suggest" : "icebridge"} },
+        "add": {"doc": {"text_suggest" : "ice sheets"} },
+        "add": {"doc": {"text_suggest" : "ice velocity"} },
+        "add": {"doc": {"text_suggest" : "sea ice index"} },
+        "add": {"doc": {"text_suggest" : "NSIDC-0051"} },
+        "add": {"doc": {"text_suggest" : "sea ice trends and climatologies from smmr and ssm/i-ssmis"} },
+        "add": {"doc": {"text_suggest" : "snow depth"} },
+        "add": {"doc": {"text_suggest" : "snow cover"} },
+        "commit": {}
+    }'
+    RestClient.post 'http://localhost:9283/solr/auto_suggest/update/json', body, :content_type => 'application/json'
   end
 
 end
