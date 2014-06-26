@@ -71,7 +71,7 @@ namespace :dev do
         "add": {"doc": {"text_suggest" : "snow cover"} },
         "commit": {}
     }'
-    RestClient.post 'http://localhost:9283/solr/auto_suggest/update/json', body, :content_type => 'application/json'
+    RestClient.post 'http://localhost:9283/solr/auto_suggest/update/json', body, content_type: 'application/json'
   end
 
 end
