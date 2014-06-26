@@ -19,6 +19,7 @@ module SolrEnvironments
     setup_dir: './solr/example',
     collection_name: 'nsidc_oai',
     collection_path: 'solr',
+    auto_suggest_collection_name: 'auto_suggest',
     prefix: '',
     repo_dir: '/disks/integration/san/INTRANET/REPO/nsidc_search_solr/',
     port: '9283',

@@ -57,21 +57,20 @@ namespace :dev do
 
   desc 'Development autosuggest harvest'
   task :dev_auto_suggest_harvest do
-    body = '{
-        "add": {"doc": {"text_suggest" : "sea ice concentration"} },
-        "add": {"doc": {"text_suggest" : "ice extent"} },
-        "add": {"doc": {"text_suggest" : "sea ice elevation"} },
-        "add": {"doc": {"text_suggest" : "icebridge"} },
-        "add": {"doc": {"text_suggest" : "ice sheets"} },
-        "add": {"doc": {"text_suggest" : "ice velocity"} },
-        "add": {"doc": {"text_suggest" : "sea ice index"} },
-        "add": {"doc": {"text_suggest" : "NSIDC-0051"} },
-        "add": {"doc": {"text_suggest" : "sea ice trends and climatologies from smmr and ssm/i-ssmis"} },
-        "add": {"doc": {"text_suggest" : "snow depth"} },
-        "add": {"doc": {"text_suggest" : "snow cover"} },
-        "commit": {}
-    }'
-    RestClient.post 'http://localhost:9283/solr/auto_suggest/update/json', body, content_type: 'application/json'
+    body = '[
+        {"text_suggest" : "sea ice concentration"},
+        {"text_suggest" : "ice extent"},
+        {"text_suggest" : "sea ice elevation"},
+        {"text_suggest" : "icebridge"},
+        {"text_suggest" : "ice sheets"},
+        {"text_suggest" : "ice velocity"},
+        {"text_suggest" : "sea ice index"},
+        {"text_suggest" : "NSIDC-0051"},
+        {"text_suggest" : "sea ice trends and climatologies from smmr and ssm/i-ssmis"},
+        {"text_suggest" : "snow depth"},
+        {"text_suggest" : "snow cover"}
+    ]'
+    RestClient.post 'http://localhost:9283/solr/auto_suggest/update/json?commit=true', body, content_type: 'application/json'
   end
 
 end

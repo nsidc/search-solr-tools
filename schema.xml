@@ -26,11 +26,17 @@
     <field name="dataset_url" type="string" indexed="false" stored="true" />
     <field name="data_access_urls" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="distribution_formats" type="string" indexed="false" stored="true" multiValued="true" />
-    <field name="full_parameters" type="string" indexed="false" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
     <field name="normalized_authoritative_id" type="normalized" indexed="true" stored="true" multiValued="true" />
     <field name="popularity" type="int" indexed="true" stored="true" multiValued="false" />
     <field name="source" type="string" indexed="true" stored="true" multiValued="true" />
+
+    <field name="full_parameters" type="string" indexed="false" stored="true" multiValued="true" />
+    <field name="copy_parameters" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="full_title" type="string" indexed="true" stored="true"/>
+    <field name="full_platforms" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="full_sensors" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="full_authors" type="string" indexed="true" stored="true" multiValued="true" />
 
     <field name="facet_brokered" type="boolean" indexed="true" stored="true" multiValued="false" />
     <field name="facet_data_center" type="string" indexed="true" stored="true" multiValued="false" />
@@ -52,6 +58,13 @@
 
   <copyField source="normalized_authoritative_id" dest="normalized_authoritative_id" />
   <copyField source="popularity" dest="facet_popularity" />
+
+  <copyField source="parameters" dest="copy_parameters" />
+  <copyField source="title" dest="full_title" />
+  <copyField source="platforms" dest="full_platforms" />
+  <copyField source="sensors" dest="full_sensors" />
+  <copyField source="authors" dest="full_authors" />
+  <copyField source="authors" dest="full_authors" />
 
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.

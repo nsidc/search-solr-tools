@@ -21,19 +21,19 @@ class HarvesterBase
   end
 
   # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents
-  def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE)
+  def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
     success = 0
     failure = 0
     docs.each do |doc|
-      insert_solr_doc(doc, content_type) ? success += 1 : failure += 1
+      insert_solr_doc(doc, content_type, core) ? success += 1 : failure += 1
     end
     puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
     puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
     fail 'Some documents failed to be inserted into Solr' if failure > 0
   end
 
-  def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE)
-    url = solr_url + '/update?commit=true'
+  def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
+    url = solr_url + "/#{core}/update?commit=true"
     success = false
     doc_serialized = get_serialized_doc(doc, content_type)
     RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|

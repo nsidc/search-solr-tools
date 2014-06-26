@@ -1,4 +1,5 @@
 require './lib/nsidc_json_harvester.rb'
+require './lib/auto_suggest_harvester.rb'
 
 namespace :harvest do
 
@@ -17,6 +18,12 @@ namespace :harvest do
       puts 'Harvest failed for NSIDC'
       next
     end
+  end
+
+  desc 'Harvest auto suggest'
+  task :auto_suggest, :environment do |t, args|
+    harvester = AutoSuggestHarvester.new args[:environment]
+    harvester.harvest_nsidc
   end
 
   desc 'Delete all documents from the index'
