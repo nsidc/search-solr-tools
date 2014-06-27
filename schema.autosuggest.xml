@@ -7,7 +7,7 @@
     <field name="text_suggest_infix" type="text_suggest_infix" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest_edge" type="text_suggest_edge" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest_ngram" type="text_suggest_ngram" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="weight" type="int" indexed="true" stored="true" multiValued="false" default="1"/>/
+    <field name="weight" type="double" indexed="true" stored="true" multiValued="false" default="1"/>/
     <field name="source" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="_version_" type="float" indexed="true" stored="true" default="0"/>
   </fields>
