@@ -1,0 +1,60 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 93,
+    "params": {
+      "facet": "true",
+      "facet.mincount": "1",
+      "indent": "true",
+      "facet.sort": "count",
+      "q": "*:*",
+      "facet.limit": "3",
+      "facet.field": ["authoritative_id",
+        "full_title",
+        "copy_parameters",
+        "full_platforms",
+        "full_sensors",
+        "full_authors"],
+      "wt": "json",
+      "fq": "source:NSIDC",
+      "rows": "0"
+    }
+  },
+  "response": {
+    "numFound": 864,
+    "start": 0,
+    "docs": []
+  },
+  "facet_counts": {
+    "facet_queries": {},
+    "facet_fields": {
+      "authoritative_id": [
+        "AA_L2A", 1,
+        "AE_5DSno", 1,
+        "AE_DyOcn", 1],
+      "full_title": [
+        "AARI 10-Day Arctic Ocean EASE-Grid Sea Ice Observations", 1,
+        "AGASEA Ice Thickness Profile Data from the Amundsen Sea Embayment, Antarctica", 1,
+        "AIDJEX Beaufort Sea Upward Looking Sonar April 1976", 1],
+      "copy_parameters": [
+        "EARTH SCIENCE", 858,
+        "Cryosphere", 501,
+        "Land Surface", 309,
+        "Terrestrial Hydrosphere", 306,
+        "Snow/Ice", 294],
+      "full_platforms": [
+        "GROUND-BASED OBSERVATIONS", 180,
+        "AIRCRAFT", 126,
+        "GROUND STATIONS", 122],
+      "full_sensors": [
+        "CAMERAS", 53,
+        "CORING DEVICES", 48,
+        "ALTIMETERS", 46],
+      "full_authors": [
+        "Thomas Jackson", 87,
+        "Michael Cosh", 63,
+        "H. Jay Zwally", 39]
+    },
+    "facet_dates": {},
+    "facet_ranges": {}
+  }}

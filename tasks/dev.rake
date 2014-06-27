@@ -54,23 +54,4 @@ namespace :dev do
     harvester = DevelopmentNsidcJsonHarvester.new
     harvester.harvest_nsidc_json_into_solr
   end
-
-  desc 'Development autosuggest harvest'
-  task :dev_auto_suggest_harvest do
-    body = '[
-        {"text_suggest" : "sea ice concentration"},
-        {"text_suggest" : "ice extent"},
-        {"text_suggest" : "sea ice elevation"},
-        {"text_suggest" : "icebridge"},
-        {"text_suggest" : "ice sheets"},
-        {"text_suggest" : "ice velocity"},
-        {"text_suggest" : "sea ice index"},
-        {"text_suggest" : "NSIDC-0051"},
-        {"text_suggest" : "sea ice trends and climatologies from smmr and ssm/i-ssmis"},
-        {"text_suggest" : "snow depth"},
-        {"text_suggest" : "snow cover"}
-    ]'
-    RestClient.post 'http://localhost:9283/solr/auto_suggest/update/json?commit=true', body, content_type: 'application/json'
-  end
-
 end

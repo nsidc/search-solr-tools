@@ -6,9 +6,23 @@ require 'json'
 # Use the nsidc_oai core to populate the auto_suggest core
 class AutoSuggestHarvester < HarvesterBase
   def initialize(env = 'development')
+    super env
     @environment = env
     @env_settings = SolrEnvironments[@environment]
   end
+
+  def harvest_nsidc
+    url = "#{solr_url}/#{@env_settings[:collection_name]}/select?q=*%3A*&fq=source%3ANSIDC&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1"
+    fields = nsidc_fields
+
+    facet_response = fetch_auto_suggest_facet_data(url, fields)
+
+    add_docs = generate_add_hashes(facet_response, fields)
+
+    add_documents_to_solr(add_docs)
+  end
+
+  private
 
   def short_full_split_add_creator(value, count, field_weight)
     add_docs = []
@@ -51,20 +65,9 @@ class AutoSuggestHarvester < HarvesterBase
   def nsidc_fields
     { 'authoritative_id' => { weight: 1, creator: method(:standard_add_creator) },
       'full_title' => { weight: 2, creator: method(:standard_add_creator) },
-      'copy_parameters' => { weight: 5, creator: method(:standard_add_creator) },
+      'copy_parameters' => { weight: 4, creator: method(:standard_add_creator) },
       'full_platforms' => { weight: 3, creator: method(:short_full_split_add_creator) },
       'full_sensors' => { weight: 3, creator: method(:short_full_split_add_creator) },
       'full_authors' => { weight: 1, creator: method(:standard_add_creator) } }
-  end
-
-  def harvest_nsidc
-    url = "#{solr_url}/#{@env_settings[:collection_name]}/select?q=*%3A*&fq=source%3ANSIDC&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1"
-    fields = nsidc_fields
-
-    facet_response = fetch_auto_suggest_facet_data(url, fields)
-
-    add_docs = generate_add_hashes(facet_response, fields)
-
-    add_documents_to_solr(add_docs)
   end
 end
