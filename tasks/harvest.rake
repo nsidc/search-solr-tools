@@ -3,7 +3,7 @@ require './lib/auto_suggest_harvester.rb'
 
 namespace :harvest do
 
-  desc 'Harvest all of NSIDC and ADE data'
+  desc 'Harvest all of NSIDC and ADE data and auto suggest'
   task :all, :environment do |t, args|
     Rake::Task['harvest:nsidc_json'].invoke(args[:environment])
     Rake::Task['harvest:all_ade'].invoke(args[:environment])
