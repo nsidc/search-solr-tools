@@ -3,6 +3,7 @@
      Overview of tokenizers: https://cwiki.apache.org/confluence/display/solr/Tokenizers -->
 <schema name="auto suggest" version="1.5">
   <fields>
+    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest_infix" type="text_suggest_infix" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest_edge" type="text_suggest_edge" indexed="true" stored="true" required="true" multiValued="false" />
@@ -14,7 +15,7 @@
 
   <!-- Not sure if we need it -->
   <uniqueKey>
-    text_suggest
+    id
   </uniqueKey>
 
   <copyField source="text_suggest" dest="text_suggest_infix" />

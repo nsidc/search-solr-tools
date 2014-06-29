@@ -2,6 +2,7 @@ require './lib/ade_harvester.rb'
 require './lib/nodc_harvester.rb'
 require './lib/echo_harvester.rb'
 require './lib/ices_harvester.rb'
+require './lib/auto_suggest_harvester.rb'
 
 namespace :harvest do
 
@@ -14,6 +15,12 @@ namespace :harvest do
     Rake::Task['harvest:nmi'].invoke(args[:environment])
     Rake::Task['harvest:nodc'].invoke(args[:environment])
     Rake::Task['harvest:rda'].invoke(args[:environment])
+  end
+
+  desc 'Harvest auto suggest for ADE'
+  task :ade_auto_suggest, :environment do |t, args|
+    harvester = AutoSuggestHarvester.new args[:environment]
+    harvester.harvest_ade
   end
 
   desc 'Harvest CISL data'

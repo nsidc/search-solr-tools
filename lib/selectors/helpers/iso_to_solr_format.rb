@@ -24,6 +24,7 @@ module IsoToSolrFormat
   TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
 
   ICES_DATASET_URL = proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
+  EOL_AUTHOR_FORMAT = proc { |node| IsoToSolrFormat.eol_author_format(node) }
 
   def self.spatial_display_str(box_node)
     box = bounding_box(box_node)
@@ -122,6 +123,18 @@ module IsoToSolrFormat
 
   def self.ices_dataset_url(auth_id)
     'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
+  end
+
+  def self.eol_author_format(node)
+    name = ''
+    matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
+    if matches
+      name = node.xpath('./gmd:organisationName/gco:CharacterString', IsoNamespaces.namespaces(node)).text
+      if name.include?(' AT ') && name.include?(' dot ')
+        name = name[0..name.rindex(',') - 1]
+      end
+    end
+    name
   end
 
   def self.get_first_matching_child(node, paths)

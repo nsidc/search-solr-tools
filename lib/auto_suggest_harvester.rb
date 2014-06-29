@@ -14,7 +14,18 @@ class AutoSuggestHarvester < HarvesterBase
   def harvest_nsidc
     url = "#{solr_url}/#{@env_settings[:collection_name]}/select?q=*%3A*&fq=source%3ANSIDC&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1"
     fields = nsidc_fields
+    harvest url, fields
+  end
 
+  def harvest_ade
+    url = "#{solr_url}/#{@env_settings[:collection_name]}/select?q=*%3A*&fq=source%3AADE&fq=spatial:[45.0,-180.0+TO+90.0,180.0]&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1"
+    fields = ade_fields
+    harvest url, fields
+  end
+
+  private
+
+  def harvest(url, fields)
     facet_response = fetch_auto_suggest_facet_data(url, fields)
 
     add_docs = generate_add_hashes(facet_response, fields)
@@ -22,20 +33,27 @@ class AutoSuggestHarvester < HarvesterBase
     add_documents_to_solr(add_docs)
   end
 
-  private
-
-  def short_full_split_add_creator(value, count, field_weight)
+  def short_full_split_add_creator(value, count, field_weight, source)
     add_docs = []
     value.split(' > ').each do |v|
-      add_docs.concat(standard_add_creator(v, count, field_weight))
+      add_docs.concat(standard_add_creator(v, count, field_weight, source))
     end
     add_docs
   end
 
-  def standard_add_creator(value, count, field_weight)
+  def ade_keyword_creator(value, count, field_weight, source)
+    add_docs = []
+    value.downcase.split(/ [\/\>] /).each do |v|
+      v.strip!
+      add_docs.concat(standard_add_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
+    end
+    add_docs
+  end
+
+  def standard_add_creator(value, count, field_weight, source)
     count_weight = count <= 1 ? 0.4 : Math.log(count)
     weight = field_weight * count_weight
-    [{ 'add' => { 'doc' => { 'text_suggest' => value, 'source' => 'NSIDC', 'weight' => weight } } }]
+    [{ 'add' => { 'doc' => { 'id' => "#{source}:#{value}", 'text_suggest' => value, 'source' => source, 'weight' => weight } } }]
   end
 
   def fetch_auto_suggest_facet_data(url, fields)
@@ -51,7 +69,7 @@ class AutoSuggestHarvester < HarvesterBase
     add_docs = []
     facet_response['facet_counts']['facet_fields'].each do |facet_name, facet_values|
       facet_values.each_slice(2).to_a.each do |facet_value|
-        new_docs = fields[facet_name][:creator].call(facet_value[0], facet_value[1], fields[facet_name][:weight])
+        new_docs = fields[facet_name][:creator].call(facet_value[0], facet_value[1], fields[facet_name][:weight], fields[facet_name][:source])
         add_docs.concat(new_docs)
       end
     end
@@ -63,11 +81,17 @@ class AutoSuggestHarvester < HarvesterBase
   end
 
   def nsidc_fields
-    { 'authoritative_id' => { weight: 1, creator: method(:standard_add_creator) },
-      'full_title' => { weight: 2, creator: method(:standard_add_creator) },
-      'copy_parameters' => { weight: 4, creator: method(:standard_add_creator) },
-      'full_platforms' => { weight: 3, creator: method(:short_full_split_add_creator) },
-      'full_sensors' => { weight: 3, creator: method(:short_full_split_add_creator) },
-      'full_authors' => { weight: 1, creator: method(:standard_add_creator) } }
+    { 'authoritative_id' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) },
+      'full_title' => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
+      'copy_parameters' => { weight: 4, source: 'NSIDC', creator: method(:standard_add_creator) },
+      'full_platforms' => { weight: 3, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
+      'full_sensors' => { weight: 3, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
+      'full_authors' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) } }
+  end
+
+  def ade_fields
+    { 'full_title' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) },
+      'full_keywords' => { weight: 2, source: 'ADE', creator: method(:ade_keyword_creator) },
+      'full_authors' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) } }
   end
 end

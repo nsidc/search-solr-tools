@@ -34,10 +34,7 @@ EOL = {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
       multivalue: true,
       unique: true,
-      format: proc do |node|
-                matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
-                matches ? node.xpath('./gmd:organisationName/gco:CharacterString') : ''
-              end
+      format: IsoToSolrFormat::EOL_AUTHOR_FORMAT
   },
   keywords: {
       xpaths: ['.//gmd:keyword/gco:CharacterString'],

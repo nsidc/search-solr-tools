@@ -37,6 +37,7 @@
     <field name="full_platforms" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="full_sensors" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="full_authors" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="full_keywords" type="string" indexed="true" stored="true" multiValued="true" />
 
     <field name="facet_brokered" type="boolean" indexed="true" stored="true" multiValued="false" />
     <field name="facet_data_center" type="string" indexed="true" stored="true" multiValued="false" />
@@ -64,7 +65,7 @@
   <copyField source="platforms" dest="full_platforms" />
   <copyField source="sensors" dest="full_sensors" />
   <copyField source="authors" dest="full_authors" />
-  <copyField source="authors" dest="full_authors" />
+  <copyField source="keywords" dest="full_keywords" />
 
   <types>
     <!-- The StrField type is not analyzed, but indexed/stored verbatim.

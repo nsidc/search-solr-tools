@@ -32,7 +32,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct author(s)',
       xpath: "/doc/field[@name='authors']",
-      expected_text: 'Craig E. Tweedie, ctweedie AT utep dot edu'
+      expected_text: 'Craig E. Tweedie'
     },
     {
       title: 'should grab the correct keywords',
