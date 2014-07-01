@@ -11,15 +11,15 @@ describe AutoSuggestHarvester do
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_auto_suggest_solr_harvest_query.json'), headers: {})
 
       stub_request(:post, 'http://integration.solr-search.apps.int.nsidc.org:9283/solr/auto_suggest/update?commit=true')
-      .with(body: /{"add":{"doc":{"id":.*,"text_suggest":.*,"source":"NSIDC","weight":.*}}}/)
+      .with(body: /[{.*}]/)
       .to_return(status: 200, body: 'success', headers: {})
 
       auto_suggest_harvester.harvest_nsidc
 
-      a_request(:post, 'http://integration.solr-search.apps.int.nsidc.org:9283/solr/auto_suggest/update?commit=true').should have_been_made.times(20)
+      a_request(:post, 'http://integration.solr-search.apps.int.nsidc.org:9283/solr/auto_suggest/update?commit=true').should have_been_made
 
       a_request(:post, 'http://integration.solr-search.apps.int.nsidc.org:9283/solr/auto_suggest/update?commit=true')
-      .with { |req| req.body.include?('{"add":{"doc":{"id":"NSIDC:AA_L2A","text_suggest":"AA_L2A","source":"NSIDC","weight"') }.should have_been_made
+      .with { |req| req.body.include?('"id":"NSIDC:AA_L2A","text_suggest":"AA_L2A","source":"NSIDC","weight"') }.should have_been_made
 
       a_request(:post, 'http://integration.solr-search.apps.int.nsidc.org:9283/solr/auto_suggest/update?commit=true')
       .with { |req| req.body.include?('AARI 10-Day Arctic Ocean EASE-Grid Sea Ice Observations') }.should have_been_made
