@@ -93,14 +93,14 @@ class AutoSuggestHarvester < HarvesterBase
     { 'authoritative_id' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) },
       'full_title' => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
       'copy_parameters' => { weight: 4, source: 'NSIDC', creator: method(:standard_add_creator) },
-      'full_platforms' => { weight: 3, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
+      'full_platforms' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
       'full_sensors' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
       'full_authors' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) } }
   end
 
   def ade_fields
     { 'full_title' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) },
-      'full_keywords' => { weight: 2, source: 'ADE', creator: method(:ade_keyword_creator) },
+      'full_keywords_and_parameters' => { weight: 2, source: 'ADE', creator: method(:ade_keyword_creator) },
       'full_authors' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) } }
   end
 end
