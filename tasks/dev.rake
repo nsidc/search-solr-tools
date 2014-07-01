@@ -32,8 +32,12 @@ namespace :dev do
   task restart_with_clean_nsidc_harvest: ['dev:deploy_schema', 'dev:restart'] do
     puts 'Sleeping 10 seconds for server to start'
     sleep(10)
+
     Rake::Task['harvest:delete_all'].invoke
+    Rake::Task['harvest:delete_all_auto_suggest'].invoke
+
     Rake::Task['harvest:nsidc_json'].invoke
+    Rake::Task['harvest:nsidc_auto_suggest'].invoke
   end
 
   desc 'Deploys a new solr config and schema, restarts the server and then reharvests'
@@ -46,7 +50,10 @@ namespace :dev do
     sleep(10)
 
     Rake::Task['harvest:delete_all'].invoke
+    Rake::Task['harvest:delete_all_auto_suggest'].invoke
+
     Rake::Task['harvest:nsidc_json'].invoke
+    Rake::Task['harvest:nsidc_auto_suggest'].invoke
   end
 
   desc 'Development harvest of subset of ids'
