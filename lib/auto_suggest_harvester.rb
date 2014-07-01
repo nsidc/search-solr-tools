@@ -53,7 +53,7 @@ class AutoSuggestHarvester < HarvesterBase
   def standard_add_creator(value, count, field_weight, source)
     count_weight = count <= 1 ? 0.4 : Math.log(count)
     weight = field_weight * count_weight
-    [{ 'add' => { 'doc' => { 'id' => "#{source}:#{value}", 'text_suggest' => value, 'source' => source, 'weight' => weight } } }]
+    [{ 'id' => "#{source}:#{value}", 'text_suggest' => value, 'source' => source, 'weight' => weight }]
   end
 
   def fetch_auto_suggest_facet_data(url, fields)
@@ -77,7 +77,16 @@ class AutoSuggestHarvester < HarvesterBase
   end
 
   def add_documents_to_solr(add_docs)
-    insert_solr_docs add_docs, HarvesterBase::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
+    if insert_solr_doc add_docs, HarvesterBase::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
+      puts "Added #{add_docs.size} auto suggest documents in one commit"
+    else
+      puts "Failed adding #{add_docs.size} documents in single commit, retrying one by one"
+      new_add_docs = []
+      add_docs.each do |doc|
+        new_add_docs << { 'add' => { 'doc' => doc } }
+      end
+      insert_solr_docs new_add_docs, HarvesterBase::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
+    end
   end
 
   def nsidc_fields
@@ -85,7 +94,7 @@ class AutoSuggestHarvester < HarvesterBase
       'full_title' => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
       'copy_parameters' => { weight: 4, source: 'NSIDC', creator: method(:standard_add_creator) },
       'full_platforms' => { weight: 3, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
-      'full_sensors' => { weight: 3, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
+      'full_sensors' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
       'full_authors' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) } }
   end
 
