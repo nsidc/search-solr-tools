@@ -92,7 +92,7 @@ class AutoSuggestHarvester < HarvesterBase
   def nsidc_fields
     { 'authoritative_id' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) },
       'full_title' => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
-      'copy_parameters' => { weight: 4, source: 'NSIDC', creator: method(:standard_add_creator) },
+      'copy_parameters' => { weight: 5, source: 'NSIDC', creator: method(:standard_add_creator) },
       'full_platforms' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
       'full_sensors' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
       'full_authors' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) } }
