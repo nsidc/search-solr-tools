@@ -6,7 +6,7 @@ require './lib/auto_suggest_harvester.rb'
 
 namespace :harvest do
 
-  desc 'Harvest all ADE data'
+  desc 'Harvest all ADE data, including auto-suggest'
   task :all_ade, :environment do |t, args|
     Rake::Task['harvest:cisl'].invoke(args[:environment])
     Rake::Task['harvest:echo'].invoke(args[:environment])
@@ -15,6 +15,7 @@ namespace :harvest do
     Rake::Task['harvest:nmi'].invoke(args[:environment])
     Rake::Task['harvest:nodc'].invoke(args[:environment])
     Rake::Task['harvest:rda'].invoke(args[:environment])
+    Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment])
   end
 
   desc 'Harvest auto suggest for ADE'
