@@ -16,7 +16,7 @@ namespace :harvest do
   task :nsidc_json, :environment do |t, args|
     begin
       harvester = NsidcJsonHarvester.new args[:environment]
-      harvester.harvest_nsidc_json_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for NSIDC'
       next
@@ -26,7 +26,7 @@ namespace :harvest do
   desc 'Harvest auto suggest for nsidc'
   task :nsidc_auto_suggest, :environment do |t, args|
     harvester = AutoSuggestHarvester.new args[:environment]
-    harvester.harvest_nsidc
+    harvester.harvest_and_delete_nsidc
   end
 
   desc 'Delete all documents from the index'

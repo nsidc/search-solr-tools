@@ -1,3 +1,4 @@
+require 'time'
 require 'rest-client'
 require 'nokogiri'
 require 'open-uri'
@@ -18,6 +19,22 @@ class HarvesterBase
   def solr_url
     env = SolrEnvironments[@environment]
     "http://#{env[:host]}:#{env[:port]}/#{env[:collection_path]}"
+  end
+
+  def harvest_and_delete(harvest_method, delete_constraints, solr_core = SolrEnvironments[@environment][:collection_name])
+    start_time = Time.now.utc.iso8601
+    harvest_method.call
+    delete_old_documents start_time, delete_constraints, solr_core
+  end
+
+  def delete_old_documents(before_timestamp, constraints, solr_core)
+    url = solr_url + "/#{solr_core}/update?commit=true"
+    data = { 'delete' => { 'query' => "last_update:[* TO #{before_timestamp}] AND #{constraints}" } }
+    success = false
+    RestClient.post(url, MultiJson.dump(data),  content_type: JSON_CONTENT_TYPE) do |response, request, result|
+      response.code == 200 ? success = true : puts("Error for #{data} \n\n response: #{response.body}")
+    end
+    success
   end
 
   # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents

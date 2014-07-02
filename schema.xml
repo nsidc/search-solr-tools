@@ -4,6 +4,7 @@
 <schema name="NSIDC" version="1.5">
   <fields>
     <field name="authoritative_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="last_update" type="date" indexed="true" stored="true" default="NOW" />
     <field name="dataset_version" type="int" indexed="false" stored="true" required="false" multiValued="false" />
     <field name="title" type="text_stem" indexed="true" stored="true" />
     <field name="summary" type="text_stem" indexed="true" stored="true" />
@@ -13,7 +14,7 @@
     <field name="platforms" type="text_special" indexed="true" stored="true" multiValued="true" />
     <field name="sensors" type="text_special" indexed="true" stored="true" multiValued="true" />
     <field name="authors" type="text_special" indexed="true" stored="true" multiValued="true" />
-    <field name="data_centers" type="text_special" indexed="true" stored="true" multiValued="true" />
+    <field name="data_centers" type="text_special" indexed="true" stored="true" multiValued="false" />
     <field name="brokered" type="boolean" indexed="true" stored="true" multiValued="false" default="false" />
     <field name="published_date" type="date" indexed="true" stored="true" multiValued="false" />
     <field name="spatial_coverages" type="string" indexed="false" stored="true" multiValued="true" />

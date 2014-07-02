@@ -59,6 +59,6 @@ namespace :dev do
   desc 'Development harvest of subset of ids'
   task :dev_nsidc_json_harvest do
     harvester = DevelopmentNsidcJsonHarvester.new
-    harvester.harvest_nsidc_json_into_solr
+    harvester.harvest_and_delete
   end
 end

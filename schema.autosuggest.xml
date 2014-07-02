@@ -4,6 +4,7 @@
 <schema name="auto suggest" version="1.5">
   <fields>
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="last_update" type="date" indexed="true" stored="true" default="NOW" />
     <field name="text_suggest" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest_infix" type="text_suggest_infix" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="text_suggest_edge" type="text_suggest_edge" indexed="true" stored="true" required="true" multiValued="false" />
@@ -56,6 +57,8 @@
     <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0"/>
 
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="false" omitNorms="true"/>
+
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
 
     <!-- ngram matches: match 'bro' in "A brown fox". -->
     <fieldType name="text_suggest_ngram" class="solr.TextField">

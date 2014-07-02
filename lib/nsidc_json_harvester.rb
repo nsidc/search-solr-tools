@@ -3,12 +3,17 @@ require 'rest-client'
 require './lib/harvester_base'
 require './lib/selectors/nsidc_json_to_solr'
 require 'json'
+require './lib/selectors/helpers/iso_to_solr_format'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
 class NsidcJsonHarvester < HarvesterBase
   def initialize(env = 'development')
     super env
     @translator = NsidcJsonToSolr.new
+  end
+
+  def harvest_and_delete
+    super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_LONG_NAME}\"")
   end
 
   # get translated entries from NSIDC OAI and add them to Solr
