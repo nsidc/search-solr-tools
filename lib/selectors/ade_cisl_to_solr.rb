@@ -10,9 +10,6 @@ require './lib/selectors/helpers/solr_format'
 #   consider information from all the nodes (for example, storing only the
 #   maximum duration from multiple temporal coverage fields, taking the sum of multiple spatial areas)
 
-long_name = 'Advanced Cooperative Arctic Data and Information Service'
-short_name = 'ACADIS Gateway'
-
 CISL = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -28,7 +25,7 @@ CISL = {
   },
   data_centers: {
       xpaths: [''],
-      default_values: [long_name],
+      default_values: [SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
       multivalue: false
   },
   authors: {
@@ -88,7 +85,7 @@ CISL = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ["#{long_name} | #{short_name}"],
+      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
       multivalue: false
   },
   facet_spatial_scope: {

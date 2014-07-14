@@ -6,9 +6,6 @@ require './lib/selectors/helpers/solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
-long_name = 'NOAA National Oceanographic Data Center'
-short_name = 'NOAA NODC'
-
 NODC = {
   authoritative_id: {
     xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -24,7 +21,7 @@ NODC = {
   },
   data_centers: {
     xpaths: [''],
-    default_values: [long_name],
+    default_values: [SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]],
     multivalue: false
   },
   authors: {
@@ -90,7 +87,7 @@ NODC = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ["#{long_name} | #{short_name}"],
+      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:NODC][:short_name]}"],
       multivalue: false
   },
   facet_spatial_scope: {

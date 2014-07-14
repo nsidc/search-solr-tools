@@ -4,11 +4,13 @@ require 'nokogiri'
 require 'open-uri'
 require 'multi_json'
 require './lib/selectors/helpers/iso_namespaces'
+require 'rsolr'
 
 # base class for solr harvesters
 class HarvesterBase
   attr_accessor :environment
 
+  DELETE_DOCUMENTS_RATIO = 0.1
   XML_CONTENT_TYPE = 'text/xml; charset=utf-8'
   JSON_CONTENT_TYPE = 'application/json; charset=utf-8'
 
@@ -28,13 +30,23 @@ class HarvesterBase
   end
 
   def delete_old_documents(before_timestamp, constraints, solr_core)
-    url = solr_url + "/#{solr_core}/update?commit=true"
-    data = { 'delete' => { 'query' => "last_update:[* TO #{before_timestamp}] AND #{constraints}" } }
-    success = false
-    RestClient.post(url, MultiJson.dump(data),  content_type: JSON_CONTENT_TYPE) do |response, request, result|
-      response.code == 200 ? success = true : puts("Error for #{data} \n\n response: #{response.body}")
+    delete_query = "last_update:[* TO #{before_timestamp}] AND #{constraints}"
+
+    solr = RSolr.connect url: solr_url + "/#{solr_core}"
+    all_response = solr.get 'select', params: { q: constraints, rows: 0 }
+    not_updated_response = solr.get 'select', params: { q: delete_query, rows: 0 }
+
+    if not_updated_response['response']['numFound'].to_i > 0
+      if not_updated_response['response']['numFound'].to_f / all_response['response']['numFound'].to_f < DELETE_DOCUMENTS_RATIO
+        puts "Deleting #{not_updated_response['response']['numFound']} documents for #{constraints}"
+        solr.delete_by_query delete_query
+        solr.commit
+      else
+        puts "Failed to delete old records because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
+        puts "\tTotal records: #{all_response['response']['numFound']}"
+        puts "\tNon-updated records: #{not_updated_response['response']['numFound']}"
+      end
     end
-    success
   end
 
   # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents

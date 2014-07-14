@@ -4,8 +4,18 @@ require './lib/selectors/helpers/bounding_box_util'
 
 #  Methods for generating formatted values that can be indexed by SOLR
 module SolrFormat
-  DATA_CENTER_LONG_NAME = 'National Snow and Ice Data Center'
-  DATA_CENTER_SHORT_NAME = 'NSIDC'
+  DATA_CENTER_NAMES = {
+      NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
+      CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
+      ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House' },
+      EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
+      ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
+      NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
+      NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
+      RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
+      EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' }
+  }
+
   NOT_SPECIFIED = 'Not specified'
 
   TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)

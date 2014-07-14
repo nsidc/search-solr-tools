@@ -13,7 +13,7 @@ class NsidcJsonHarvester < HarvesterBase
   end
 
   def harvest_and_delete
-    super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_LONG_NAME}\"")
+    super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]}\"")
   end
 
   # get translated entries from NSIDC OAI and add them to Solr

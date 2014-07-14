@@ -7,7 +7,6 @@ namespace :harvest do
   task :all, :environment do |t, args|
     Rake::Task['harvest:nsidc_json'].invoke(args[:environment])
     Rake::Task['harvest:all_ade'].invoke(args[:environment])
-    Rake::Task['harvest:delete_all_auto_suggest'].invoke(args[:environment])
     Rake::Task['harvest:nsidc_auto_suggest'].invoke(args[:environment])
     Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment])
   end

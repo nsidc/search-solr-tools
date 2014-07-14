@@ -65,6 +65,8 @@ GEM
     rgeo (0.3.20)
     rgeo-geojson (0.2.3)
       rgeo (>= 0.3.7)
+    rsolr (1.0.10)
+      builder (>= 2.1.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -107,6 +109,7 @@ DEPENDENCIES
   rest-client (~> 1.6.7)
   rgeo
   rgeo-geojson
+  rsolr
   rspec
   rubocop
   turnip

@@ -6,9 +6,6 @@ require './lib/selectors/helpers/solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional.
 
-long_name = 'UCAR/NCAR Research Data Archive'
-short_name = 'UCAR/NCAR RDA'
-
 RDA = {
   authoritative_id: {
       xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -24,7 +21,7 @@ RDA = {
   },
   data_centers: {
       xpaths: [''],
-      default_values: [long_name],
+      default_values: [SolrFormat::DATA_CENTER_NAMES[:RDA][:long_name]],
       multivalue: false
   },
   authors: {
@@ -85,7 +82,7 @@ RDA = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ["#{long_name} | #{short_name}"],
+      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:RDA][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:RDA][:short_name]}"],
       multivalue: false
   },
   facet_spatial_scope: {

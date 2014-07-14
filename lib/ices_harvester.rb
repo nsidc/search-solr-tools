@@ -11,6 +11,10 @@ class IcesHarvester < HarvesterBase
     @translator = IsoToSolr.new :ices
   end
 
+  def harvest_and_delete
+    super(method(:harvest_ices_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:ICES][:long_name]}\"")
+  end
+
   # get translated entries from ICES and add them to Solr
   # this is the main entry point for the class
   def harvest_ices_into_solr

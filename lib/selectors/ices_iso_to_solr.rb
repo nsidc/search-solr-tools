@@ -6,9 +6,6 @@ require './lib/selectors/helpers/solr_format'
 # xpaths resolved to a value and formatting the field.
 # xpaths and multivalue are required, default_value and format are optional
 
-long_name = 'International Council for the Exploration of the Sea'
-short_name = 'ICES'
-
 ICES = {
   authoritative_id: {
     xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
@@ -24,7 +21,7 @@ ICES = {
   },
   data_centers: {
     xpaths: [''],
-    default_values: [long_name],
+    default_values: [SolrFormat::DATA_CENTER_NAMES[:ICES][:long_name]],
     multivalue: false
   },
   authors: {
@@ -90,7 +87,7 @@ ICES = {
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ["#{long_name} | #{short_name}"],
+      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:ICES][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:ICES][:short_name]}"],
       multivalue: false
   },
   facet_spatial_scope: {

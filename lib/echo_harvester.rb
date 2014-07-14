@@ -11,6 +11,10 @@ class EchoHarvester < HarvesterBase
     @translator = IsoToSolr.new :echo
   end
 
+  def harvest_and_delete
+    super(method(:harvest_echo_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:ECHO][:long_name]}\"")
+  end
+
   # get translated entries from ECHO and add them to Solr
   # this is the main entry point for the class
   def harvest_echo_into_solr

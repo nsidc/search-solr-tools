@@ -15,6 +15,10 @@ class AutoSuggestHarvester < HarvesterBase
     harvest_and_delete(method(:harvest_nsidc), "source:\"NSIDC\"", @env_settings[:auto_suggest_collection_name])
   end
 
+  def harvest_and_delete_ade
+    harvest_and_delete(method(:harvest_ade), "source:\"ADE\"", @env_settings[:auto_suggest_collection_name])
+  end
+
   def harvest_nsidc
     url = "#{solr_url}/#{@env_settings[:collection_name]}/select?q=*%3A*&fq=source%3ANSIDC&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1"
     fields = nsidc_fields

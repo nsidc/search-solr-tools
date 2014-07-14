@@ -21,14 +21,14 @@ namespace :harvest do
   desc 'Harvest auto suggest for ADE'
   task :ade_auto_suggest, :environment do |t, args|
     harvester = AutoSuggestHarvester.new args[:environment]
-    harvester.harvest_ade
+    harvester.harvest_and_delete_ade
   end
 
   desc 'Harvest CISL data'
   task :cisl, :environment do |t, args|
     begin
       harvester = ADEHarvester.new(args[:environment], 'CISL')
-      harvester.harvest_gi_cat_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for CISL: #{e.message}'
       next
@@ -39,7 +39,7 @@ namespace :harvest do
   task :echo, :environment do |t, args|
     begin
       harvester = EchoHarvester.new args[:environment]
-      harvester.harvest_echo_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for ECHO: #{e.message}'
       next
@@ -50,7 +50,7 @@ namespace :harvest do
   task :eol, :environment do |t, args|
     begin
       harvester = ADEHarvester.new(args[:environment], 'EOL')
-      harvester.harvest_gi_cat_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for EOL: #{e.message}'
       next
@@ -61,7 +61,7 @@ namespace :harvest do
   task :ices, :environment do |t, args|
     begin
       harvester = IcesHarvester.new args[:environment]
-      harvester.harvest_ices_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for ICES: #{e.message}'
       next
@@ -72,7 +72,7 @@ namespace :harvest do
   task :nmi, :environment do |t, args|
     begin
       harvester = ADEHarvester.new(args[:environment], 'NMI')
-      harvester.harvest_gi_cat_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for NMI: #{e.message}'
       next
@@ -83,7 +83,7 @@ namespace :harvest do
   task :nodc, :environment do |t, args|
     begin
       harvester = NodcHarvester.new args[:environment]
-      harvester.harvest_nodc_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for NODC: #{e.message}'
       next
@@ -94,7 +94,7 @@ namespace :harvest do
   task :rda, :environment do |t, args|
     begin
       harvester = ADEHarvester.new(args[:environment], 'RDA')
-      harvester.harvest_gi_cat_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for RDA: #{e.message}'
       next
@@ -105,7 +105,7 @@ namespace :harvest do
   task :ade, :environment, :profile do |t, args|
     begin
       harvester = ADEHarvester.new(args[:environment], args[:profile])
-      harvester.harvest_gi_cat_into_solr
+      harvester.harvest_and_delete
     rescue
       puts 'Harvest failed for #{args[:profile]}: #{e}'
       next

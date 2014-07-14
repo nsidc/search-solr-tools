@@ -16,8 +16,8 @@ class NsidcJsonToSolr
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
       'dataset_version' => json_doc['majorVersion']['version'],
-      'data_centers' => SolrFormat::DATA_CENTER_LONG_NAME,
-      'facet_data_center' => "#{SolrFormat::DATA_CENTER_LONG_NAME} | #{SolrFormat::DATA_CENTER_SHORT_NAME}",
+      'data_centers' => SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name],
+      'facet_data_center' => "#{SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:NSIDC][:short_name]}",
       'authors' => translate_personnel_and_creators_to_authors(json_doc['personnel'], generate_data_citation_creators(json_doc['dataCitation'])),
       'topics' => translate_iso_topic_categories(json_doc['isoTopicCategories']),
       'parameters' => translate_parameters(json_doc['parameters']),

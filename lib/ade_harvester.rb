@@ -1,6 +1,7 @@
 require 'gi_cat_driver'
 require './lib/selectors/helpers/csw_iso_query_builder'
 require './lib/selectors/helpers/iso_to_solr'
+require './lib/selectors/helpers/solr_format'
 require './lib/harvester_base'
 
 # Harvests data from GI-Cat and inserts it into Solr after it has been translated
@@ -13,6 +14,10 @@ class ADEHarvester < HarvesterBase
     @profile = profile_name || 'CISL' # for some reason the default param value was not working
     @translator = IsoToSolr.new profile_name.downcase.to_sym
     @gi_cat = GiCatDriver::GiCat.new(gi_cat_url, 'admin', 'abcd123$')
+  end
+
+  def harvest_and_delete
+    super(method(:harvest_gi_cat_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[@profile.to_sym][:long_name]}\"")
   end
 
   # get translated entries from GI-Cat and add them to Solr
