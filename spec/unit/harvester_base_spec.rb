@@ -86,6 +86,20 @@ describe HarvesterBase do
     end
   end
 
+  describe 'delete_old_documents' do
+    before :each do
+      @harvester = described_class.new 'integration'
+    end
+
+    it 'Can be forced to delete with a timestamp' do
+      stubs = stub_update_and_delete(500, 75)
+      @harvester.delete_old_documents('20040202', "data_centers:\"test\"", SolrEnvironments[@harvester.environment][:collection_name], true)
+
+      stubs[:delete_stub].should have_been_requested
+      stubs[:commit_stub].should have_been_requested
+    end
+  end
+
   describe 'insert_solr_docs' do
     it 'raises an error if some documents are not successfully added' do
       harvester = described_class.new 'integration'

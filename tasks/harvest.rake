@@ -28,6 +28,20 @@ namespace :harvest do
     harvester.harvest_and_delete_nsidc
   end
 
+  desc 'Force deletion of documents for a specific data center with timestamps before the passed timestamp in format iso8601 (2014-07-14T21:49:21Z)
+  Example: `rake harvest:delete_by_data_center[\'NSIDC\',\'2014-07-14T21:49:21Z\']`'
+  task :delete_by_data_center, :data_center, :timestamp, :environment do |t, args|
+    harvester = HarvesterBase.new args[:environment]
+    harvester.delete_old_documents args[:timestamp], "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[args[:data_center].to_sym][:long_name]}\"", SolrEnvironments[harvester.environment][:collection_name], true
+  end
+
+  desc 'List all the data centers'
+  task :list_data_centers do
+    SolrFormat::DATA_CENTER_NAMES.each do |code, names|
+      puts "code: #{code.to_s}, short_name: #{names[:short_name]}, long_name: #{names[:long_name]}"
+    end
+  end
+
   desc 'Delete all documents from the index'
   task :delete_all, :environment do |t, args|
     env = SolrEnvironments[args[:environment]]

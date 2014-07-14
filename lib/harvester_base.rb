@@ -29,23 +29,23 @@ class HarvesterBase
     delete_old_documents start_time, delete_constraints, solr_core
   end
 
-  def delete_old_documents(before_timestamp, constraints, solr_core)
+  def delete_old_documents(before_timestamp, constraints, solr_core, force = false)
     delete_query = "last_update:[* TO #{before_timestamp}] AND #{constraints}"
 
     solr = RSolr.connect url: solr_url + "/#{solr_core}"
     all_response = solr.get 'select', params: { q: constraints, rows: 0 }
     not_updated_response = solr.get 'select', params: { q: delete_query, rows: 0 }
 
-    if not_updated_response['response']['numFound'].to_i > 0
-      if not_updated_response['response']['numFound'].to_f / all_response['response']['numFound'].to_f < DELETE_DOCUMENTS_RATIO
-        puts "Deleting #{not_updated_response['response']['numFound']} documents for #{constraints}"
-        solr.delete_by_query delete_query
-        solr.commit
-      else
-        puts "Failed to delete old records because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
-        puts "\tTotal records: #{all_response['response']['numFound']}"
-        puts "\tNon-updated records: #{not_updated_response['response']['numFound']}"
-      end
+    if not_updated_response['response']['numFound'].to_i == 0
+      puts "All documents were updated after #{before_timestamp}, nothing to delete"
+    elsif force || not_updated_response['response']['numFound'].to_f / all_response['response']['numFound'].to_f < DELETE_DOCUMENTS_RATIO
+      puts "Deleting #{not_updated_response['response']['numFound']} documents for #{constraints}"
+      solr.delete_by_query delete_query
+      solr.commit
+    else
+      puts "Failed to delete records older then #{before_timestamp} because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
+      puts "\tTotal records: #{all_response['response']['numFound']}"
+      puts "\tNon-updated records: #{not_updated_response['response']['numFound']}"
     end
   end
 
