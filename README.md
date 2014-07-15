@@ -18,9 +18,9 @@ The above is what dev:restart_with_clean_nsidc_harvest does with the last step b
 
 Manipulating data in Solr can be done with the `harvest` tasks.
 
-* `rake harvest:all` retrieves and inserts data for both NSIDC search and the Arctic Data Explorer.
-* `rake harvest:all_ade` gathers data for the Arctic Data Explorer and inserts it into Solr.
-* `rake harvest:nsidc_json` will gather data for NSIDC search.
+* `rake harvest:all` retrieves and inserts data for both NSIDC search and the Arctic Data Explorer and deletes old documents.
+* `rake harvest:all_ade` gathers data for the Arctic Data Explorer and inserts it into Solr and deletes old documents.
+* `rake harvest:nsidc_json` will gather data for NSIDC search and delete old documents.
 * `rake harvest:delete_all` wipes out the database in your local Solr.
 
 
