@@ -107,8 +107,7 @@ class AutoSuggestHarvester < HarvesterBase
   end
 
   def ade_fields
-    { 'full_title' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) },
-      'full_keywords_and_parameters' => { weight: 2, source: 'ADE', creator: method(:ade_keyword_creator) },
+    { 'full_keywords_and_parameters' => { weight: 2, source: 'ADE', creator: method(:ade_keyword_creator) },
       'full_authors' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) } }
   end
 end
