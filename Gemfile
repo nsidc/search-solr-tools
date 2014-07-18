@@ -20,6 +20,7 @@ gem 'rgeo-geojson'
 gem 'iso8601'
 gem 'rsolr'
 
+
 # to use the debugger:
 # - uncomment gems below
 # - run `bundle install`

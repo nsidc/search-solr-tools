@@ -41,6 +41,8 @@ module SolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
   DATE = proc { |date | date_str date.text }
 
+  FACET_BIN_CONFIGURATION = FacetConfiguration::BinConfiguration.new
+
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"
     temporal_str += ",#{date_range[:end]}" unless date_range[:end].nil?
@@ -82,7 +84,7 @@ module SolrFormat
   end
 
   def self.format_binning(format_string)
-    binned_format = bin(NsidcFormatMapping::MAPPING, format_string)
+    binned_format = bin(FACET_BIN_CONFIGURATION.GetFacetBin('format'), format_string)
 
     # use metadata format if no mapping exists
     if binned_format.nil?
@@ -97,7 +99,7 @@ module SolrFormat
   end
 
   def self.parameter_binning(parameter_string)
-    binned_parameter = bin(NsidcParameterMapping::MAPPING, parameter_string)
+    binned_parameter = bin(FACET_BIN_CONFIGURATION.GetFacetBin('parameter'), parameter_string)
 
     # use variable_level_1 if no mapping exists
     if binned_parameter.nil?
@@ -155,12 +157,11 @@ module SolrFormat
   MAX_DATE = Time.now.strftime('%Y%m%d')
 
   def self.bin(mappings, term)
-    mappings.each do |match_key, value|
-      term.match(match_key) do
-        return value
+    mappings.each do |mapping|
+      term.match(mapping['pattern']) do
+        return mapping['mapping']
       end
     end
-
     nil
   end
 
