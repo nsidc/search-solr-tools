@@ -35,9 +35,7 @@ class AutoSuggestHarvester < HarvesterBase
 
   def harvest(url, fields)
     facet_response = fetch_auto_suggest_facet_data(url, fields)
-
     add_docs = generate_add_hashes(facet_response, fields)
-
     add_documents_to_solr(add_docs)
   end
 
@@ -49,31 +47,27 @@ class AutoSuggestHarvester < HarvesterBase
     add_docs
   end
 
-  def ade_keyword_creator(value, count, field_weight, source)
+  def ade_split_creator(value, count, field_weight, source, split_regex)
     add_docs = []
-    value.downcase.split(/ [\/ \>]+ /).each do |v|
+    value.downcase.split(split_regex).each do |v|
       v = v.strip.chomp('/')
       add_docs.concat(ade_length_limit_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
     end
     add_docs
   end
 
+  def ade_keyword_creator(value, count, field_weight, source)
+    ade_split_creator value, count, field_weight, source, / [\/ \>]+ /
+  end
+
   def ade_author_creator(value, count, field_weight, source)
-    add_docs = []
-    value.downcase.split(/;/).each do |v|
-      v = v.strip
-      add_docs.concat(ade_length_limit_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
-    end
-    add_docs
+    ade_split_creator value, count, field_weight, source, /;/
   end
 
   def ade_length_limit_creator(value, count, field_weight, source)
-    if value.length > 80
-      puts "Skipping long value: '#{value}'"
-      return []
-    else
-      return standard_add_creator value, count, field_weight, source
-    end
+    return [] if value.length > 80
+
+    standard_add_creator value, count, field_weight, source
   end
 
   def standard_add_creator(value, count, field_weight, source)
