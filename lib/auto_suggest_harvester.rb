@@ -51,10 +51,8 @@ class AutoSuggestHarvester < HarvesterBase
 
   def ade_keyword_creator(value, count, field_weight, source)
     add_docs = []
-    value.strip!
-    value = value[1..-1] if value[0] == '/'
-    value.chomp('/').downcase.split(/ [\/\>]+ /).each do |v|
-      v.strip!
+    value.downcase.split(/ [\/ \>]+ /).each do |v|
+      v = v.strip.chomp('/')
       add_docs.concat(standard_add_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
     end
     add_docs
