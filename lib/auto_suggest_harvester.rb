@@ -53,9 +53,27 @@ class AutoSuggestHarvester < HarvesterBase
     add_docs = []
     value.downcase.split(/ [\/ \>]+ /).each do |v|
       v = v.strip.chomp('/')
-      add_docs.concat(standard_add_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
+      add_docs.concat(ade_length_limit_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
     end
     add_docs
+  end
+
+  def ade_author_creator(value, count, field_weight, source)
+    add_docs = []
+    value.downcase.split(/;/).each do |v|
+      v = v.strip
+      add_docs.concat(ade_length_limit_creator(v, count, field_weight, source)) unless v.nil? || v.empty?
+    end
+    add_docs
+  end
+
+  def ade_length_limit_creator(value, count, field_weight, source)
+    if value.length > 80
+      puts "Skipping long value: '#{value}'"
+      return []
+    else
+      return standard_add_creator value, count, field_weight, source
+    end
   end
 
   def standard_add_creator(value, count, field_weight, source)
@@ -108,6 +126,6 @@ class AutoSuggestHarvester < HarvesterBase
 
   def ade_fields
     { 'full_keywords_and_parameters' => { weight: 2, source: 'ADE', creator: method(:ade_keyword_creator) },
-      'full_authors' => { weight: 1, source: 'ADE', creator: method(:standard_add_creator) } }
+      'full_authors' => { weight: 1, source: 'ADE', creator: method(:ade_author_creator) } }
   end
 end
