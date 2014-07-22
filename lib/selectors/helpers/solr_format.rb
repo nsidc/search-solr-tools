@@ -41,8 +41,6 @@ module SolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
   DATE = proc { |date | date_str date.text }
 
-  FACET_BIN_CONFIGURATION = FacetConfiguration::BinConfiguration.new
-
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"
     temporal_str += ",#{date_range[:end]}" unless date_range[:end].nil?
@@ -84,8 +82,8 @@ module SolrFormat
   end
 
   def self.format_binning(format_string)
-    binned_format = bin(FACET_BIN_CONFIGURATION.GetFacetBin('format'), format_string)
-
+    FacetConfiguration.get_bin_configuration
+    binned_format = bin(FacetConfiguration.get_facet_bin('format'), format_string)
     # use metadata format if no mapping exists
     if binned_format.nil?
       return format_string
@@ -99,8 +97,8 @@ module SolrFormat
   end
 
   def self.parameter_binning(parameter_string)
-    binned_parameter = bin(FACET_BIN_CONFIGURATION.GetFacetBin('parameter'), parameter_string)
-
+    FacetConfiguration.get_bin_configuration
+    binned_parameter = bin(FacetConfiguration.get_facet_bin('parameter'), parameter_string)
     # use variable_level_1 if no mapping exists
     if binned_parameter.nil?
       parts = parameter_string.split '>'
@@ -111,6 +109,19 @@ module SolrFormat
 
     nil
   end
+
+  def self.sensor_binning(sensor_string)
+    FacetConfiguration.get_bin_configuration
+    binned_sensor = bin(FacetConfiguration.get_facet_bin('sensor'), sensor_string)
+    if binned_sensor.nil?
+      return sensor_string
+    elsif binned_sensor.eql?('exclude')
+      return nil
+    else
+      return binned_sensor
+    end
+  end
+
 
   def self.resolution_value(resolution, find_index_method, resolution_values)
     return NOT_SPECIFIED if resolution.to_s.empty?
@@ -175,6 +186,7 @@ module SolrFormat
       return HOURLY_INDEX
     elsif dur_sec < 86_400 # && dur.to_seconds > 3600
       return SUBDAILY_INDEX
+
     elsif dur_sec <= 172_800 # && dur_sec >= 86_400 - This is 1 to 2 days
       return DAILY_INDEX
     elsif dur_sec <= 691_200 # && dur_sec >= 172_800 - This is 3 to 8 days

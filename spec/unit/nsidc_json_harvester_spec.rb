@@ -2,7 +2,9 @@ require 'webmock/rspec'
 require 'nsidc_json_harvester'
 
 describe NsidcJsonHarvester do
+  bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before :each do
+    stub_request(:get, "http://integration.nsidc.org/api/dataset/metadata//binConfiguration").with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby'}).to_return(:status => 200, :body => bin_configuration, :headers =>{})
     @harvester = described_class.new 'integration'
   end
 
