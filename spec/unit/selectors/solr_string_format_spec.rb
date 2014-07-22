@@ -6,7 +6,6 @@ describe 'SOLR format methods' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
 
-  SolrFormat
   describe 'date' do
     it 'should generate a SOLR readable ISO 8601 string using the DATE helper' do
       SolrFormat::DATE.call(fixture.xpath('.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date')).should eql '2004-05-10T00:00:00Z'
@@ -34,7 +33,7 @@ describe 'SOLR format methods' do
 
   describe 'facets' do
     before(:each) do
-      stub_request(:get, "http://integration.nsidc.org/api/dataset/metadata//binConfiguration").with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby'}).to_return(:status => 200, :body => bin_configuration, :headers =>{})
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata//binConfiguration').with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' }).to_return(status: 200, body: bin_configuration, headers: {})
     end
     it 'should set the parameter for a variable level_1' do
       node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[0].text

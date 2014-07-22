@@ -82,7 +82,7 @@ module SolrFormat
   end
 
   def self.format_binning(format_string)
-    FacetConfiguration.get_bin_configuration
+    FacetConfiguration.import_bin_configuration
     binned_format = bin(FacetConfiguration.get_facet_bin('format'), format_string)
     # use metadata format if no mapping exists
     if binned_format.nil?
@@ -97,7 +97,7 @@ module SolrFormat
   end
 
   def self.parameter_binning(parameter_string)
-    FacetConfiguration.get_bin_configuration
+    FacetConfiguration.import_bin_configuration
     binned_parameter = bin(FacetConfiguration.get_facet_bin('parameter'), parameter_string)
     # use variable_level_1 if no mapping exists
     if binned_parameter.nil?
@@ -111,7 +111,7 @@ module SolrFormat
   end
 
   def self.sensor_binning(sensor_string)
-    FacetConfiguration.get_bin_configuration
+    FacetConfiguration.import_bin_configuration
     binned_sensor = bin(FacetConfiguration.get_facet_bin('sensor'), sensor_string)
     if binned_sensor.nil?
       return sensor_string
@@ -121,7 +121,6 @@ module SolrFormat
       return binned_sensor
     end
   end
-
 
   def self.resolution_value(resolution, find_index_method, resolution_values)
     return NOT_SPECIFIED if resolution.to_s.empty?
