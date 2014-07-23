@@ -55,9 +55,7 @@ class NsidcJsonToSolr
     json.each do |json_entry|
       sensor_bin = SolrFormat.facet_binning('sensor', json_entry['shortName'].to_s)
       if sensor_bin.eql? json_entry['shortName']
-        long_name = json_entry['longName'].to_s
-        short_name = json_entry['shortName'].to_s
-        facet_values << "#{long_name} | #{short_name}"
+        facet_values << "#{json_entry['longName'].to_s} | #{json_entry['shortName'].to_s}"
       else
         facet_values << " | #{sensor_bin}"
       end
