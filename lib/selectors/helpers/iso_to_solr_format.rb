@@ -1,6 +1,5 @@
 require 'date'
 require './lib/selectors/helpers/iso_namespaces'
-require './lib/selectors/helpers/nsidc_bin_configuration'
 require './lib/selectors/helpers/solr_format'
 
 # Methods for generating formatted strings from ISO xml nodes that can be indexed by SOLR

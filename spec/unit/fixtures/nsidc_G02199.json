@@ -79,7 +79,7 @@
     "detailedVariable": null
   }],
   "platforms": [],
-  "instruments": [],
+  "instruments": [{"shortName": "MODIS", "longName": "Modis Test Instrument"}, {"shortName": "TEST", "longName": "Instrument Long Name"}],
   "releaseDate": "2013-01-01T00:00:00-07:00",
   "popularity": 4,
   "lastRevisionDate": "2013-03-12T21:18:12-06:00",

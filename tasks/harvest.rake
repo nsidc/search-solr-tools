@@ -16,8 +16,8 @@ namespace :harvest do
     begin
       harvester = NsidcJsonHarvester.new args[:environment]
       harvester.harvest_and_delete
-    rescue
-      puts 'Harvest failed for NSIDC'
+    rescue => e
+      puts 'Harvest failed for NSIDC:' + e.message
       next
     end
   end

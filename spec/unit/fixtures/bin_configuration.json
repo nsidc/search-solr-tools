@@ -200,4 +200,5 @@
 {"id":200,"pattern":".*Thermal Conductivity.*","mapping":"Soil Properties (other)","order_value":163,"facet_name":"parameter"},
 {"id":201,"pattern":".*Water Vapor Profiles.*","mapping":"Water Vapor","order_value":164,"facet_name":"parameter"},
 {"id":202,"pattern":".*Cyclones.*","mapping":"Winds","order_value":165,"facet_name":"parameter"},
-{"id":203,"pattern":".*Winds.*","mapping":"Winds","order_value":166,"facet_name":"parameter"}]
+{"id":203,"pattern":".*TEST.*", "mapping":"TESTBIN","order_value":1,"facet_name":"sensor"},
+{"id":204,"pattern":".*Winds.*","mapping":"Winds","order_value":166,"facet_name":"parameter"}]

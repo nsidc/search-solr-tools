@@ -4,12 +4,14 @@ require './lib/harvester_base'
 require './lib/selectors/nsidc_json_to_solr'
 require 'json'
 require './lib/selectors/helpers/iso_to_solr_format'
+require './lib/selectors/helpers/nsidc_bin_configuration'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
 class NsidcJsonHarvester < HarvesterBase
   def initialize(env = 'development')
     super env
     @translator = NsidcJsonToSolr.new
+    FacetConfiguration.import_bin_configuration
   end
 
   def harvest_and_delete

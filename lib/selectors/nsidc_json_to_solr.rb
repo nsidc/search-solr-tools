@@ -25,7 +25,7 @@ class NsidcJsonToSolr
       'facet_parameter' => translate_parameters_to_facet_parameters(json_doc['parameters']),
       'platforms' => translate_json_string(json_doc['platforms']),
       'sensors' => translate_json_string(json_doc['instruments']),
-      'facet_sensor' => translate_short_long_names_to_facet_value(json_doc['instruments']),
+      'facet_sensor' => translate_sensor_to_facet_sensor(json_doc['instruments']),
       'published_date' => (SolrFormat.date_str json_doc['releaseDate']),
       'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatialCoverages']),
       'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatialCoverages']),
@@ -48,6 +48,22 @@ class NsidcJsonToSolr
     )
   end
 # rubocop:enable MethodLength
+
+  def translate_sensor_to_facet_sensor(json)
+    facet_values = []
+    return facet_values if json.nil?
+    json.each do |json_entry|
+      sensor_bin = SolrFormat.facet_binning('sensor', json_entry['shortName'])
+      if sensor_bin.eql? json_entry['shortName']
+        long_name = json_entry['longName'].nil? ? '' : json_entry['longName']
+        short_name = json_entry['shortName'].nil? ? '' : json_entry['shortName']
+        facet_values << "#{long_name} | #{short_name}"
+      else
+        facet_values << " | #{sensor_bin}"
+      end
+    end
+    facet_values
+  end
 
   def translate_temporal_coverage_values(temporal_coverages_json)
     temporal_coverages = []
@@ -208,7 +224,7 @@ class NsidcJsonToSolr
     facet_format = []
 
     format_json.each do |format|
-      facet_format << SolrFormat.format_binning(format)
+      facet_format << SolrFormat.facet_binning('format', format)
     end
     facet_format
   end

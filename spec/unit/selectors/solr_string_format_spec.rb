@@ -1,9 +1,11 @@
 require 'nokogiri'
+require 'json'
 require './lib/selectors/helpers/solr_format'
 
 describe 'SOLR format methods' do
 
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
+  json_fixture = JSON.parse(File.read('spec/unit/fixtures/nsidc_G02199.json'))
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
 
   describe 'date' do
@@ -52,17 +54,25 @@ describe 'SOLR format methods' do
 
     it 'should set the data format' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[0].text
-      SolrFormat.format_binning(node).should eql 'HTML'
+      SolrFormat.facet_binning('format', node).should eql 'HTML'
     end
 
     it 'should bin the data format' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[1].text
-      SolrFormat.format_binning(node).should eql 'ASCII Text'
+      SolrFormat.facet_binning('format', node).should eql 'ASCII Text'
     end
 
     it 'should not set excluded data formats' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[2].text
-      SolrFormat.format_binning(node).should eql nil
+      SolrFormat.facet_binning('format', node).should eql nil
+    end
+
+    it 'should set the sensor' do
+      SolrFormat.facet_binning('sensor', json_fixture['instruments'][0]['shortName']).should eql 'MODIS'
+    end
+
+    it 'should bin the sensor' do
+      SolrFormat.facet_binning('sensor', json_fixture['instruments'][1]['shortName']).should eql 'TESTBIN'
     end
 
     describe 'temporal resolution facet' do
