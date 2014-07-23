@@ -308,6 +308,14 @@ describe NsidcJsonToSolr do
       facets = @translator.translate_spatial_resolution_facet_values(parameters_json)
       facets.sort.should eql ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '>30 km'].sort
     end
-
   end
+
+  describe 'sensor faceting' do
+    it 'translates NSIDC instruments to defined solr facet sensor value' do
+      sensor_json = [{ 'shortName' => 'MODIS', 'longName' => 'Modis Test Instrument' }, { 'shortName' => 'TEST', 'longName' => 'Instrument Long Name' }]
+      facets = @translator.translate_sensor_to_facet_sensor(sensor_json)
+      facets.sort.should eql [' | TESTBIN' , 'Modis Test Instrument | MODIS']
+    end
+  end
+
 end
