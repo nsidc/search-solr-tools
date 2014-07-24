@@ -11,7 +11,7 @@ class NsidcJsonHarvester < HarvesterBase
   def initialize(env = 'development')
     super env
     @translator = NsidcJsonToSolr.new
-    FacetConfiguration.import_bin_configuration
+    FacetConfiguration.import_bin_configuration(env)
   end
 
   def harvest_and_delete

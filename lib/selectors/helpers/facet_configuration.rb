@@ -5,8 +5,8 @@ require 'singleton'
 ## Singleton configuration class to get and parse the binning configuration from the catalog services endpoint
 class FacetConfiguration
   include Singleton
-  def self.import_bin_configuration
-    @bin_configuration = JSON.parse(RestClient.get(SolrEnvironments[@environments][:nsidc_dataset_metadata_url] + '/binConfiguration')) if @bin_configuration.nil?
+  def self.import_bin_configuration(env)
+    @bin_configuration = JSON.parse(RestClient.get(SolrEnvironments[env][:nsidc_dataset_metadata_url] + '/binConfiguration')) if @bin_configuration.nil?
   end
 
   def self.get_facet_bin(facet_name)
