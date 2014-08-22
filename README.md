@@ -2,7 +2,7 @@
 
 This is a collection of:
 
-* Ruby files and rake tasks to transform ISO into SOLR documents
+* Ruby files and rake tasks to transform ISO into Solr documents
 * Rake tasks to harvest NSIDC and ADE data
 
 ## Working on the Project
