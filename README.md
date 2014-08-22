@@ -1,4 +1,4 @@
-# NSIDC Solr
+# NSIDC Search Solr Tools
 
 This is a collection of:
 
