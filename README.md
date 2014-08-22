@@ -44,3 +44,23 @@ Running the acceptance tests locally requires a running instance of Solr and som
 * It was suggested that running the `rake build:setup` would have taken care of this...
 * Run `rake restart_with_clean_nsidc_harvest` to suck in the NSIDC metadata (FIXME I had to run this a couple of times to get it to work...)
 * Once Solr has its data, `rake spec:acceptance` runs the ATs.
+
+### How to contact NSIDC
+
+User Services and general information:  
+Support: http://support.nsidc.org  
+Email: nsidc@nsidc.org  
+
+Phone: +1 303.492.6199  
+Fax: +1 303.492.2468  
+
+Mailing address:  
+National Snow and Ice Data Center  
+CIRES, 449 UCB  
+University of Colorado  
+Boulder, CO 80309-0449 USA  
+
+### License
+
+Every file in this repository is covered by the GNU GPL Version 3; a copy of the
+license is included in the file COPYING.
