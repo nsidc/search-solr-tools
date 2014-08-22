@@ -19,8 +19,8 @@ steps:
 * `rake harvest:delete_all`
 * Harvest the feeds you want here.
 
-The above is what dev:restart_with_clean_nsidc_harvest does with the last step
-being a harvest:nsidc_json
+The above is what `rake dev:restart_with_clean_nsidc_harvest` does with the last
+step being a `rake harvest:nsidc_json`.
 
 Manipulating data in Solr can be done with the `harvest` tasks.
 
@@ -31,7 +31,6 @@ Manipulating data in Solr can be done with the `harvest` tasks.
 * `rake harvest:nsidc_json` will gather data for NSIDC search and delete old
   documents.
 * `rake harvest:delete_all` wipes out the database in your local Solr.
-
 
 The style checker RuboCop can be run with `rubocop` or `rake guard:rubocop`. The
 rake task will also watch for ruby files (.rb, .rake, Gemfile, Guardfile,
@@ -54,8 +53,8 @@ appropriate files are changed.
 Running the acceptance tests locally requires a running instance of Solr and
 some data indexed:
 
-* Use the Solr dev VM at https://bitbucket.org/nsidc/nsidc-solr-development-vm.
-  Follow the instructions in that project to get the VM started and running.
+* Use the [Solr dev VM](https://bitbucket.org/nsidc/dev-vm-search). Follow the
+  instructions in that project to get the VM started and running.
 * `vagrant ssh` into the VM
 * Clone this project, run `bundle install`
 * Run `rake server:start` to start up Solr
