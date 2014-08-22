@@ -9,10 +9,11 @@ This is a collection of:
 
 Be sure to run `bundle install`.
 
-To set up and run your local instance of Solr, first provision your VM with the
-solr puppet module (the dev VM has this). For only NSIDC results run the task
-`rake dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections do
-these steps:
+To set up and run your local instance of Solr, first provision your VM with
+[the solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) (the dev VM
+has this). For only NSIDC results run the task `rake
+dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections do these
+steps:
 
 * `rake dev:deploy_schema`
 * `rake dev:restart`
