@@ -17,8 +17,6 @@ NSIDC, the development VM can be provisioned with the
 [solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
 configure Solr.
 
-Then run bundle install.  This gem is only used for internal deployments to NSIDC.
-
 ### Harvesting Data
 
 For only NSIDC results, run the task `rake
