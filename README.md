@@ -9,10 +9,17 @@ This is a collection of:
 
 Be sure to run `bundle install`.
 
-To set up and run your local instance of Solr, first provision your VM with
-[the solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) (the dev VM
-has this). For only NSIDC results run the task `rake
-dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections do these
+To use this project, you will need a local instance of Solr 4.3, which can be
+downloaded from
+[Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/). At
+NSIDC, the development VM can be provisioned with the
+[solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
+configure Solr.
+
+### Harvesting Data
+
+For only NSIDC results, run the task `rake
+dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections, do these
 steps:
 
 * `rake dev:deploy_schema`
@@ -20,8 +27,8 @@ steps:
 * `rake harvest:delete_all`
 * Harvest the feeds you want here.
 
-The above is what `rake dev:restart_with_clean_nsidc_harvest` does with the last
-step being a `rake harvest:nsidc_json`.
+The above is what `rake dev:restart_with_clean_nsidc_harvest` does, with the
+last step being a `rake harvest:nsidc_json`.
 
 Manipulating data in Solr can be done with the `harvest` tasks.
 
