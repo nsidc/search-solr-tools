@@ -77,6 +77,8 @@ some data indexed:
   (FIXME I had to run this a couple of times to get it to work...)
 * Once Solr has its data, `rake spec:acceptance` runs the ATs.
 
+## Organization Info
+
 ### How to contact NSIDC
 
 User Services and general information:  
