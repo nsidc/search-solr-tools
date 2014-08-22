@@ -7,7 +7,8 @@ This is a collection of:
 
 ## Working on the Project
 
-Be sure to run `bundle install`.
+Be sure to run `bundle install`. If you encounter errors running `rake`, first
+try using `bundle exec rake` to be sure you are using the right version of Rake.
 
 To use this project, you will need a local instance of Solr 4.3, which can be
 downloaded from
