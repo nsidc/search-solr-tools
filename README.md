@@ -22,6 +22,7 @@ For only NSIDC results, run the task `rake
 dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections, do these
 steps:
 
+* `rake build:setup`
 * `rake dev:deploy_schema`
 * `rake dev:restart`
 * `rake harvest:delete_all`
@@ -70,11 +71,9 @@ some data indexed:
   instructions in that project to get the VM started and running.
 * `vagrant ssh` into the VM
 * Clone this project, run `bundle install`
+* Run `rake build:setup`
 * Run `rake server:start` to start up Solr
-* It was suggested that running the `rake build:setup` would have taken care of
-  this...
 * Run `rake dev:restart_with_clean_nsidc_harvest` to suck in the NSIDC metadata
-  (FIXME I had to run this a couple of times to get it to work...)
 * Once Solr has its data, `rake spec:acceptance` runs the ATs.
 
 ## Organization Info
