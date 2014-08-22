@@ -33,12 +33,17 @@ Manipulating data in Solr can be done with the `harvest` tasks.
   documents.
 * `rake harvest:delete_all` wipes out the database in your local Solr.
 
-The style checker RuboCop can be run with `rubocop` or `rake guard:rubocop`. The
-rake task will also watch for ruby files (.rb, .rake, Gemfile, Guardfile,
-Rakefile) to be changed, and run RuboCop on the changed files.
+### RuboCop
+
+The style checker [RuboCop](https://github.com/bbatsov/rubocop) can be run with
+`rubocop` or `rake guard:rubocop`. The rake task will also watch for ruby files
+(.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run RuboCop on the
+changed files.
 
 `rake guard` will automatically run the unit tests and RuboCop in one terminal
 window.
+
+RuboCop can be configured by modifying `.rubocop.yml`.
 
 Pushing with failing tests or RuboCop violations will cause the Jenkins build to
 break. Jenkins jobs to build and deply this project are named
