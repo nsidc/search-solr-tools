@@ -19,6 +19,11 @@ configure Solr.
 
 ### Harvesting Data
 
+The harvester requires additional metadata from services that are not yet publicly available, 
+which are referenced in config/environments.rb.
+
+Multiple harvester formats such as DIF and ISO are available for mapping different source APIs into Solr.
+
 For only NSIDC results, run the task `rake
 dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections, do these
 steps:
