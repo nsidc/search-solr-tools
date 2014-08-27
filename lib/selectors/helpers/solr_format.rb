@@ -7,7 +7,7 @@ module SolrFormat
   DATA_CENTER_NAMES = {
       NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
       CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
-      ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House' },
+      ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
       EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
       ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
       NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
