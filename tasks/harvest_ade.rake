@@ -101,6 +101,18 @@ namespace :harvest do
     end
   end
 
+  desc 'Harvest USGS data'
+  task :usgs, :environment do |t, args|
+    begin
+      harvester = UsgsHarvester.new args[:environment]
+      harvester.harvest_and_delete
+    rescue
+      puts 'Harvest failed for USGS: #{e.message}'
+      next
+    end
+  end
+
+
   desc 'Harvest ADE data from GI-Cat'
   task :ade, :environment, :profile do |t, args|
     begin

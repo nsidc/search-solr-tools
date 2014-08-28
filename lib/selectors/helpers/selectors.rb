@@ -10,5 +10,6 @@ SELECTORS = {
   echo:   ECHO,
   nodc:   NODC,
   rda:    RDA,
-  ices:   ICES
+  ices:   ICES,
+  usgs:   USGS
 }
