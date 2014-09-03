@@ -59,17 +59,17 @@ USGS = {
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal_coverages: {
-    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date/gco:Date"],
+    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
     multivalue: true
   },
   temporal_duration: {
-    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date/gco:Date"],
+    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
     multivalue: false,
     reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   temporal: {
-    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date/gco:Date"],
+    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },

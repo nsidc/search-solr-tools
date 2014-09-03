@@ -71,7 +71,7 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal'][1]",
-      expected_text: '20.040407'
+      expected_text: '20.040407 20.040407'
     },
     {
       title: 'should calculate the correct temporal duration',
@@ -96,7 +96,7 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration'][1]",
-      expected_text: '< 1 year'
+      expected_text: 'Not specified'
     }
   ]
 

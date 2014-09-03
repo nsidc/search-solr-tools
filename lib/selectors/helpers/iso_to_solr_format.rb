@@ -104,10 +104,10 @@ module IsoToSolrFormat
   private
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime'])
+    start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime', './/gco:Date'])
     start_date = SolrFormat.date?(start_date) ? start_date : ''
 
-    end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime'])
+    end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime', './/gco:Date'])
     end_date = SolrFormat.date?(end_date) ? end_date : ''
 
     formatted ? start_date = SolrFormat.date_str(start_date) : start_date
