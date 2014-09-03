@@ -113,7 +113,6 @@ namespace :harvest do
     end
   end
 
-
   desc 'Harvest ADE data from GI-Cat'
   task :ade, :environment, :profile do |t, args|
     begin
