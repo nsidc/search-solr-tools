@@ -34,7 +34,7 @@ class UsgsHarvester < HarvesterBase
   end
 
   def get_results_from_usgs(start_index)
-    get_results build_csw_request('results', @page_size, start_index), '//gmd:MD_Metadata'
+    get_results build_csw_request('results', @page_size, start_index), '//gmd:MD_Metadata', ''
   end
 
   def get_docs_with_translated_entries_from_usgs(entries)
@@ -50,6 +50,7 @@ class UsgsHarvester < HarvesterBase
                                         'startPosition' => startPosition,
                                         'TypeNames' => '',
                                         'constraint' => bbox_constraint
+
     )
   end
 

@@ -2,6 +2,7 @@ require './lib/ade_harvester.rb'
 require './lib/nodc_harvester.rb'
 require './lib/echo_harvester.rb'
 require './lib/ices_harvester.rb'
+require './lib/usgs_harvester.rb'
 require './lib/auto_suggest_harvester.rb'
 
 namespace :harvest do
@@ -30,7 +31,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'CISL')
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for CISL: #{e.message}'
+      puts "Harvest failed for CISL: #{e.message}"
       next
     end
   end
@@ -41,7 +42,7 @@ namespace :harvest do
       harvester = EchoHarvester.new args[:environment]
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for ECHO: #{e.message}'
+      puts "Harvest failed for ECHO: #{e.message}"
       next
     end
   end
@@ -52,7 +53,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'EOL')
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for EOL: #{e.message}'
+      puts "Harvest failed for EOL: #{e.message}"
       next
     end
   end
@@ -63,7 +64,7 @@ namespace :harvest do
       harvester = IcesHarvester.new args[:environment]
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for ICES: #{e.message}'
+      puts "Harvest failed for ICES: #{e.message}"
       next
     end
   end
@@ -74,7 +75,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'NMI')
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for NMI: #{e.message}'
+      puts "Harvest failed for NMI: #{e.message}"
       next
     end
   end
@@ -85,7 +86,7 @@ namespace :harvest do
       harvester = NodcHarvester.new args[:environment]
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for NODC: #{e.message}'
+      puts "Harvest failed for NODC: #{e.message}"
       next
     end
   end
@@ -96,7 +97,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], 'RDA')
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for RDA: #{e.message}'
+      puts "Harvest failed for RDA: #{e.message}"
       next
     end
   end
@@ -106,8 +107,8 @@ namespace :harvest do
     begin
       harvester = UsgsHarvester.new args[:environment]
       harvester.harvest_and_delete
-    rescue
-      puts 'Harvest failed for USGS: #{e.message}'
+    rescue => e
+      puts "Harvest failed for USGS: #{e.message}"
       next
     end
   end
@@ -119,7 +120,7 @@ namespace :harvest do
       harvester = ADEHarvester.new(args[:environment], args[:profile])
       harvester.harvest_and_delete
     rescue
-      puts 'Harvest failed for #{args[:profile]}: #{e}'
+      puts "Harvest failed for #{args[:profile]}: #{e}"
       next
     end
   end
