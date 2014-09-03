@@ -31,7 +31,7 @@ namespace :harvest do
     begin
       harvester = ADEHarvester.new(args[:environment], 'CISL')
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for CISL: #{e.message}"
       next
     end
@@ -42,7 +42,7 @@ namespace :harvest do
     begin
       harvester = EchoHarvester.new args[:environment]
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for ECHO: #{e.message}"
       next
     end
@@ -53,7 +53,7 @@ namespace :harvest do
     begin
       harvester = ADEHarvester.new(args[:environment], 'EOL')
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for EOL: #{e.message}"
       next
     end
@@ -64,7 +64,7 @@ namespace :harvest do
     begin
       harvester = IcesHarvester.new args[:environment]
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for ICES: #{e.message}"
       next
     end
@@ -75,7 +75,7 @@ namespace :harvest do
     begin
       harvester = ADEHarvester.new(args[:environment], 'NMI')
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for NMI: #{e.message}"
       next
     end
@@ -86,7 +86,7 @@ namespace :harvest do
     begin
       harvester = NodcHarvester.new args[:environment]
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for NODC: #{e.message}"
       next
     end
@@ -97,7 +97,7 @@ namespace :harvest do
     begin
       harvester = ADEHarvester.new(args[:environment], 'RDA')
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for RDA: #{e.message}"
       next
     end
@@ -119,7 +119,7 @@ namespace :harvest do
     begin
       harvester = ADEHarvester.new(args[:environment], args[:profile])
       harvester.harvest_and_delete
-    rescue
+    rescue => e
       puts "Harvest failed for #{args[:profile]}: #{e}"
       next
     end

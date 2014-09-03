@@ -12,7 +12,7 @@ class NodcHarvester < HarvesterBase
   end
 
   def harvest_and_delete
-    super(method(:harvest_ices_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]}\"")
+    super(method(:harvest_nodc_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]}\"")
   end
 
   # get translated entries from NODC and add them to Solr
