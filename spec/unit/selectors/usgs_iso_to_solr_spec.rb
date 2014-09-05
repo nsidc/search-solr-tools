@@ -26,7 +26,7 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'U.S. Geological Survey ScienceBase | ScienceBase'
+      expected_text: 'U.S. Geological Survey ScienceBase'
     },
     {
       title: 'should grab the correct author',
