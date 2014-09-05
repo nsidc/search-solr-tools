@@ -14,7 +14,7 @@ module SolrFormat
       NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
       RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
       EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
-      USGS: { short_name: 'USGS Science Base', long_name: 'USGS Science Base' }
+      USGS: { short_name: 'ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' }
   }
 
   NOT_SPECIFIED = 'Not specified'
