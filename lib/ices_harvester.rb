@@ -12,6 +12,7 @@ class IcesHarvester < HarvesterBase
   end
 
   def harvest_and_delete
+    puts "Running harvest of ICES catalog from #{ices_url}"
     super(method(:harvest_ices_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:ICES][:long_name]}\"")
   end
 

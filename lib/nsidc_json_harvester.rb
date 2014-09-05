@@ -15,6 +15,7 @@ class NsidcJsonHarvester < HarvesterBase
   end
 
   def harvest_and_delete
+    puts "Running harvest of NSIDC catalog from #{nsidc_json_url}"
     super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]}\"")
   end
 
@@ -26,12 +27,16 @@ class NsidcJsonHarvester < HarvesterBase
     fail 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
   end
 
+  def nsidc_json_url
+    SolrEnvironments[@environment][:nsidc_dataset_metadata_url]
+  end
+
   def result_ids_from_nsidc
     get_results SolrEnvironments[@environment][:nsidc_oai_identifiers_url], '//xmlns:identifier'
   end
 
   def fetch_json_from_nsidc(id)
-    json_response = RestClient.get(SolrEnvironments[@environment][:nsidc_dataset_metadata_url] + id + '.json')
+    json_response = RestClient.get(nsidc_json_url + id + '.json')
     JSON.parse(json_response)
   end
 

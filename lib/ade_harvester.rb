@@ -17,6 +17,7 @@ class ADEHarvester < HarvesterBase
   end
 
   def harvest_and_delete
+    puts "Running harvest of #{profile} catalog from #{gi_cat_url}"
     super(method(:harvest_gi_cat_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[@profile.to_sym][:long_name]}\"")
   end
 

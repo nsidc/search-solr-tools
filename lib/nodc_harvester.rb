@@ -12,6 +12,7 @@ class NodcHarvester < HarvesterBase
   end
 
   def harvest_and_delete
+    puts "Running harvest of NODC catalog from #{nodc_url}"
     super(method(:harvest_nodc_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]}\"")
   end
 

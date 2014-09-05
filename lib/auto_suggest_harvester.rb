@@ -12,10 +12,12 @@ class AutoSuggestHarvester < HarvesterBase
   end
 
   def harvest_and_delete_nsidc
+    puts "Building auto-suggest indexes for NSIDC"
     harvest_and_delete(method(:harvest_nsidc), "source:\"NSIDC\"", @env_settings[:auto_suggest_collection_name])
   end
 
   def harvest_and_delete_ade
+    puts "Building auto-suggest indexes for ADE"
     harvest_and_delete(method(:harvest_ade), "source:\"ADE\"", @env_settings[:auto_suggest_collection_name])
   end
 
