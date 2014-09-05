@@ -58,7 +58,7 @@
     authoritative_id
   </uniqueKey>
 
-  <copyField source="normalized_authoritative_id" dest="normalized_authoritative_id" />
+  <copyField source="authoritative_id" dest="normalized_authoritative_id" />
   <copyField source="popularity" dest="facet_popularity" />
 
   <copyField source="parameters" dest="copy_parameters" />
