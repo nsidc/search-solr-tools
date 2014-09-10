@@ -26,7 +26,7 @@ module SolrEnvironments
     nodc_url: 'http://data.nodc.noaa.gov/geoportal/csw',
     echo_url: 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10',
     ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',
-    bcodmo_url: 'http://test-prod.bco-dmo.org/nsidc/arctic-deployments.json',
+    bcodmo_url: 'http://www.bco-dmo.org/nsidc/arctic-deployments.json',
     usgs_url: 'https://www.sciencebase.gov/catalog/item/52824fe6e4b08f1425d6e23c/csw'
 
   }

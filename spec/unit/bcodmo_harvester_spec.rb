@@ -8,7 +8,7 @@ describe BcoDmoHarvester do
 
   describe 'Adding documents to Solr' do
     it 'successfully creates a solr addition (ingest) hash' do
-      stub_request(:get, 'http://test-prod.bco-dmo.org/nsidc/arctic-deployments.json')
+      stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
       .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'))
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
@@ -31,7 +31,7 @@ describe BcoDmoHarvester do
     end
   end
   it 'successfully handles failed dataset returns' do
-    stub_request(:get, 'http://test-prod.bco-dmo.org/nsidc/arctic-deployments.json')
+    stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
     .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
     .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'))
     stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
