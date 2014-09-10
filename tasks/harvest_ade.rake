@@ -14,6 +14,7 @@ namespace :harvest do
     Rake::Task['harvest:nodc'].invoke(args[:environment])
     Rake::Task['harvest:rda'].invoke(args[:environment])
     Rake::Task['harvest:usgs'].invoke(args[:environment])
+    Rake::Task['harvest:bco_dmo'].invoke(args[:environment])
     Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment])
   end
 
