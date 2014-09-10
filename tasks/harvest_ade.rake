@@ -1,9 +1,6 @@
-require './lib/ade_harvester.rb'
-require './lib/nodc_harvester.rb'
-require './lib/echo_harvester.rb'
-require './lib/ices_harvester.rb'
-require './lib/usgs_harvester.rb'
-require './lib/auto_suggest_harvester.rb'
+
+require 'require_all'
+require_all './lib'
 
 namespace :harvest do
 
@@ -18,6 +15,17 @@ namespace :harvest do
     Rake::Task['harvest:rda'].invoke(args[:environment])
     Rake::Task['harvest:usgs'].invoke(args[:environment])
     Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment])
+  end
+
+  desc 'Harvest BCO-DMO data'
+  task :bco_dmo, :environment do |t, args|
+    begin
+      harvester = BcoDmoHarvester.new args[:environment]
+      harvester.harvest_and_delete
+    rescue => e
+      puts "Harvest failed for BCODMO: #{e.message}"
+      next
+    end
   end
 
   desc 'Harvest auto suggest for ADE'

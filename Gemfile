@@ -19,6 +19,7 @@ gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'iso8601'
 gem 'rsolr'
+gem 'require_all'
 
 
 # to use the debugger:
