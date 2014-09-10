@@ -12,7 +12,7 @@ class BcodmoJsonToSolr
   def translate(json_doc, json_record, geometry)
     spatial_values = translate_geometry geometry
     temporal_coverage_values = translate_temporal_coverage_values([{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }])
-    json_doc['dataset_description'].empty? ? description = json_doc['dataset_description'] : description = json_doc['dataset_brief_description']
+    json_doc['dataset_description'].empty? ? description = json_doc['dataset_brief_description'] : description = json_doc['dataset_description']
     {
       'title' => json_doc['dataset_name'],
       'authoritative_id' => json_record['id'] + json_doc['dataset_nid'],

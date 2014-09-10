@@ -24,7 +24,7 @@ describe BcoDmoHarvester do
       first_result['authoritative_id'].should eql('511644511584')
       first_result['data_centers'].should eql('Biological and Chemical Oceanography Data Management Office')
       first_result['facet_data_center'].should eql('Biological and Chemical Oceanography Data Management Office | BCO-DMO')
-      first_result['summary'].should eql('Mussel growth rates monitored as multiple locations for 3 year')
+      first_result['summary'].should eql('Mussels were transplanted from a single location on Tatoosh Island to other areas on Tatoosh Island and to the other sites. Mussels were held in mesh (vexar) packages which were bolted to the rock. Mussels were marked via engraving numbers on their shells with a dremel tool, and measured with calipers.  Data have been analyzed and is of high quality, measurement error is less than 1 mm. Mussels were measured in centimeters. ')
       first_result['temporal_coverages'][0].should eql('2008-07-02,2010-08-22')
       first_result['temporal'][0].should eql('20.080702 20.100822')
       first_result['facet_temporal_duration'][0].should eql('1+ years')
