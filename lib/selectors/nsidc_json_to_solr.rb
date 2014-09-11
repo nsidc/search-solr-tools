@@ -2,6 +2,7 @@
 require 'rgeo/geo_json'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/iso_to_solr_format'
+require './lib/selectors/helpers/translate_spatial_coverage'
 
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
@@ -11,6 +12,7 @@ class NsidcJsonToSolr
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
     temporal_coverage_values = translate_temporal_coverage_values(json_doc['temporalCoverages'])
+    spatial_coverages = convert_spatial_coverages(json_doc['spatialCoverages'])
 
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
     solr_add_hash.merge!(
@@ -27,11 +29,11 @@ class NsidcJsonToSolr
       'sensors' => translate_json_string(json_doc['instruments']),
       'facet_sensor' => translate_sensor_to_facet_sensor(json_doc['instruments']),
       'published_date' => (SolrFormat.date_str json_doc['releaseDate']),
-      'spatial_coverages' => translate_spatial_coverage_geom_to_spatial_display_str(json_doc['spatialCoverages']),
-      'spatial' => translate_spatial_coverage_geom_to_spatial_index_str(json_doc['spatialCoverages']),
-      'spatial_area' => translate_spatial_coverage_geom_to_spatial_area(json_doc['spatialCoverages']),
-      'facet_spatial_coverage' => translate_spatial_coverage_geom_to_global_facet(json_doc['spatialCoverages']),
-      'facet_spatial_scope' => translate_spatial_coverage_geom_to_spatial_scope_facet(json_doc['spatialCoverages']),
+      'spatial_coverages' => TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_display_str(spatial_coverages),
+      'spatial' => TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_index_str(spatial_coverages),
+      'spatial_area' => TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_area(spatial_coverages),
+      'facet_spatial_coverage' => TranslateSpatialCoverage.translate_spatial_coverage_geom_to_global_facet(spatial_coverages),
+      'facet_spatial_scope' => TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_scope_facet(spatial_coverages),
       'temporal_coverages' => temporal_coverage_values['temporal_coverages'],
       'temporal_duration' => temporal_coverage_values['temporal_duration'],
       'temporal' => temporal_coverage_values['temporal'],
@@ -48,6 +50,14 @@ class NsidcJsonToSolr
     )
   end
 # rubocop:enable MethodLength
+
+  def convert_spatial_coverages(nsidc_geom)
+    geometries = []
+    nsidc_geom.each do |entry|
+      geometries << RGeo::GeoJSON.decode(entry['geom4326'])
+    end
+    geometries
+  end
 
   def translate_sensor_to_facet_sensor(json)
     facet_values = []
@@ -128,74 +138,6 @@ class NsidcJsonToSolr
       end
     end
     authors.uniq
-  end
-
-  def translate_spatial_coverage_geom_to_spatial_display_str(spatial_coverage_geom)
-    spatial_coverage_strs = []
-    spatial_coverage_geom.each do |geom|
-      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-      bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
-      spatial_coverage_strs << "#{bbox.min_y} #{bbox.min_x} #{bbox.max_y} #{bbox.max_x}"
-    end
-    spatial_coverage_strs
-  end
-
-  def translate_spatial_coverage_geom_to_spatial_index_str(spatial_coverage_geom)
-    spatial_index_strs = []
-    spatial_coverage_geom.each do |geom|
-      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-      if geo_json.geometry_type.to_s.downcase.eql?('point')
-        spatial_index_strs << "#{geo_json.x} #{geo_json.y}"
-      else
-        bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
-        spatial_index_strs << "#{bbox.min_x} #{bbox.min_y} #{bbox.max_x} #{bbox.max_y}"
-      end
-    end
-    spatial_index_strs
-  end
-
-  def translate_spatial_coverage_geom_to_spatial_area(spatial_coverage_geom)
-    spatial_areas = []
-    spatial_coverage_geom.each do |geom|
-      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-      if geo_json.geometry_type.to_s.downcase.eql?('point')
-        spatial_areas << 0.0
-      else
-        bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
-        spatial_areas << (bbox.max_y - bbox.min_y)
-      end
-    end
-
-    return nil if spatial_areas.empty?
-
-    spatial_areas.sort.last
-  end
-
-  def translate_spatial_coverage_geom_to_global_facet(spatial_coverage_geom)
-    return nil if spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
-
-    spatial_coverage_geom.each do |geom|
-      geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-      bbox_hash = BoundingBoxUtil.bounding_box_hash_from_geo_json(geo_json)
-      return 'Show Global Only' if BoundingBoxUtil.box_global?(bbox_hash)
-    end
-
-    nil
-  end
-
-  def translate_spatial_coverage_geom_to_spatial_scope_facet(spatial_coverage_geom)
-    scopes = []
-
-    unless spatial_coverage_geom.nil? || spatial_coverage_geom.empty?
-      spatial_coverage_geom.each do |geom|
-        geo_json = RGeo::GeoJSON.decode(geom['geom4326'])
-        bbox_hash = BoundingBoxUtil.bounding_box_hash_from_geo_json(geo_json)
-        scope = SolrFormat.get_spatial_scope_facet_with_bounding_box(bbox_hash)
-        scopes << scope unless scope.nil?
-      end
-    end
-
-    scopes.uniq
   end
 
   def translate_parameters(parameters_json)
