@@ -61,11 +61,11 @@ class BcodmoJsonToSolr
     geo_json['geometry'].sub! '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> ', ''
     parser = RGeo::WKRep::WKTParser.new(nil, {})
     geometry = parser.parse(geo_json['geometry'])
-    translation[:spatial_display] = TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_display_str(geometry)
-    translation[:spatial_index] = TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_index_str(geometry)
-    translation[:spatial_area] = TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_area(geometry)
-    translation[:global_facet] = TranslateSpatialCoverage.translate_spatial_coverage_geom_to_global_facet(geometry)
-    translation[:spatial_scope_facet] = TranslateSpatialCoverage.translate_spatial_coverage_geom_to_spatial_scope_facet(geometry)
+    translation[:spatial_display] = TranslateSpatialCoverage.geojson_to_spatial_display_str(geometry)
+    translation[:spatial_index] = TranslateSpatialCoverage.geojson_to_spatial_index_str(geometry)
+    translation[:spatial_area] = TranslateSpatialCoverage.geojson_to_spatial_area(geometry)
+    translation[:global_facet] = TranslateSpatialCoverage.geojson_to_global_facet(geometry)
+    translation[:spatial_scope_facet] = TranslateSpatialCoverage.geojson_to_spatial_scope_facet(geometry)
     translation
   end
 end
