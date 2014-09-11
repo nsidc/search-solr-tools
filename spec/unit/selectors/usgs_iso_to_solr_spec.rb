@@ -1,8 +1,8 @@
-require 'selectors/helpers/iso_to_solr'
+require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'iso_to_solr')
 
 describe 'USGS ISO to Solr converter' do
 
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/usgs_iso.xml')
+  fixture = Nokogiri.XML File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'usgs_iso.xml'))
   iso_to_solr = IsoToSolr.new(:usgs)
   solr_doc = iso_to_solr.translate fixture
 
@@ -66,7 +66,7 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages'][1]",
-      expected_text: '2004-04-07'
+      expected_text: '2004-04-07,2004-04-07'
     },
     {
       title: 'should grab the correct temporal range',
@@ -74,9 +74,19 @@ describe 'USGS ISO to Solr converter' do
       expected_text: '20.040407 20.040407'
     },
     {
-      title: 'should calculate the correct temporal duration',
-      xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '1'
+      title: 'should calculate the correct temporal durations, and choose the maximum duration from multiple temporal coverages',
+      xpath: "/doc/field[@name='temporal_duration'][1]",
+      expected_text: '365'
+    },
+    {
+      title: 'should convert just a YYYY entry to the full range of the year, grabbing the correct temporal coverage',
+      xpath: "/doc/field[@name='temporal_coverages'][2]",
+      expected_text: '2003-01-01,2003-12-31'
+    },
+    {
+      title: 'should convert just a YYYY entry to the full range of the year, grabbing the correct temporal range in spatial format',
+      xpath: "/doc/field[@name='temporal'][2]",
+      expected_text: '20.030101 20.031231'
     },
     {
       title: 'should grab the correct source',
@@ -96,7 +106,12 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration'][1]",
-      expected_text: 'Not specified'
+      expected_text: '< 1 year'
+    },
+    {
+      title: 'should grab the correct temporal duration facet from just a YYYY entry',
+      xpath: "/doc/field[@name='facet_temporal_duration'][2]",
+      expected_text: '1+ years'
     }
   ]
 

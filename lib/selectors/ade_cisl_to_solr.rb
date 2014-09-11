@@ -1,5 +1,5 @@
-require './lib/selectors/helpers/iso_to_solr_format'
-require './lib/selectors/helpers/solr_format'
+require File.join(File.dirname(__FILE__), 'helpers', 'iso_to_solr_format')
+require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
 
 # The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
 # and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
@@ -62,15 +62,15 @@ CISL = {
     reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
-  temporal_coverages: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
-    multivalue: true,
-    format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
-  },
   temporal: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
+  },
+  temporal_coverages: {
+    xpaths: ['.//gmd:EX_TemporalExtent'],
+    multivalue: true,
+    format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal_duration: {
     xpaths: ['.//gmd:EX_TemporalExtent'],

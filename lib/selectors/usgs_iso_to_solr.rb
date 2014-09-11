@@ -1,10 +1,12 @@
-require './lib/selectors/helpers/iso_to_solr_format'
-require './lib/selectors/helpers/solr_format'
+require File.join(File.dirname(__FILE__), 'helpers', 'iso_to_solr_format')
+require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
+require File.join(File.dirname(__FILE__), 'helpers', 'usgs_format')
 
-# The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
-# and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
-# xpaths resolved to a value and formatting the field.
-# xpaths and multivalue are required, default_value and format are optional
+# The hash contains keys that should map to the fields in the solr schema, the
+# keys are called selectors and are in charge of selecting the nodes from the
+# ISO document, applying the default value if none of the xpaths resolved to a
+# value and formatting the field. xpaths and multivalue are required,
+# default_value and format are optional
 
 USGS = {
   authoritative_id: {
@@ -58,20 +60,21 @@ USGS = {
     reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
+  temporal: {
+    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
+    multivalue: true,
+    format: UsgsFormat::TEMPORAL_INDEX_STRING
+  },
   temporal_coverages: {
     xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
-    multivalue: true
+    multivalue: true,
+    format: UsgsFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal_duration: {
     xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
     multivalue: false,
     reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: IsoToSolrFormat::TEMPORAL_DURATION
-  },
-  temporal: {
-    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
-    multivalue: true,
-    format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
+    format: UsgsFormat::TEMPORAL_DURATION
   },
   sensors: {
     xpaths: [''],
@@ -93,9 +96,9 @@ USGS = {
     format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
   },
   facet_temporal_duration: {
-    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date/gco:Date"],
+    xpaths: [".//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[./gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='Time Period']]/gmd:date"],
     default_values: [SolrFormat::NOT_SPECIFIED],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    format: UsgsFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
   }
 }

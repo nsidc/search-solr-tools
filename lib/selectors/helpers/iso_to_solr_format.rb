@@ -1,9 +1,10 @@
 require 'date'
-require './lib/selectors/helpers/iso_namespaces'
-require './lib/selectors/helpers/solr_format'
+require File.join(File.dirname(__FILE__), 'iso_namespaces')
+require File.join(File.dirname(__FILE__), 'solr_format')
 
 # Methods for generating formatted strings from ISO xml nodes that can be indexed by SOLR
-module IsoToSolrFormat
+# rubocop:disable ClassLength
+class IsoToSolrFormat
   KEYWORDS = proc { |keywords| build_keyword_list keywords }
 
   SPATIAL_DISPLAY = proc { |node| IsoToSolrFormat.spatial_display_str(node) }
@@ -105,17 +106,16 @@ module IsoToSolrFormat
 
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime', './/gco:Date'])
-    start_date = SolrFormat.date?(start_date) ? start_date : ''
+    start_date = '' unless SolrFormat.date?(start_date)
+    start_date = SolrFormat.date_str(start_date) if formatted
 
     end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime', './/gco:Date'])
-    end_date = SolrFormat.date?(end_date) ? end_date : ''
-
-    formatted ? start_date = SolrFormat.date_str(start_date) : start_date
-    formatted ? end_date = SolrFormat.date_str(end_date) : end_date
+    end_date = '' unless SolrFormat.date?(end_date)
+    end_date = SolrFormat.date_str(end_date) if formatted
 
     {
-        start: start_date,
-        end: end_date
+      start: start_date,
+      end: end_date
     }
   end
 

@@ -170,6 +170,16 @@
           <gmd:date>
             <gmd:CI_Date>
               <gmd:date>
+                <gco:Date>2003</gco:Date>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="Time Period">Time Period</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date>
                 <gco:Date>2012-10-03 13:07:47</gco:Date>
               </gmd:date>
               <gmd:dateType>
