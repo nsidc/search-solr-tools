@@ -3,6 +3,7 @@ require 'rgeo/geo_json'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/iso_to_solr_format'
 require './lib/selectors/helpers/translate_spatial_coverage'
+require './lib/selectors/helpers/translate_temporal_coverage'
 
 # Translates NSIDC JSON format to Solr JSON add format
 class NsidcJsonToSolr
@@ -11,7 +12,7 @@ class NsidcJsonToSolr
 # rubocop:disable MethodLength
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
-    temporal_coverage_values = translate_temporal_coverage_values(json_doc['temporalCoverages'])
+    temporal_coverage_values = TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
     spatial_coverages = convert_spatial_coverages(json_doc['spatialCoverages'])
 
     solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }

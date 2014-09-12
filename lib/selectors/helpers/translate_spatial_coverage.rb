@@ -2,7 +2,7 @@ require 'rgeo/geo_json'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/iso_to_solr_format'
 
-# Methods to translate geoJson objector list of objects to solr format values
+# Methods to translate geoJson spatial coverage object or list of objects to solr format values
 module TranslateSpatialCoverage
   def self.geojson_to_spatial_display_str(spatial_coverage_geom)
     spatial_coverage_strs = []

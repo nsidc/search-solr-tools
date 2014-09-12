@@ -5,16 +5,6 @@ describe BcodmoJsonToSolr do
     @translator = described_class.new
   end
 
-  it 'translates the dataset_deployment_version_date to solr last revision date' do
-    @translator.translate_last_revision_date('2008-08-20').should eql('2008-08-20T00:00:00Z')
-    @translator.translate_last_revision_date('2013-01-01 12:00:00').should eql('2013-01-01T12:00:00Z')
-  end
-
-  it 'returns nil on dataset_deployment_version_date empty values' do
-    @translator.translate_last_revision_date('').should eql nil
-    @translator.translate_last_revision_date(nil).should eql nil
-  end
-
   it 'translates a bco-dmo "wkt" point format geojson to appopriate spatial coverage values' do
     multipoint = { 'type' => 'Multipoint', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> MULTIPOINT(-122.6446 48.4057, -122.7774 48.1441, -122.6621 48.413, -123.6363 48.1509, -124.7382 48.3911, -124.7246 48.3869)' }
     result = @translator.translate_geometry(multipoint)

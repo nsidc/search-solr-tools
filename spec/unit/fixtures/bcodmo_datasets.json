@@ -45,7 +45,7 @@
         "dataset_type": "profile discrete",
         "dataset_url": "http://data.bco-dmo.org/jg/serv/BCO/Nitrogen_Regen/templight_date0.brev0%7Bdir=data.bco-dmo.org/jg/dir/BCO/Nitrogen_Regen/,info=data.bco-dmo.org/jg/info/BCO/Nitrogen_Regen/templight%7D",
         "dataset_validated": "No",
-        "dataset_version": "2014-07-08",
+        "dataset_version": "",
         "dataset_version_date": "Tuesday, July 8, 2014",
         "dataset_description": "Temperature and light levels for 41 intertidal locations at 5 sites in the Strait of Juan de Fuca, 2009  ",
         "dataset_brief_description": "Temperature and light time series in the Strait of Juan de Fuca, fall 2009 ",

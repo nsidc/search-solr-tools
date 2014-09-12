@@ -4,27 +4,26 @@ require 'rgeo/wkrep/wkt_parser'
 require './lib/selectors/helpers/iso_to_solr_format'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/translate_spatial_coverage'
+require './lib/selectors/helpers/translate_temporal_coverage'
 
 # Translates Bcodmo json to solr json format
 class BcodmoJsonToSolr
-# geometry = @translator.translate_geometry get_json(record['geometryUrl'])
 # rubocop:disable MethodLength
   def translate(json_doc, json_record, geometry)
     spatial_values = translate_geometry geometry
-    temporal_coverage_values = translate_temporal_coverage_values([{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }])
-    json_doc['dataset_description'].empty? ? description = json_doc['dataset_brief_description'] : description = json_doc['dataset_description']
+    temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
     {
       'title' => json_doc['dataset_name'],
       'authoritative_id' => json_record['id'] + json_doc['dataset_nid'],
-      'dataset_version' => json_doc['dataset_vesrsion'].to_s.empty? ? nil : json_doc['dataset_version'].gsub(/\D/, ''),
+      'dataset_version' => translate_dataset_version(json_doc['dataset_version']),
       'data_centers' => SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name],
       'facet_data_center' => "#{SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:BCODMO][:short_name]}",
-      'summary' => description,
+      'summary' => json_doc['dataset_description'].empty? ? json_doc['dataset_brief_description'] : json_doc['dataset_description'],
       'temporal_coverages' => temporal_coverage_values['temporal_coverages'],
       'temporal_duration' => temporal_coverage_values['temporal_duration'],
       'temporal' => temporal_coverage_values['temporal'],
       'facet_temporal_duration' => temporal_coverage_values['facet_temporal_duration'],
-      'last_revision_date' => translate_last_revision_date(json_doc['dataset_deployment_version_date']),
+      'last_revision_date' => json_doc['dataset_deployment_version_date'].to_s.empty? ? nil : Time.parse(json_doc['dataset_deployment_version_date']).strftime('%Y-%m-%dT%H:%M:%SZ'),
       'dataset_url' => json_doc['dataset_url'],
       'source' => 'ADE',
       'facet_spatial_coverage' => spatial_values[:global_facet],
@@ -36,24 +35,10 @@ class BcodmoJsonToSolr
   end
 # rubocop:enable MethodLength
 
-  def translate_last_revision_date(datestring)
-    datestring.to_s.empty? ? nil : Time.parse(datestring).strftime('%Y-%m-%dT%H:%M:%SZ')
-  end
-
-  def translate_temporal_coverage_values(temporal_coverages_json)
-    temporal_coverages = []
-    temporal = []
-    temporal_durations = []
-    temporal_coverages_json.each do |coverage|
-      start_time = Time.parse(coverage['start']) unless coverage['start'].to_s.empty?
-      end_time = Time.parse(coverage['end']) unless coverage['end'].to_s.empty?
-      temporal_durations << (SolrFormat.get_temporal_duration start_time, end_time)
-      temporal_coverages << SolrFormat.temporal_display_str(start: (start_time.to_s.empty? ? nil : start_time.strftime('%Y-%m-%d')), end: (end_time.to_s.empty? ? nil : end_time.strftime('%Y-%m-%d')))
-      temporal << SolrFormat.temporal_index_str(start: start_time.to_s, end: end_time.to_s)
-    end unless temporal_coverages_json.nil?
-    max_temporal_duration = SolrFormat.reduce_temporal_duration temporal_durations
-    facet = SolrFormat.get_temporal_duration_facet max_temporal_duration
-    { 'temporal_coverages' => temporal_coverages, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal, 'facet_temporal_duration' => facet  }
+  def translate_dataset_version(dataset_version)
+    return nil if dataset_version.to_s.empty?
+    version_translation = dataset_version.gsub(/\D/, '')
+    version_translation.empty? ? nil : version_translation
   end
 
   def translate_geometry(wkt_geom)
