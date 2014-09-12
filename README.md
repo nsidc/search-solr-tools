@@ -103,3 +103,10 @@ Boulder, CO 80309-0449 USA
 
 Every file in this repository is covered by the GNU GPL Version 3; a copy of the
 license is included in the file COPYING.
+
+### Citation Information
+
+Andy Grauch, Brendan Billingsley, Danielle Harper, Ian Truslove, Jonathan
+Kovarik, Luis Lopez, Miao Liu, Michael Brandt, Stuart Reed (2013): Arctic Data
+Explorer SOLR Search software tools. The National Snow and Ice Data
+Center. Software. http://ezid.cdlib.org/id/doi:10.7265/N5JQ0XZM
