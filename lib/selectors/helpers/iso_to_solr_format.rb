@@ -121,8 +121,8 @@ class IsoToSolrFormat
   end
 
   # Met.no sometimes has bad metadata, such as <gmd:URL>SU-1 (planned activity)</gmd:URL>
-  def self.dataset_url(url)
-    url =~ %r{http[s]?://} ? url : ''
+  def self.dataset_url(url_node)
+    url_node.text.strip =~ %r{http[s]?://} ? url_node.text.strip : ''
   end
 
   def self.ices_dataset_url(auth_id)

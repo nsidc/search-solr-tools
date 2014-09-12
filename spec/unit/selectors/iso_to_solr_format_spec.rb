@@ -62,13 +62,13 @@ describe 'ISO to SOLR format methods' do
     describe 'dataset url' do
 
       it 'should preserve valid (absolute) URIs' do
-        uri = 'http://foo.data/metadata.foo/bar?'
-        IsoToSolrFormat.get_dataset_url(uri).should eql uri
+        uri_node = fixture.xpath('.//gmd:CI_OnlineResource/gmd:linkage/gmd:URL').first
+        IsoToSolrFormat.dataset_url(uri_node).should eql uri_node.text.strip
       end
 
       it 'should replace invalid (relative) URIs with an empty string' do
-        uri = 'SU-1 (planned activity)'
-        IsoToSolrFormat.get_dataset_url(uri).should eql ''
+        uri_node = bad_fixture.xpath('.//gmd:CI_OnlineResource/gmd:linkage/gmd:URL').first
+        IsoToSolrFormat.dataset_url(uri_node).should eql ''
       end
 
     end
