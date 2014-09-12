@@ -60,7 +60,7 @@ describe 'ISO to SOLR format methods' do
     end
 
     describe 'dataset url' do
-    
+
       it 'should preserve valid (absolute) URIs' do
         uri = 'http://foo.data/metadata.foo/bar?'
         IsoToSolrFormat.get_dataset_url(uri).should eql uri
