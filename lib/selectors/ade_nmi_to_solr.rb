@@ -56,7 +56,8 @@ NMI = {
   },
   dataset_url: {
       xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
-      multivalue: false
+      multivalue: false,
+      format: IsoToSolrFormat::DATASET_URL
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],

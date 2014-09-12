@@ -22,6 +22,7 @@ class IsoToSolrFormat
   TEMPORAL_DISPLAY_STRING = proc { |node| IsoToSolrFormat.temporal_display_str node }
   TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
 
+  DATASET_URL = proc { |node| IsoToSolrFormat.dataset_url(node) }
   ICES_DATASET_URL = proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
   EOL_AUTHOR_FORMAT = proc { |node| IsoToSolrFormat.eol_author_format(node) }
 
@@ -117,6 +118,11 @@ class IsoToSolrFormat
       start: start_date,
       end: end_date
     }
+  end
+
+  # Met.no sometimes has bad metadata, such as <gmd:URL>SU-1 (planned activity)</gmd:URL>
+  def self.dataset_url(url)
+    url =~ /http:\/\// ? url : ''
   end
 
   def self.ices_dataset_url(auth_id)
