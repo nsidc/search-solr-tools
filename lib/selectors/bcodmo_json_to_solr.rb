@@ -18,7 +18,7 @@ class BcodmoJsonToSolr
       'dataset_version' => translate_dataset_version(json_doc['dataset_version']),
       'data_centers' => SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name],
       'facet_data_center' => "#{SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:BCODMO][:short_name]}",
-      'summary' => json_doc['dataset_description'].empty? ? json_doc['dataset_brief_description'] : json_doc['dataset_description'],
+      'summary' => json_doc['dataset_description'].to_s.empty? ? json_doc['dataset_brief_description'] : json_doc['dataset_description'],
       'temporal_coverages' => temporal_coverage_values['temporal_coverages'],
       'temporal_duration' => temporal_coverage_values['temporal_duration'],
       'temporal' => temporal_coverage_values['temporal'],

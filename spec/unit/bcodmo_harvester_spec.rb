@@ -43,9 +43,16 @@ describe BcoDmoHarvester do
     end
 
     it 'successfully handles a black dataset version' do
-      @result[:add_docs][2]['version'].should be_nil
+      @result[:add_docs][2]['add']['doc']['version'].should be_nil
     end
 
+    it 'successfully handles a blank deployment version date' do
+      @result[:add_docs][2]['add']['doc']['last_revision_date'].should be_nil
+    end
+
+    it 'successfully handles a blank dataset description' do
+      @result[:add_docs][2]['add']['doc']['summary'].should eql 'Temperature and light time series in the Strait of Juan de Fuca, fall 2009 '
+    end
   end
 
   it 'successfully handles failed dataset returns' do
