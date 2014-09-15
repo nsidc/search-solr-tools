@@ -42,17 +42,17 @@ class BcodmoJsonToSolr
   end
 
   def translate_geometry(wkt_geom)
-    translation = {}
     wkt_geom['geometry'].sub! '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> ', ''
     # Consider all linestring geometries to be multipoint for this provider
     wkt_geom['geometry'].sub! 'LINESTRING', 'MULTIPOINT'
     parser = RGeo::WKRep::WKTParser.new(nil, {})
     geometry = parser.parse(wkt_geom['geometry'])
-    translation[:spatial_display] = TranslateSpatialCoverage.geojson_to_spatial_display_str(geometry)
-    translation[:spatial_index] = TranslateSpatialCoverage.geojson_to_spatial_index_str(geometry)
-    translation[:spatial_area] = TranslateSpatialCoverage.geojson_to_spatial_area(geometry)
-    translation[:global_facet] = TranslateSpatialCoverage.geojson_to_global_facet(geometry)
-    translation[:spatial_scope_facet] = TranslateSpatialCoverage.geojson_to_spatial_scope_facet(geometry)
-    translation
+    {
+      spatial_display: TranslateSpatialCoverage.geojson_to_spatial_display_str(geometry),
+      spatial_index: TranslateSpatialCoverage.geojson_to_spatial_index_str(geometry),
+      spatial_area: TranslateSpatialCoverage.geojson_to_spatial_area(geometry),
+      global_facet: TranslateSpatialCoverage.geojson_to_global_facet(geometry),
+      spatial_scope_facet: TranslateSpatialCoverage.geojson_to_spatial_scope_facet(geometry)
+    }
   end
 end
