@@ -13,7 +13,7 @@ describe TranslateTemporalCoverage do
     temporal_values['facet_temporal_duration'].should eql ['1+ years', '5+ years']
   end
 
-  it 'generates temporal value defaults when there are none present in NSIDC JSON' do
+  it 'generates temporal value defaults when there are none present' do
     temporal_values = TranslateTemporalCoverage.translate_coverages([])
     temporal_values['temporal_coverages'].should eql []
     temporal_values['temporal_duration'].should eql nil
