@@ -13,8 +13,7 @@ NMI = {
   },
   title: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-      multivalue: false,
-      format: IsoToSolrFormat::TITLE_FORMAT
+      multivalue: false
   },
   summary: {
       xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
