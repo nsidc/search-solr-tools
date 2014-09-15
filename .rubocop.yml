@@ -11,7 +11,7 @@ LineLength:
   Enabled: false
 
 MethodLength:
-  Max: 15
+  Max: 18
 
 RescueModifier:
   Enabled: false
