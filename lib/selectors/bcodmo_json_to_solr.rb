@@ -36,8 +36,7 @@ class BcodmoJsonToSolr
 # rubocop:enable MethodLength
 
   def translate_dataset_version(dataset_version)
-    return nil if dataset_version.to_s.empty?
-    version_translation = dataset_version.gsub(/\D/, '')
+    version_translation = dataset_version.to_s.gsub(/\D/, '')
     version_translation.empty? ? nil : version_translation
   end
 

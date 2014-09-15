@@ -5,6 +5,18 @@ describe BcodmoJsonToSolr do
     @translator = described_class.new
   end
 
+  it 'translates a dataset version correctly' do
+    @translator.translate_dataset_version('2014-07-08').should eql '20140708'
+  end
+
+  it 'translates a dataset version with no digits correctly' do
+    @translator.translate_dataset_version('abcdefg#*A$(#$').should be_nil
+  end
+
+  it 'translates a dataset version that is nil correctly' do
+    @translator.translate_dataset_version(nil).should be_nil
+  end
+
   it 'translates a bco-dmo "wkt" point format geojson to appopriate spatial coverage values' do
     multipoint = { 'type' => 'Multipoint', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> MULTIPOINT(-122.6446 48.4057, -122.7774 48.1441, -122.6621 48.413, -123.6363 48.1509, -124.7382 48.3911, -124.7246 48.3869)' }
     result = @translator.translate_geometry(multipoint)
