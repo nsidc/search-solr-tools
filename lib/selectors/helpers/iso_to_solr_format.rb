@@ -11,16 +11,18 @@ class IsoToSolrFormat
   SPATIAL_INDEX = proc { |node| IsoToSolrFormat.spatial_index_str(node) }
   SPATIAL_AREA = proc { |node| IsoToSolrFormat.spatial_area_str(node) }
   MAX_SPATIAL_AREA = proc { |values| IsoToSolrFormat.get_max_spatial_area(values) }
-  TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
 
   FACET_SPONSORED_PROGRAM = proc { |node| IsoToSolrFormat.sponsored_program_facet node }
   FACET_SPATIAL_COVERAGE = proc { |node| IsoToSolrFormat.get_spatial_facet(node) }
   FACET_SPATIAL_SCOPE = proc { |node| IsoToSolrFormat.get_spatial_scope_facet(node) }
   FACET_TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration_facet(node) }
 
+  TEMPORAL_DURATION = proc { |node| IsoToSolrFormat.get_temporal_duration(node) }
   TEMPORAL_INDEX_STRING = proc { |node| IsoToSolrFormat.temporal_index_str node }
   TEMPORAL_DISPLAY_STRING = proc { |node| IsoToSolrFormat.temporal_display_str node }
   TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
+
+  TITLE_FORMAT = proc { |node| IsoToSolrFormat.title_format(node) }
 
   DATASET_URL = proc { |node| IsoToSolrFormat.dataset_url(node) }
   ICES_DATASET_URL = proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
@@ -118,6 +120,10 @@ class IsoToSolrFormat
       start: start_date,
       end: end_date
     }
+  end
+
+  def self.title_format(node)
+    node.text.strip =~ /not available/i ? 'Dataset title not available' : node.text.strip
   end
 
   # Met.no sometimes has bad metadata, such as <gmd:URL>SU-1 (planned activity)</gmd:URL>
