@@ -4,27 +4,28 @@ require './lib/auto_suggest_harvester.rb'
 namespace :harvest do
 
   desc 'Harvest all of NSIDC and ADE data and auto suggest'
-  task :all, :environment do |t, args|
-    Rake::Task['harvest:nsidc_json'].invoke(args[:environment])
-    Rake::Task['harvest:all_ade'].invoke(args[:environment])
-    Rake::Task['harvest:nsidc_auto_suggest'].invoke(args[:environment])
-    Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment])
+  task :all, :environment, :die_on_failure do |t, args|
+    Rake::Task['harvest:nsidc_json'].invoke(args[:environment], args[:die_on_failure])
+    Rake::Task['harvest:all_ade'].invoke(args[:environment], args[:die_on_failure])
+    Rake::Task['harvest:nsidc_auto_suggest'].invoke(args[:environment], args[:die_on_failure])
+    Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment], args[:die_on_failure])
   end
 
   desc 'Harvest NSIDC JSON data'
-  task :nsidc_json, :environment do |t, args|
+  task :nsidc_json, :environment, :die_on_failure do |t, args|
     begin
-      harvester = NsidcJsonHarvester.new args[:environment]
+      harvester = NsidcJsonHarvester.new args[:environment], args[:die_on_failure]
       harvester.harvest_and_delete
     rescue => e
       puts 'Harvest failed for NSIDC:' + e.message
+      raise e if args[:die_on_failure]
       next
     end
   end
 
   desc 'Harvest auto suggest for nsidc'
-  task :nsidc_auto_suggest, :environment do |t, args|
-    harvester = AutoSuggestHarvester.new args[:environment]
+  task :nsidc_auto_suggest, :environment, :die_on_failure do |t, args|
+    harvester = AutoSuggestHarvester.new args[:environment], args[:die_on_failure]
     harvester.harvest_and_delete_nsidc
   end
 

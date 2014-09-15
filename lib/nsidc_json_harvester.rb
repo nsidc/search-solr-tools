@@ -8,8 +8,8 @@ require './lib/selectors/helpers/facet_configuration'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
 class NsidcJsonHarvester < HarvesterBase
-  def initialize(env = 'development')
-    super env
+  def initialize(env = 'development', die_on_failure = false)
+    super env, die_on_failure
     @translator = NsidcJsonToSolr.new
     FacetConfiguration.import_bin_configuration(env)
   end

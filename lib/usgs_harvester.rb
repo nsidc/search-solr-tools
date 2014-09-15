@@ -5,8 +5,8 @@ require './lib/harvester_base'
 
 # Harvests data from USGS and inserts it into Solr after it has been translated
 class UsgsHarvester < HarvesterBase
-  def initialize(env = 'development')
-    super env
+  def initialize(env = 'development', die_on_failure = false)
+    super env, die_on_failure
     @page_size = 100
     @translator = IsoToSolr.new :usgs
   end
@@ -25,6 +25,7 @@ class UsgsHarvester < HarvesterBase
         insert_solr_docs get_docs_with_translated_entries_from_usgs(entries)
       rescue => e
         puts "ERROR: #{e}"
+        raise e if @die_on_failure
       end
       start_index += @page_size
     end

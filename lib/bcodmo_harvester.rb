@@ -8,8 +8,8 @@ require './lib/selectors/helpers/facet_configuration'
 
 # Harvests data from BcoDmo endpoint, translates and adds it to solr
 class BcoDmoHarvester < HarvesterBase
-  def initialize(env = 'development')
-    super env
+  def initialize(env = 'development', die_on_failure = false)
+    super env, die_on_failure
     @translator = BcodmoJsonToSolr.new
     @wkt_parser = RGeo::WKRep::WKTParser.new(nil, {})   # (factory_generator_=nil,
   end

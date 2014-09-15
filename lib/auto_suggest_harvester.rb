@@ -5,10 +5,9 @@ require 'json'
 
 # Use the nsidc_oai core to populate the auto_suggest core
 class AutoSuggestHarvester < HarvesterBase
-  def initialize(env = 'development')
-    super env
-    @environment = env
-    @env_settings = SolrEnvironments[@environment]
+  def initialize(env = 'development', die_on_failure = false)
+    super env, die_on_failure
+    @env_settings = SolrEnvironments[@environment] # super sets @environment.
   end
 
   def harvest_and_delete_nsidc

@@ -8,8 +8,8 @@ require './lib/harvester_base'
 class ADEHarvester < HarvesterBase
   attr_accessor :page_size, :profile
 
-  def initialize(env = 'development', profile_name = 'CISL')
-    super env
+  def initialize(env = 'development', profile_name = 'CISL', die_on_failure = false)
+    super env, die_on_failure
     @page_size = 100
     @profile = profile_name || 'CISL' # for some reason the default param value was not working
     @translator = IsoToSolr.new profile_name.downcase.to_sym
@@ -48,6 +48,7 @@ class ADEHarvester < HarvesterBase
         insert_solr_docs get_docs_with_translated_entries_from_gi_cat(entries)
       rescue => e
         puts "ERROR: #{e}"
+        raise e if @die_on_failure
       end
       start_index += @page_size
     end

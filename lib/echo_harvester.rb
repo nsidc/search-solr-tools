@@ -5,8 +5,8 @@ require './lib/harvester_base'
 
 # Harvests data from ECHO and inserts it into Solr after it has been translated
 class EchoHarvester < HarvesterBase
-  def initialize(env = 'development')
-    super env
+  def initialize(env = 'development', die_on_failure = false)
+    super env, die_on_failure
     @page_size = 1000
     @translator = IsoToSolr.new :echo
   end
@@ -25,6 +25,7 @@ class EchoHarvester < HarvesterBase
         insert_solr_docs get_docs_with_translated_entries_from_echo(entries)
       rescue => e
         puts "ERROR: #{e}\n\n"
+        raise e if @die_on_failure
       end
       page_num += 1
     end

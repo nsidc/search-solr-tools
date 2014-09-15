@@ -2,8 +2,8 @@ require './lib/nsidc_json_harvester'
 
 # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
 class DevelopmentNsidcJsonHarvester < NsidcJsonHarvester
-  def initialize(env = 'development')
-    super env
+  def initialize(env = 'development', die_on_failure = false)
+    super env, die_on_failure
   end
 
   def result_ids_from_nsidc

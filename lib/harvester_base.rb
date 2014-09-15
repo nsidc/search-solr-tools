@@ -14,8 +14,9 @@ class HarvesterBase
   XML_CONTENT_TYPE = 'text/xml; charset=utf-8'
   JSON_CONTENT_TYPE = 'application/json; charset=utf-8'
 
-  def initialize(env = 'development')
+  def initialize(env = 'development', die_on_failure = false)
     @environment = env
+    @die_on_failure = die_on_failure
   end
 
   def solr_url
@@ -89,11 +90,17 @@ class HarvesterBase
     begin
       puts "\nRequest: #{request_url}"
       response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
-    rescue Timeout::Error
+    rescue Timeout::Error => e
       retries_left -= 1
       puts "\n## TIMEOUT::ERROR ## Request Failed! Retrying #{retries_left} more times..."
-      retries_left > 0 ? sleep(5) : return
-      retry
+
+      if retries_left > 0
+        sleep 5
+        retry
+      else
+        raise e if @die_on_failure
+        return
+      end
     end
     doc = Nokogiri.XML(response)
     doc.xpath(metadata_path, IsoNamespaces.namespaces(doc))
