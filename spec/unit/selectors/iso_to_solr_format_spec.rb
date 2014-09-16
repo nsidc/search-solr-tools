@@ -71,4 +71,11 @@ describe 'ISO to SOLR format methods' do
       IsoToSolrFormat.dataset_url(uri_node).should eql ''
     end
   end
+
+  describe 'title' do
+    it 'replaces "Not Available" from GI-Cat with "Dataset title not available' do
+      title_node = bad_fixture.xpath('.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString').first
+      IsoToSolrFormat.title_format(title_node).should eql 'Dataset title not available'
+    end
+  end
 end

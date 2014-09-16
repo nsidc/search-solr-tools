@@ -16,7 +16,7 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
    {
      title: 'should grab the correct title',
      xpath: "/doc/field[@name='title']",
-     expected_text: 'Oceanographic profile Temperature and Salinity measurements collected during the Arctic Buoy Program using drifting buoy in the Arctic from 1985-1994 (NODC Accession 0001497)'
+     expected_text: 'Not Available'
    },
    {
      title: 'should grab the correct summary',
