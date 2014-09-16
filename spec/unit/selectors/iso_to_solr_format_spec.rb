@@ -58,20 +58,17 @@ describe 'ISO to SOLR format methods' do
       node = fixture.xpath('.//gmd:pointOfContact/gmd:CI_ResponsibleParty[.//gmd:CI_RoleCode="custodian"]').first
       IsoToSolrFormat.sponsored_program_facet(node).should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
     end
+  end
 
-    describe 'dataset url' do
-
-      it 'should preserve valid (absolute) URIs' do
-        uri_node = fixture.xpath('.//gmd:CI_OnlineResource/gmd:linkage/gmd:URL').first
-        IsoToSolrFormat.dataset_url(uri_node).should eql uri_node.text.strip
-      end
-
-      it 'should replace invalid (relative) URIs with an empty string' do
-        uri_node = bad_fixture.xpath('.//gmd:CI_OnlineResource/gmd:linkage/gmd:URL').first
-        IsoToSolrFormat.dataset_url(uri_node).should eql ''
-      end
-
+  describe 'dataset url' do
+    it 'should preserve valid (absolute) URIs' do
+      uri_node = fixture.xpath('.//gmd:CI_OnlineResource/gmd:linkage/gmd:URL').first
+      IsoToSolrFormat.dataset_url(uri_node).should eql uri_node.text.strip
     end
 
+    it 'should replace invalid (relative) URIs with an empty string' do
+      uri_node = bad_fixture.xpath('.//gmd:CI_OnlineResource/gmd:linkage/gmd:URL').first
+      IsoToSolrFormat.dataset_url(uri_node).should eql ''
+    end
   end
 end
