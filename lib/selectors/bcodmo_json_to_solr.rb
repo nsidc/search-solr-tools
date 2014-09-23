@@ -47,11 +47,11 @@ class BcodmoJsonToSolr
     parser = RGeo::WKRep::WKTParser.new(nil, {})
     geometry = parser.parse(wkt_geom['geometry'])
     {
-      spatial_display: TranslateSpatialCoverage.geojson_to_spatial_display_str(geometry),
-      spatial_index: TranslateSpatialCoverage.geojson_to_spatial_index_str(geometry),
-      spatial_area: TranslateSpatialCoverage.geojson_to_spatial_area(geometry),
-      global_facet: TranslateSpatialCoverage.geojson_to_global_facet(geometry),
-      spatial_scope_facet: TranslateSpatialCoverage.geojson_to_spatial_scope_facet(geometry)
+      spatial_display: TranslateSpatialCoverage.geojson_to_spatial_display_str([geometry]),
+      spatial_index: TranslateSpatialCoverage.geojson_to_spatial_index_str([geometry]),
+      spatial_area: TranslateSpatialCoverage.geojson_to_spatial_area([geometry]),
+      global_facet: TranslateSpatialCoverage.geojson_to_global_facet([geometry]),
+      spatial_scope_facet: TranslateSpatialCoverage.geojson_to_spatial_scope_facet([geometry])
     }
   end
 end

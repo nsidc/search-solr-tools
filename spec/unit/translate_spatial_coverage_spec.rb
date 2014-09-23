@@ -18,6 +18,20 @@ describe TranslateSpatialCoverage do
     spatial_display_strs[0].should eql '-85.0 166.0 -85.0 166.0'
   end
 
+  it 'translates GGeoJSON multipoint to spatial display str' do
+    spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'MultiPoint', 'coordinates' => [[-117.8446, 33.6436], [-179.0000, -80], [-179.0000, 80], [179.0000, 80], [179.0000, -80], [0.0000, 0.0000], [0, 80], [-179.0000, 179.0000]])]
+    translation = TranslateSpatialCoverage.geojson_to_spatial_display_str(spatial_coverages_json)
+    translation.should eql ['33.6436 -117.8446 33.6436 -117.8446',
+                            '-80.0 -179.0 -80.0 -179.0',
+                            '80.0 -179.0 80.0 -179.0',
+                            '80.0 179.0 80.0 179.0',
+                            '-80.0 179.0 -80.0 179.0',
+                            '0.0 0.0 0.0 0.0',
+                            '80.0 0.0 80.0 0.0',
+                            '179.0 -179.0 179.0 -179.0'
+                           ]
+  end
+
   it 'translates GeoJSON polygon to spatial index str' do
     spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, 90.0], [180.0, 90.0], [180.0, 30.98], [-180.0, 30.98], [-180.0, 90.0]]]),
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -39.23], [180.0, -39.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -39.23]]])]
@@ -32,6 +46,17 @@ describe TranslateSpatialCoverage do
     spatial_display_strs = TranslateSpatialCoverage.geojson_to_spatial_index_str(spatial_coverages_json)
     spatial_display_strs.length.should eql 1
     spatial_display_strs[0].should eql '166.0 -85.0'
+  end
+
+  it 'translates GeoJSON multipoint to spatial index str' do
+    spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'MultiPoint', 'coordinates' => [[-117.8446, 33.6436], [-179, -80], [50.22, 45.00], [0, 80], [-179.0000, 179.0000]])]
+    spatial_display_strs = TranslateSpatialCoverage.geojson_to_spatial_index_str(spatial_coverages_json)
+    spatial_display_strs.should eql ['-117.8446 33.6436',
+                                     '-179.0 -80.0',
+                                     '50.22 45.0',
+                                     '0.0 80.0',
+                                     '-179.0 179.0'
+                                    ]
   end
 
   it 'translates GeoJSON geometries to single maximum spatial area value' do

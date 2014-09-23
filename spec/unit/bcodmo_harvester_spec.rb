@@ -37,8 +37,8 @@ describe BcoDmoHarvester do
       first_result['dataset_url'].should eql 'http://data.bco-dmo.org/jg/serv/BCO/Nitrogen_Regen/mussel_growth.html0%7Bdir=data.bco-dmo.org/jg/dir/BCO/Nitrogen_Regen/,info=data.bco-dmo.org/jg/info/BCO/Nitrogen_Regen/mussel_growth%7D'
       first_result['source'].should eql 'ADE'
       first_result['facet_spatial_scope'][0].should eql 'Less than 1 degree of latitude change | Local'
-      first_result['spatial_area'].should eql 0.0
-      first_result['spatial'][0].should eql '-122.6446 48.4057'
+      first_result['spatial_area'].should eql 0.26889999999999503
+      first_result['spatial'].should eql ['-122.6446 48.4057', '-122.7774 48.1441', '-122.6621 48.413', '-123.6363 48.1509', '-124.7382 48.3911', '-124.7246 48.3869']
       first_result['spatial'].length.should eql 6
     end
 

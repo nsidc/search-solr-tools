@@ -22,7 +22,7 @@ describe BcodmoJsonToSolr do
     result = @translator.translate_geometry(multipoint)
     result[:spatial_display].size.should eql 6
     result[:spatial_index].size.should eql 6
-    result[:spatial_area].should eql 0.0
+    result[:spatial_area].should eql 0.26889999999999503
     result[:global_facet].should eql nil
     result[:spatial_scope_facet].size.should eql 1
     result[:spatial_scope_facet][0].should eql 'Less than 1 degree of latitude change | Local'
@@ -44,9 +44,9 @@ describe BcodmoJsonToSolr do
     result = @translator.translate_geometry(box)
     result[:spatial_display].size.should eql 55
     result[:spatial_index].size.should eql 55
-    result[:spatial_area].should eql 0.0
+    result[:spatial_area].should eql 2.6134000000000057
     result[:global_facet].should eql nil
     result[:spatial_scope_facet].size.should eql 1
-    result[:spatial_scope_facet][0].should eql 'Less than 1 degree of latitude change | Local'
+    result[:spatial_scope_facet][0].should eql 'Between 1 and 170 degrees of latitude change | Regional'
   end
 end
