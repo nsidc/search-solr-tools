@@ -7,7 +7,7 @@ describe UsgsHarvester do
   end
 
   it 'should retrieve records from the USGS CSW url' do
-    stub_request(:get, 'https://www.sciencebase.gov/catalog/item/52824fe6e4b08f1425d6e23c/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=100&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&constraint=%3CFilter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:gml=%22http://www.opengis.net/gml%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%3E%3Cogc:BBOX%3E%3CPropertyName%3Eapiso:BoundingBox%3C/PropertyName%3E%3Cgml:Envelope%3E%3Cgml:lowerCorner%3E-180%2045%3C/gml:lowerCorner%3E%3Cgml:upperCorner%3E180%2090%3C/gml:upperCorner%3E%3C/gml:Envelope%3E%3C/ogc:BBOX%3E%3C/Filter%3E')
+    stub_request(:get, 'https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=100&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&constraint=%3CFilter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:gml=%22http://www.opengis.net/gml%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%3E%3Cogc:BBOX%3E%3CPropertyName%3Eapiso:BoundingBox%3C/PropertyName%3E%3Cgml:Envelope%3E%3Cgml:lowerCorner%3E-180%2045%3C/gml:lowerCorner%3E%3Cgml:upperCorner%3E180%2090%3C/gml:upperCorner%3E%3C/gml:Envelope%3E%3C/ogc:BBOX%3E%3C/Filter%3E')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"><foo/></gmd:MD_Metadata>')
     @harvester.get_results_from_usgs(1).first.first_element_child.to_xml.should eql('<foo/>')
@@ -15,7 +15,7 @@ describe UsgsHarvester do
 
   describe 'Adding documents to Solr' do
     it 'constructs an xml document with <doc> children' do
-      stub_request(:get, 'https://www.sciencebase.gov/catalog/item/52824fe6e4b08f1425d6e23c/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=100&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&constraint=%3CFilter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:gml=%22http://www.opengis.net/gml%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%3E%3Cogc:BBOX%3E%3CPropertyName%3Eapiso:BoundingBox%3C/PropertyName%3E%3Cgml:Envelope%3E%3Cgml:lowerCorner%3E-180%2045%3C/gml:lowerCorner%3E%3Cgml:upperCorner%3E180%2090%3C/gml:upperCorner%3E%3C/gml:Envelope%3E%3C/ogc:BBOX%3E%3C/Filter%3E')
+      stub_request(:get, 'https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=100&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&constraint=%3CFilter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:gml=%22http://www.opengis.net/gml%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%3E%3Cogc:BBOX%3E%3CPropertyName%3Eapiso:BoundingBox%3C/PropertyName%3E%3Cgml:Envelope%3E%3Cgml:lowerCorner%3E-180%2045%3C/gml:lowerCorner%3E%3Cgml:upperCorner%3E180%2090%3C/gml:upperCorner%3E%3C/gml:Envelope%3E%3C/ogc:BBOX%3E%3C/Filter%3E')
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/usgs_iso.xml'), headers: {})
 
