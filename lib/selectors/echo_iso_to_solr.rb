@@ -1,10 +1,11 @@
 require './lib/selectors/helpers/iso_to_solr_format'
 require './lib/selectors/helpers/solr_format'
 
-# The hash contains keys that should map to the fields in the solr schema, the keys are called selectors
-# and are in charge of selecting the nodes from the ISO document, applying the default value if none of the
-# xpaths resolved to a value and formatting the field.
-# xpaths and multivalue are required, default_value and format are optional
+# The hash contains keys that should map to the fields in the solr schema, the
+# keys are called selectors and are in charge of selecting the nodes from the
+# ISO document, applying the default value if none of the xpaths resolved to a
+# value and formatting the field. xpaths and multivalue are required,
+# default_value and format are optional
 
 ECHO = {
   authoritative_id: {
@@ -40,9 +41,16 @@ ECHO = {
     format: SolrFormat::DATE
   },
   dataset_url: {
-    xpaths: [".//Collection/OnlineResources/OnlineResource[contains(./Type/text(),'static URL')]/URL",
-             ".//Collection/OnlineResources/OnlineResource/[contains(./Type/text(), 'VIEW RELATED INFORMATION')]/URL",
-             ".//Collection/OnlineAccessURLs/OnlineAccessURL/[contains(./URLDescription/text(), 'Data Access')]/URL"],
+    xpaths: ['.//Collection/OnlineResources/OnlineResource[contains(./Type/text(),"static URL")]/URL',
+             './/Collection/OnlineResources/OnlineResource[contains(./Type/text(), "VIEW RELATED INFORMATION")]/URL',
+             './/Collection/OnlineAccessURLs/OnlineAccessURL/[contains(./URLDescription/text(), "Data Access")]/URL',
+             './/Collection/OnlineResources/OnlineResource[contains(./Type/text(),"Guide Document for this product at NSIDC")]/URL',
+             './/Collection/OnlineResources/OnlineResource[contains(./Type/text(),"DOI URL")]/URL',
+             './/Collection/OnlineResources/OnlineResource[contains(./Type/text(),"ECSCollGuide")]/URL',
+             './/Collection/OnlineResources/OnlineResource[contains(./Type/text(),"GET DATA : ON-LINE ARCHIVE")]/URL',
+             './/Collection/OnlineResources/OnlineResource/URL',
+             './/Collection/OnlineAccessURLs/OnlineAccessURL/URL'],
+    default_values: ['https://earthdata.nasa.gov/echo'],
     multivalue: false
   },
   spatial_coverages: {
