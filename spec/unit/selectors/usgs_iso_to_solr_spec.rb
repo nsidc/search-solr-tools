@@ -96,7 +96,7 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct data center facet',
       xpath: "/doc/field[@name='facet_data_center']",
-      expected_text: 'U.S. Geological Survey ScienceBase | ScienceBase'
+      expected_text: 'U.S. Geological Survey ScienceBase | USGS ScienceBase'
     },
     {
       title: 'should grab the correct spatial scope facet',
