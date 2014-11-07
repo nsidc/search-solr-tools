@@ -32,7 +32,8 @@ class BcoDmoHarvester < HarvesterBase
       geometry = JSON.parse(RestClient.get((record['geometryUrl'])))
       begin
         JSON.parse(RestClient.get(record['datasets'])).each do |dataset|
-          documents << { 'add' => { 'doc' => @translator.translate(dataset, record, geometry) } }
+          people = JSON.parse(RestClient.get((dataset['people']))) if dataset.key?('people') || []
+          documents << { 'add' => { 'doc' => @translator.translate(dataset, record, geometry, people) } }
         end
       rescue => e
         puts "Failed to add record #{record['id']} with error #{e}: #{e.backtrace}"

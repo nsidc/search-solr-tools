@@ -49,4 +49,10 @@ describe BcodmoJsonToSolr do
     result[:spatial_scope_facet].size.should eql 1
     result[:spatial_scope_facet][0].should eql 'Between 1 and 170 degrees of latitude change | Regional'
   end
+
+  it 'translates an originators hash to an array of authors' do
+    people = [{person_name:'Dr Catherine Pfister', role:'Principal Investigator', affiliation:'UChicago', affiliation_acronym: 'UC'}, {person_name:'Dr Mark A. Altabet', role:'Co-Principal Investigator', affiliation:'University of Mass Dartmouth', affiliation_acronym:'UMass'}]
+    result = @translator.parse_people(people)
+    result.size.should eql 2
+  end
 end

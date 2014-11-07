@@ -9,7 +9,7 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 # Translates Bcodmo json to solr json format
 class BcodmoJsonToSolr
 # rubocop:disable MethodLength
-  def translate(json_doc, json_record, geometry)
+  def translate(json_doc, json_record, geometry, people)
     spatial_values = translate_geometry geometry
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
     {
@@ -30,7 +30,9 @@ class BcodmoJsonToSolr
       'facet_spatial_scope' => spatial_values[:spatial_scope_facet],
       'spatial_coverages' => spatial_values[:spatial_display],
       'spatial_area' => spatial_values[:spatial_area],
-      'spatial' => spatial_values[:spatial_index]
+      'spatial' => spatial_values[:spatial_index],
+      'data_access_urls' => json_doc['dataset_deployment_url'],
+      'authors' => parse_people(people)
     }
   end
 # rubocop:enable MethodLength
@@ -38,6 +40,10 @@ class BcodmoJsonToSolr
   def translate_dataset_version(dataset_version)
     version_translation = dataset_version.to_s.gsub(/\D/, '')
     version_translation.empty? ? nil : version_translation
+  end
+
+  def parse_people(people_json)
+    people_arr = people_json.map{|entry| entry['person_name']} if !people_json.empty? || []
   end
 
   def translate_geometry(wkt_geom)
