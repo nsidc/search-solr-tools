@@ -1,4 +1,5 @@
 require 'selectors/bcodmo_json_to_solr'
+require 'json'
 
 describe BcodmoJsonToSolr do
   before :each do
@@ -51,8 +52,9 @@ describe BcodmoJsonToSolr do
   end
 
   it 'translates an originators hash to an array of authors' do
-    people = [{person_name:'Dr Catherine Pfister', role:'Principal Investigator', affiliation:'UChicago', affiliation_acronym: 'UC'}, {person_name:'Dr Mark A. Altabet', role:'Co-Principal Investigator', affiliation:'University of Mass Dartmouth', affiliation_acronym:'UMass'}]
+    people = JSON.parse('[{"person_name": "Dr Patricia  L. Yager", "role": "Principal Investigator","affiliation": "University of Georgia","affiliation_acronym": "UGA"},{"person_name": "Dr Deborah Bronk","role": "Co-Principal Investigator", "affiliation": "Virginia Institute of Marine Science","affiliation_acronym": "VIMS"}]')
     result = @translator.parse_people(people)
     result.size.should eql 2
+    result[0].should eql 'Dr Patricia  L. Yager'
   end
 end

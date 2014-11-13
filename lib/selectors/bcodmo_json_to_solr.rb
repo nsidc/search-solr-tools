@@ -1,4 +1,5 @@
 require 'json'
+require 'rest-client'
 require 'rgeo/geo_json'
 require 'rgeo/wkrep/wkt_parser'
 require './lib/selectors/helpers/iso_to_solr_format'
@@ -9,7 +10,8 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 # Translates Bcodmo json to solr json format
 class BcodmoJsonToSolr
 # rubocop:disable MethodLength
-  def translate(json_doc, json_record, geometry, people)
+  def translate(json_doc, json_record, geometry)
+    originators = JSON.parse(RestClient.get((json_doc['people']))) if json_doc.key?('people') || []
     spatial_values = translate_geometry geometry
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
     {
@@ -32,7 +34,7 @@ class BcodmoJsonToSolr
       'spatial_area' => spatial_values[:spatial_area],
       'spatial' => spatial_values[:spatial_index],
       'data_access_urls' => json_doc['dataset_deployment_url'],
-      'authors' => parse_people(people)
+      'authors' => parse_people(originators)
     }
   end
 # rubocop:enable MethodLength
