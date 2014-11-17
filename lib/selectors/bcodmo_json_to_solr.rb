@@ -11,7 +11,7 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 class BcodmoJsonToSolr
 # rubocop:disable MethodLength
   def translate(json_doc, json_record, geometry)
-    originators = JSON.parse(RestClient.get((json_doc['people']))) if json_doc.key?('people') || []
+    originators = json_doc.key?('people') ? JSON.parse(RestClient.get((json_doc['people']))) : []
     spatial_values = translate_geometry geometry
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
     {
@@ -33,7 +33,7 @@ class BcodmoJsonToSolr
       'spatial_coverages' => spatial_values[:spatial_display],
       'spatial_area' => spatial_values[:spatial_area],
       'spatial' => spatial_values[:spatial_index],
-      'data_access_urls' => json_doc['dataset_deployment_url'],
+      'data_access_urls' => json_doc.key?('dataset_deployment_url') ? json_doc['dataset_deployment_url'] : [],
       'authors' => parse_people(originators)
     }
   end

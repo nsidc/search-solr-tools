@@ -35,7 +35,7 @@ class BcoDmoHarvester < HarvesterBase
           documents << { 'add' => { 'doc' => @translator.translate(dataset, record, geometry) } }
         end
       rescue => e
-        puts "Failed to add record #{record['id']} with error #{e}: #{e.backtrace}"
+        puts "Failed to add record #{record['id']} with error #{e} (#{e.message}) : #{e.backtrace.join("\n")}"
         failure_ids << record['id']
       end
     end
