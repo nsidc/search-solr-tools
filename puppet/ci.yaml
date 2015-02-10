@@ -48,7 +48,7 @@ nsidc_jenkins::jobs:
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_4_Check_Syntax"
   "%{hiera('project')}_4_Check_Syntax":
-    command: rake lint
+    command: rake jenkins:ci:rubocop
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_5_Run_Unit_Tests"
   "%{hiera('project')}_5_Run_Unit_Tests":
