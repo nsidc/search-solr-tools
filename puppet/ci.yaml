@@ -45,7 +45,7 @@ nsidc_jenkins::jobs:
     trigger_job: "%{hiera('project')}_3_Install_Dependencies"
   "%{hiera('project')}_3_Install_Dependencies":
     command: bundle install --path vendor/bundle
-    workspace: /var/lib/jenkins/workspace
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_4_Check_Syntax"
   "%{hiera('project')}_4_Check_Syntax":
     command: rake lint
