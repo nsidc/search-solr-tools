@@ -1,0 +1,21 @@
+forge "https://forgeapi.puppetlabs.com"
+
+# Module for access to NSIDC Enterprise storage
+mod "nsidc/nsidc_nfs",
+  :git => "git@bitbucket.org:/nsidc/puppet-nsidc-nfs.git"
+
+# Module for creating NSIDC Jenkins servers
+mod "nsidc/nsidc_jenkins",
+  :git => "git@bitbucket.org:/nsidc/puppet-nsidc-jenkins.git",
+  :ref => 'latest'
+
+# Module for installing packages from apt
+mod 'puppetlabs/apt'
+
+# Module for installing newer ruby from packages (using apt)
+mod "puppetlabs/ruby"
+
+# Module for installing python and pip.
+# You may want to use this if using python's bumpversion
+# for doing your version bumping.
+# mod 'stankevich/python'

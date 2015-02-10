@@ -1,0 +1,10 @@
+# Puppet Hiera Data
+:yaml:
+  :datadir: .
+:hierarchy:
+  - "puppet/%{environment}"
+  - puppet/hiera
+  - scm_creds
+  - vagrant-nsidc
+
+classes: []

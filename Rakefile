@@ -1,5 +1,4 @@
 require 'fileutils'
-require './tasks/build_subs.rb'
 require File.join('.', 'config', 'environments.rb')
 
 # All tasks are defined within specific rake files within the tasks directory
