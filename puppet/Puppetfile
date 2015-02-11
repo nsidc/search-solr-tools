@@ -19,4 +19,4 @@ mod "puppetlabs/ruby"
 # Module for installing python and pip.
 # You may want to use this if using python's bumpversion
 # for doing your version bumping.
-# mod 'stankevich/python'
+mod 'stankevich/python'

@@ -1,3 +1,13 @@
+def metadata_json
+    File.expand_path('../../metadata.json', __FILE__)
+end
+
+# Load will reload the version file so we can get the updated value
+# after bumping it.
+def current_version
+  version = JSON.load(File.new(metadata_json))['version']
+  version
+end
 
 namespace :jenkins do
   namespace :ci do
@@ -23,8 +33,8 @@ namespace :jenkins do
 
       # bump VERSION in version.rb, stage version.rb (this requires that you
       # have the bump gem installed with Bundler)
-      sh "bundle exec bump #{args[:part]} --no-commit"
-      sh "git add #{version_rb}"
+      sh "bundle exec rake bump[#{args[:part]}]"
+      sh "git add #{metadata_json}"
 
       # get the new version after bumping it
       version = current_version
