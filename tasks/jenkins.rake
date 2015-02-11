@@ -1,5 +1,5 @@
 def metadata_json
-    File.expand_path('../../metadata.json', __FILE__)
+  File.expand_path('../../metadata.json', __FILE__)
 end
 
 # Load will reload the version file so we can get the updated value
