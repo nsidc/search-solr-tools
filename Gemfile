@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-source 'https://igloo.nsidc.org/intranet/RUBY'
+source 'http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc/'
 
 gem 'rake'
 gem 'rspec'
