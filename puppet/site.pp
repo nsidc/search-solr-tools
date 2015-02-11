@@ -29,17 +29,10 @@ hiera_include('classes')
 include apt
 apt::ppa{'ppa:brightbox/ruby-ng':}
 class {'ruby':
-  require         => [ Class['apt'], Apt::Ppa['ppa:brightbox/ruby-ng'] ]
+  require         => [ Class['apt'], Apt::Ppa['ppa:brightbox/ruby-ng'] ],
+  version => '1.9.3',
+  set_system_default => true
 }
 class {'ruby::dev':
   require         => [ Class['apt'], Apt::Ppa['ppa:brightbox/ruby-ng'] ]
 }
-
-# Builder is required to do `gem generate_index`
-package { 'builder':
-  ensure => 'installed',
-  require => Class['ruby'],
-  provider => 'gem'
-}
-
-package { "emacs": }

@@ -48,15 +48,15 @@ nsidc_jenkins::jobs:
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_4_Check_Syntax"
   "%{hiera('project')}_4_Check_Syntax":
-    command: rake jenkins:ci:rubocop
+    command: bundle exec rake jenkins:ci:rubocop
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_5_Run_Unit_Tests"
   "%{hiera('project')}_5_Run_Unit_Tests":
-    command: rake spec:unit
+    command: bundle exec rake spec:unit
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_6_Run_Acceptance_Tests"
   "%{hiera('project')}_6_Run_Acceptance_Tests":
-    command: rake spec:acceptance
+    command: bundle exec rake spec:acceptance
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
 
   "%{hiera('project')}_Release_1_Bump_Version_and_Tag":
