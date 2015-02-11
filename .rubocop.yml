@@ -3,6 +3,9 @@ AllCops:
     - tasks/*.rake
     - Guardfile
     - Rakefile
+  Excludes:
+    - puppet/**
+    - vendor/**
 
 Encoding:
   Enabled: false
