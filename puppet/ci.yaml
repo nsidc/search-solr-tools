@@ -1,0 +1,90 @@
+# Puppet CI Resources
+
+classes:
+  - nsidc_jenkins
+  - nsidc_nfs
+
+# NFS Mounts
+nsidc_nfs::sharemounts:
+  /share/sw/packages:
+    project: sw
+    share: packages
+
+# Jenkins Plugins
+nsidc_jenkins::plugins:
+  git: {}
+  git-client: {}
+  git-parameter: {}
+  scm-api: {}
+  credentials: {}
+  ssh-credentials: {}
+  greenballs: {}
+  jobConfigHistory: {}
+  mailer: {}
+  instant-messaging: {}
+  jabber: {}
+  ansicolor: {}
+  simple-theme-plugin: {}
+
+# Jenkins Jobs
+nsidc_jenkins::jobs:
+  "%{hiera('project')}_1_Checkout_Project":
+    git:
+      repo: "%{hiera('gitrepo')}"
+      poll_scm: true
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+    trigger_job: "%{hiera('project')}_2_Configure_System"
+  "%{hiera('project')}_2_Configure_System":
+    command: |
+      cd puppet
+      librarian-puppet clean
+      librarian-puppet install
+      cd -
+      sudo puppet apply --environment=ci --debug --verbose --modulepath=./puppet/modules --hiera_config=./puppet/hiera.yaml ./puppet/site.pp
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+    trigger_job: "%{hiera('project')}_3_Install_Dependencies"
+  "%{hiera('project')}_3_Install_Dependencies":
+    command: bundle install --path vendor/bundle
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+    trigger_job: "%{hiera('project')}_4_Check_Syntax"
+  "%{hiera('project')}_4_Check_Syntax":
+    command: bundle exec rake jenkins:ci:rubocop
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+    trigger_job: "%{hiera('project')}_5_Run_Unit_Tests"
+  "%{hiera('project')}_5_Run_Unit_Tests":
+    command: bundle exec rake spec:unit
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+
+  "%{hiera('project')}_Release_1_Bump_Version_and_Tag":
+    git:
+      repo: "%{hiera('gitrepo')}"
+      poll_scm: false
+    parameters:
+      - type: string
+        name: branch
+        description: git branch to checkout and tag
+        default: master
+      - type: choice
+        name: version_type
+        choices:
+          - patch
+          - minor
+          - major
+    command: |
+      bundle install
+      bundle exec rake jenkins:release:bump[$version_type]
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/release
+    trigger_job: "%{hiera('project')}_Release_2_Publish_Latest"
+
+  # This job is expecting that you have pushed up a branch called
+  # latest to the repo.  The latest branch can be referenced with the
+  # :ref => 'latest' option when calling the module in the consumer's Puppetfile.
+  "%{hiera('project')}_Release_2_Publish_Latest":
+    command: |
+      bundle exec rake jenkins:release:push
+      git fetch origin latest
+      git checkout latest
+      git pull
+      git merge master
+      git push origin latest
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/release

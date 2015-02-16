@@ -1,4 +1,0 @@
--r turnip/rspec
--r turnip_helper
---color
---default_path spec/unit/

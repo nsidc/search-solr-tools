@@ -1,0 +1,18 @@
+{
+  "name": "search-solr-tools",
+    "version": "0.0.2",
+    "author": "NSIDC",
+    "license": "NSIDC",
+    "summary": "Tools for harvesting into a Solr data store.",
+    "source": "https://bitbucket.org/nsidc/search-solr-tools",
+    "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "14.04" ]
+
+
+    }
+  ],
+    "dependencies": []
+
+}
