@@ -153,14 +153,13 @@ class IsoToSolrFormat
   end
 
   def self.bounding_box(box_node)
-    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
-    west = west.split(' ').first.strip unless west.empty?
-    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal', './SouthBoundingCoordinate'])
-    south = south.split(' ').first.strip unless south.empty?
-    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal', './EastBoundingCoordinate'])
-    east = east.split(' ').first.strip unless east.empty?
-    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal', './NorthBoundingCoordinate'])
-    north = north.split(' ').first.strip unless north.empty?
+    west = west_bound(box_node)
+    east = east_bound(box_node)
+
+    south = south_bound(box_node)
+    north = north_bound(box_node)
+
+    west, east, south, north = '' if west.to_f > east.to_f || south.to_f > north.to_f
 
     {
       west: west,
@@ -168,5 +167,33 @@ class IsoToSolrFormat
       east: east,
       north: north
     }
+  end
+
+  def self.west_bound(box_node)
+    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
+    west = west.split(' ').first.strip unless west.empty?
+    west = '' unless west.to_f >= -180 || west.to_f <= 180
+    west
+  end
+
+  def self.east_bound(box_node)
+    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal', './EastBoundingCoordinate'])
+    east = east.split(' ').first.strip unless east.empty?
+    east = '' unless east.to_f <= 180 || east.to_f >= -180
+    east
+  end
+
+  def self.south_bound(box_node)
+    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal', './SouthBoundingCoordinate'])
+    south = south.split(' ').first.strip unless south.empty?
+    south = '' unless south.to_f >= -90 || south.to_f <= 90
+    south
+  end
+
+  def self.north_bound(box_node)
+    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal', './NorthBoundingCoordinate'])
+    north = north.split(' ').first.strip unless north.empty?
+    north = '' unless north.to_f <= 90 || north.to_f >= -90
+    north
   end
 end
