@@ -1,0 +1,286 @@
+<dm:dataset xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns15="http://quakeml.org/xmlns/quakeml/1.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://quakeml.org/xmlns/bed/1.2" xmlns:ns3="http://www.geoviqua.org/QualityInformationModel/3.1" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wrs="http://www.opengis.net/cat/wrs/1.0" xmlns:dct="http://purl.org/dc/terms/" xmlns:ows="http://www.opengis.net/ows" xmlns:dm="http://floraresearch.eu/sdi/services/7.0/dataModel/schema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmi="http://www.isotc211.org/2005/gmi" cardinality="0" id="aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLmRhdGFzZXQuMTA2XzMxMy50aHJlZGRzLnhtbCMvL3RocjpkYXRhc2V0W0BJRD0ndWNhci5uY2FyLmVvbC5kYXRhc2V0LjEwNl8zMTMnXQ==" providerId="UUID-10a97fe3-8638-4fac-b24e-377720319a86" toHarvest="false" xsi:schemaLocation="http://floraresearch.eu/sdi/services/7.0/dataModel/schema http://essi-lab.eu/schemas/sdi-services/7.0/DataModel_7.0.0.xsd">
+    <dm:metadata>
+        <gmd:MD_Metadata xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gmx="http://www.opengis.net/gmx" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://essi-lab.eu/schemas/mirrors/schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd">
+            <gmd:fileIdentifier>
+                <gco:CharacterString>aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLmRhdGFzZXQuMTA2XzMxMy50aHJlZGRzLnhtbCMvL3RocjpkYXRhc2V0W0BJRD0ndWNhci5uY2FyLmVvbC5kYXRhc2V0LjEwNl8zMTMnXQ==</gco:CharacterString>
+            </gmd:fileIdentifier>
+            <gmd:parentIdentifier>
+                <gco:CharacterString>aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLnByb2plY3QuQVJDU1MudGhyZWRkcy54bWwjLy90aHI6ZGF0YXNldFtASUQ9J3VjYXIubmNhci5lb2wucHJvamVjdC5BUkNTUydd</gco:CharacterString>
+            </gmd:parentIdentifier>
+            <gmd:hierarchyLevel>
+                <gmd:MD_ScopeCode codeList="" codeListValue="dataset"/>
+            </gmd:hierarchyLevel>
+            <gmd:characterSet>
+                <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="MD_CharacterSetCode_utf8" codeSpace="ISOTC211/19115">MD_CharacterSetCode_utf8</gmd:MD_CharacterSetCode>
+            </gmd:characterSet>
+            <gmd:contact/>
+            <gmd:dateStamp>
+                <gco:Date>2011-07-19</gco:Date>
+            </gmd:dateStamp>
+            <gmd:identificationInfo>
+                <gmd:MD_DataIdentification xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://essi-lab.eu/schemas/mirrors/schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd">
+                    <gmd:topicCategory>
+                        <gmd:MD_TopicCategoryCode>dataSetDataBase</gmd:MD_TopicCategoryCode>
+                    </gmd:topicCategory>
+                    <gmd:citation>
+                        <gmd:CI_Citation>
+                            <gmd:title>
+                                <gco:CharacterString>Barrow Area Remote Sensing - Brw Be Land Cover</gco:CharacterString>
+                            </gmd:title>
+                            <gmd:editionDate>
+                                <gco:Date/>
+                            </gmd:editionDate>
+                            <gmd:date>
+                                <gmd:CI_Date>
+                                    <gmd:date>
+                                        <gco:Date>2011-07-19T13:01:03Z</gco:Date>
+                                    </gmd:date>
+                                </gmd:CI_Date>
+                            </gmd:date>
+                        </gmd:CI_Citation>
+                    </gmd:citation>
+                    <gmd:abstract>
+                        <gco:CharacterString> Cloud free Quickbird satellite imagery was used to develop the land cover maps in this study. The dataset is composed of four multispectral (2.4m) and one panchromatic (0.6m) band. The multispectral bands were fused with the panchromatic scene using a Principal Components sharpening method, which characteristically maintains spatial and spectral quality (Vijayaraj et al., 2006). Ten land cover types were chosen for the land cover classification. These included seven vegetated land cover types identified from cluster analysis of plot level species cover data from ITEX and resampled IBP plots, bare ground, ice/snow/urban areas, and water. </gco:CharacterString>
+                    </gmd:abstract>
+                    <gmd:descriptiveKeywords>
+                        <gmd:MD_Keywords>
+                            <gmd:keyword>
+                                <gco:CharacterString>Satellite, QuickBird</gco:CharacterString>
+                            </gmd:keyword>
+                        </gmd:MD_Keywords>
+                    </gmd:descriptiveKeywords>
+                    <gmd:descriptiveKeywords>
+                        <gmd:MD_Keywords>
+                            <gmd:keyword>
+                                <gco:CharacterString>Land Character.</gco:CharacterString>
+                            </gmd:keyword>
+                        </gmd:MD_Keywords>
+                    </gmd:descriptiveKeywords>
+                    <gmd:descriptiveKeywords>
+                        <gmd:MD_Keywords>
+                            <gmd:keyword>
+                                <gco:CharacterString>Arctic</gco:CharacterString>
+                            </gmd:keyword>
+                        </gmd:MD_Keywords>
+                    </gmd:descriptiveKeywords>
+                    <gmd:language/>
+                    <gmd:supplementalInformation>
+                        <gco:CharacterString>Documentation: BrwBeLandCover2008.html --&gt; http://data.eol.ucar.edu/datafile/nph-get/106.313/BrwBeLandCover2008.html / Codiac dataset page (106.313) --&gt; http://data.eol.ucar.edu/codiac/dss/id=106.313 / Related project: ARCSS --&gt; http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARCSS.thredds.xml / Related project: ITEX --&gt; http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml / </gco:CharacterString>
+                    </gmd:supplementalInformation>
+                    <gmd:extent>
+                        <gmd:EX_Extent>
+                            <gmd:geographicElement>
+                                <gmd:EX_GeographicBoundingBox>
+                                    <gmd:westBoundLongitude>
+                                        <gco:Decimal>180</gco:Decimal>
+                                    </gmd:westBoundLongitude>
+                                    <gmd:eastBoundLongitude>
+                                        <gco:Decimal>-180</gco:Decimal>
+                                    </gmd:eastBoundLongitude>
+                                    <gmd:southBoundLatitude>
+                                        <gco:Decimal>90</gco:Decimal>
+                                    </gmd:southBoundLatitude>
+                                    <gmd:northBoundLatitude>
+                                        <gco:Decimal>-90</gco:Decimal>
+                                    </gmd:northBoundLatitude>
+                                </gmd:EX_GeographicBoundingBox>
+                            </gmd:geographicElement>
+                            <gmd:temporalElement>
+                                <gmd:EX_TemporalExtent>
+                                    <gmd:extent>
+                                        <gml:TimePeriod gml:id="x6afd5197-4849-4b2c-b99e-e776783c63d6">
+                                            <gml:beginPosition>2002-08-01T00:00:00Z</gml:beginPosition>
+                                            <gml:endPosition>2008-07-30T23:59:59Z</gml:endPosition>
+                                            <gml:duration/>
+                                        </gml:TimePeriod>
+                                    </gmd:extent>
+                                </gmd:EX_TemporalExtent>
+                            </gmd:temporalElement>
+                        </gmd:EX_Extent>
+                    </gmd:extent>
+                    <gmd:pointOfContact>
+                        <gmd:CI_ResponsibleParty>
+                            <gmd:role>
+                                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115"/>
+                            </gmd:role>
+                            <gmd:organisationName>
+                                <gco:CharacterString>UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility</gco:CharacterString>
+                            </gmd:organisationName>
+                            <gmd:contactInfo>
+                                <gmd:CI_Contact>
+                                    <gmd:address>
+                                        <gmd:CI_Address>
+                                            <gmd:electronicMailAddress>
+                                                <gco:CharacterString>datahelp@eol.ucar.edu</gco:CharacterString>
+                                            </gmd:electronicMailAddress>
+                                        </gmd:CI_Address>
+                                    </gmd:address>
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo>
+                        </gmd:CI_ResponsibleParty>
+                    </gmd:pointOfContact>
+                    <gmd:pointOfContact>
+                        <gmd:CI_ResponsibleParty>
+                            <gmd:role>
+                                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="ISOTC211/19115"/>
+                            </gmd:role>
+                            <gmd:organisationName>
+                                <gco:CharacterString>Craig E. Tweedie, ctweedie AT utep dot edu</gco:CharacterString>
+                            </gmd:organisationName>
+                        </gmd:CI_ResponsibleParty>
+                    </gmd:pointOfContact>
+                    <gmd:pointOfContact>
+                        <gmd:CI_ResponsibleParty>
+                            <gmd:role>
+                                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator" codeSpace="ISOTC211/19115"/>
+                            </gmd:role>
+                            <gmd:organisationName>
+                                <gco:CharacterString>Craig E. Tweedie, ctweedie AT utep dot edu</gco:CharacterString>
+                            </gmd:organisationName>
+                        </gmd:CI_ResponsibleParty>
+                    </gmd:pointOfContact>
+                    <gmd:pointOfContact>
+                        <gmd:CI_ResponsibleParty>
+                            <gmd:role>
+                                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="author" codeSpace="ISOTC211/19115"/>
+                            </gmd:role>
+                            <gmd:organisationName>
+                                <gco:CharacterString>Craig E. Tweedie, ctweedie AT utep dot edu</gco:CharacterString>
+                            </gmd:organisationName>
+                        </gmd:CI_ResponsibleParty>
+                    </gmd:pointOfContact>
+                </gmd:MD_DataIdentification>
+            </gmd:identificationInfo>
+            <gmd:distributionInfo>
+                <gmd:MD_Distribution>
+                    <gmd:transferOptions>
+                        <gmd:MD_DigitalTransferOptions>
+                            <gmd:onLine>
+                                <gmd:CI_OnlineResource>
+                                    <gmd:linkage>
+                                        <gmd:URL>http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.dataset.106_313.thredds.xml</gmd:URL>
+                                    </gmd:linkage>
+                                    <gmd:protocol>
+                                        <gco:CharacterString>HTTP</gco:CharacterString>
+                                    </gmd:protocol>
+                                </gmd:CI_OnlineResource>
+                            </gmd:onLine>
+                            <gmd:onLine>
+                                <gmd:CI_OnlineResource>
+                                    <gmd:linkage>
+                                        <gmd:URL>http://data.eol.ucar.edu/codiac/fgr_form/id=106.313</gmd:URL>
+                                    </gmd:linkage>
+                                    <gmd:protocol>
+                                        <gco:CharacterString>WebForm</gco:CharacterString>
+                                    </gmd:protocol>
+                                    <gmd:name>
+                                        <gco:CharacterString/>
+                                    </gmd:name>
+                                </gmd:CI_OnlineResource>
+                            </gmd:onLine>
+                        </gmd:MD_DigitalTransferOptions>
+                    </gmd:transferOptions>
+                </gmd:MD_Distribution>
+            </gmd:distributionInfo>
+            <gmd:dataQualityInfo>
+                <gmd:DQ_DataQuality>
+                    <gmd:scope>
+                        <gmd:DQ_Scope>
+                            <gmd:level>
+                                <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+                            </gmd:level>
+                        </gmd:DQ_Scope>
+                    </gmd:scope>
+                    <gmd:report>
+                        <gmd:DQ_DomainConsistency>
+                            <gmd:nameOfMeasure>
+                                <gco:CharacterString>THREDDS_VALIDATION_ATTRIBUTE</gco:CharacterString>
+                            </gmd:nameOfMeasure>
+                            <gmd:result>
+                                <gmd:DQ_ConformanceResult>
+                                    <gmd:specification>
+                                        <gmd:CI_Citation>
+                                            <gmd:title>THREDDS_VALIDATION_ATTRIBUTE</gmd:title>
+                                            <gmd:date>
+                                                <gmd:CI_Date>
+                                                    <gmd:date>
+                                                        <gco:Date/>
+                                                    </gmd:date>
+                                                    <gmd:dateType>
+                                                        <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="creation"/>
+                                                    </gmd:dateType>
+                                                </gmd:CI_Date>
+                                            </gmd:date>
+                                        </gmd:CI_Citation>
+                                    </gmd:specification>
+                                    <gmd:explanation>
+                                        <gco:CharacterString>A validation has been performed on the dataset as recorded by the THREDDS catalog</gco:CharacterString>
+                                    </gmd:explanation>
+                                    <gmd:pass>
+                                        <gco:Boolean>true</gco:Boolean>
+                                    </gmd:pass>
+                                </gmd:DQ_ConformanceResult>
+                            </gmd:result>
+                        </gmd:DQ_DomainConsistency>
+                    </gmd:report>
+                    <gmd:lineage>
+                        <gmd:LI_Lineage>
+                            <gmd:statement>
+                                <gco:CharacterString/>
+                            </gmd:statement>
+                        </gmd:LI_Lineage>
+                    </gmd:lineage>
+                </gmd:DQ_DataQuality>
+            </gmd:dataQualityInfo>
+            <dm:bbox>
+                <dm:sw>71.275 -156.64</dm:sw>
+                <dm:se>71.275 -156.568</dm:se>
+                <dm:nw>71.296 -156.64</dm:nw>
+                <dm:ne>71.296 -156.568</dm:ne>
+                <dm:disjValues>
+                    <dm:disjSouth>71.275</dm:disjSouth>
+                    <dm:disjWest>-156.64</dm:disjWest>
+                    <dm:disjNorth>71.296</dm:disjNorth>
+                    <dm:disjEast>-156.568</dm:disjEast>
+                </dm:disjValues>
+                <dm:values>
+                    <dm:south>71.275</dm:south>
+                    <dm:west>-156.64</dm:west>
+                    <dm:north>71.296</dm:north>
+                    <dm:east>-156.568</dm:east>
+                </dm:values>
+                <dm:area>0.0015119999999995176</dm:area>
+                <dm:center>71.28550000000001 -156.60399999999998</dm:center>
+            </dm:bbox>
+            <dm:abstract>+Cloud+free+Quickbird+satellite+imagery+was+used+to+develop+the+land+cover+maps+in+this+study.+The+dataset+is+composed+of+four+multispectral+%282.4m%29+and+one+panchromatic+%280.6m%29+band.+The+multispectral+bands+were+fused+with+the+panchromatic+scene+using+a+Principal+Components+sharpening+method%2C+which+characteristically+maintains+spatial+and+spectral+quality+%28Vijayaraj+et+al.%2C+2006%29.+Ten+land+cover+types+were+chosen+for+the+land+cover+classification.+These+included+seven+vegetated+land+cover+types+identified+from+cluster+analysis+of+plot+level+species+cover+data+from+ITEX+and+resampled+IBP+plots%2C+bare+ground%2C+ice%2Fsnow%2Furban+areas%2C+and+water.+</dm:abstract>
+            <dm:anyText>%5BaHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLmRhdGFzZXQuMTA2XzMxMy50aHJlZGRzLnhtbCMvL3RocjpkYXRhc2V0W0BJRD0ndWNhci5uY2FyLmVvbC5kYXRhc2V0LjEwNl8zMTMnXQ%3D%3DaHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLnByb2plY3QuQVJDU1MudGhyZWRkcy54bWwjLy90aHI6ZGF0YXNldFtASUQ9J3VjYXIubmNhci5lb2wucHJvamVjdC5BUkNTUydd+MD_CharacterSetCode_utf8+2011-07-19T13%3A01%3A03Z+dataSetDataBase+Barrow+Area+Remote+Sensing+-+Brw+Be+Land+Cover2011-07-19T13%3A01%3A03Z+Cloud+free+Quickbird+satellite+imagery+was+used+to+develop+the+land+cover+maps+in+this+study.+The+dataset+is+composed+of+four+multispectral+%282.4m%29+and+one+panchromatic+%280.6m%29+band.+The+multispectral+bands+were+fused+with+the+panchromatic+scene+using+a+Principal+Components+sharpening+method%2C+which+characteristically+maintains+spatial+and+spectral+quality+%28Vijayaraj+et+al.%2C+2006%29.+Ten+land+cover+types+were+chosen+for+the+land+cover+classification.+These+included+seven+vegetated+land+cover+types+identified+from+cluster+analysis+of+plot+level+species+cover+data+from+ITEX+and+resampled+IBP+plots%2C+bare+ground%2C+ice%2Fsnow%2Furban+areas%2C+and+water.+Satellite%2C+QuickBird+Land+Character.+Arctic+Documentation%3A+BrwBeLandCover2008.html+--%3E+http%3A%2F%2Fdata.eol.ucar.edu%2Fdatafile%2Fnph-get%2F106.313%2FBrwBeLandCover2008.html+%2F+Codiac+dataset+page+%28106.313%29+--%3E+http%3A%2F%2Fdata.eol.ucar.edu%2Fcodiac%2Fdss%2Fid%3D106.313+%2F+Related+project%3A+ARCSS+--%3E+http%3A%2F%2Fdata.eol.ucar.edu%2Fjedi%2Fcatalog%2Fucar.ncar.eol.project.ARCSS.thredds.xml+%2F+Related+project%3A+ITEX+--%3E+http%3A%2F%2Fdata.eol.ucar.edu%2Fjedi%2Fcatalog%2Fucar.ncar.eol.project.ITEX.thredds.xml+%2F+-156.64+-156.568+71.275+71.296+2002-08-01T00%3A00%3A00Z+2008-07-30T23%3A59%3A59Z+UCAR%2FNCAR+-+Earth+Observing+Laboratory+%2F+Computing%2C+Data%2C+and+Software+Facilitydatahelp%40eol.ucar.edu+Craig+E.+Tweedie%2C+ctweedie+AT+utep+dot+edu+Craig+E.+Tweedie%2C+ctweedie+AT+utep+dot+edu+Craig+E.+Tweedie%2C+ctweedie+AT+utep+dot+edu+http%3A%2F%2Fdata.eol.ucar.edu%2Fjedi%2Fcatalog%2Fucar.ncar.eol.dataset.106_313.thredds.xml+HTTP+http%3A%2F%2Fdata.eol.ucar.edu%2Fcodiac%2Ffgr_form%2Fid%3D106.313+WebForm+dataset+THREDDS_VALIDATION_ATTRIBUTE+THREDDS_VALIDATION_ATTRIBUTE+A+validation+has+been+performed+on+the+dataset+as+recorded+by+the+THREDDS+catalog+true+71.275+-156.6471.275+-156.56871.296+-156.6471.296+-156.56871.275-156.6471.296-156.56871.275-156.6471.296-156.5680.001511999999999517671.28550000000001+-156.60399999999998%2BCloud%2Bfree%2BQuickbird%2Bsatellite%2Bimagery%2Bwas%2Bused%2Bto%2Bdevelop%2Bthe%2Bland%2Bcover%2Bmaps%2Bin%2Bthis%2Bstudy.%2BThe%2Bdataset%2Bis%2Bcomposed%2Bof%2Bfour%2Bmultispectral%2B%25282.4m%2529%2Band%2Bone%2Bpanchromatic%2B%25280.6m%2529%2Bband.%2BThe%2Bmultispectral%2Bbands%2Bwere%2Bfused%2Bwith%2Bthe%2Bpanchromatic%2Bscene%2Busing%2Ba%2BPrincipal%2BComponents%2Bsharpening%2Bmethod%252C%2Bwhich%2Bcharacteristically%2Bmaintains%2Bspatial%2Band%2Bspectral%2Bquality%2B%2528Vijayaraj%2Bet%2Bal.%252C%2B2006%2529.%2BTen%2Bland%2Bcover%2Btypes%2Bwere%2Bchosen%2Bfor%2Bthe%2Bland%2Bcover%2Bclassification.%2BThese%2Bincluded%2Bseven%2Bvegetated%2Bland%2Bcover%2Btypes%2Bidentified%2Bfrom%2Bcluster%2Banalysis%2Bof%2Bplot%2Blevel%2Bspecies%2Bcover%2Bdata%2Bfrom%2BITEX%2Band%2Bresampled%2BIBP%2Bplots%252C%2Bbare%2Bground%252C%2Bice%252Fsnow%252Furban%2Bareas%252C%2Band%2Bwater.%2B%5D</dm:anyText>
+            <dm:providerID>UUID-10a97fe3-8638-4fac-b24e-377720319a86</dm:providerID>
+            <dm:fileID>aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLmRhdGFzZXQuMTA2XzMxMy50aHJlZGRzLnhtbCMvL3RocjpkYXRhc2V0W0BJRD0ndWNhci5uY2FyLmVvbC5kYXRhc2V0LjEwNl8zMTMnXQ%3D%3D</dm:fileID>
+            <dm:parentID>aHR0cDovL2RhdGEuZW9sLnVjYXIuZWR1L2plZGkvY2F0YWxvZy91Y2FyLm5jYXIuZW9sLnByb2plY3QuQVJDU1MudGhyZWRkcy54bWwjLy90aHI6ZGF0YXNldFtASUQ9J3VjYXIubmNhci5lb2wucHJvamVjdC5BUkNTUydd</dm:parentID>
+            <dm:resourceID/>
+            <dm:keyword>Satellite%2C+QuickBird</dm:keyword>
+            <dm:keyword>Land+Character.</dm:keyword>
+            <dm:keyword>Arctic</dm:keyword>
+            <dm:title>Barrow+Area+Remote+Sensing+-+Brw+Be+Land+Cover</dm:title>
+            <dm:alternateTitle/>
+            <dm:organisationName>UCAR%2FNCAR+-+Earth+Observing+Laboratory+%2F+Computing%2C+Data%2C+and+Software+Facility</dm:organisationName>
+            <dm:organisationName>Craig+E.+Tweedie%2C+ctweedie+AT+utep+dot+edu</dm:organisationName>
+            <dm:organisationName>Craig+E.+Tweedie%2C+ctweedie+AT+utep+dot+edu</dm:organisationName>
+            <dm:organisationName>Craig+E.+Tweedie%2C+ctweedie+AT+utep+dot+edu</dm:organisationName>
+            <dm:language/>
+            <dm:hasSecurityConst>false</dm:hasSecurityConst>
+            <dm:hasAccessLegalConst>false</dm:hasAccessLegalConst>
+            <dm:hasUseLegalConst>false</dm:hasUseLegalConst>
+            <dm:hasOtherLegalConst>false</dm:hasOtherLegalConst>
+            <dm:liProcCount>0</dm:liProcCount>
+            <dm:liSourceCount>0</dm:liSourceCount>
+            <dm:denominator>-1</dm:denominator>
+            <dm:tmpExtentBegin>2002-08-01T00:00:00Z</dm:tmpExtentBegin>
+            <dm:tmpExtentEnd>2008-07-30T23:59:59Z</dm:tmpExtentEnd>
+            <dm:modified_Date>2011-07-19</dm:modified_Date>
+            <dm:publication_Null/>
+            <dm:creation_Null/>
+            <dm:revision_Null/>
+        </gmd:MD_Metadata>
+    </dm:metadata>
+</dm:dataset>

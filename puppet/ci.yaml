@@ -41,8 +41,9 @@ nsidc_jenkins::jobs:
       librarian-puppet install
       cd -
       sudo puppet apply --environment=ci --debug --verbose --modulepath=./puppet/modules --hiera_config=./puppet/hiera.yaml ./puppet/site.pp
+
+      curl localhost:8080/job/%{hiera('project')}_3_Install_Dependencies/build
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-    trigger_job: "%{hiera('project')}_3_Install_Dependencies"
   "%{hiera('project')}_3_Install_Dependencies":
     command: bundle install --path vendor/bundle
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
