@@ -66,9 +66,16 @@ class HarvesterBase
     url = solr_url + "/#{core}/update?commit=true"
     success = false
     doc_serialized = get_serialized_doc(doc, content_type)
-    RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
-      response.code == 200 ? success = true : puts("Error for #{doc_serialized} \n\n response: #{response.body}")
+
+    # Some docs will cause solr to time out during the POST
+    begin
+      RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
+        response.code == 200 ? success = true : puts("Error for #{doc_serialized} \n\n response: #{response.body}")
+      end
+    rescue => e
+      puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
     end
+
     success
   end
 
