@@ -34,10 +34,10 @@ describe BcodmoJsonToSolr do
   end
 
   it 'translates a bco-dmo "wkt" poly format to appropriate spatial coveage values' do
-    box = { 'type' => 'Polygon', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((-82.4480 57.566, -38.7980 57.566, -38.7980 24.499, -82.4480 24.499, -82.4480 57.566))' }
+    box = { 'type' => 'Polygon', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON(-82.4480 57.566, -38.7980 57.566, -38.7980 24.499, -82.4480 24.499, -82.4480 57.566)' }
     result = @translator.translate_geometry(box)
-    result[:spatial_display].size.should eql 1
-    result[:spatial_index].size.should eql 1
+    result[:spatial_display].size.should eql 5
+    result[:spatial_index].size.should eql 5
     result[:spatial_area].should eql 33.06700000000001
     result[:global_facet].should eql nil
     result[:spatial_scope_facet].size.should eql 1

@@ -50,8 +50,9 @@ class BcodmoJsonToSolr
 
   def translate_geometry(wkt_geom)
     wkt_geom['geometry'].sub! '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> ', ''
-    # Consider all linestring geometries to be multipoint for this provider
+    # Consider all linestring and polygon geometries to be multipoint for this provider
     wkt_geom['geometry'].sub! 'LINESTRING', 'MULTIPOINT'
+    wkt_geom['geometry'].sub! 'POLYGON', 'MULTIPOINT'
     parser = RGeo::WKRep::WKTParser.new(nil, {})
     geometry = parser.parse(wkt_geom['geometry'])
     {
