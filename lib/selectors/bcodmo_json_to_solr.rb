@@ -45,7 +45,7 @@ class BcodmoJsonToSolr
   end
 
   def parse_people(people_json)
-    people_arr = people_json.map{|entry| entry['person_name']} if !people_json.empty? || []
+    people_json.map { |entry| entry['person_name'] } unless people_json.empty?
   end
 
   def translate_geometry(wkt_geom)
