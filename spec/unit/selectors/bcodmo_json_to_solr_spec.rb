@@ -1,4 +1,5 @@
 require 'selectors/bcodmo_json_to_solr'
+require 'json'
 
 describe BcodmoJsonToSolr do
   before :each do
@@ -17,6 +18,10 @@ describe BcodmoJsonToSolr do
     @translator.translate_dataset_version(nil).should be_nil
   end
 
+  it 'translates a dataset version with an empty string correctly' do
+    @translator.translate_dataset_version("").should be_nil
+  end  
+
   it 'translates a bco-dmo "wkt" point format geojson to appopriate spatial coverage values' do
     multipoint = { 'type' => 'Multipoint', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> MULTIPOINT(-122.6446 48.4057, -122.7774 48.1441, -122.6621 48.413, -123.6363 48.1509, -124.7382 48.3911, -124.7246 48.3869)' }
     result = @translator.translate_geometry(multipoint)
@@ -29,10 +34,10 @@ describe BcodmoJsonToSolr do
   end
 
   it 'translates a bco-dmo "wkt" poly format to appropriate spatial coveage values' do
-    box = { 'type' => 'Polygon', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((-82.4480 57.566, -38.7980 57.566, -38.7980 24.499, -82.4480 24.499, -82.4480 57.566))' }
+    box = { 'type' => 'Polygon', 'geometry' => '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON(-82.4480 57.566, -38.7980 57.566, -38.7980 24.499, -82.4480 24.499, -82.4480 57.566)' }
     result = @translator.translate_geometry(box)
-    result[:spatial_display].size.should eql 1
-    result[:spatial_index].size.should eql 1
+    result[:spatial_display].size.should eql 5
+    result[:spatial_index].size.should eql 5
     result[:spatial_area].should eql 33.06700000000001
     result[:global_facet].should eql nil
     result[:spatial_scope_facet].size.should eql 1
@@ -48,5 +53,12 @@ describe BcodmoJsonToSolr do
     result[:global_facet].should eql nil
     result[:spatial_scope_facet].size.should eql 1
     result[:spatial_scope_facet][0].should eql 'Between 1 and 170 degrees of latitude change | Regional'
+  end
+
+  it 'translates an originators hash to an array of authors' do
+    people = JSON.parse('[{"person_name": "Dr Patricia  L. Yager", "role": "Principal Investigator","affiliation": "University of Georgia","affiliation_acronym": "UGA"},{"person_name": "Dr Deborah Bronk","role": "Co-Principal Investigator", "affiliation": "Virginia Institute of Marine Science","affiliation_acronym": "VIMS"}]')
+    result = @translator.parse_people(people)
+    result.size.should eql 2
+    result[0].should eql 'Dr Patricia  L. Yager'
   end
 end

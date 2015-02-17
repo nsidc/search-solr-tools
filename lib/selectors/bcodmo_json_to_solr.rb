@@ -1,4 +1,5 @@
 require 'json'
+require 'rest-client'
 require 'rgeo/geo_json'
 require 'rgeo/wkrep/wkt_parser'
 require './lib/selectors/helpers/iso_to_solr_format'
@@ -10,6 +11,7 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 class BcodmoJsonToSolr
 # rubocop:disable MethodLength
   def translate(json_doc, json_record, geometry)
+    originators = json_doc.key?('people') ? JSON.parse(RestClient.get((json_doc['people']))) : []
     spatial_values = translate_geometry geometry
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
     {
@@ -30,7 +32,9 @@ class BcodmoJsonToSolr
       'facet_spatial_scope' => spatial_values[:spatial_scope_facet],
       'spatial_coverages' => spatial_values[:spatial_display],
       'spatial_area' => spatial_values[:spatial_area],
-      'spatial' => spatial_values[:spatial_index]
+      'spatial' => spatial_values[:spatial_index],
+      'data_access_urls' => json_doc.key?('dataset_deployment_url') ? json_doc['dataset_deployment_url'] : [],
+      'authors' => parse_people(originators)
     }
   end
 # rubocop:enable MethodLength
@@ -40,10 +44,15 @@ class BcodmoJsonToSolr
     version_translation.empty? ? nil : version_translation
   end
 
+  def parse_people(people_json)
+    people_arr = people_json.map{|entry| entry['person_name']} if !people_json.empty? || []
+  end
+
   def translate_geometry(wkt_geom)
     wkt_geom['geometry'].sub! '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> ', ''
-    # Consider all linestring geometries to be multipoint for this provider
+    # Consider all linestring and polygon geometries to be multipoint for this provider
     wkt_geom['geometry'].sub! 'LINESTRING', 'MULTIPOINT'
+    wkt_geom['geometry'].sub! 'POLYGON', 'MULTIPOINT'
     parser = RGeo::WKRep::WKTParser.new(nil, {})
     geometry = parser.parse(wkt_geom['geometry'])
     {

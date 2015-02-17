@@ -9,20 +9,25 @@ describe BcoDmoHarvester do
   describe 'Adding documents to Solr' do
     before :all do
       stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
-      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'))
+      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcdmo.json'), headers: {})
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
-      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcodmo_datasets.json'))
+      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_datasets.json'), headers: {})
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/geometry')
       .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcodmo_geometry.json'))
+      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_geometry.json'), headers: {})
+
+      stub_request(:get, 'http://www.bco-dmo.org/api/dataset/511584/originators')
+      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_originators_511584.json'))
+
+      stub_request(:get, 'http://www.bco-dmo.org/api/dataset/514182/originators')
+      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_originators_514182.json'))
+
       @result = @harvester.translate_bcodmo
     end
 
     it 'successfully creates a solr addition (ingest) hash' do
       @result[:add_docs].length.should eql 3
-      first_result = @result[:add_docs].first['add']['doc']
+      first_result = @result[:add_docs].first['add']['doc'] 
       first_result['title'].should eql('Mussel growth rates')
       first_result['authoritative_id'].should eql('511644511584')
       first_result['data_centers'].should eql('Biological and Chemical Oceanography Data Management Office')
@@ -42,7 +47,7 @@ describe BcoDmoHarvester do
       first_result['spatial'].length.should eql 6
     end
 
-    it 'successfully handles a black dataset version' do
+    it 'successfully handles a blank dataset version' do
       @result[:add_docs][2]['add']['doc']['version'].should be_nil
     end
 
