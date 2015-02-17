@@ -7,7 +7,7 @@ require './lib/harvester_base'
 class UsgsHarvester < HarvesterBase
   def initialize(env = 'development', die_on_failure = false)
     super env, die_on_failure
-    @page_size = 100
+    @page_size = 10
     @translator = IsoToSolr.new :usgs
   end
 
