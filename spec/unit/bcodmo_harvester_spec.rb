@@ -27,7 +27,7 @@ describe BcoDmoHarvester do
 
     it 'successfully creates a solr addition (ingest) hash' do
       @result[:add_docs].length.should eql 3
-      first_result = @result[:add_docs].first['add']['doc'] 
+      first_result = @result[:add_docs].first['add']['doc']
       first_result['title'].should eql('Mussel growth rates')
       first_result['authoritative_id'].should eql('511644511584')
       first_result['data_centers'].should eql('Biological and Chemical Oceanography Data Management Office')
