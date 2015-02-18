@@ -4,6 +4,9 @@ require_relative './selectors/helpers/query_builder'
 
 # Harvests data from CISL and inserts it into Solr after it has been translated
 class CislHarvester < HarvesterBase
+  # Used in query string params, resumptionToken
+  DATASET = '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
+
   def initialize(env = 'development', die_on_failure = false)
     super env, die_on_failure
     @translator = IsoToSolr.new :cisl
@@ -32,7 +35,13 @@ class CislHarvester < HarvesterBase
   end
 
   def results_from_cisl
-    get_results(request_string, '//oai:record', '')
+    list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
+
+    @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken')
+    @resumption_token = format_resumption_token(@resumption_token)
+    puts "rt==#{@resumption_token}"
+
+    list_records_oai_response
   end
 
   def get_docs_with_translated_entries_from_cisl(entries)
@@ -45,9 +54,25 @@ class CislHarvester < HarvesterBase
     params = {
       verb: 'ListRecords',
       metadataPrefix: 'dif',
-      set: '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
+      set: DATASET
     }
 
     "#{ cisl_url }#{ QueryBuilder.build(params) }"
+  end
+
+  # The ruby response is lacking quotes, which the token requires in order to work...
+  # Also, the response back seems to be inconsistent - sometimes it adds &quot; instead of '"',
+  # which makes the token fail to work.
+  # To get around this I'd prefer to make assumptions about the token and let it break if
+  # they change the formatting.  For now, all fields other than offset should be able to be
+  # assumed to remain constant.
+  def format_resumption_token(resumption_token)
+    resumption_token =~ /offset:(\d+)/
+    offset = Regexp.last_match(1)
+
+    '{"from":null,"until":null,"set":' <<
+    "\"#{ DATASET }\"" <<
+    '"metadataPrefix":"dif","offset":' <<
+    "#{ offset }}"
   end
 end
