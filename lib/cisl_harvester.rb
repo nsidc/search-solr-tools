@@ -17,7 +17,7 @@ class CislHarvester < HarvesterBase
   # get translated entries from CISL and add them to Solr
   # this is the main entry point for the class
   def harvest_cisl_into_solr
-    while (entries = get_results_from_cisl) && (entries.length > 0)
+    while (entries = results_from_cisl) && (entries.length > 0)
       begin
         insert_solr_docs(get_docs_with_translated_entries_from_cisl(entries))
       rescue => e
@@ -31,7 +31,7 @@ class CislHarvester < HarvesterBase
     SolrEnvironments[@environment][:cisl_url]
   end
 
-  def get_results_from_cisl
+  def results_from_cisl
     get_results(request_string, '//oai:record', '')
   end
 

@@ -36,10 +36,10 @@ class IsoToSolrFormat
   def self.spatial_index_str(box_node)
     box = bounding_box(box_node)
     if box[:west] == box[:east] && box[:south] == box[:north]
-       [box[:west], box[:south]]
-     else
-       [box[:west], box[:south], box[:east], box[:north]]
-     end.join(' ')
+      [box[:west], box[:south]]
+    else
+      [box[:west], box[:south], box[:east], box[:north]]
+    end.join(' ')
   end
 
   def self.spatial_area_str(box_node)
@@ -110,24 +110,14 @@ class IsoToSolrFormat
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(
       temporal_node,
-      [
-        './/gml:beginPosition',
-        './/BeginningDateTime',
-        './/gco:Date',
-        './/dif:Start_Date'
-      ]
+      ['.//gml:beginPosition', './/BeginningDateTime', './/gco:Date', './/dif:Start_Date']
     )
     start_date = '' unless SolrFormat.date?(start_date)
     start_date = SolrFormat.date_str(start_date) if formatted
 
     end_date = get_first_matching_child(
       temporal_node,
-      [
-        './/gml:endPosition',
-        './/EndingDateTime',
-        './/gco:Date',
-        './/dif:Stop_Date'
-      ]
+      ['.//gml:endPosition', './/EndingDateTime', './/gco:Date', './/dif:Stop_Date']
     )
     end_date = '' unless SolrFormat.date?(end_date)
     end_date = SolrFormat.date_str(end_date) if formatted

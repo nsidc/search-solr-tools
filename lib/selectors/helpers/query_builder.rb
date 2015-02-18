@@ -1,3 +1,4 @@
+# Class to build a query string based on a hash of params
 class QueryBuilder
   class << self
     def build(params)
