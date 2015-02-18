@@ -12,7 +12,7 @@ namespace :harvest do
     Rake::Task['harvest:nmi'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:nodc'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:rda'].invoke(args[:environment], args[:die_on_failure])
-    # Rake::Task['harvest:usgs'].invoke(args[:environment], args[:die_on_failure])
+    Rake::Task['harvest:usgs'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:bco_dmo'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment], args[:die_on_failure])
   end
