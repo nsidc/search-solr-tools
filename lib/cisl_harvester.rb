@@ -1,6 +1,7 @@
 require_relative './selectors/helpers/iso_to_solr'
 require_relative './harvester_base'
 require_relative './selectors/helpers/query_builder'
+require_relative './selectors/helpers/iso_namespaces'
 
 # Harvests data from CISL and inserts it into Solr after it has been translated
 class CislHarvester < HarvesterBase
@@ -37,11 +38,11 @@ class CislHarvester < HarvesterBase
   def results_from_cisl
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
-    @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken')
+    @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces)
     @resumption_token = format_resumption_token(@resumption_token)
     puts "rt==#{@resumption_token}"
 
-    list_records_oai_response
+    list_records_oai_response.xpath('.//oai:records', IsoNamespaces.namespaces)
   end
 
   def get_docs_with_translated_entries_from_cisl(entries)

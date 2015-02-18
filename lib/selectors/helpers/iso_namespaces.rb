@@ -1,7 +1,7 @@
 # Helper class to provide default namespaces for XML document parsing.
 class IsoNamespaces
-  def self.namespaces(doc)
-    ISO_NAMESPACES.merge(doc.namespaces)
+  def self.namespaces(doc = nil)
+    ISO_NAMESPACES.merge(doc.nil? {} || doc.namespaces)
   end
 
   private
