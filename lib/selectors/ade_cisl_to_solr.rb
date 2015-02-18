@@ -34,11 +34,11 @@ CISL = {
   },
   keywords: {
       xpaths: [
-        './/dif:Parametrs/dif:Category',
-        './/dif:Parametrs/dif:Topic',
-        './/dif:Parametrs/dif:Term',
-        './/dif:Parametrs/dif:Variable_Level_1'
-      ],
+        './/dif:Parameters/dif:Category',
+        './/dif:Parameters/dif:Topic',
+        './/dif:Parameters/dif:Term',
+        './/dif:Parameters/dif:Variable_Level_1'
+      ].reverse,
       multivalue: true
   },
   last_revision_date: {
