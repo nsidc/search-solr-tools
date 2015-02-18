@@ -12,7 +12,7 @@ require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
 
 CISL = {
   authoritative_id: {
-      xpaths: ['.//dif:Entry_ID'],
+      xpaths: ['.//oai:header/oai:identifier'],
       multivalue: false
   },
   title: {
