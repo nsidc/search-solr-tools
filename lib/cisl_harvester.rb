@@ -39,7 +39,7 @@ class CislHarvester < HarvesterBase
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
     @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces)
-    @resumption_token = format_resumption_token(@resumption_token)
+    @resumption_token = format_resumption_token(@resumption_token.first.text)
     puts "rt==#{@resumption_token}"
 
     list_records_oai_response.xpath('.//oai:records', IsoNamespaces.namespaces)
@@ -72,7 +72,7 @@ class CislHarvester < HarvesterBase
     offset = Regexp.last_match(1)
 
     '{"from":null,"until":null,"set":' <<
-    "\"#{ DATASET }\"" <<
+    "\"#{ DATASET }\"," <<
     '"metadataPrefix":"dif","offset":' <<
     "#{ offset }}"
   end
