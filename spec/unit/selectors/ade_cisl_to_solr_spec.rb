@@ -2,7 +2,7 @@ require 'selectors/helpers/iso_to_solr'
 
 describe 'CISL ISO to Solr converter' do
 
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_iso.xml')
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_oai.xml')
   iso_to_solr = IsoToSolr.new(:cisl)
   solr_doc = iso_to_solr.translate fixture
 
@@ -36,12 +36,12 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: "Land coverBio-geographical regionsSoilEARTH SCIENCELand Records\n/\nPaleosolsLand Records\n/\nIsotopesSoils\n/\nCarbonEcological Dynamics\n/\nBiogeochemical CyclesGeochemistry\n/\nBiogeochemistry"
+      expected_text: 'PALEOSOLSCARBONISOTOPESECOSYSTEM FUNCTIONSBIOGEOCHEMICAL PROCESSES'
     },
     {
       title: 'should grab the correct updated date',
       xpath: "/doc/field[@name='last_revision_date']",
-      expected_text: '2013-02-13T00:00:00Z'
+      expected_text: '2015-02-05T00:00:00Z'
     },
     {
       title: 'should grab the correct get data link',
@@ -51,32 +51,32 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '-90 -180 90 180'
+      expected_text: '66.56 -180 90 180'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: '-180 -90 180 90'
+      expected_text: '-180 66.56 180 90'
     },
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '180.0'
+      expected_text: '23.439999999999998'
     },
     {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
-      expected_text: '2012-06-09T06:00:00Z,2012-08-18T06:00:00Z'
+      expected_text: '2011-01-29,2014-04-27'
     },
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
-      expected_text: '20.120609 20.120818'
+      expected_text: '20.110129 20.140427'
     },
     {
       title: 'should calculate the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '71'
+      expected_text: '1184'
     },
     {
       title: 'should grab the correct source',
@@ -91,12 +91,12 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: 'Coverage from over 85 degrees North to -85 degrees South | Global'
+      expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
     },
     {
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
-      expected_text: '< 1 year'
+      expected_text: '1+ years'
     }
   ]
 
