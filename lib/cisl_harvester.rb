@@ -32,7 +32,7 @@ class CislHarvester < HarvesterBase
   end
 
   def get_results_from_cisl
-    get_results(request_string, '//gmd:MD_Metadata', '')
+    get_results(request_string, '//oai:record', '')
   end
 
   def get_docs_with_translated_entries_from_cisl(entries)

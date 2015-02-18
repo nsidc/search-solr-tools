@@ -38,7 +38,7 @@ namespace :harvest do
   desc 'Harvest CISL data'
   task :cisl, :environment, :die_on_failure do |t, args|
     begin
-      harvester = ADEHarvester.new(args[:environment], 'CISL', args[:die_on_failure])
+      harvester = CislHarvester.new(args[:environment], args[:die_on_failure])
       harvester.harvest_and_delete
     rescue => e
       puts "Harvest failed for CISL: #{e.message}"
