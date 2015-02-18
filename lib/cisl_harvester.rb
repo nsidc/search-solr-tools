@@ -19,7 +19,7 @@ class CislHarvester < HarvesterBase
   def harvest_cisl_into_solr
     while (entries = get_results_from_cisl) && (entries.length > 0)
       begin
-        insert_solr_docs get_docs_with_translated_entries_from_cisl(entries)
+        insert_solr_docs(get_docs_with_translated_entries_from_cisl(entries))
       rescue => e
         puts "ERROR: #{e}"
         raise e if @die_on_failure

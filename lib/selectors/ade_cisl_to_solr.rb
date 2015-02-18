@@ -12,15 +12,15 @@ require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
 
 CISL = {
   authoritative_id: {
-      xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
+      xpaths: ['.//Entry_ID'],
       multivalue: false
   },
   title: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+      xpaths: ['.//Entry_Title'],
       multivalue: false
   },
   summary: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
+      xpaths: ['.//Summary/Abstract'],
       multivalue: false
   },
   data_centers: {

@@ -70,7 +70,8 @@ class HarvesterBase
     # Some docs will cause solr to time out during the POST
     begin
       RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
-        response.code == 200 ? success = true : puts("Error for #{doc_serialized} \n\n response: #{response.body}")
+        success = response.code == 200
+        puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
       end
     rescue => e
       puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
