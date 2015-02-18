@@ -35,6 +35,7 @@ class IsoToSolr
 
   def format_field(selector, field)
     formatted = selector.key?(:format) ? selector[:format].call(field) : format_text(field) rescue format_text(field)
+    formatted = strip_invalid_utf8_bytes(formatted)
     formatted.strip! if formatted.respond_to?(:strip!)
     formatted.gsub!(@multiple_whitespace, ' ') if formatted.respond_to?(:gsub!)
     formatted
@@ -51,7 +52,7 @@ class IsoToSolr
       fields = eval_xpath(iso_xml_doc, xpath, selector[:multivalue], selector[:reduce])
 
       # stop evaluating xpaths once we find data in one of them
-      if fields.size > 0 && fields.any? { |f| f.text.strip.length > 0 }
+      if fields.size > 0 && fields.any? { |f| strip_invalid_utf8_bytes(f.text).strip.length > 0 }
         return format_fields(selector, fields, selector[:reduce])
       end
     end
@@ -78,6 +79,18 @@ class IsoToSolr
           xml.field_({ name: field_name }, value) unless value.nil? || value.eql?('')
         end
       end
+    end
+  end
+
+  private
+
+  # Get rid of invalid-utf-8 bytes, see:
+  # http://robots.thoughtbot.com/fight-back-utf-8-invalid-byte-sequences
+  def strip_invalid_utf8_bytes(text)
+    if text.respond_to?(:encode)
+      text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    else
+      text
     end
   end
 end
