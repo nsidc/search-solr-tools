@@ -48,7 +48,7 @@ CISL = {
       format: SolrFormat::DATE
   },
   dataset_url: {
-      xpaths: ['.//dif:Related_URL/URL'],
+      xpaths: ['.//dif:Related_URL/dif:URL'],
       multivalue: false
   },
   spatial_coverages: {

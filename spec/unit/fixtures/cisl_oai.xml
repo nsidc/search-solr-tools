@@ -50,6 +50,10 @@
             <Variable_Level_1>BIOGEOCHEMICAL PROCESSES</Variable_Level_1>
           </Parameters>
 
+          <Temporal_Coverage>
+            <Start_Date>2011-01-29</Start_Date>
+            <Stop_Date>2014-04-27</Stop_Date>
+          </Temporal_Coverage>
 
           <Spatial_Coverage>
             <Southernmost_Latitude>66.56</Southernmost_Latitude>
