@@ -97,7 +97,7 @@ class HarvesterBase
 
     begin
       puts "\nRequest: #{request_url}"
-      response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
+      response = open(URI.encode(request_url), read_timeout: timeout, 'Content-Type' => content_type)
     rescue Timeout::Error => e
       retries_left -= 1
       puts "\n## TIMEOUT::ERROR ## Request Failed! Retrying #{retries_left} more times..."

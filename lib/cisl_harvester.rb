@@ -49,7 +49,7 @@ class CislHarvester < HarvesterBase
     @resumption_token = format_resumption_token(@resumption_token.first.text)
     puts "rt_clean==#{@resumption_token}"
 
-    list_records_oai_response.xpath('.//oai:records', IsoNamespaces.namespaces)
+    list_records_oai_response.xpath('.//oai:record', IsoNamespaces.namespaces)
   end
 
   def get_docs_with_translated_entries_from_cisl(entries)
