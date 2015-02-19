@@ -140,7 +140,7 @@ class HarvesterBase
   def doc_invalid?(doc)
     puts "doc_invalid? doc class == #{ doc.class }"
 
-    spatial_coverages = doc.xpath('.//spatial_coverages').first.text
+    spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first.text
     spatial_coverages = spatial_coverages.split(' ')
 
     # We've only seen the failure with 4 spatial coverage values
@@ -151,15 +151,15 @@ class HarvesterBase
     # <field name="spatial_coverages">-90 -180 -90 180</field>
     #
     # If N, S are the same and E, W span the globe, invalid
-    if spatial_coverages.first.abs == 90 &&
+    if spatial_coverages.first.to_f.abs == 90 &&
       spatial_coverages.first == spatial_coverages[2] &&
-      spatial_coverages[1].abs == 180 &&
-      spatial_coverages.last.abs == 180
+      spatial_coverages[1].to_f.abs == 180 &&
+      spatial_coverages.last.to_f.abs == 180
       return false
-    elsif spatial_coverages[1].abs == 180 &&
+    elsif spatial_coverages[1].to_f.abs == 180 &&
       spatial_coverages[1] == spatial_coverages.last &&
-      spatial_coverages.first.abs == 90 &&
-      spatial_coverages[2].abs == 90
+      spatial_coverages.first.to_f.abs == 90 &&
+      spatial_coverages[2].to_f.abs == 90
       return false
     end
 
