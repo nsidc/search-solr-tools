@@ -12,15 +12,15 @@ require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
 
 CISL = {
   authoritative_id: {
-      xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
+      xpaths: ['.//oai:header/oai:identifier'],
       multivalue: false
   },
   title: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+      xpaths: ['.//dif:Entry_Title'],
       multivalue: false
   },
   summary: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
+      xpaths: ['.//dif:Summary/dif:Abstract'],
       multivalue: false
   },
   data_centers: {
@@ -33,47 +33,52 @@ CISL = {
       multivalue: true
   },
   keywords: {
-      xpaths: ['.//gmd:keyword/gco:CharacterString'],
+      xpaths: [
+        './/dif:Parameters/dif:Category',
+        './/dif:Parameters/dif:Topic',
+        './/dif:Parameters/dif:Term',
+        './/dif:Parameters/dif:Variable_Level_1'
+      ].reverse,
       multivalue: true
   },
   last_revision_date: {
-      xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
+      xpaths: ['.//dif:Last_DIF_Revision_Date'],
       default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
       format: SolrFormat::DATE
   },
   dataset_url: {
-      xpaths: ['.//gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
+      xpaths: ['.//dif:Related_URL/dif:URL'],
       multivalue: false
   },
   spatial_coverages: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+      xpaths: ['.//dif:Spatial_Coverage'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+      xpaths: ['.//dif:Spatial_Coverage'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//dif:Spatial_Coverage'],
     multivalue: false,
     reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//dif:Temporal_Coverage'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   temporal_coverages: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//dif:Temporal_Coverage'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//dif:Temporal_Coverage'],
     multivalue: false,
     reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
@@ -89,12 +94,12 @@ CISL = {
       multivalue: false
   },
   facet_spatial_scope: {
-    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    xpaths: ['.//dif:Spatial_Coverage'],
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
   },
   facet_temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent'],
+    xpaths: ['.//dif:Temporal_Coverage'],
     default_values: [SolrFormat::NOT_SPECIFIED],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true

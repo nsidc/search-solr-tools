@@ -35,11 +35,11 @@ class IsoToSolrFormat
 
   def self.spatial_index_str(box_node)
     box = bounding_box(box_node)
-    (if box[:west] == box[:east] && box[:south] == box[:north]
-       [box[:west], box[:south]]
-     else
-       [box[:west], box[:south], box[:east], box[:north]]
-     end).join(' ')
+    if box[:west] == box[:east] && box[:south] == box[:north]
+      [box[:west], box[:south]]
+    else
+      [box[:west], box[:south], box[:east], box[:north]]
+    end.join(' ')
   end
 
   def self.spatial_area_str(box_node)
@@ -108,11 +108,17 @@ class IsoToSolrFormat
   private
 
   def self.date_range(temporal_node, formatted = false)
-    start_date = get_first_matching_child(temporal_node, ['.//gml:beginPosition', './/BeginningDateTime', './/gco:Date'])
+    start_date = get_first_matching_child(
+      temporal_node,
+      ['.//gml:beginPosition', './/BeginningDateTime', './/gco:Date', './/dif:Start_Date']
+    )
     start_date = '' unless SolrFormat.date?(start_date)
     start_date = SolrFormat.date_str(start_date) if formatted
 
-    end_date = get_first_matching_child(temporal_node, ['.//gml:endPosition', './/EndingDateTime', './/gco:Date'])
+    end_date = get_first_matching_child(
+      temporal_node,
+      ['.//gml:endPosition', './/EndingDateTime', './/gco:Date', './/dif:Stop_Date']
+    )
     end_date = '' unless SolrFormat.date?(end_date)
     end_date = SolrFormat.date_str(end_date) if formatted
 
@@ -170,28 +176,60 @@ class IsoToSolrFormat
   end
 
   def self.west_bound(box_node)
-    west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
+    west = get_first_matching_child(
+      box_node,
+      [
+        './gmd:westBoundingLongitude/gco:Decimal',
+        './gmd:westBoundLongitude/gco:Decimal',
+        './WestBoundingCoordinate',
+        './dif:Westernmost_Longitude'
+      ]
+    )
     west = west.split(' ').first.strip unless west.empty?
     west = '' unless west.to_f >= -180 || west.to_f <= 180
     west
   end
 
   def self.east_bound(box_node)
-    east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal', './EastBoundingCoordinate'])
+    east = get_first_matching_child(
+      box_node,
+      [
+        './gmd:eastBoundingLongitude/gco:Decimal',
+        './gmd:eastBoundLongitude/gco:Decimal',
+        './EastBoundingCoordinate',
+        './dif:Easternmost_Longitude'
+      ]
+    )
     east = east.split(' ').first.strip unless east.empty?
     east = '' unless east.to_f <= 180 || east.to_f >= -180
     east
   end
 
   def self.south_bound(box_node)
-    south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal', './SouthBoundingCoordinate'])
+    south = get_first_matching_child(
+      box_node,
+      [
+        './gmd:southBoundingLatitude/gco:Decimal',
+        './gmd:southBoundLatitude/gco:Decimal',
+        './SouthBoundingCoordinate',
+        './dif:Southernmost_Latitude'
+      ]
+    )
     south = south.split(' ').first.strip unless south.empty?
     south = '' unless south.to_f >= -90 || south.to_f <= 90
     south
   end
 
   def self.north_bound(box_node)
-    north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal', './NorthBoundingCoordinate'])
+    north = get_first_matching_child(
+      box_node,
+      [
+        './gmd:northBoundingLatitude/gco:Decimal',
+        './gmd:northBoundLatitude/gco:Decimal',
+        './NorthBoundingCoordinate',
+        './dif:Northernmost_Latitude'
+      ]
+    )
     north = north.split(' ').first.strip unless north.empty?
     north = '' unless north.to_f <= 90 || north.to_f >= -90
     north

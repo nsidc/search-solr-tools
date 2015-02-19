@@ -1,12 +1,7 @@
+require_relative './query_builder'
+
 # Constructs the string to query GI-Cat for CSW-ISO data
 class CswIsoQueryBuilder
-  # get the query string from a hash of parameters
-  class QueryBuilder
-    def assemble_query(params)
-      '?' + params.map { |k, v| "#{k}=#{v}" }.join('&')
-    end
-  end
-
   DEFAULT_PARAMS = {
     service: 'CSW',
     version: '2.0.2',
@@ -22,8 +17,7 @@ class CswIsoQueryBuilder
 
   def self.get_query_string(url, query_params = {})
     all_params = query_params(query_params)
-    builder = QueryBuilder.new
-    builder.assemble_query(all_params).prepend(url)
+    QueryBuilder.build(all_params).prepend(url)
   end
 
   def self.query_params(query_params = {})

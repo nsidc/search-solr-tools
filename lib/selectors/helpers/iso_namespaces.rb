@@ -1,7 +1,7 @@
 # Helper class to provide default namespaces for XML document parsing.
 class IsoNamespaces
-  def self.namespaces(doc)
-    ISO_NAMESPACES.merge(doc.namespaces)
+  def self.namespaces(doc = nil)
+    ISO_NAMESPACES.merge(doc.nil? ? {} : doc.namespaces)
   end
 
   private
@@ -18,6 +18,8 @@ class IsoNamespaces
     'gts' => 'http://www.isotc211.org/2005/gts',
     'srv' => 'http://www.isotc211.org/2005/srv',
     'xlink' => 'http://www.w3.org/1999/xlink',
-    'xsi' => 'http://www.w3.org/2001/XMLSchema-instance'
+    'xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+    'oai' => 'http://www.openarchives.org/OAI/2.0/',
+    'dif' => 'http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/'
   }
 end
