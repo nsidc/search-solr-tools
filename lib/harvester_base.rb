@@ -68,7 +68,7 @@ class HarvesterBase
 
     # Some of the docs will cause Solr to crash - CPU goes to 195% with `top` and it
     # doesn't seem to recover.
-    return success unless doc_valid?(doc)
+    return success unless doc_valid?(doc) if content_type == XML_CONTENT_TYPE
 
     doc_serialized = get_serialized_doc(doc, content_type)
 
