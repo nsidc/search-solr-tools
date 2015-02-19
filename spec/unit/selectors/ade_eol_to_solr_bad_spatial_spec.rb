@@ -52,17 +52,17 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: ''
+      expected_text: '90 180 -90 -180'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: ''
+      expected_text: '180 90 -180 -90'
     },
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '0.0'
+      expected_text: '-180.0'
     },
     {
       title: 'should grab the correct temporal coverage',
@@ -92,7 +92,7 @@ describe 'EOL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial scope facet',
       xpath: "/doc/field[@name='facet_spatial_scope']",
-      expected_text: ''
+      expected_text: 'Less than 1 degree of latitude change | Local'
     },
     {
       title: 'should grab the correct temporal duration facet',
