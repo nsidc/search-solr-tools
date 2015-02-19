@@ -165,8 +165,6 @@ class IsoToSolrFormat
     south = south_bound(box_node)
     north = north_bound(box_node)
 
-    west, east, south, north = '' if west.to_f > east.to_f || south.to_f > north.to_f
-
     {
       west: west,
       south: south,
