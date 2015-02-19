@@ -172,28 +172,28 @@ class IsoToSolrFormat
   def self.west_bound(box_node)
     west = get_first_matching_child(box_node, ['./gmd:westBoundingLongitude/gco:Decimal', './gmd:westBoundLongitude/gco:Decimal', './WestBoundingCoordinate'])
     west = west.split(' ').first.strip unless west.empty?
-    west = '' unless west.to_f >= -180 || west.to_f <= 180
+    west = '-180' unless west.to_f >= -180 || west.to_f <= 180
     west
   end
 
   def self.east_bound(box_node)
     east = get_first_matching_child(box_node, ['./gmd:eastBoundingLongitude/gco:Decimal', './gmd:eastBoundLongitude/gco:Decimal', './EastBoundingCoordinate'])
     east = east.split(' ').first.strip unless east.empty?
-    east = '' unless east.to_f <= 180 || east.to_f >= -180
+    east = '180' unless east.to_f <= 180 || east.to_f >= -180
     east
   end
 
   def self.south_bound(box_node)
     south = get_first_matching_child(box_node, ['./gmd:southBoundingLatitude/gco:Decimal', './gmd:southBoundLatitude/gco:Decimal', './SouthBoundingCoordinate'])
     south = south.split(' ').first.strip unless south.empty?
-    south = '' unless south.to_f >= -90 || south.to_f <= 90
+    south = '-90' unless south.to_f >= -90 || south.to_f <= 90
     south
   end
 
   def self.north_bound(box_node)
     north = get_first_matching_child(box_node, ['./gmd:northBoundingLatitude/gco:Decimal', './gmd:northBoundLatitude/gco:Decimal', './NorthBoundingCoordinate'])
     north = north.split(' ').first.strip unless north.empty?
-    north = '' unless north.to_f <= 90 || north.to_f >= -90
+    north = '90' unless north.to_f <= 90 || north.to_f >= -90
     north
   end
 end
