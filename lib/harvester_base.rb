@@ -65,6 +65,11 @@ class HarvesterBase
   def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
     url = solr_url + "/#{core}/update?commit=true"
     success = false
+
+    # Some of the docs will cause Solr to crash - CPU goes to 195% with `top` and it
+    # doesn't seem to recover.
+    return success unless doc_valid?(doc)
+
     doc_serialized = get_serialized_doc(doc, content_type)
 
     # Some docs will cause solr to time out during the POST
@@ -128,5 +133,41 @@ class HarvesterBase
     doc = create_new_solr_add_doc
     doc.root.add_child(child)
     doc
+  end
+
+  # Make sure that Solr is able to accept this doc in a POST
+  # input is a Nokogiri::XML::NodeSet object (maybe)
+  def doc_valid?(doc)
+    spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first
+    return true if spatial_coverages.nil?
+
+    spatial_coverages = spatial_coverages.text.split(' ')
+
+    # We've only seen the failure with 4 spatial coverage values
+    return true if spatial_coverages.size < 4
+
+    !spatial_coverage_invalid?(spatial_coverages)
+  end
+
+  # spatial_coverages is an array with length 4:
+  # [North, East, South, West]
+
+  # The failure occurs when the input is an infinitely narrow
+  # line, as in the following xml:
+  # <field name="spatial_coverages">-90 -180 -90 180</field>
+  #
+  # If N, S are the same and E, W span the globe, invalid
+  def spatial_coverage_invalid?(spatial_coverages)
+    (
+      spatial_coverages.first.to_f.abs == 90 &&
+      spatial_coverages.first == spatial_coverages[2] &&
+      spatial_coverages[1].to_f.abs == 180 &&
+      spatial_coverages.last.to_f.abs == 180
+    ) || (
+      spatial_coverages[1].to_f.abs == 180 &&
+      spatial_coverages[1] == spatial_coverages.last &&
+      spatial_coverages.first.to_f.abs == 90 &&
+      spatial_coverages[2].to_f.abs == 90
+    )
   end
 end

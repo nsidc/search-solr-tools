@@ -7,6 +7,12 @@ AllCops:
     - puppet/**
     - vendor/**
 
+ClassLength:
+  Max: 125
+
+CyclomaticComplexity:
+  Max: 8
+
 Encoding:
   Enabled: false
 
