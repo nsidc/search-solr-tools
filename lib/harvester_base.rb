@@ -68,7 +68,7 @@ class HarvesterBase
 
     # Some of the docs will cause Solr to crash - CPU goes to 195% with `top` and it
     # doesn't seem to recover.
-    return success if doc_invalid?(doc)
+    return success unless doc_valid?(doc)
 
     doc_serialized = get_serialized_doc(doc, content_type)
 
@@ -137,32 +137,37 @@ class HarvesterBase
 
   # Make sure that Solr is able to accept this doc in a POST
   # input is a Nokogiri::XML::NodeSet object (maybe)
-  def doc_invalid?(doc)
-    puts "doc_invalid? doc class == #{ doc.class }"
+  def doc_valid?(doc)
+    spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first
+    return true if spatial_coverages.nil?
 
-    spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first.text
-    spatial_coverages = spatial_coverages.split(' ')
+    spatial_coverages = spatial_coverages.text.split(' ')
 
     # We've only seen the failure with 4 spatial coverage values
     return true if spatial_coverages.size < 4
 
-    # The failure occurs when the input is an infinitely narrow
-    # line, as in the following xml:
-    # <field name="spatial_coverages">-90 -180 -90 180</field>
-    #
-    # If N, S are the same and E, W span the globe, invalid
-    if spatial_coverages.first.to_f.abs == 90 &&
+    !spatial_coverage_invalid?(spatial_coverages)
+  end
+
+  # spatial_coverages is an array with length 4:
+  # [North, East, South, West]
+
+  # The failure occurs when the input is an infinitely narrow
+  # line, as in the following xml:
+  # <field name="spatial_coverages">-90 -180 -90 180</field>
+  #
+  # If N, S are the same and E, W span the globe, invalid
+  def spatial_coverage_invalid?(spatial_coverages)
+    (
+      spatial_coverages.first.to_f.abs == 90 &&
       spatial_coverages.first == spatial_coverages[2] &&
       spatial_coverages[1].to_f.abs == 180 &&
       spatial_coverages.last.to_f.abs == 180
-      return false
-    elsif spatial_coverages[1].to_f.abs == 180 &&
+    ) || (
+      spatial_coverages[1].to_f.abs == 180 &&
       spatial_coverages[1] == spatial_coverages.last &&
       spatial_coverages.first.to_f.abs == 90 &&
       spatial_coverages[2].to_f.abs == 90
-      return false
-    end
-
-    true
+    )
   end
 end
