@@ -1,4 +1,4 @@
-## Unreleased
+## v0.2.0 (2015-02-19)
 
 Bugfixes
 
