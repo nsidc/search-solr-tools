@@ -99,7 +99,7 @@ class HarvesterBase
       response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
     rescue OpenURI::HTTPError, Timeout::Error => e
       retries_left -= 1
-      puts "\n## TIMEOUT::ERROR ## Request Failed! Retrying #{retries_left} more times..."
+      puts "\n## REQUEST FAILED ## Retrying #{retries_left} more times..."
 
       if retries_left > 0
         sleep 5
