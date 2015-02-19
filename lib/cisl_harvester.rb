@@ -11,6 +11,10 @@ class CislHarvester < HarvesterBase
   def initialize(env = 'development', die_on_failure = false)
     super env, die_on_failure
     @translator = IsoToSolr.new :cisl
+
+    # This is updated when we harvest based on the response
+    # from the server.
+    @resumption_token = nil
   end
 
   def harvest_and_delete
@@ -21,7 +25,9 @@ class CislHarvester < HarvesterBase
   # get translated entries from CISL and add them to Solr
   # this is the main entry point for the class
   def harvest_cisl_into_solr
-    while (entries = results_from_cisl) && (entries.length > 0)
+    while @resumption_token.nil? || !@resumption_token.empty?
+      entries = results_from_cisl
+
       begin
         insert_solr_docs(get_docs_with_translated_entries_from_cisl(entries))
       rescue => e
@@ -39,8 +45,9 @@ class CislHarvester < HarvesterBase
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
     @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces)
+    puts "rt_dirty==#{@resumption_token}"
     @resumption_token = format_resumption_token(@resumption_token.first.text)
-    puts "rt==#{@resumption_token}"
+    puts "rt_clean==#{@resumption_token}"
 
     list_records_oai_response.xpath('.//oai:records', IsoNamespaces.namespaces)
   end
@@ -51,12 +58,16 @@ class CislHarvester < HarvesterBase
     docs
   end
 
+  private
+
   def request_string
     params = {
       verb: 'ListRecords',
       metadataPrefix: 'dif',
       set: DATASET
-    }
+    }.merge(
+      @resumption_token.nil? ? {} : { resumptionToken: @resumption_token }
+    )
 
     "#{ cisl_url }#{ QueryBuilder.build(params) }"
   end
@@ -67,7 +78,11 @@ class CislHarvester < HarvesterBase
   # To get around this I'd prefer to make assumptions about the token and let it break if
   # they change the formatting.  For now, all fields other than offset should be able to be
   # assumed to remain constant.
+  # If the input is empty, then we are done - return an empty string, which is checked for
+  # in the harvest loop.
   def format_resumption_token(resumption_token)
+    return '' if resumption_token.empty?
+
     resumption_token =~ /offset:(\d+)/
     offset = Regexp.last_match(1)
 
