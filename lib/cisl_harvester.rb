@@ -45,9 +45,7 @@ class CislHarvester < HarvesterBase
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
     @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces)
-    puts "rt_dirty==#{@resumption_token}"
     @resumption_token = format_resumption_token(@resumption_token.first.text)
-    puts "rt_clean==#{@resumption_token}"
 
     list_records_oai_response.xpath('.//oai:record', IsoNamespaces.namespaces)
   end
