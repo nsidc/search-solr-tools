@@ -15,7 +15,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct title',
       xpath: "/doc/field[@name='title']",
-      expected_text: 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
+      expected_text: 'ArcticNet 0501a - Northern Baffin Bay CTD data'
     },
     {
       title: 'should grab the correct summary',
@@ -35,7 +35,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: 'PALEOSOLSCARBONISOTOPESECOSYSTEM FUNCTIONSBIOGEOCHEMICAL PROCESSES'
+      expected_text: 'North Water PolynyaCTD profilesOxygenSalinityTemperaturePhotosynthetically available radiation (PAR)FluorescenceNitratesTransmittanceNorthern Baffin Bay, Nunavut'
     },
     {
       title: 'should grab the correct updated date',

@@ -16,7 +16,7 @@ PDC = {
       multivalue: false
   },
   title: {
-      xpaths: ['.//gmd:citation/gmd:title/gco:CharacterString'],
+      xpaths: ['.//gmd:citation//gmd:title/gco:CharacterString'],
       multivalue: false
   },
   summary: {
@@ -33,7 +33,7 @@ PDC = {
       multivalue: true
   },
   keywords: {
-      xpaths: ['.//gmd:descriptiveKeywords/gmd:keyword/gco:CharacterString'],
+      xpaths: ['.//gmd:descriptiveKeywords//gmd:keyword/gco:CharacterString'],
       multivalue: true
   },
   last_revision_date: {
