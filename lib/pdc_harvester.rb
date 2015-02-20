@@ -59,7 +59,7 @@ class PdcHarvester < HarvesterBase
     # metadataPrefix.
     params = {
       verb: 'ListRecords',
-      metadataPrefix: @resumptionToken.nil? 'iso' : nil,
+      metadataPrefix: @resumptionToken.nil? ? 'iso' : nil,
       resumptionToken: @resumptionToken
     }.delete_if { |k, v| v.nil? }
 
