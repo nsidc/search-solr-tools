@@ -16,7 +16,7 @@ class PdcHarvester < HarvesterBase
   end
 
   def harvest_and_delete
-    puts "Running harvest of Polar data catalog from #{pdc_url}"
+    puts "Running harvest of Polar data catalog from #{metadata_url}"
     super(method(:harvest_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]}\"")
   end
 

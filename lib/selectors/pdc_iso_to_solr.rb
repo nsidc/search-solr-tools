@@ -63,17 +63,17 @@ PDC = {
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal: {
-    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   temporal_coverages: {
-    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent'],
     multivalue: false,
     reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
@@ -94,7 +94,7 @@ PDC = {
     format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
   },
   facet_temporal_duration: {
-    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent'],
     default_values: [SolrFormat::NOT_SPECIFIED],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true

@@ -65,17 +65,17 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct temporal coverage',
       xpath: "/doc/field[@name='temporal_coverages']",
-      expected_text: '2011-01-29,2014-04-27'
+      expected_text: '2005-08-14,2005-08-23'
     },
     {
       title: 'should grab the correct temporal range',
       xpath: "/doc/field[@name='temporal']",
-      expected_text: '20.110129 20.140427'
+      expected_text: '20.050814 20.050823'
     },
     {
       title: 'should calculate the correct temporal duration',
       xpath: "/doc/field[@name='temporal_duration']",
-      expected_text: '1184'
+      expected_text: '10'
     },
     {
       title: 'should grab the correct source',
@@ -95,7 +95,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct temporal duration facet',
       xpath: "/doc/field[@name='facet_temporal_duration']",
-      expected_text: '1+ years'
+      expected_text: '< 1 year'
     }
   ]
 
