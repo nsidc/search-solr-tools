@@ -10,7 +10,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should include the correct authoritative id',
       xpath: "/doc/field[@name='authoritative_id']",
-      expected_text: 'oai:ACADIS:005f3222-7548-11e2-851e-00c0f03d5b7c'
+      expected_text: '80_iso'
     },
     {
       title: 'should grab the correct title',
@@ -20,18 +20,17 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "Dataset consists of compound specific carbon isotopic values of alkanes\nextracted from paleosols." \
-      " Values represent the mean of duplicate\nmeasurements."
+      expected_text: %(The CTD data was obtained during the 2005 ArcticNet scientific cruise #0501. The data were collected from August 14 to 23, 2005, aboard the CCGS Amundsen. There were 54 casts, associated to 36 oceanographic stations, in the Northern Baffin Bay. The following parameters were measured: temperature, conductivity and pressure (with a Sea-Bird SBE-9plus), dissolved oxygen (Sea-Bird SBE-43), pH (Sea-Bird SBE-18-I), fluorescence (Seapoint chlorophyll fluorometer), nitrate concentration (Satlantic MBARI-ISUS 5T), transmittance (Wetlabs C-Star transmissometer), light intensity (PAR; Biospherical Instruments QCP2300) and surface light intensity (sPAR; Biospherical Instruments QCP2200). Quality control procedures were applied to the data. Data are available on the Polar Data Catalogue and at the Marine Environmental Data Service (MEDS) of Fisheries and Oceans Canada.)
     },
     {
       title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'Advanced Cooperative Arctic Data and Information Service'
+      expected_text: 'Polar Data Catalog'
     },
     {
       title: 'should grab the correct author',
       xpath: "/doc/field[@name='authors']",
-      expected_text: ''
+      expected_text: 'Gratton YvesGratton YvesLago VroniqueRail Marie-Emmanuelle'
     },
     {
       title: 'should grab the correct keywords',
@@ -41,27 +40,27 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct updated date',
       xpath: "/doc/field[@name='last_revision_date']",
-      expected_text: '2015-02-05T00:00:00Z'
+      expected_text: '2014-11-24T19:34:39Z'
     },
     {
       title: 'should grab the correct get data link',
       xpath: "/doc/field[@name='dataset_url']",
-      expected_text: 'http://www.aoncadis.org/dataset/id/005f3222-7548-11e2-851e-00c0f03d5b7c.html'
+      expected_text: 'www.polardata.ca/pdcsearch/PDCSearchDOI.jsp?doi_id=80'
     },
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '66.56 -180 90 180'
+      expected_text: '72 -80 79 -70'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: '-180 66.56 180 90'
+      expected_text: '-80 72 -70 79'
     },
     {
       title: 'should calculate the correct spatial area',
       xpath: "/doc/field[@name='spatial_area']",
-      expected_text: '23.439999999999998'
+      expected_text: '7.0'
     },
     {
       title: 'should grab the correct temporal coverage',
@@ -81,12 +80,12 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
-      expected_text: 'ADE'
+      expected_text: 'Polar Data Catalogue'
     },
     {
       title: 'should grab the correct data center facet',
       xpath: "/doc/field[@name='facet_data_center']",
-      expected_text: 'Advanced Cooperative Arctic Data and Information Service | ACADIS Gateway'
+      expected_text: 'Polar Data Catalog | PDC'
     },
     {
       title: 'should grab the correct spatial scope facet',
