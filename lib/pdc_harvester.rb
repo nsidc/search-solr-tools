@@ -25,7 +25,7 @@ class PdcHarvester < HarvesterBase
   def harvest_into_solr
     while @resumption_token.nil? || !@resumption_token.empty?
       begin
-        insert_solr_docs(translated_docs(get_records))
+        insert_solr_docs(translated_docs(pull_records))
       rescue => e
         puts "ERROR: #{e}"
         raise e if @die_on_failure
@@ -37,7 +37,7 @@ class PdcHarvester < HarvesterBase
     SolrEnvironments[@environment][:pdc_url]
   end
 
-  def get_records
+  def pull_records
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
     @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces).first.text

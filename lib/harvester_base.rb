@@ -111,19 +111,16 @@ class HarvesterBase
     request_url = encode_data_provider_url(request_url)
 
     begin
-      puts "\nRequest: #{request_url}"
+      puts "Request: #{request_url}"
       response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
     rescue OpenURI::HTTPError, Timeout::Error => e
       retries_left -= 1
-      puts "\n## REQUEST FAILED ## Retrying #{retries_left} more times..."
+      puts "## REQUEST FAILED ## Retrying #{retries_left} more times..."
 
-      if retries_left > 0
-        sleep 5
-        retry
-      else
-        raise e if @die_on_failure
-        return
-      end
+      retry if retries_left > 0
+
+      raise e if @die_on_failure
+      return
     end
     doc = Nokogiri.XML(response)
     doc.xpath(metadata_path, IsoNamespaces.namespaces(doc))
