@@ -40,16 +40,13 @@ class PdcHarvester < HarvesterBase
   def get_records
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
-    @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces)
-    @resumption_token = format_resumption_token(@resumption_token.first.text)
+    @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces).first.text
 
     list_records_oai_response.xpath('.//oai:record', IsoNamespaces.namespaces)
   end
 
-  def get_docs_with_translated_entries_from_cisl(entries)
-    docs = []
-    entries.each { |r| docs.push(create_new_solr_add_doc_with_child(@translator.translate(r).root)) }
-    docs
+  def translated_docs(entries)
+    entries.map { |e| create_new_solr_add_doc_with_child(@translator.translate(e).root) }
   end
 
   private
@@ -63,26 +60,6 @@ class PdcHarvester < HarvesterBase
       resumptionToken: @resumptionToken
     }.delete_if { |k, v| v.nil? }
 
-    "#{ cisl_url }#{ QueryBuilder.build(params) }"
-  end
-
-  # The ruby response is lacking quotes, which the token requires in order to work...
-  # Also, the response back seems to be inconsistent - sometimes it adds &quot; instead of '"',
-  # which makes the token fail to work.
-  # To get around this I'd prefer to make assumptions about the token and let it break if
-  # they change the formatting.  For now, all fields other than offset should be able to be
-  # assumed to remain constant.
-  # If the input is empty, then we are done - return an empty string, which is checked for
-  # in the harvest loop.
-  def format_resumption_token(resumption_token)
-    return '' if resumption_token.empty?
-
-    resumption_token =~ /offset:(\d+)/
-    offset = Regexp.last_match(1)
-
-    '{"from":null,"until":null,"set":' <<
-    "\"#{ DATASET }\"," <<
-    '"metadataPrefix":"dif","offset":' <<
-    "#{ offset }}"
+    "#{ metadata_url }#{ QueryBuilder.build(params) }"
   end
 end
