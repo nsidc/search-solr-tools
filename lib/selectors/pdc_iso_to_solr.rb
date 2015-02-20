@@ -16,90 +16,85 @@ PDC = {
       multivalue: false
   },
   title: {
-      xpaths: ['.//dif:Entry_Title'],
+      xpaths: ['.//gmd:citation/gmd:title/gco:CharacterString'],
       multivalue: false
   },
   summary: {
-      xpaths: ['.//dif:Summary/dif:Abstract'],
+      xpaths: ['.//gmd:abstract/gco:CharacterString'],
       multivalue: false
   },
   data_centers: {
       xpaths: [''],
-      default_values: [SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
+      default_values: [SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]],
       multivalue: false
   },
   authors: {
-      xpaths: [''],
+      xpaths: ['.//gmd:identificationInfo//gmd:citedResponsibleParty//gmd:individualName/gco:CharacterString'],
       multivalue: true
   },
   keywords: {
-      xpaths: [
-        './/dif:Parameters/dif:Category',
-        './/dif:Parameters/dif:Topic',
-        './/dif:Parameters/dif:Term',
-        './/dif:Parameters/dif:Variable_Level_1'
-      ].reverse,
+      xpaths: ['.//gmd:descriptiveKeywords/gmd:keyword/gco:CharacterString'],
       multivalue: true
   },
   last_revision_date: {
-      xpaths: ['.//dif:Last_DIF_Revision_Date'],
+      xpaths: ['.//oai:header/oai:datestamp'],
       default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
       multivalue: false,
       format: SolrFormat::DATE
   },
   dataset_url: {
-      xpaths: ['.//dif:Related_URL/dif:URL'],
+      xpaths: ['.//gmd:dataSetURI/gco:CharacterString'],
       multivalue: false
   },
   spatial_coverages: {
-      xpaths: ['.//dif:Spatial_Coverage'],
+      xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//dif:Spatial_Coverage'],
+      xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
       multivalue: true,
       format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
-    xpaths: ['.//dif:Spatial_Coverage'],
+    xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
     multivalue: false,
     reduce: IsoToSolrFormat::MAX_SPATIAL_AREA,
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   temporal: {
-    xpaths: ['.//dif:Temporal_Coverage'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   temporal_coverages: {
-    xpaths: ['.//dif:Temporal_Coverage'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
     multivalue: true,
     format: IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
   },
   temporal_duration: {
-    xpaths: ['.//dif:Temporal_Coverage'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
     multivalue: false,
     reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
-      xpaths: [''],
-      default_values: ['ADE'],
+      xpaths: ['.//gmd:MD_Metadata/gmd:contact//gmd:individualName/gco:CharacterString'],
+      default_values: ['PDC'],
       multivalue: false
   },
   facet_data_center: {
       xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
+      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:PDC][:short_name]}"],
       multivalue: false
   },
   facet_spatial_scope: {
-    xpaths: ['.//dif:Spatial_Coverage'],
+    xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
     multivalue: true,
     format: IsoToSolrFormat::FACET_SPATIAL_SCOPE
   },
   facet_temporal_duration: {
-    xpaths: ['.//dif:Temporal_Coverage'],
+    xpaths: ['.//gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod'],
     default_values: [SolrFormat::NOT_SPECIFIED],
     format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
     multivalue: true
