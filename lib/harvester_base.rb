@@ -136,7 +136,6 @@ class HarvesterBase
   end
 
   # Make sure that Solr is able to accept this doc in a POST
-  # input is a Nokogiri::XML::NodeSet object (maybe)
   def doc_valid?(doc)
     spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first
     return true if spatial_coverages.nil?
@@ -151,7 +150,6 @@ class HarvesterBase
 
   # spatial_coverages is an array with length 4:
   # [North, East, South, West]
-
   # The failure occurs when the input is an infinitely narrow
   # line, as in the following xml:
   # <field name="spatial_coverages">-90 -180 -90 180</field>
@@ -159,14 +157,14 @@ class HarvesterBase
   # If N, S are the same and E, W span the globe, invalid
   def spatial_coverage_invalid?(spatial_coverages)
     (
-      spatial_coverages.first.to_f.abs == 90 &&
-      spatial_coverages.first == spatial_coverages[2] &&
+      spatial_coverages[0].to_f.abs == 90 &&
+      spatial_coverages[0] == spatial_coverages[2] &&
       spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages.last.to_f.abs == 180
+      spatial_coverages[3].to_f.abs == 180
     ) || (
       spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages[1] == spatial_coverages.last &&
-      spatial_coverages.first.to_f.abs == 90 &&
+      spatial_coverages[1] == spatial_coverages[3] &&
+      spatial_coverages[0].to_f.abs == 90 &&
       spatial_coverages[2].to_f.abs == 90
     )
   end
