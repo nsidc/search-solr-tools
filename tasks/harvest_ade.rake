@@ -14,6 +14,7 @@ namespace :harvest do
     Rake::Task['harvest:rda'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:usgs'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:bco_dmo'].invoke(args[:environment], args[:die_on_failure])
+    Rake::Task['harvest:pdc'].invoke(args[:environment], args[:die_on_failure])
     Rake::Task['harvest:ade_auto_suggest'].invoke(args[:environment], args[:die_on_failure])
   end
 
@@ -126,6 +127,18 @@ namespace :harvest do
       harvester.harvest_and_delete
     rescue => e
       puts "Harvest failed for USGS: #{e.message}"
+      raise e if args[:die_on_failure]
+      next
+    end
+  end
+
+  desc 'Harvest Polar Data Catalog data'
+  task :pdc, :environment, :die_on_failure do |t, args|
+    begin
+      harvester = PdcHarvester.new args[:environment], args[:die_on_failure]
+      harvester.harvest_and_delete
+    rescue => e
+      puts "Harvest failed for PDC: #{e.message}"
       raise e if args[:die_on_failure]
       next
     end

@@ -17,6 +17,10 @@ class CislHarvester < HarvesterBase
     @resumption_token = nil
   end
 
+  def encode_data_provider_url(url)
+    URI.encode(url)
+  end
+
   def harvest_and_delete
     puts "Running harvest of CISL catalog from #{cisl_url}"
     super(method(:harvest_cisl_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]}\"")
