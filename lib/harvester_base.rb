@@ -24,6 +24,14 @@ class HarvesterBase
     "http://#{env[:host]}:#{env[:port]}/#{env[:collection_path]}"
   end
 
+  # Some data providers require encoding (such as URI.encode),
+  # while others barf on encoding.  The default is to just
+  # return url, override this in the subclass if special
+  # encoding is needed.
+  def encode_data_provider_url(url)
+    url
+  end
+
   def harvest_and_delete(harvest_method, delete_constraints, solr_core = SolrEnvironments[@environment][:collection_name])
     start_time = Time.now.utc.iso8601
     harvest_method.call
@@ -100,9 +108,11 @@ class HarvesterBase
     timeout = 300
     retries_left = 3
 
+    request_url = encode_data_provider_url(request_url)
+
     begin
       puts "\nRequest: #{request_url}"
-      response = open(URI.encode(request_url), read_timeout: timeout, 'Content-Type' => content_type)
+      response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
     rescue OpenURI::HTTPError, Timeout::Error => e
       retries_left -= 1
       puts "\n## REQUEST FAILED ## Retrying #{retries_left} more times..."
