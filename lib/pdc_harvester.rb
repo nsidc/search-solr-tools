@@ -56,8 +56,8 @@ class PdcHarvester < HarvesterBase
     # metadataPrefix.
     params = {
       verb: 'ListRecords',
-      metadataPrefix: @resumptionToken.nil? ? 'iso' : nil,
-      resumptionToken: @resumptionToken
+      metadataPrefix: @resumption_token.nil? ? 'iso' : nil,
+      resumptionToken: @resumption_token
     }.delete_if { |k, v| v.nil? }
 
     "#{ metadata_url }#{ QueryBuilder.build(params) }"
