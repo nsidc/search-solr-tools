@@ -79,8 +79,8 @@ PDC = {
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
-      xpaths: ['.//gmd:MD_Metadata/gmd:contact//gmd:individualName/gco:CharacterString'],
-      default_values: ['PDC'],
+      xpaths: [''],
+      default_values: ['ADE'],
       multivalue: false
   },
   facet_data_center: {
