@@ -80,7 +80,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct source',
       xpath: "/doc/field[@name='source']",
-      expected_text: 'Polar Data Catalogue'
+      expected_text: 'ADE'
     },
     {
       title: 'should grab the correct data center facet',
