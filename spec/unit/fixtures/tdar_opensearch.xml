@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:georss="http://www.georss.org/georss" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+  <title>tDAR Search Results: All Records: Resource Located: Latitude [40.04443758460856 to 74.1160468394894], Longitude [-86.044921875 to 2.197265625] Narrowed by:  Resource Type: &amp;quot; Dataset &amp;quot;</title>
+  <link rel="alternate" href="http://core.tdar.org/search/rss?_tdar.searchType=advanced&amp;groups[0].operator=AND&amp;groups[0].fieldTypes[0]=ALL_FIELDS&amp;groups[0].allFields[0]=&amp;resourceTypes=DATASET&amp;groups[0].latitudeLongitudeBoxes[0].maximumLongitude=2.197265625&amp;groups[0].latitudeLongitudeBoxes[0].minimumLatitude=40.04443758460856&amp;groups[0].latitudeLongitudeBoxes[0].minimumLongitude=-86.044921875&amp;groups[0].latitudeLongitudeBoxes[0].maximumLatitude=74.1160468394894&amp;sortField=RELEVANCE&amp;startRecord=1&amp;recordsPerPage=1" />
+  <subtitle>Resource Located: Latitude [40.04443758460856 to 74.1160468394894], Longitude [-86.044921875 to 2.197265625] Narrowed by:  Resource Type: &amp;quot; Dataset &amp;quot;  search results: {1}</subtitle>
+  <updated>2015-02-23T22:14:28Z</updated>
+  <dc:date>2015-02-23T22:14:28Z</dc:date>
+  <opensearch:itemsPerPage>1</opensearch:itemsPerPage>
+  <opensearch:totalResults>177</opensearch:totalResults>
+  <opensearch:startIndex>1</opensearch:startIndex>
+  <opensearch:link rel="search" type="application/opensearchdescription+xml" href="http://core.tdar.org/includes/opensearch.xml" />
+  <entry>
+    <title>4E Survey Catalog</title>
+    <link rel="alternate" href="http://core.tdar.org/dataset/370044/4e-survey-catalog" />
+    <author>
+      <name />
+    </author>
+    <updated>2011-10-27T18:07:53Z</updated>
+    <published>2011-10-27T18:07:53Z</published>
+    <summary>This is an inventory of artifacts collected during the 4E survey.</summary>
+    <dc:date>2011-10-27T18:07:53Z</dc:date>
+    <georss:point>43.01543 -74.85706</georss:point>
+  </entry>
+</feed>

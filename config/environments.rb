@@ -28,7 +28,8 @@ module SolrEnvironments
     ices_url: 'http://geo.ices.dk/geonetwork/srv/en/csw',
     bcodmo_url: 'http://www.bco-dmo.org/nsidc/arctic-deployments.json',
     usgs_url: 'https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw',
-    cisl_url: 'https://www.aoncadis.org/oai/repository'
+    cisl_url: 'https://www.aoncadis.org/oai/repository',
+    tdar_url: 'http://core.tdar.org/search/rss'
   }
 
   SOLR_ENVIRONMENTS = {

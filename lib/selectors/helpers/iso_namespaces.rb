@@ -20,6 +20,9 @@ class IsoNamespaces
     'xlink' => 'http://www.w3.org/1999/xlink',
     'xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
     'oai' => 'http://www.openarchives.org/OAI/2.0/',
-    'dif' => 'http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/'
+    'dif' => 'http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/',
+    'atom' => 'http://www.w3.org/2005/Atom',
+    'dc' => 'http://purl.org/dc/elements/1.1/',
+    'georss' => 'http://www.georss.org/georss'
   }
 end
