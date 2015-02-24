@@ -44,6 +44,8 @@ module SolrFormat
   REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
   DATE = proc { |date | date_str date.text }
 
+  HTTP_URL_FORMAT = proc { |url| url =~ %r{//} ? url : "http://#{ url }" }
+
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"
     temporal_str += ",#{date_range[:end]}" unless date_range[:end].nil?

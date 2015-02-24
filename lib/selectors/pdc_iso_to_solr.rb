@@ -44,7 +44,8 @@ PDC = {
   },
   dataset_url: {
       xpaths: ['.//gmd:dataSetURI/gco:CharacterString'],
-      multivalue: false
+      multivalue: false,
+      format: SolrFormat::HTTP_URL_FORMAT
   },
   spatial_coverages: {
       xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
