@@ -59,10 +59,10 @@ class TdarFormat < IsoToSolrFormat
   def self.bounding_box(node)
     point = node.text.split(' ')
     {
-      west: point[0],
-      south: point[1],
-      east: point[0],
-      north: point[1]
+      west: point[1],
+      south: point[0],
+      east: point[1],
+      north: point[0]
     }
   end
 end
