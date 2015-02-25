@@ -85,7 +85,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct data center facet',
       xpath: "/doc/field[@name='facet_data_center']",
-      expected_text: 'Polar Data Catalog | PDC'
+      expected_text: 'Polar Data Catalog | GEU'
     },
     {
       title: 'should grab the correct spatial scope facet',
