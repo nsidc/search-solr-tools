@@ -30,7 +30,7 @@ TDAR = {
     multivalue: false
   },
   authors: {
-    xpaths: [''],
+    xpaths: ['.//atom:author/atom:name'],
     multivalue: true
   },
   keywords: {
@@ -46,7 +46,6 @@ TDAR = {
   },
   dataset_url: {
     xpaths: ['.//atom:link/@href'],
-    default_values: ['https://earthdata.nasa.gov/echo'],
     multivalue: false
   },
   spatial_coverages: {

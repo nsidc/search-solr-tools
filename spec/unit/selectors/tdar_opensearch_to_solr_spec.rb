@@ -1,9 +1,11 @@
 require 'selectors/helpers/iso_to_solr'
+require 'selectors/helpers/iso_namespaces'
 
 describe 'TDAR to Solr converter' do
 
   puts "\n\n-----------\n"
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/tdar_opensearch.xml')
+  fixture = fixture.at_xpath('.//atom:entry', IsoNamespaces.namespaces(fixture))
   iso_to_solr = IsoToSolr.new(:tdar)
   solr_doc = iso_to_solr.translate fixture
 

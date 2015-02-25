@@ -7,7 +7,7 @@ require './lib/harvester_base'
 class TdarHarvester < HarvesterBase
   def initialize(env = 'development', die_on_failure = false)
     super env, die_on_failure
-    @page_size = 1000
+    @page_size = 100
     @translator = IsoToSolr.new :tdar
   end
 

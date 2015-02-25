@@ -21,4 +21,15 @@
     <dc:date>2011-10-27T18:07:53Z</dc:date>
     <georss:point>43.01543 -74.85706</georss:point>
   </entry>
+  <entry>
+    <title>Artifact Inventory, Phase I Survey at the Posey Site, Naval Support Facility Indian Head</title>
+    <link rel="alternate" href="http://core.tdar.org/dataset/393157/artifact-inventory-phase-i-survey-at-the-posey-site-naval-support-facility-indian-head" />
+    <author>
+      <name>Louis Berger</name>
+    </author>
+    <updated>2014-06-25T22:15:15Z</updated>
+    <published>2014-06-25T22:15:15Z</published>
+    <summary>This record contains an artifact inventory for site 18CH281 identified during a phase I survey at the Posey Site, Naval Support Facility Indian Head, Charles County, Maryland.</summary>
+    <dc:date>2014-06-25T22:15:15Z</dc:date>
+  </entry>
 </feed>
