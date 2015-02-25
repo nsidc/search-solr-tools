@@ -1,4 +1,4 @@
-## Unreleased
+## v0.4.0 (2015-02-25)
 
 Features
 
