@@ -3,6 +3,14 @@
 Features
 
   - Added TDAR translator for harvesting into Solr
+  - Added PDC (Polar Data Catalog) translator for harvesting int Solr
+  - Revised CISL endpoint to harvest a subset of data. Created translator to harvest directly rather than through GI-Cat
+
+Bugfixes
+
+  - Fixed USGS harvesting issue where it was timing out on specific records
+  - Fixed EOL translator for processing spatial bounds properly
+  - Validate bounding boxes for documents being added to Solr
 
 ## v0.2.0 (2015-02-19)
 

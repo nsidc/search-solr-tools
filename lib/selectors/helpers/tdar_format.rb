@@ -57,7 +57,7 @@ class TdarFormat < IsoToSolrFormat
   # Bounding box is defined by two coordinates to create a point.
   # Create a bounding box from this point.
   def self.bounding_box(node)
-    point = node.text.split(" ")
+    point = node.text.split(' ')
     {
       west: point[0],
       south: point[1],

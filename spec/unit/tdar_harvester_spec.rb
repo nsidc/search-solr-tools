@@ -10,7 +10,6 @@ describe TdarHarvester do
     stub_request(:get, 'http://core.tdar.org/search/rss?resourceTypes=DATASET&recordsPerPage=100&startRecord=1')
       .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/xml', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<feed xmlns="http://www.w3.org/2005/Atom"><entry><foo/></entry></feed>')
-puts "RESULTS: #{@harvester.get_results_from_tdar(1)}"
     @harvester.get_results_from_tdar(1).first.first_element_child.to_xml.should eql('<foo/>')
   end
 

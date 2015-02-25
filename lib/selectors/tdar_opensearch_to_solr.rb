@@ -13,7 +13,7 @@ TDAR = {
     xpaths: ['.//atom:link/@href'],
     multivalue: false,
     format: proc do |node|
-              "TDAR-" << node.text.split('/')[4] || ''
+              'TDAR-' << node.text.split('/')[4] || ''
             end
   },
   title: {
