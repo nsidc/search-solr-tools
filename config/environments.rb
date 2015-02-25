@@ -29,6 +29,7 @@ module SolrEnvironments
     bcodmo_url: 'http://www.bco-dmo.org/nsidc/arctic-deployments.json',
     usgs_url: 'https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw',
     cisl_url: 'https://www.aoncadis.org/oai/repository',
+    tdar_url: 'http://core.tdar.org/search/rss',
     pdc_url: 'http://www.polardata.ca/oai/provider'
   }
 

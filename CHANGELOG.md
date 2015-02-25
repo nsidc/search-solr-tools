@@ -1,3 +1,9 @@
+## Unreleased
+
+Features
+
+  - Added TDAR translator for harvesting into Solr
+
 ## v0.2.0 (2015-02-19)
 
 Bugfixes

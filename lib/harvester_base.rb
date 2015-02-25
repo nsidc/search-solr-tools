@@ -5,6 +5,7 @@ require 'open-uri'
 require 'multi_json'
 require './lib/selectors/helpers/iso_namespaces'
 require 'rsolr'
+require './config/environments'
 
 # base class for solr harvesters
 class HarvesterBase
