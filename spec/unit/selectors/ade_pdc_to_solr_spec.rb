@@ -45,7 +45,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct get data link',
       xpath: "/doc/field[@name='dataset_url']",
-      expected_text: 'www.polardata.ca/pdcsearch/PDCSearchDOI.jsp?doi_id=80'
+      expected_text: 'http://www.polardata.ca/pdcsearch/PDCSearchDOI.jsp?doi_id=80'
     },
     {
       title: 'should grab the correct spatial display bounds',
