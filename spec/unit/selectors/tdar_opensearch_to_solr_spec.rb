@@ -48,12 +48,12 @@ describe 'TDAR to Solr converter' do
    {
      title: 'should grab the correct spatial display bounds',
      xpath: "/doc/field[@name='spatial_coverages'][1]",
-     expected_text: '-74.85706 43.01543 -74.85706 43.01543'
+     expected_text: '43.01543 -74.85706 43.01543 -74.85706'
    },
    {
      title: 'should grab the correct spatial bounds',
      xpath: "/doc/field[@name='spatial'][1]",
-     expected_text: '43.01543 -74.85706'
+     expected_text: '-74.85706 43.01543'
    },
    {
      title: 'should calculate the correct spatial area',
