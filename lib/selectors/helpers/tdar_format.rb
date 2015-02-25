@@ -14,48 +14,13 @@ class TdarFormat < IsoToSolrFormat
   TEMPORAL_DURATION = proc { |node| TdarFormat.get_temporal_duration(node) }
   FACET_TEMPORAL_DURATION = proc { |node| TdarFormat.get_temporal_duration_facet(node) }
 
-
-  def self.spatial_display_str(node)
-    point = node.text.split(" ")
-    west = point[0]
-    south = point[1]
-    east = point[0]
-    north = point[1]
-
-    "#{south} #{west} #{north} #{east}"
-  end
-
-  def self.spatial_index_str(node)
-    point = node.text.split(" ")
-    west = point[0]
-    south = point[1]
-    east = point[0]
-    north = point[1]
-
-    "#{west} #{south} #{east} #{north}"
-  end
-
   def self.get_spatial_scope_facet(node)
-    point = node.text.split(" ")
-    box = {
-      west: point[0],
-      south: point[1],
-      east: point[0],
-      north: point[1]
-    }
-
+    box = bounding_box(node)
     SolrFormat.get_spatial_scope_facet_with_bounding_box(box)
-  end
-
-  def self.temporal_display_str(temporal_node, formatted = false)
-    SolrFormat.temporal_display_str(date_range(temporal_node, formatted))
   end
 
   private
 
-  # for TDAR, a single date entry (i.e., missing either start or end date, and
-  # the value that is present is not clearly labeled) means the whole year if
-  # just a year is given, or just a single day if just a single day is given
   def self.date_range(temporal_node, formatted = false)
     xpath = '.'
     namespaces = IsoNamespaces.namespaces(temporal_node)
@@ -86,6 +51,18 @@ class TdarFormat < IsoToSolrFormat
     {
       start: "#{year}-01-01",
       end: "#{year}-12-31"
+    }
+  end
+
+  # Bounding box is defined by two coordinates to create a point.
+  # Create a bounding box from this point.
+  def self.bounding_box(node)
+    point = node.text.split(" ")
+    {
+      west: point[0],
+      south: point[1],
+      east: point[0],
+      north: point[1]
     }
   end
 end
