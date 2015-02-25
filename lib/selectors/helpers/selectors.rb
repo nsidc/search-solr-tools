@@ -12,5 +12,6 @@ SELECTORS = {
   rda:    RDA,
   ices:   ICES,
   usgs:   USGS,
-  tdar:   TDAR
+  tdar:   TDAR,
+  pdc:    PDC
 }

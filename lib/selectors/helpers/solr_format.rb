@@ -16,7 +16,8 @@ module SolrFormat
       EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
       USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
       BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
-      TDAR: { short_name: 'TDAR', long_name: 'Digital Archaeological Record' }
+      TDAR: { short_name: 'TDAR', long_name: 'Digital Archaeological Record' },
+      PDC: { short_name: 'PDC', long_name: 'Polar Data Catalog' }
   }
 
   NOT_SPECIFIED = 'Not specified'
@@ -43,6 +44,8 @@ module SolrFormat
 
   REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
   DATE = proc { |date | date_str date.text }
+
+  HTTP_URL_FORMAT = proc { |url| url =~ %r{//} ? url : "http://#{ url }" }
 
   def self.temporal_display_str(date_range)
     temporal_str = "#{date_range[:start]}"

@@ -25,6 +25,14 @@ class HarvesterBase
     "http://#{env[:host]}:#{env[:port]}/#{env[:collection_path]}"
   end
 
+  # Some data providers require encoding (such as URI.encode),
+  # while others barf on encoding.  The default is to just
+  # return url, override this in the subclass if special
+  # encoding is needed.
+  def encode_data_provider_url(url)
+    url
+  end
+
   def harvest_and_delete(harvest_method, delete_constraints, solr_core = SolrEnvironments[@environment][:collection_name])
     start_time = Time.now.utc.iso8601
     harvest_method.call
@@ -101,20 +109,19 @@ class HarvesterBase
     timeout = 300
     retries_left = 3
 
+    request_url = encode_data_provider_url(request_url)
+
     begin
-      puts "\nRequest: #{request_url}"
-      response = open(URI.encode(request_url), read_timeout: timeout, 'Content-Type' => content_type)
+      puts "Request: #{request_url}"
+      response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
     rescue OpenURI::HTTPError, Timeout::Error => e
       retries_left -= 1
-      puts "\n## REQUEST FAILED ## Retrying #{retries_left} more times..."
+      puts "## REQUEST FAILED ## Retrying #{retries_left} more times..."
 
-      if retries_left > 0
-        sleep 5
-        retry
-      else
-        raise e if @die_on_failure
-        return
-      end
+      retry if retries_left > 0
+
+      raise e if @die_on_failure
+      return
     end
     doc = Nokogiri.XML(response)
     doc.xpath(metadata_path, IsoNamespaces.namespaces(doc))
@@ -137,7 +144,6 @@ class HarvesterBase
   end
 
   # Make sure that Solr is able to accept this doc in a POST
-  # input is a Nokogiri::XML::NodeSet object (maybe)
   def doc_valid?(doc)
     spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first
     return true if spatial_coverages.nil?
@@ -152,7 +158,6 @@ class HarvesterBase
 
   # spatial_coverages is an array with length 4:
   # [North, East, South, West]
-
   # The failure occurs when the input is an infinitely narrow
   # line, as in the following xml:
   # <field name="spatial_coverages">-90 -180 -90 180</field>
@@ -160,14 +165,14 @@ class HarvesterBase
   # If N, S are the same and E, W span the globe, invalid
   def spatial_coverage_invalid?(spatial_coverages)
     (
-      spatial_coverages.first.to_f.abs == 90 &&
-      spatial_coverages.first == spatial_coverages[2] &&
+      spatial_coverages[0].to_f.abs == 90 &&
+      spatial_coverages[0] == spatial_coverages[2] &&
       spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages.last.to_f.abs == 180
+      spatial_coverages[3].to_f.abs == 180
     ) || (
       spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages[1] == spatial_coverages.last &&
-      spatial_coverages.first.to_f.abs == 90 &&
+      spatial_coverages[1] == spatial_coverages[3] &&
+      spatial_coverages[0].to_f.abs == 90 &&
       spatial_coverages[2].to_f.abs == 90
     )
   end
