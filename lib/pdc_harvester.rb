@@ -3,7 +3,7 @@ require_relative './harvester_base'
 require_relative './selectors/helpers/query_builder'
 require_relative './selectors/helpers/iso_namespaces'
 
-# Harvests data from Polar data catalog and inserts it into
+# Harvests data from Polar data catalogue and inserts it into
 # Solr after it has been translated
 class PdcHarvester < HarvesterBase
   def initialize(env = 'development', die_on_failure = false)
@@ -16,7 +16,7 @@ class PdcHarvester < HarvesterBase
   end
 
   def harvest_and_delete
-    puts "Running harvest of Polar data catalog from #{metadata_url}"
+    puts "Running harvest of Polar data catalogue from #{metadata_url}"
     super(method(:harvest_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]}\"")
   end
 

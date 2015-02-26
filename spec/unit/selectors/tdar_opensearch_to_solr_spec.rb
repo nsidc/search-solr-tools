@@ -28,7 +28,7 @@ describe 'TDAR to Solr converter' do
    {
      title: 'should grab the correct data_centers',
      xpath: "/doc/field[@name='data_centers']",
-     expected_text: 'Digital Archaeological Record'
+     expected_text: 'The Digital Archaeological Record'
    },
    {
      title: 'should include the correct keywords',
@@ -79,8 +79,11 @@ describe 'TDAR to Solr converter' do
      title: 'should grab the correct source',
      xpath: "/doc/field[@name='source']",
      expected_text: 'ADE'
-   },
-   {
+   }, {
+     title: 'should grab the correct data center facet',
+     xpath: "/doc/field[@name='facet_data_center']",
+     expected_text: 'The Digital Archaeological Record | tDAR'
+   }, {
      title: 'should grab the correct spatial scope facet',
      xpath: "/doc/field[@name='facet_spatial_scope'][1]",
      expected_text: 'Less than 1 degree of latitude change | Local'
