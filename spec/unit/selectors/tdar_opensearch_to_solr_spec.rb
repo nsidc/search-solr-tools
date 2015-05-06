@@ -63,17 +63,17 @@ describe 'TDAR to Solr converter' do
    {
     title: 'should grab the correct temporal coverage',
     xpath: "/doc/field[@name='temporal_coverages'][1]",
-    expected_text: '2011-10-27T18:07:53Z,2011-10-27T18:07:53Z'
+    expected_text: ''
    },
    {
      title: 'should grab the correct temporal duration',
      xpath: "/doc/field[@name='temporal_duration'][1]",
-     expected_text: '1'
+     expected_text: ''
    },
    {
      title: 'should grab the correct temporal range',
      xpath: "/doc/field[@name='temporal'][1]",
-     expected_text: '20.111027 20.111027'
+     expected_text: ''
    },
    {
      title: 'should grab the correct source',
