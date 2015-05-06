@@ -11,7 +11,7 @@ mod "nsidc/nsidc_jenkins",
   :ref => 'latest'
 
 # Module for installing packages from apt
-mod 'puppetlabs/apt'
+mod 'puppetlabs/apt', "1.8.0"
 
 # Module for installing newer ruby from packages (using apt)
 mod "puppetlabs/ruby"
