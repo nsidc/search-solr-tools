@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:georss="http://www.georss.org/georss" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
-  <title>tDAR Search Results: All Records: Resource Located: Latitude [40.04443758460856 to 74.1160468394894], Longitude [-86.044921875 to 2.197265625] Narrowed by:  Resource Type: &amp;quot; Dataset &amp;quot;</title>
-  <link rel="alternate" href="http://core.tdar.org/search/rss?_tdar.searchType=advanced&amp;groups[0].operator=AND&amp;groups[0].fieldTypes[0]=ALL_FIELDS&amp;groups[0].allFields[0]=&amp;resourceTypes=DATASET&amp;groups[0].latitudeLongitudeBoxes[0].maximumLongitude=2.197265625&amp;groups[0].latitudeLongitudeBoxes[0].minimumLatitude=40.04443758460856&amp;groups[0].latitudeLongitudeBoxes[0].minimumLongitude=-86.044921875&amp;groups[0].latitudeLongitudeBoxes[0].maximumLatitude=74.1160468394894&amp;sortField=RELEVANCE&amp;startRecord=1&amp;recordsPerPage=1" />
-  <subtitle>Resource Located: Latitude [40.04443758460856 to 74.1160468394894], Longitude [-86.044921875 to 2.197265625] Narrowed by:  Resource Type: &amp;quot; Dataset &amp;quot;  search results: {1}</subtitle>
-  <updated>2015-02-23T22:14:28Z</updated>
-  <dc:date>2015-02-23T22:14:28Z</dc:date>
-  <opensearch:itemsPerPage>1</opensearch:itemsPerPage>
-  <opensearch:totalResults>177</opensearch:totalResults>
+  <title>tDAR Search Results: All Records: Resource Located: Latitude [45.0 to 90.0], Longitude [-179.0 to 1.0] Narrowed by:  Resource Type: &amp;quot; Dataset &amp;quot;</title>
+  <link rel="alternate" href="http://core.tdar.org/search/rss?_tDAR.searchType=ACADIS_RSS&amp;groups%5B0%5D.operator=AND&amp;groups%5B0%5D.fieldTypes%5B0%5D=ALL_FIELDS&amp;groups%5B0%5D.allFields%5B0%5D=&amp;resourceTypes=DATASET&amp;groups%5B0%5D.latitudeLongitudeBoxes%5B0%5D.maximumLongitude=1&amp;groups%5B0%5D.latitudeLongitudeBoxes%5B0%5D.minimumLatitude=45&amp;groups%5B0%5D.latitudeLongitudeBoxes%5B0%5D.minimumLongitude=-179&amp;groups%5B0%5D.latitudeLongitudeBoxes%5B0%5D.maximumLatitude=90&amp;geoMode=ENVELOPE" />
+  <subtitle>Resource Located: Latitude [45.0 to 90.0], Longitude [-179.0 to 1.0] Narrowed by:  Resource Type: &amp;quot; Dataset &amp;quot;  search results: {1}</subtitle>
+  <updated>2015-05-06T16:53:00Z</updated>
+  <dc:date>2015-05-06T16:53:00Z</dc:date>
+  <opensearch:itemsPerPage>25</opensearch:itemsPerPage>
+  <opensearch:totalResults>88</opensearch:totalResults>
   <opensearch:startIndex>1</opensearch:startIndex>
   <opensearch:link rel="search" type="application/opensearchdescription+xml" href="http://core.tdar.org/includes/opensearch.xml" />
   <entry>
-    <title>4E Survey Catalog</title>
-    <link rel="alternate" href="http://core.tdar.org/dataset/370044/4e-survey-catalog" />
+    <title>Dismal River ceramic sherd data</title>
+    <link rel="alternate" href="http://core.tdar.org/dataset/398502/dismal-river-ceramic-sherd-data" />
     <author>
-      <name />
+      <name>Sarah Trabert</name>
     </author>
-    <updated>2011-10-27T18:07:53Z</updated>
-    <published>2011-10-27T18:07:53Z</published>
-    <summary>This is an inventory of artifacts collected during the 4E survey.</summary>
-    <dc:date>2011-10-27T18:07:53Z</dc:date>
-    <georss:point>43.01543 -74.85706</georss:point>
+    <id>http://core.tdar.org/dataset/398502/dismal-river-ceramic-sherd-data</id>
+    <updated>2015-04-29T17:53:58Z</updated>
+    <published>2015-04-29T17:53:58Z</published>
+    <summary>These are the results from an analysis of ceramics from 43 Dismal River sites.</summary>
+    <dc:date>2015-04-29T17:53:58Z</dc:date>
+    <georss:box>36.663719013583545 -111.29150390625 45.548422106917535 -93.97705078125</georss:box>
   </entry>
   <entry>
-    <title>Artifact Inventory, Phase I Survey at the Posey Site, Naval Support Facility Indian Head</title>
-    <link rel="alternate" href="http://core.tdar.org/dataset/393157/artifact-inventory-phase-i-survey-at-the-posey-site-naval-support-facility-indian-head" />
+    <title>Dismal River ceramic sherd INAA data</title>
+    <link rel="alternate" href="http://core.tdar.org/dataset/398501/dismal-river-ceramic-sherd-inaa-data" />
     <author>
-      <name>Louis Berger</name>
+      <name>Sarah Trabert</name>
     </author>
-    <updated>2014-06-25T22:15:15Z</updated>
-    <published>2014-06-25T22:15:15Z</published>
-    <summary>This record contains an artifact inventory for site 18CH281 identified during a phase I survey at the Posey Site, Naval Support Facility Indian Head, Charles County, Maryland.</summary>
-    <dc:date>2014-06-25T22:15:15Z</dc:date>
+    <id>http://core.tdar.org/dataset/398501/dismal-river-ceramic-sherd-inaa-data</id>
+    <updated>2015-04-29T16:56:33Z</updated>
+    <published>2015-04-29T16:56:33Z</published>
+    <summary>A sample of ceramics from 25CH1 and 14SC1 were submitted for INAA. This file contains the results. These data are also on file with the Missouri Research Reactor.</summary>
+    <dc:date>2015-04-29T16:56:33Z</dc:date>
+    <georss:box>36.663719013583545 -111.29150390625 45.548422106917535 -93.97705078125</georss:box>
   </entry>
 </feed>
