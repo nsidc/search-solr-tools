@@ -46,11 +46,11 @@ class TdarHarvester < HarvesterBase
   def build_request(max_records = '25', start_record = '1')
     request_url = tdar_url + '?_tDAR.searchType=ACADIS_RSS&'\
       'resourceTypes=DATASET&'\
-      'groups[0].latitudeLongitudeBoxes[0].maximumLongitude=1&'\
+      'groups[0].latitudeLongitudeBoxes[0].maximumLongitude=180&'\
       'groups[0].latitudeLongitudeBoxes[0].minimumLatitude=45&'\
-      'groups[0].latitudeLongitudeBoxes[0].minimumLongitude=-179&'\
+      'groups[0].latitudeLongitudeBoxes[0].minimumLongitude=-180&'\
       'groups[0].latitudeLongitudeBoxes[0].maximumLatitude=90&'\
-      'geoMode=ENVELOPE'\
+      'geoMode=ENVELOPE&'\
       'recordsPerPage=' + max_records.to_s + '&startRecord=' + start_record.to_s
 
     request_url

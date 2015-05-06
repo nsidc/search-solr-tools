@@ -64,22 +64,6 @@ TDAR = {
     reduce: TdarFormat::MAX_SPATIAL_AREA,
     format: TdarFormat::SPATIAL_AREA
   },
-  temporal_coverages: {
-    xpaths: ['.//dc:date'],
-    multivalue: true,
-    format:  TdarFormat::TEMPORAL_DISPLAY_STRING
-  },
-  temporal_duration: {
-    xpaths: ['.//dc:date'],
-    multivalue: false,
-    reduce: SolrFormat::REDUCE_TEMPORAL_DURATION,
-    format: TdarFormat::TEMPORAL_DURATION
-  },
-  temporal: {
-    xpaths: ['.//dc:date'],
-    multivalue: true,
-    format: TdarFormat::TEMPORAL_INDEX_STRING
-  },
   source: {
     xpaths: [''],
     default_values: ['ADE'],
@@ -94,11 +78,5 @@ TDAR = {
     xpaths: ['.//georss:point'],
     multivalue: true,
     format: TdarFormat::FACET_SPATIAL_SCOPE
-  },
-  facet_temporal_duration: {
-    xpaths: ['.//dc:date'],
-    default_values: [SolrFormat::NOT_SPECIFIED],
-    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
-    multivalue: true
   }
 }

@@ -7,7 +7,8 @@ describe TdarHarvester do
   end
 
   it 'should retrieve records from the TDAR url' do
-    stub_request(:get, 'http://core.tdar.org/search/rss?resourceTypes=DATASET&recordsPerPage=100&startRecord=1')
+    request_url = 'http://core.tdar.org/search/rss?_tDAR.searchType=ACADIS_RSS&geoMode=ENVELOPE&groups[0][.latitudeLongitudeBoxes][0][.maximumLatitude]=90&groups[0][.latitudeLongitudeBoxes][0][.maximumLongitude]=180&groups[0][.latitudeLongitudeBoxes][0][.minimumLatitude]=45&groups[0][.latitudeLongitudeBoxes][0][.minimumLongitude]=-180&recordsPerPage=100&resourceTypes=DATASET&startRecord=1'
+    stub_request(:get, request_url)
       .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/xml', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<feed xmlns="http://www.w3.org/2005/Atom"><entry><foo/></entry></feed>')
     @harvester.get_results_from_tdar(1).first.first_element_child.to_xml.should eql('<foo/>')
@@ -15,7 +16,8 @@ describe TdarHarvester do
 
   describe 'Adding documents to Solr' do
     it 'constructs an xml document with <doc> children' do
-      stub_request(:get, 'http://core.tdar.org/search/rss?resourceTypes=DATASET&recordsPerPage=100&startRecord=1')
+      request_url = 'http://core.tdar.org/search/rss?_tDAR.searchType=ACADIS_RSS&geoMode=ENVELOPE&groups[0][.latitudeLongitudeBoxes][0][.maximumLatitude]=90&groups[0][.latitudeLongitudeBoxes][0][.maximumLongitude]=180&groups[0][.latitudeLongitudeBoxes][0][.minimumLatitude]=45&groups[0][.latitudeLongitudeBoxes][0][.minimumLongitude]=-180&recordsPerPage=100&resourceTypes=DATASET&startRecord=1'
+      stub_request(:get, request_url)
         .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/xml', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/tdar_opensearch.xml'), headers: {})
 
