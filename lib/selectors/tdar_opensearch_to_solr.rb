@@ -49,17 +49,17 @@ TDAR = {
     multivalue: false
   },
   spatial_coverages: {
-    xpaths: ['.//georss:point'],
+    xpaths: ['.//georss:box'],
     multivalue: true,
     format: TdarFormat::SPATIAL_DISPLAY
   },
   spatial: {
-    xpaths: ['.//georss:point'],
+    xpaths: ['.//georss:box'],
     multivalue: true,
     format: TdarFormat::SPATIAL_INDEX
   },
   spatial_area: {
-    xpaths: ['.//georss:point'],
+    xpaths: ['.//georss:box'],
     multivalue: false,
     reduce: TdarFormat::MAX_SPATIAL_AREA,
     format: TdarFormat::SPATIAL_AREA
@@ -75,7 +75,7 @@ TDAR = {
       multivalue: false
   },
   facet_spatial_scope: {
-    xpaths: ['.//georss:point'],
+    xpaths: ['.//georss:box'],
     multivalue: true,
     format: TdarFormat::FACET_SPATIAL_SCOPE
   }

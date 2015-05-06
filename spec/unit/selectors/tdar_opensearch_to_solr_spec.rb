@@ -13,17 +13,17 @@ describe 'TDAR to Solr converter' do
    {
       title: 'should grab the correct authoritative id',
       xpath: "/doc/field[@name='authoritative_id']",
-      expected_text: 'TDAR-370044'
+      expected_text: 'TDAR-398502'
    },
    {
      title: 'should grab the correct title',
      xpath: "/doc/field[@name='title']",
-     expected_text: '4E Survey Catalog'
+     expected_text: 'Dismal River ceramic sherd data'
    },
    {
      title: 'should grab the correct summary',
      xpath: "/doc/field[@name='summary']",
-     expected_text: 'This is an inventory of artifacts collected during the 4E survey.'
+     expected_text: 'These are the results from an analysis of ceramics from 43 Dismal River sites.'
    },
    {
      title: 'should grab the correct data_centers',
@@ -38,22 +38,22 @@ describe 'TDAR to Solr converter' do
    {
      title: 'should grab the correct dataset_url link',
      xpath: "/doc/field[@name='dataset_url']",
-     expected_text: 'http://core.tdar.org/dataset/370044/4e-survey-catalog'
+     expected_text: 'http://core.tdar.org/dataset/398502/dismal-river-ceramic-sherd-data'
    },
    {
      title: 'should grab the correct updated date',
      xpath: "/doc/field[@name='last_revision_date']",
-     expected_text: '2011-10-27T18:07:53Z'
+     expected_text: '2015-04-29T17:53:58Z'
    },
    {
      title: 'should grab the correct spatial display bounds',
      xpath: "/doc/field[@name='spatial_coverages'][1]",
-     expected_text: '43.01543 -74.85706 43.01543 -74.85706'
+     expected_text: '36.663719013583545 -111.29150390625 36.663719013583545 -111.29150390625'
    },
    {
      title: 'should grab the correct spatial bounds',
      xpath: "/doc/field[@name='spatial'][1]",
-     expected_text: '-74.85706 43.01543'
+     expected_text: '-111.29150390625 36.663719013583545'
    },
    {
      title: 'should calculate the correct spatial area',
