@@ -1,6 +1,6 @@
 {
   "name": "search-solr-tools",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "author": "NSIDC",
     "license": "NSIDC",
     "summary": "Tools for harvesting into a Solr data store.",
