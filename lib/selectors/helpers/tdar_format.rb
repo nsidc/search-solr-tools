@@ -61,8 +61,8 @@ class TdarFormat < IsoToSolrFormat
     {
       west: point[1],
       south: point[0],
-      east: point[1],
-      north: point[0]
+      east: point[3],
+      north: point[2]
     }
   end
 end
