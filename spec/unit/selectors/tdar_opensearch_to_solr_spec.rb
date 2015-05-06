@@ -48,12 +48,12 @@ describe 'TDAR to Solr converter' do
    {
      title: 'should grab the correct spatial display bounds',
      xpath: "/doc/field[@name='spatial_coverages'][1]",
-     expected_text: '36.663719013583545 -111.29150390625 36.663719013583545 -111.29150390625'
+     expected_text: '36.663719013583545 -111.29150390625 45.548422106917535 -93.97705078125'
    },
    {
      title: 'should grab the correct spatial bounds',
      xpath: "/doc/field[@name='spatial'][1]",
-     expected_text: '-111.29150390625 36.663719013583545'
+     expected_text: '-111.29150390625 36.663719013583545 -93.97705078125 45.548422106917535'
    },
    {
      title: 'should calculate the correct spatial area',
@@ -86,7 +86,7 @@ describe 'TDAR to Solr converter' do
    }, {
      title: 'should grab the correct spatial scope facet',
      xpath: "/doc/field[@name='facet_spatial_scope'][1]",
-     expected_text: 'Less than 1 degree of latitude change | Local'
+     expected_text: 'Between 1 and 170 degrees of latitude change | Regional'
    }
   ]
 
