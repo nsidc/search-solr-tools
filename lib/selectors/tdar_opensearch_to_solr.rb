@@ -78,5 +78,11 @@ TDAR = {
     xpaths: ['.//georss:box'],
     multivalue: true,
     format: TdarFormat::FACET_SPATIAL_SCOPE
+  },
+  facet_temporal_duration: {
+    xpaths: [''],
+    default_values: [SolrFormat::NOT_SPECIFIED],
+    format: IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+    multivalue: true
   }
 }
