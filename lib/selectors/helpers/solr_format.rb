@@ -16,7 +16,7 @@ module SolrFormat
       EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
       USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
       BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
-      TDAR: { short_name: 'tDAR', long_name: 'The Digital Archaeological Record' },
+      TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
       PDC: { short_name: 'PDC', long_name: 'Polar Data Catalogue' }
   }
 
