@@ -84,13 +84,13 @@ class IsoToSolr
 
   private
 
-  # Get rid of invalid-utf-8 bytes, see:
-  # http://robots.thoughtbot.com/fight-back-utf-8-invalid-byte-sequences
   def strip_invalid_utf8_bytes(text)
-    if text.respond_to?(:encode)
-      text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-    else
-      text
+    if text.respond_to?(:encode) && (!text.valid_encoding?)
+      text.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     end
+
+    text.gsub!('¿', '') if text.respond_to?(:gsub!)
+
+    text
   end
 end
