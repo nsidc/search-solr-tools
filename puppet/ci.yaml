@@ -45,7 +45,7 @@ nsidc_jenkins::jobs:
       curl localhost:8080/job/%{hiera('project')}_3_Install_Dependencies/build
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
   "%{hiera('project')}_3_Install_Dependencies":
-    command: bundle install --path vendor/bundle
+    command: bundle install --path /var/lib/jenkins/gems/
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
     trigger_job: "%{hiera('project')}_4_Check_Syntax"
   "%{hiera('project')}_4_Check_Syntax":
