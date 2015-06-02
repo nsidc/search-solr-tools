@@ -30,7 +30,7 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct author',
       xpath: "/doc/field[@name='authors']",
-      expected_text: 'Gratton YvesGratton YvesLago VéroniqueRail Marie-Emmanuelle'
+      expected_text: "Gratton YvesGratton YvesLago V\u00E9roniqueRail Marie-Emmanuelle"
     },
     {
       title: 'should grab the correct keywords',

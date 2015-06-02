@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'selectors/helpers/iso_to_solr'
 
 describe 'IsoToSolr#strip_invalid_utf8_bytes' do
@@ -14,11 +15,11 @@ describe 'IsoToSolr#strip_invalid_utf8_bytes' do
   end
 
   it 'does not modify accented e characters' do
-    strip_invalid_utf8_bytes('é').should eql 'é'
+    strip_invalid_utf8_bytes("\u00E9").should eql "\u00E9"
   end
 
   it 'removes inverted question marks' do
-    strip_invalid_utf8_bytes('¿').should eql ''
+    strip_invalid_utf8_bytes("\u00BF").should eql ''
   end
 
   it 'removes invalid UTF-8 characters' do

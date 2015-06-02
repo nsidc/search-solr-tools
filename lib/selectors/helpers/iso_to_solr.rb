@@ -89,7 +89,7 @@ class IsoToSolr
       text.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     end
 
-    text.gsub!('¿', '') if text.respond_to?(:gsub!)
+    text.gsub!("\u00BF", '') if text.respond_to?(:gsub!)
 
     text
   end
