@@ -1,5 +1,31 @@
 require 'selectors/helpers/iso_to_solr'
 
+describe 'IsoToSolr#strip_invalid_utf8_bytes' do
+  def strip_invalid_utf8_bytes(text)
+    IsoToSolr.new(nil).send(:strip_invalid_utf8_bytes, text)
+  end
+
+  it 'does not mess with floats' do
+    strip_invalid_utf8_bytes(2.0).should eql 2.0
+  end
+
+  it 'does not modify plain characters' do
+    strip_invalid_utf8_bytes('hello, world').should eql 'hello, world'
+  end
+
+  it 'does not modify accented e characters' do
+    strip_invalid_utf8_bytes('é').should eql 'é'
+  end
+
+  it 'removes inverted question marks' do
+    strip_invalid_utf8_bytes('¿').should eql ''
+  end
+
+  it 'removes invalid UTF-8 characters' do
+    strip_invalid_utf8_bytes("\xFF").should eql ''
+  end
+end
+
 describe 'CISL ISO to Solr converter' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_iso.xml')
   iso_to_solr = IsoToSolr.new(:cisl)

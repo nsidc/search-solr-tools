@@ -1,3 +1,9 @@
+## v0.4.7
+
+Bugfixes
+
+  - Fix missing accented characters in datasets from Polar Data Catalogue
+
 ## v0.4.0 (2015-02-25)
 
 Features
