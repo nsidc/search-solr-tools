@@ -4,6 +4,7 @@ require_relative './harvester_base'
 require_relative './selectors/helpers/iso_namespaces'
 require_relative './selectors/helpers/query_builder'
 
+# Base class for harvesting Oai feeds into SOLR
 class OaiHarvester < HarvesterBase
   # Used in query string params, resumptionToken
 
@@ -52,7 +53,7 @@ class OaiHarvester < HarvesterBase
     params = {
       verb: 'ListRecords',
       metadataPrefix: 'dif',
-      set: DATASET
+      set: @dataset
     }.merge(
       @resumption_token.nil? ? {} : { resumptionToken: @resumption_token }
     )
@@ -79,7 +80,7 @@ class OaiHarvester < HarvesterBase
     {
       from: nil,
       until: nil,
-      set: DATASET,
+      set: @dataset,
       metadataPrefix: 'dif',
       offset: offset
     }.to_json

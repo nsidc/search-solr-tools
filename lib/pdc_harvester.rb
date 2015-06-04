@@ -6,8 +6,11 @@ require_relative './selectors/helpers/query_builder'
 # Harvests data from Polar data catalogue and inserts it into
 # Solr after it has been translated
 class PdcHarvester < OaiHarvester
-  @data_centers = SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]
-  @translator = IsoToSolr.new :pdc
+  def initialize(env = 'development', die_on_failure = false)
+    super
+    @data_centers = SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]
+    @translator = IsoToSolr.new :pdc
+  end
 
   def metadata_url
     SolrEnvironments[@environment][:pdc_url]

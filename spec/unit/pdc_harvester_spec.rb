@@ -9,13 +9,13 @@ describe PdcHarvester do
     @harvester = described_class.new(:dev)
   end
 
-  it 'has a @data_centers class variable' do
-    expect(described_class.instance_variable_defined?(:@data_centers)).to be_true
-    expect(described_class.instance_variable_get(:@data_centers)).to eql 'Polar Data Catalogue'
+  it 'has a @data_centers instance variable' do
+    expect(@harvester.instance_variable_defined?(:@data_centers)).to be_true
+    expect(@harvester.instance_variable_get(:@data_centers)).to eql 'Polar Data Catalogue'
   end
 
-  it 'has a @translator class variable' do
-    expect(described_class.instance_variable_defined?(:@translator)).to be_true
+  it 'has a @translator instance variable' do
+    expect(@harvester.instance_variable_defined?(:@translator)).to be_true
   end
 
   describe '#metadata_url' do

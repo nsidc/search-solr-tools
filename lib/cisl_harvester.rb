@@ -5,10 +5,14 @@ require_relative './selectors/helpers/iso_namespaces'
 
 # Harvests data from CISL and inserts it into Solr after it has been translated
 class CislHarvester < OaiHarvester
-  # Used in query string params, resumptionToken
-  DATASET = '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
-  @data_centers = SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]
-  @translator = IsoToSolr.new :cisl
+  def initialize(env = 'development', die_on_failure = false)
+    super
+    @data_centers = SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]
+    @translator = IsoToSolr.new :cisl
+
+    # Used in query string params, resumptionToken
+    @dataset = '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
+  end
 
   def metadata_url
     SolrEnvironments[@environment][:cisl_url]

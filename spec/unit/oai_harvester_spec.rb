@@ -36,7 +36,7 @@ describe OaiHarvester do
 
   describe 'request_string' do
     before :each do
-      stub_const('OaiHarvester::DATASET', 'test dataset')
+      @harvester.instance_variable_set(:@dataset, 'test dataset')
       allow(@harvester).to receive(:metadata_url).and_return('http://nsidc.org/someapi/')
     end
 
@@ -55,7 +55,7 @@ describe OaiHarvester do
     end
 
     before(:each) do
-      stub_const('OaiHarvester::DATASET', 'test dataset')
+      @harvester.instance_variable_set(:@dataset, 'test dataset')
     end
 
     it 'returns the empty string if the token is empty' do
