@@ -112,7 +112,7 @@ namespace :harvest do
   desc 'Harvest RDA data'
   task :rda, :environment, :die_on_failure do |t, args|
     begin
-      harvester = ADEHarvester.new(args[:environment], 'RDA', args[:die_on_failure])
+      harvester = RdaHarvester.new(args[:environment], args[:die_on_failure])
       harvester.harvest_and_delete
     rescue => e
       puts "Harvest failed for RDA: #{e.message}"
