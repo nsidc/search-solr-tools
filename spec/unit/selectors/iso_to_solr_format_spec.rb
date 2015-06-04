@@ -10,11 +10,11 @@ describe 'ISO to SOLR format methods' do
 
   describe 'spatial' do
     it 'should generate a SWEN space separated string from a GeographicBoundingBox node' do
-      IsoToSolrFormat.spatial_display_str(geo_node).should eql '30.98 -180 90 180'
+      IsoToSolrFormat.spatial_display_str(geo_node).should eql '30.98 -180.0 90.0 180.0'
     end
 
     it 'should generate a WSEN space separated string from a GeographicBoundingBox node' do
-      IsoToSolrFormat.spatial_index_str(geo_node).should eql '-180 30.98 180 90'
+      IsoToSolrFormat.spatial_index_str(geo_node).should eql '-180.0 30.98 180.0 90.0'
     end
 
     it 'should calculate the correct spatial scope' do

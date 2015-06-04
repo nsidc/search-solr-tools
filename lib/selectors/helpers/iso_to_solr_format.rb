@@ -159,77 +159,50 @@ class IsoToSolrFormat
   end
 
   def self.bounding_box(box_node)
-    west = west_bound(box_node)
-    east = east_bound(box_node)
-
-    south = south_bound(box_node)
-    north = north_bound(box_node)
-
     {
-      west: west,
-      south: south,
-      east: east,
-      north: north
+      west:  get_bound(box_node, :west),
+      south: get_bound(box_node, :south),
+      east:  get_bound(box_node, :east),
+      north: get_bound(box_node, :north)
     }
   end
 
-  def self.west_bound(box_node)
-    west = get_first_matching_child(
-      box_node,
-      [
-        './gmd:westBoundingLongitude/gco:Decimal',
-        './gmd:westBoundLongitude/gco:Decimal',
-        './WestBoundingCoordinate',
-        './dif:Westernmost_Longitude'
-      ]
-    )
-    west = west.split(' ').first.strip unless west.empty?
-    west = '' unless west.to_f >= -180 || west.to_f <= 180
-    west
+  def self.axis_label(direction)
+    {
+      north: 'Latitude',
+      south: 'Latitude',
+      east: 'Longitude',
+      west: 'Longitude'
+    }[direction]
   end
 
-  def self.east_bound(box_node)
-    east = get_first_matching_child(
-      box_node,
-      [
-        './gmd:eastBoundingLongitude/gco:Decimal',
-        './gmd:eastBoundLongitude/gco:Decimal',
-        './EastBoundingCoordinate',
-        './dif:Easternmost_Longitude'
-      ]
-    )
-    east = east.split(' ').first.strip unless east.empty?
-    east = '' unless east.to_f <= 180 || east.to_f >= -180
-    east
+  def self.coordinate_boundary(lat_lon)
+    {
+      'Latitude' => 90,
+      'Longitude' => 180
+    }[lat_lon]
   end
 
-  def self.south_bound(box_node)
-    south = get_first_matching_child(
-      box_node,
-      [
-        './gmd:southBoundingLatitude/gco:Decimal',
-        './gmd:southBoundLatitude/gco:Decimal',
-        './SouthBoundingCoordinate',
-        './dif:Southernmost_Latitude'
-      ]
-    )
-    south = south.split(' ').first.strip unless south.empty?
-    south = '' unless south.to_f >= -90 || south.to_f <= 90
-    south
-  end
+  def self.get_bound(box_node, direction)
+    lat_lon = axis_label(direction)
 
-  def self.north_bound(box_node)
-    north = get_first_matching_child(
+    bound = coordinate_boundary(lat_lon)
+
+    child = get_first_matching_child(
       box_node,
       [
-        './gmd:northBoundingLatitude/gco:Decimal',
-        './gmd:northBoundLatitude/gco:Decimal',
-        './NorthBoundingCoordinate',
-        './dif:Northernmost_Latitude'
+        "./gmd:#{direction.to_s.downcase}Bounding#{lat_lon}/gco:Decimal",
+        "./gmd:#{direction.to_s.downcase}Bound#{lat_lon}/gco:Decimal",
+        "./#{direction.to_s.capitalize}BoundingCoordinate",
+        "./dif:#{direction.to_s.capitalize}ernmost_#{lat_lon}"
       ]
     )
-    north = north.split(' ').first.strip unless north.empty?
-    north = '' unless north.to_f <= 90 || north.to_f >= -90
-    north
+    arr = child.split(' ')
+
+    val = arr.first
+
+    return '' if arr.empty? || !(val.to_f.abs <= bound)
+
+    %w(West South).include?(arr.last) ? (-val.to_f).to_s : val.to_f.to_s
   end
 end

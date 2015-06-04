@@ -48,7 +48,7 @@ describe 'NODC ISO to Solr converter' do
    {
      title: 'should grab the correct spatial bounds',
      xpath: "/doc/field[@name='spatial']",
-     expected_text: '-126 46 -124 48.5'
+     expected_text: '-126.0 46.0 -124.0 48.5'
    },
    {
      title: 'should calculate the correct spatial area',
