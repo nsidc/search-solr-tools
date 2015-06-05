@@ -133,4 +133,52 @@ describe HarvesterBase do
 
     { delete_stub: delete_stub, commit_stub: commit_stub }
   end
+
+  describe '#valid_solr_spatial_coverage?' do
+    def described_method(north: nil, east: nil, south: nil, west: nil)
+      @harvester.valid_solr_spatial_coverage?([north, east, south, west])
+    end
+
+    before :each do
+      @harvester = HarvesterBase.new
+    end
+
+    describe 'non-polar points' do
+      it 'returns true for a random point' do
+        expect(described_method(north: 4, east: 4, south: 4, west: 4)).to eql(true)
+      end
+
+      it 'returns true for a line running east-west' do
+        expect(described_method(north: 0, east: 5, south: 0, west: 0)).to eql(true)
+      end
+
+      it 'returns true for a line running north-south' do
+        expect(described_method(north: 5, east: 0, south: 0, west: 0)).to eql(true)
+      end
+
+      it 'returns true for a normal bounding box' do
+        expect(described_method(north: 5, east: 5, south: 0, west: 0)).to eql(true)
+      end
+    end
+
+    describe 'the north pole' do
+      it 'returns true if east and west are equal' do
+        expect(described_method(north: 90, east: 45, south: 90, west: 45)).to eql(true)
+      end
+
+      it 'returns false if east and west are not equal' do
+        expect(described_method(north: 90, east: -45, south: 90, west: 45)).to eql(false)
+      end
+    end
+
+    describe 'the south pole' do
+      it 'returns true if east and west are equal' do
+        expect(described_method(north: -90, east: 45, south: -90, west: 45)).to eql(true)
+      end
+
+      it 'returns false if east and west are not equal' do
+        expect(described_method(north: -90, east: -45, south: -90, west: 45)).to eql(false)
+      end
+    end
+  end
 end

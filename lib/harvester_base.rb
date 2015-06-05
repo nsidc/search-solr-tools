@@ -153,28 +153,16 @@ class HarvesterBase
     # We've only seen the failure with 4 spatial coverage values
     return true if spatial_coverages.size < 4
 
-    !spatial_coverage_invalid?(spatial_coverages)
+    valid_solr_spatial_coverage?(spatial_coverages)
   end
 
   # spatial_coverages is an array with length 4:
   # [North, East, South, West]
-  # The failure occurs when the input is an infinitely narrow
-  # line, as in the following xml:
-  # <field name="spatial_coverages">-90 -180 -90 180</field>
-  #
-  # If N, S are the same and E, W span the globe, invalid
-  def spatial_coverage_invalid?(spatial_coverages)
-      north, east, south, west = spatial_coverages
-    (
-      north.to_f.abs == 90 &&
-      north == south &&
-      east.to_f.abs == 180 &&
-      west.to_f.abs == 180
-    ) || (
-      east.to_f.abs == 180 &&
-      east == west &&
-      north.to_f.abs == 90 &&
-      south.to_f.abs == 90
-    )
+  def valid_solr_spatial_coverage?(spatial_coverages)
+    north, east, south, west = spatial_coverages
+
+    polar_point = (north == south) && (north.to_f.abs == 90)
+
+    (east == west) || !polar_point
   end
 end
