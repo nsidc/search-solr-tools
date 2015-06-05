@@ -1,4 +1,15 @@
-## v1.0.0
+## v2.0.0
+
+  - Upgrade from Ruby version 1.9.3 to 2.2.2
+
+## v1.1.0 (2015-06-05)
+
+Features
+
+  - Add support to harvest RDA directly from their feed, rather than through
+    GI-Cat.
+
+## v1.0.0 (2015-06-02)
 
 Bugfixes
 
