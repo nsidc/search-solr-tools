@@ -8,8 +8,6 @@ class UsgsFormat < IsoToSolrFormat
   TEMPORAL_DURATION = proc { |node| UsgsFormat.get_temporal_duration(node) }
   FACET_TEMPORAL_DURATION = proc { |node| UsgsFormat.get_temporal_duration_facet(node) }
 
-  private
-
   # for USGS, a single date entry (i.e., missing either start or end date, and
   # the value that is present is not clearly labeled) means the whole year if
   # just a year is given, or just a single day if just a single day is given

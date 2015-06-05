@@ -19,8 +19,6 @@ class TdarFormat < IsoToSolrFormat
     SolrFormat.get_spatial_scope_facet_with_bounding_box(box)
   end
 
-  private
-
   def self.date_range(temporal_node, formatted = false)
     xpath = '.'
     namespaces = IsoNamespaces.namespaces(temporal_node)

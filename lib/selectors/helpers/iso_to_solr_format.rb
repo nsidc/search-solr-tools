@@ -105,8 +105,6 @@ class IsoToSolrFormat
     category << ' > ' << topic << ' > ' << term
   end
 
-  private
-
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(
       temporal_node,
