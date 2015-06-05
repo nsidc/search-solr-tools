@@ -32,6 +32,29 @@ describe CislHarvester do
     end
   end
 
+  describe '#request_params' do
+    it 'contains a verb, metadatPrefix, and set' do
+      expected = {
+        verb: 'ListRecords',
+        metadataPrefix: 'dif',
+        set: '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
+      }
+      expect(@harvester.send(:request_params)).to eql expected
+    end
+
+    it 'contains a resumption token if set' do
+      @harvester.instance_variable_set(:@resumption_token, 'token')
+
+      expected = {
+        verb: 'ListRecords',
+        metadataPrefix: 'dif',
+        set: '0bdd2d39-3493-4fa2-98f9-6766596bdc50',
+        resumptionToken: 'token'
+      }
+      expect(@harvester.send(:request_params)).to eql expected
+    end
+  end
+
   describe '#results' do
     def described_method
       @harvester.results
@@ -59,6 +82,50 @@ describe CislHarvester do
         metadataPrefix: 'dif',
         offset: '100'
       }.to_json)
+    end
+  end
+
+  describe '#format_resumption_token' do
+    def described_method(token)
+      @harvester.send(:format_resumption_token, token)
+    end
+
+    before(:each) do
+      @harvester.instance_variable_set(:@dataset, 'test dataset')
+    end
+
+    it 'returns the empty string if the token is empty' do
+      expect(described_method('')).to eql ''
+    end
+
+    it 'returns a JSON string containing the offset' do
+      token = 'offset:12345'
+      actual = described_method(token)
+
+      expected = {
+        from: nil,
+        until: nil,
+        set: 'test dataset',
+        metadataPrefix: 'dif',
+        offset: '12345'
+      }.to_json
+
+      expect(actual).to eql expected
+    end
+
+    it 'returns a JSON string with a null offset' do
+      token = 'no offset here'
+      actual = described_method(token)
+
+      expected = {
+        from: nil,
+        until: nil,
+        set: 'test dataset',
+        metadataPrefix: 'dif',
+        offset: nil
+      }.to_json
+
+      expect(actual).to eql expected
     end
   end
 end

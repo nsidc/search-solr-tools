@@ -21,4 +21,13 @@ class RdaHarvester < OaiHarvester
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
     list_records_oai_response.xpath('.//oai:record', IsoNamespaces.namespaces)
   end
+
+  private
+
+  def request_params
+    {
+      verb: 'ListRecords',
+      metadataPrefix: 'dif'
+    }
+  end
 end

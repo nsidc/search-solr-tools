@@ -49,4 +49,14 @@ describe RdaHarvester do
       expect(@harvester.instance_variable_get(:@resumption_token)).to eql ''
     end
   end
+
+  describe '#request_params' do
+    def described_method
+      @harvester.send(:request_params)
+    end
+
+    it 'sets the verb and metadata prefix' do
+      expect(described_method).to eql(verb: 'ListRecords', metadataPrefix: 'dif')
+    end
+  end
 end

@@ -26,15 +26,14 @@ class PdcHarvester < OaiHarvester
 
   private
 
-  def request_string
-    # If a resumptionToken is supplied, don't include
-    # metadataPrefix.
-    params = {
+  def request_params
+    # If a 'resumptionToken' is supplied with any arguments other than 'verb',
+    # the response from PDC gives a badArgument error, saying "The argument
+    # 'resumptionToken' must be supplied without other arguments"
+    {
       verb: 'ListRecords',
       metadataPrefix: @resumption_token.nil? ? 'iso' : nil,
       resumptionToken: @resumption_token
     }.delete_if { |k, v| v.nil? }
-
-    "#{ metadata_url }#{ QueryBuilder.build(params) }"
   end
 end

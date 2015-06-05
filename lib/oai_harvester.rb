@@ -49,40 +49,11 @@ class OaiHarvester < HarvesterBase
 
   private
 
-  def request_string
-    params = {
-      verb: 'ListRecords',
-      metadataPrefix: 'dif',
-      set: @dataset
-    }.merge(
-      @resumption_token.nil? ? {} : { resumptionToken: @resumption_token }
-    )
-
-    ## TODO eval metadata_url being nil
-
-    "#{ metadata_url }#{ QueryBuilder.build(params) }"
+  def request_params
+    fail NotImplementedError
   end
 
-  # The ruby response is lacking quotes, which the token requires in order to work...
-  # Also, the response back seems to be inconsistent - sometimes it adds &quot; instead of '"',
-  # which makes the token fail to work.
-  # To get around this I'd prefer to make assumptions about the token and let it break if
-  # they change the formatting.  For now, all fields other than offset should be able to be
-  # assumed to remain constant.
-  # If the input is empty, then we are done - return an empty string, which is checked for
-  # in the harvest loop.
-  def format_resumption_token(resumption_token)
-    return '' if resumption_token.empty?
-
-    resumption_token =~ /offset:(\d+)/
-    offset = Regexp.last_match(1)
-
-    {
-      from: nil,
-      until: nil,
-      set: @dataset,
-      metadataPrefix: 'dif',
-      offset: offset
-    }.to_json
+  def request_string
+    "#{ metadata_url }#{ QueryBuilder.build(request_params) }"
   end
 end

@@ -47,45 +47,19 @@ describe PdcHarvester do
     end
   end
 
-  describe '#request_string' do
+  describe '#request_params' do
     def described_method
-      @harvester.send(:request_string)
+      @harvester.send(:request_params)
     end
 
-    it 'contains the metadata url' do
-      expect(described_method).to match 'http://www.polardata.ca/oai/provider?'
+    it 'contains verb, metadataPrefix if no resumptionToken' do
+      expect(described_method).to eql(verb: 'ListRecords', metadataPrefix: 'iso')
     end
 
-    it 'contains a verb set to "ListRecords"' do
-      expect(described_method).to match 'verb=ListRecords'
+    it 'contains verb, resumptionToken if resumptionToken exists' do
+      @harvester.instance_variable_set(:@resumption_token, 'token')
+      expect(described_method).to eql(verb: 'ListRecords', resumptionToken: 'token')
     end
 
-    describe 'with a nil resumption token' do
-      before(:each) do
-        @harvester.instance_variable_set(:@resumption_token, nil)
-      end
-
-      it 'contains a metadataPrefix set to "iso"' do
-        expect(described_method).to match 'metadataPrefix=iso'
-      end
-
-      it 'contains no resumptionToken' do
-        expect(described_method).not_to match 'resumptionToken'
-      end
-    end
-
-    describe 'with a non-nil resumption token' do
-      before(:each) do
-        @harvester.instance_variable_set(:@resumption_token, 'token')
-      end
-
-      it 'contains no metadataPrefix' do
-        expect(described_method).not_to match 'metadataPrefix'
-      end
-
-      it 'contains the resumptionToken' do
-        expect(described_method).to match 'resumptionToken=token'
-      end
-    end
   end
 end
