@@ -9,13 +9,13 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 class NsidcJsonToSolr
   PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
 
-# rubocop:disable MethodLength
+  # rubocop:disable MethodLength
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
     spatial_coverages = convert_spatial_coverages(json_doc['spatialCoverages'])
 
-    solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
+    solr_add_hash = json_doc.select { |k, _v| copy_keys.include?(k) }
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
       'dataset_version' => json_doc['majorVersion']['version'],
@@ -50,7 +50,7 @@ class NsidcJsonToSolr
       'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
     )
   end
-# rubocop:enable MethodLength
+  # rubocop:enable MethodLength
 
   def convert_spatial_coverages(nsidc_geom)
     geometries = []
@@ -66,7 +66,7 @@ class NsidcJsonToSolr
     json.each do |json_entry|
       sensor_bin = SolrFormat.facet_binning('sensor', json_entry['shortName'].to_s)
       if sensor_bin.eql? json_entry['shortName']
-        facet_values << "#{json_entry['longName'].to_s} | #{json_entry['shortName'].to_s}"
+        facet_values << "#{json_entry['longName']} | #{json_entry['shortName']}"
       else
         facet_values << " | #{sensor_bin}"
       end
@@ -172,9 +172,9 @@ class NsidcJsonToSolr
 
   def generate_part_array(json, limit_values = nil)
     parts =  []
-    json = json.select { |k, v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
+    json = json.select { |k, _v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
 
-    json.each do |k, v|
+    json.each do |_k, v|
       parts << v unless v.to_s.empty?
     end
 

@@ -58,11 +58,11 @@ class AutoSuggestHarvester < HarvesterBase
   end
 
   def ade_keyword_creator(value, count, field_weight, source)
-    ade_split_creator value, count, field_weight, source, / [\/ \>]+ /
+    ade_split_creator value, count, field_weight, source, %r{/ [\/ \>]+ /}
   end
 
   def ade_author_creator(value, count, field_weight, source)
-    ade_split_creator value, count, field_weight, source, /;/
+    ade_split_creator value, count, field_weight, source, %r{/;/}
   end
 
   def ade_length_limit_creator(value, count, field_weight, source)
@@ -78,8 +78,8 @@ class AutoSuggestHarvester < HarvesterBase
   end
 
   def fetch_auto_suggest_facet_data(url, fields)
-    fields.each do |name, config|
-      url = url + "&facet.field=#{name}"
+    fields.each do |name, _config|
+      url += "&facet.field=#{name}"
     end
 
     serialized_facet_response = RestClient.get url
@@ -89,7 +89,7 @@ class AutoSuggestHarvester < HarvesterBase
   def generate_add_hashes(facet_response, fields)
     add_docs = []
     facet_response['facet_counts']['facet_fields'].each do |facet_name, facet_values|
-      facet_values.each_slice(2).to_a.each do |facet_value|
+      facet_values.each_slice(2) do |facet_value|
         new_docs = fields[facet_name][:creator].call(facet_value[0], facet_value[1], fields[facet_name][:weight], fields[facet_name][:source])
         add_docs.concat(new_docs)
       end

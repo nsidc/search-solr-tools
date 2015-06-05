@@ -49,7 +49,7 @@ class IsoToSolrFormat
   end
 
   def self.get_max_spatial_area(values)
-    values.map { |v| v.to_f }.max
+    values.map(&:to_f).max
   end
 
   def self.get_spatial_facet(box_node)

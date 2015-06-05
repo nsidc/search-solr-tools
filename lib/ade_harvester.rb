@@ -73,6 +73,6 @@ class ADEHarvester < HarvesterBase
                                         'resultType' => resultType,
                                         'maxRecords' => maxRecords,
                                         'startPosition' => startPosition
-    )
+                                       )
   end
 end

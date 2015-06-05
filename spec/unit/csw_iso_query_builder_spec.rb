@@ -1,7 +1,6 @@
 require 'selectors/helpers/csw_iso_query_builder'
 
 describe CswIsoQueryBuilder do
-
   describe 'get_query_string returns CSW/ISO query URLs' do
     it 'Returns a URL with default query parameters when invoked without arguments' do
       query = CswIsoQueryBuilder.get_query_string 'http://fakeurl.org/csw'

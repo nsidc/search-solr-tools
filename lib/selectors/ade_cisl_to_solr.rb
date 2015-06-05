@@ -12,54 +12,54 @@ require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
 
 CISL = {
   authoritative_id: {
-      xpaths: ['.//oai:header/oai:identifier'],
-      multivalue: false
+    xpaths: ['.//oai:header/oai:identifier'],
+    multivalue: false
   },
   title: {
-      xpaths: ['.//dif:Entry_Title'],
-      multivalue: false
+    xpaths: ['.//dif:Entry_Title'],
+    multivalue: false
   },
   summary: {
-      xpaths: ['.//dif:Summary/dif:Abstract'],
-      multivalue: false
+    xpaths: ['.//dif:Summary/dif:Abstract'],
+    multivalue: false
   },
   data_centers: {
-      xpaths: [''],
-      default_values: [SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
-      multivalue: false
+    xpaths: [''],
+    default_values: [SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
+    multivalue: false
   },
   authors: {
-      xpaths: [''],
-      multivalue: true
+    xpaths: [''],
+    multivalue: true
   },
   keywords: {
-      xpaths: [
-        './/dif:Parameters/dif:Category',
-        './/dif:Parameters/dif:Topic',
-        './/dif:Parameters/dif:Term',
-        './/dif:Parameters/dif:Variable_Level_1'
-      ].reverse,
-      multivalue: true
+    xpaths: [
+      './/dif:Parameters/dif:Category',
+      './/dif:Parameters/dif:Topic',
+      './/dif:Parameters/dif:Term',
+      './/dif:Parameters/dif:Variable_Level_1'
+    ].reverse,
+    multivalue: true
   },
   last_revision_date: {
-      xpaths: ['.//dif:Last_DIF_Revision_Date'],
-      default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
-      multivalue: false,
-      format: SolrFormat::DATE
+    xpaths: ['.//dif:Last_DIF_Revision_Date'],
+    default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    multivalue: false,
+    format: SolrFormat::DATE
   },
   dataset_url: {
-      xpaths: ['.//dif:Related_URL/dif:URL'],
-      multivalue: false
+    xpaths: ['.//dif:Related_URL/dif:URL'],
+    multivalue: false
   },
   spatial_coverages: {
-      xpaths: ['.//dif:Spatial_Coverage'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_DISPLAY
+    xpaths: ['.//dif:Spatial_Coverage'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//dif:Spatial_Coverage'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_INDEX
+    xpaths: ['.//dif:Spatial_Coverage'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
     xpaths: ['.//dif:Spatial_Coverage'],
@@ -84,14 +84,14 @@ CISL = {
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
-      xpaths: [''],
-      default_values: ['ADE'],
-      multivalue: false
+    xpaths: [''],
+    default_values: ['ADE'],
+    multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//dif:Spatial_Coverage'],

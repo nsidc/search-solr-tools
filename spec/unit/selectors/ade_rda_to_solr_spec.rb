@@ -1,7 +1,6 @@
 require 'selectors/helpers/iso_to_solr'
 
 describe 'RDA ISO to Solr converter' do
-
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/rda_oai.xml')
   iso_to_solr = IsoToSolr.new(:rda)
   solr_doc = iso_to_solr.translate(fixture)

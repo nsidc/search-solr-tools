@@ -5,19 +5,19 @@ require './lib/selectors/helpers/bounding_box_util'
 #  Methods for generating formatted values that can be indexed by SOLR
 module SolrFormat
   DATA_CENTER_NAMES = {
-      NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
-      CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
-      ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
-      EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
-      ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
-      NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
-      NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
-      RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
-      EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
-      USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
-      BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
-      TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
-      PDC: { short_name: 'PDC', long_name: 'Polar Data Catalogue' }
+    NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
+    CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
+    ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
+    EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
+    ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
+    NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
+    NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
+    RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
+    EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
+    USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
+    BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
+    TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
+    PDC: { short_name: 'PDC', long_name: 'Polar Data Catalogue' }
   }
 
   NOT_SPECIFIED = 'Not specified'
@@ -43,7 +43,7 @@ module SolrFormat
   SPATIAL_GREATER_30_INDEX = 5
 
   REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
-  DATE = proc { |date | date_str date.text }
+  DATE = proc { |date| date_str date.text }
 
   HTTP_URL_FORMAT = proc do |url_node|
     url = url_node.text
@@ -189,7 +189,7 @@ module SolrFormat
     elsif iso8601_duration == ISO8601::Duration.new('P1M') || dur_sec <= 2_678_400 # && dur_sec >= 2_678_400 - 21 to 31 days
       return MONTHLY_INDEX
     elsif (iso8601_duration.months.to_i > 1 && iso8601_duration.months.to_i < 12 && iso8601_duration.years.to_i == 0) ||
-      (dur_sec < 31_536_000)
+          (dur_sec < 31_536_000)
       return SUBYEARLY_INDEX
     elsif iso8601_duration == ISO8601::Duration.new('P1Y')
       return YEARLY_INDEX

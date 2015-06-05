@@ -9,18 +9,18 @@ describe BcoDmoHarvester do
   describe 'Adding documents to Solr' do
     before :all do
       stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
-      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcdmo.json'), headers: {})
+        .to_return(status: 200, body: File.read('spec/unit/fixtures/bcdmo.json'), headers: {})
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
-      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_datasets.json'), headers: {})
+        .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_datasets.json'), headers: {})
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/geometry')
-      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_geometry.json'), headers: {})
+        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_geometry.json'), headers: {})
 
       stub_request(:get, 'http://www.bco-dmo.org/api/dataset/511584/originators')
-      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_originators_511584.json'))
+        .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_originators_511584.json'))
 
       stub_request(:get, 'http://www.bco-dmo.org/api/dataset/514182/originators')
-      .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_originators_514182.json'))
+        .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_originators_514182.json'))
 
       @result = @harvester.translate_bcodmo
     end
@@ -62,14 +62,14 @@ describe BcoDmoHarvester do
 
   it 'successfully handles failed dataset returns' do
     stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
-    .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-    .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'))
+      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'))
     stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
-    .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-    .to_return(status: 500, body: File.open('spec/unit/fixtures/bcodmo_datasets.json', headers: {}))
+      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .to_return(status: 500, body: File.open('spec/unit/fixtures/bcodmo_datasets.json', headers: {}))
     stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/geometry')
-    .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-    .to_return(status: 200, body: File.open('spec/unit/fixtures/bcodmo_geometry.json'))
+      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcodmo_geometry.json'))
     result = @harvester.translate_bcodmo
     result[:failure_ids].size.should eql(1)
     result[:failure_ids][0].should eql('511644')

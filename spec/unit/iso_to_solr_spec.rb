@@ -33,10 +33,10 @@ describe 'CISL ISO to Solr converter' do
 
   it 'should use the default value if none of the xpaths are present' do
     selector = {
-          xpaths: ['//gmd:fake1', '//gmd:fake2'],
-          default_values: ['default value'],
-          multivalue: false
-      }
+      xpaths: ['//gmd:fake1', '//gmd:fake2'],
+      default_values: ['default value'],
+      multivalue: false
+    }
     field = iso_to_solr.create_solr_fields fixture, selector
     field.size.should be == 1
     field.first.should be == 'default value'
@@ -44,18 +44,18 @@ describe 'CISL ISO to Solr converter' do
 
   it 'should grab only one node when the multivalue option is false' do
     selector = {
-          xpaths: ['//gmd:keyword/gco:CharacterString'],
-          multivalue: false
-      }
+      xpaths: ['//gmd:keyword/gco:CharacterString'],
+      multivalue: false
+    }
     keywords = iso_to_solr.create_solr_fields fixture, selector
     keywords.size.should be == 1
   end
 
   it 'should grab all the nodes when the multivalue option is true' do
     selector = {
-          xpaths: ['//gmd:keyword/gco:CharacterString'],
-          multivalue: true
-      }
+      xpaths: ['//gmd:keyword/gco:CharacterString'],
+      multivalue: true
+    }
     keywords = iso_to_solr.create_solr_fields fixture, selector
     keywords.size.should be == 9
     keywords.first.should be == 'Land cover'
@@ -63,9 +63,9 @@ describe 'CISL ISO to Solr converter' do
 
   it 'should fall over the second xpath when the first is not present' do
     selector = {
-          xpaths: ['//gmd:YouWontFindThis', '//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-          multivalue: false
-      }
+      xpaths: ['//gmd:YouWontFindThis', '//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+      multivalue: false
+    }
     titles = iso_to_solr.create_solr_fields fixture, selector
     titles.size.should be == 1
     titles.first.should be == 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
@@ -73,10 +73,10 @@ describe 'CISL ISO to Solr converter' do
 
   it 'should format the field using the format key if present' do
     selector = {
-          xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-          multivalue: false,
-          format: proc { |x| x.text.upcase }
-      }
+      xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+      multivalue: false,
+      format: proc { |x| x.text.upcase }
+    }
     titles = iso_to_solr.create_solr_fields fixture, selector
     titles.size.should be == 1
     titles.first.should be == 'CARBON ISOTOPIC VALUES OF ALKANES EXTRACTED FROM PALEOSOLS'
@@ -84,10 +84,10 @@ describe 'CISL ISO to Solr converter' do
 
   it 'should return the same value if the format function breaks' do
     selector = {
-          xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-          multivalue: false,
-          format: proc { |x| x[nil].upcase }
-      }
+      xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+      multivalue: false,
+      format: proc { |x| x[nil].upcase }
+    }
     titles = iso_to_solr.create_solr_fields fixture, selector
     titles.size.should be == 1
     titles.first.should be == 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
@@ -98,10 +98,10 @@ describe 'CISL ISO to Solr converter' do
     defaults.push('default1')
     defaults.push('default2')
     selector = {
-          xpaths: [''],
-          default_values: defaults,
-          multivalue: true
-      }
+      xpaths: [''],
+      default_values: defaults,
+      multivalue: true
+    }
     sources = iso_to_solr.create_solr_fields fixture, selector
     sources.size.should be == 2
     sources[0].should be == 'default1'
@@ -123,9 +123,9 @@ describe 'CISL ISO to Solr converter' do
   it 'should return the default value when the node has no value' do
     SELECTORS[:fake] = {
       fake: {
-          xpaths: ['.//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
-          multivalue: false,
-          default_values: ['Fake Org']
+        xpaths: ['.//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
+        multivalue: false,
+        default_values: ['Fake Org']
       }
     }
     translated = IsoToSolr.new(:fake).translate fixture
@@ -141,5 +141,4 @@ describe 'CISL ISO to Solr converter' do
     keywords = iso_to_solr.create_solr_fields(fixture, selector)
     keywords.should eq ["Soils\n/\nCarbon"]
   end
-
 end

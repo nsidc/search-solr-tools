@@ -1,7 +1,6 @@
 require 'selectors/helpers/iso_to_solr'
 
 describe 'NMI ISO to Solr converter' do
-
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nmi_iso.xml')
   iso_to_solr = IsoToSolr.new(:nmi)
   solr_doc = iso_to_solr.translate fixture
@@ -21,7 +20,7 @@ describe 'NMI ISO to Solr converter' do
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
       expected_text: "Products from the ECMWF Atmospheric Deterministic medium-range weather forecasts up to ten\ndays. " \
-      "Check out http://www.ecmwf.int/ for details. The model output has been subsetted, reprojected\nand " +
+      "Check out http://www.ecmwf.int/ for details. The model output has been subsetted, reprojected\nand " \
       'reformatted using FIMEX (http://wiki.met.no/fimex/).'
     },
     {
@@ -101,5 +100,4 @@ describe 'NMI ISO to Solr converter' do
       solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
     end
   end
-
 end

@@ -3,7 +3,6 @@ require 'json'
 require './lib/selectors/helpers/solr_format'
 
 describe 'SOLR format methods' do
-
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
   json_fixture = JSON.parse(File.read('spec/unit/fixtures/nsidc_G02199.json'))
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
@@ -131,7 +130,7 @@ describe 'SOLR format methods' do
 
       it 'bins range as range of facet values' do
         SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)
-        .should eql %w(Subdaily Daily Weekly Submonthly)
+          .should eql %w(Subdaily Daily Weekly Submonthly)
       end
 
       it 'bins varies as varies' do

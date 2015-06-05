@@ -24,11 +24,10 @@ namespace :jenkins do
   end
 
   namespace :release do
-
     date = Time.now.strftime('%Y-%m-%d')
 
     desc 'Bump version part (patch/minor/major), set release date in CHANGELOG, make tag'
-    task :bump, [:part] do |t, args|
+    task :bump, [:part] do |_t, args|
       args.with_defaults(part: 'patch')
 
       # bump VERSION in version.rb, stage version.rb (this requires that you

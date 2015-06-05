@@ -8,58 +8,58 @@ require './lib/selectors/helpers/solr_format'
 
 EOL = {
   authoritative_id: {
-      xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
-      multivalue: false,
-      format: proc do | node| # double equals in the ID is "breaking" the harvest in liquid/qa etc.
-                node.text.split('==')[0] || ''
-              end
+    xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
+    multivalue: false,
+    format: proc do |node| # double equals in the ID is "breaking" the harvest in liquid/qa etc.
+      node.text.split('==')[0] || ''
+    end
   },
   title: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-      multivalue: false
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+    multivalue: false
   },
   summary: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
-      multivalue: false
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
+    multivalue: false
   },
   data_centers: {
-      xpaths: [''],
-      default_values: [SolrFormat::DATA_CENTER_NAMES[:EOL][:long_name]],
-      multivalue: false
+    xpaths: [''],
+    default_values: [SolrFormat::DATA_CENTER_NAMES[:EOL][:long_name]],
+    multivalue: false
   },
   authors: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
-      multivalue: true,
-      unique: true,
-      format: IsoToSolrFormat::EOL_AUTHOR_FORMAT
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty'],
+    multivalue: true,
+    unique: true,
+    format: IsoToSolrFormat::EOL_AUTHOR_FORMAT
   },
   keywords: {
-      xpaths: ['.//gmd:keyword/gco:CharacterString'],
-      multivalue: true
+    xpaths: ['.//gmd:keyword/gco:CharacterString'],
+    multivalue: true
   },
   last_revision_date: {
-      xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
-      default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
-      multivalue: false,
-      format: SolrFormat::DATE
+    xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
+    default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    multivalue: false,
+    format: SolrFormat::DATE
   },
   dataset_url: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
-      multivalue: false,
-      format: proc do |node|
-                matches = node.text.match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
-                matches ? matches[0] : ''
-              end
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:supplementalInformation/gco:CharacterString'],
+    multivalue: false,
+    format: proc do |node|
+      matches = node.text.match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
+      matches ? matches[0] : ''
+    end
   },
   spatial_coverages: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_DISPLAY
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_INDEX
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
@@ -84,14 +84,14 @@ EOL = {
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
-      xpaths: [''],
-      default_values: ['ADE'],
-      multivalue: false
+    xpaths: [''],
+    default_values: ['ADE'],
+    multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:EOL][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:EOL][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:EOL][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:EOL][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],

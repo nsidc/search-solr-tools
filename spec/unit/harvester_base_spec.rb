@@ -27,14 +27,14 @@ describe HarvesterBase do
     serialized_add_doc = "{\"add\":{\"doc\":{\"authoritative_id\":\"TEST-0001\"}}}"
 
     stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
-    .with(body: serialized_add_doc,
-          headers: {
+      .with(body: serialized_add_doc,
+            headers: {
               'Accept' => '*/*; q=0.5, application/xml',
               'Accept-Encoding' => 'gzip, deflate',
               'Content-Length' => '48',
               'Content-Type' => HarvesterBase::JSON_CONTENT_TYPE,
               'User-Agent' => 'Ruby' })
-    .to_return(status: 200, body: 'success', headers: {})
+      .to_return(status: 200, body: 'success', headers: {})
 
     harvester.insert_solr_doc(add_doc, HarvesterBase::JSON_CONTENT_TYPE).should eql(true)
   end
@@ -43,14 +43,14 @@ describe HarvesterBase do
     harvester = described_class.new 'integration'
     add_doc = Nokogiri.XML('<add><doc><field name="authoritative_id">TEST-0001</field></doc></add>')
     stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
-    .with(body: add_doc.to_xml,
-          headers: {
+      .with(body: add_doc.to_xml,
+            headers: {
               'Accept' => '*/*; q=0.5, application/xml',
               'Accept-Encoding' => 'gzip, deflate',
               'Content-Length' => '105',
               'Content-Type' => HarvesterBase::XML_CONTENT_TYPE,
               'User-Agent' => 'Ruby' })
-    .to_return(status: 200, body: 'success', headers: {})
+      .to_return(status: 200, body: 'success', headers: {})
 
     harvester.insert_solr_doc(add_doc).should eql(true)
   end
@@ -119,17 +119,17 @@ describe HarvesterBase do
     updated_response = get_response(not_updated_count)
 
     stub_request(:get, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/select?q=data_centers:%22test%22&rows=0&wt=ruby')
-    .to_return(status: 200, body: all_response, headers: {})
-    stub_request(:get, %r(http:\/\/integration.search-solr.apps.int.nsidc.org:8983\/solr\/nsidc_oai\/select\?q=last_update:.*AND%20data_centers:%22test%22&rows=0&wt=ruby))
-    .to_return(status: 200, body: updated_response, headers: {})
+      .to_return(status: 200, body: all_response, headers: {})
+    stub_request(:get, %r{http:\/\/integration.search-solr.apps.int.nsidc.org:8983\/solr\/nsidc_oai\/select\?q=last_update:.*AND%20data_centers:%22test%22&rows=0&wt=ruby})
+      .to_return(status: 200, body: updated_response, headers: {})
     delete_stub = stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?wt=ruby')
-    .with(body:    %r(<\?xml version="1.0" encoding="UTF-8"\?><delete><query>last_update:.* AND data_centers:"test"</query></delete>),
-          headers: { 'Content-Type' => 'text/xml' })
-    .to_return(status: 200, body: '', headers: {})
+                  .with(body:    %r{<\?xml version="1.0" encoding="UTF-8"\?><delete><query>last_update:.* AND data_centers:"test"</query></delete>},
+                        headers: { 'Content-Type' => 'text/xml' })
+                  .to_return(status: 200, body: '', headers: {})
     commit_stub = stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?wt=ruby')
-    .with(body:    '<?xml version="1.0" encoding="UTF-8"?><commit/>',
-          headers: { 'Content-Type' => 'text/xml' })
-    .to_return(status: 200, body: '', headers: {})
+                  .with(body:    '<?xml version="1.0" encoding="UTF-8"?><commit/>',
+                        headers: { 'Content-Type' => 'text/xml' })
+                  .to_return(status: 200, body: '', headers: {})
 
     { delete_stub: delete_stub, commit_stub: commit_stub }
   end

@@ -12,50 +12,50 @@ require File.join(File.dirname(__FILE__), 'helpers', 'solr_format')
 
 PDC = {
   authoritative_id: {
-      xpaths: ['.//oai:header/oai:identifier'],
-      multivalue: false
+    xpaths: ['.//oai:header/oai:identifier'],
+    multivalue: false
   },
   title: {
-      xpaths: ['.//gmd:citation//gmd:title/gco:CharacterString'],
-      multivalue: false
+    xpaths: ['.//gmd:citation//gmd:title/gco:CharacterString'],
+    multivalue: false
   },
   summary: {
-      xpaths: ['.//gmd:abstract/gco:CharacterString'],
-      multivalue: false
+    xpaths: ['.//gmd:abstract/gco:CharacterString'],
+    multivalue: false
   },
   data_centers: {
-      xpaths: [''],
-      default_values: [SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]],
-      multivalue: false
+    xpaths: [''],
+    default_values: [SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]],
+    multivalue: false
   },
   authors: {
-      xpaths: ['.//gmd:identificationInfo//gmd:citedResponsibleParty//gmd:individualName/gco:CharacterString'],
-      multivalue: true
+    xpaths: ['.//gmd:identificationInfo//gmd:citedResponsibleParty//gmd:individualName/gco:CharacterString'],
+    multivalue: true
   },
   keywords: {
-      xpaths: ['.//gmd:descriptiveKeywords//gmd:keyword/gco:CharacterString'],
-      multivalue: true
+    xpaths: ['.//gmd:descriptiveKeywords//gmd:keyword/gco:CharacterString'],
+    multivalue: true
   },
   last_revision_date: {
-      xpaths: ['.//oai:header/oai:datestamp'],
-      default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
-      multivalue: false,
-      format: SolrFormat::DATE
+    xpaths: ['.//oai:header/oai:datestamp'],
+    default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    multivalue: false,
+    format: SolrFormat::DATE
   },
   dataset_url: {
-      xpaths: ['.//gmd:dataSetURI/gco:CharacterString'],
-      multivalue: false,
-      format: SolrFormat::HTTP_URL_FORMAT
+    xpaths: ['.//gmd:dataSetURI/gco:CharacterString'],
+    multivalue: false,
+    format: SolrFormat::HTTP_URL_FORMAT
   },
   spatial_coverages: {
-      xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_DISPLAY
+    xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_INDEX
+    xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
     xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],
@@ -80,14 +80,14 @@ PDC = {
     format: IsoToSolrFormat::TEMPORAL_DURATION
   },
   source: {
-      xpaths: [''],
-      default_values: ['ADE'],
-      multivalue: false
+    xpaths: [''],
+    default_values: ['ADE'],
+    multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:PDC][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:PDC][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:PDC][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//gmd:extent//gmd:EX_GeographicBoundingBox'],

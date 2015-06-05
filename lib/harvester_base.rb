@@ -83,7 +83,7 @@ class HarvesterBase
 
     # Some docs will cause solr to time out during the POST
     begin
-      RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
+      RestClient.post(url, doc_serialized,  content_type: content_type) do |response, _request, _result|
         success = response.code == 200
         puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
       end
@@ -164,16 +164,17 @@ class HarvesterBase
   #
   # If N, S are the same and E, W span the globe, invalid
   def spatial_coverage_invalid?(spatial_coverages)
+      north, east, south, west = spatial_coverages
     (
-      spatial_coverages[0].to_f.abs == 90 &&
-      spatial_coverages[0] == spatial_coverages[2] &&
-      spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages[3].to_f.abs == 180
+      north.to_f.abs == 90 &&
+      north == south &&
+      east.to_f.abs == 180 &&
+      west.to_f.abs == 180
     ) || (
-      spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages[1] == spatial_coverages[3] &&
-      spatial_coverages[0].to_f.abs == 90 &&
-      spatial_coverages[2].to_f.abs == 90
+      east.to_f.abs == 180 &&
+      east == west &&
+      north.to_f.abs == 90 &&
+      south.to_f.abs == 90
     )
   end
 end
