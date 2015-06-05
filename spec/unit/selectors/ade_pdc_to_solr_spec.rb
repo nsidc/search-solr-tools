@@ -50,12 +50,12 @@ describe 'PDC ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '72 -80 79 -70'
+      expected_text: '72.0 -80.0 79.0 -70.0'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: '-80 72 -70 79'
+      expected_text: '-80.0 72.0 -70.0 79.0'
     },
     {
       title: 'should calculate the correct spatial area',

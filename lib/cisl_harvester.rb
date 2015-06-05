@@ -1,51 +1,24 @@
 require_relative './selectors/helpers/iso_to_solr'
-require_relative './harvester_base'
+require_relative './oai_harvester'
 require_relative './selectors/helpers/query_builder'
 require_relative './selectors/helpers/iso_namespaces'
 
 # Harvests data from CISL and inserts it into Solr after it has been translated
-class CislHarvester < HarvesterBase
-  # Used in query string params, resumptionToken
-  DATASET = '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
-
+class CislHarvester < OaiHarvester
   def initialize(env = 'development', die_on_failure = false)
-    super env, die_on_failure
+    super
+    @data_centers = SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]
     @translator = IsoToSolr.new :cisl
 
-    # This is updated when we harvest based on the response
-    # from the server.
-    @resumption_token = nil
+    # Used in query string params, resumptionToken
+    @dataset = '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
   end
 
-  def encode_data_provider_url(url)
-    URI.encode(url)
-  end
-
-  def harvest_and_delete
-    puts "Running harvest of CISL catalog from #{cisl_url}"
-    super(method(:harvest_cisl_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]}\"")
-  end
-
-  # get translated entries from CISL and add them to Solr
-  # this is the main entry point for the class
-  def harvest_cisl_into_solr
-    while @resumption_token.nil? || !@resumption_token.empty?
-      entries = results_from_cisl
-
-      begin
-        insert_solr_docs(get_docs_with_translated_entries_from_cisl(entries))
-      rescue => e
-        puts "ERROR: #{e}"
-        raise e if @die_on_failure
-      end
-    end
-  end
-
-  def cisl_url
+  def metadata_url
     SolrEnvironments[@environment][:cisl_url]
   end
 
-  def results_from_cisl
+  def results
     list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
 
     @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', IsoNamespaces.namespaces)
@@ -54,24 +27,15 @@ class CislHarvester < HarvesterBase
     list_records_oai_response.xpath('.//oai:record', IsoNamespaces.namespaces)
   end
 
-  def get_docs_with_translated_entries_from_cisl(entries)
-    docs = []
-    entries.each { |r| docs.push(create_new_solr_add_doc_with_child(@translator.translate(r).root)) }
-    docs
-  end
-
   private
 
-  def request_string
-    params = {
+  def request_params
+    {
       verb: 'ListRecords',
       metadataPrefix: 'dif',
-      set: DATASET
-    }.merge(
-      @resumption_token.nil? ? {} : { resumptionToken: @resumption_token }
-    )
-
-    "#{ cisl_url }#{ QueryBuilder.build(params) }"
+      set: @dataset,
+      resumptionToken: @resumption_token
+    }.delete_if { |k, v| v.nil? }
   end
 
   # The ruby response is lacking quotes, which the token requires in order to work...
@@ -88,9 +52,12 @@ class CislHarvester < HarvesterBase
     resumption_token =~ /offset:(\d+)/
     offset = Regexp.last_match(1)
 
-    '{"from":null,"until":null,"set":' <<
-    "\"#{ DATASET }\"," <<
-    '"metadataPrefix":"dif","offset":' <<
-    "#{ offset }}"
+    {
+      from: nil,
+      until: nil,
+      set: @dataset,
+      metadataPrefix: 'dif',
+      offset: offset
+    }.to_json
   end
 end

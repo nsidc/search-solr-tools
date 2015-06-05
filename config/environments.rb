@@ -30,7 +30,8 @@ module SolrEnvironments
     usgs_url: 'https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw',
     cisl_url: 'https://www.aoncadis.org/oai/repository',
     tdar_url: 'http://core.tdar.org/search/rss',
-    pdc_url: 'http://www.polardata.ca/oai/provider'
+    pdc_url: 'http://www.polardata.ca/oai/provider',
+    rda_url: 'http://rda.ucar.edu/cgi-bin/oai'
   }
 
   SOLR_ENVIRONMENTS = {

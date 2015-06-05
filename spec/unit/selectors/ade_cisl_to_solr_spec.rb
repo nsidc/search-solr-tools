@@ -51,12 +51,12 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct spatial display bounds',
       xpath: "/doc/field[@name='spatial_coverages']",
-      expected_text: '66.56 -180 90 180'
+      expected_text: '66.56 -180.0 90.0 180.0'
     },
     {
       title: 'should grab the correct spatial bounds',
       xpath: "/doc/field[@name='spatial']",
-      expected_text: '-180 66.56 180 90'
+      expected_text: '-180.0 66.56 180.0 90.0'
     },
     {
       title: 'should calculate the correct spatial area',
