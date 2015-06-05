@@ -112,14 +112,13 @@ class NsidcJsonToSolr
     authors = []
     contact_array = personnel_json.to_a | creator_json.to_a
     contact_array.each do |person|
-      unless person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
-        author_string = person['firstName']
-        author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
-        author_string = author_string + ' ' + person['lastName'] unless person['lastName'].to_s.empty?
-        unless author_string.to_s.empty?
-          author_string.strip!
-          authors << author_string
-        end
+      next if person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
+      author_string = person['firstName']
+      author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
+      author_string = author_string + ' ' + person['lastName'] unless person['lastName'].to_s.empty?
+      unless author_string.to_s.empty?
+        author_string.strip!
+        authors << author_string
       end
     end
     authors.uniq
