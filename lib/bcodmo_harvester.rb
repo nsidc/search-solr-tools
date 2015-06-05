@@ -28,17 +28,30 @@ class BcoDmoHarvester < HarvesterBase
   def translate_bcodmo
     documents = []
     failure_ids = []
-    JSON.parse(RestClient.get((SolrEnvironments[@environment][:bcodmo_url]))).each do |record|
-      geometry = JSON.parse(RestClient.get((record['geometryUrl'])))
-      begin
-        JSON.parse(RestClient.get(record['datasets'])).each do |dataset|
-          documents << { 'add' => { 'doc' => @translator.translate(dataset, record, geometry) } }
-        end
-      rescue => e
-        puts "Failed to add record #{record['id']} with error #{e} (#{e.message}) : #{e.backtrace.join("\n")}"
-        failure_ids << record['id']
-      end
+    request_json(SolrEnvironments[@environment][:bcodmo_url]).each do |record|
+      geometry = request_json(record['geometryUrl'])
+      results = parse_record(record, geometry)
+      results[:documents].each { |d| documents << d }
+      results[:failure_ids].each { |id| failure_ids << id }
     end
     { add_docs: documents, failure_ids: failure_ids }
+  end
+
+  def request_json(url)
+    JSON.parse(RestClient.get(url))
+  end
+
+  def parse_record(record, geometry)
+    documents = []
+    failure_ids = []
+    begin
+      JSON.parse(RestClient.get(record['datasets'])).each do |dataset|
+        documents << { 'add' => { 'doc' => @translator.translate(dataset, record, geometry) } }
+      end
+    rescue => e
+      puts "Failed to add record #{record['id']} with error #{e} (#{e.message}) : #{e.backtrace.join("\n")}"
+      failure_ids << record['id']
+    end
+    { documents: documents, failure_ids: failure_ids }
   end
 end
