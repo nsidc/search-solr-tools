@@ -22,3 +22,7 @@ tmp/
 /puppet/modules/
 
 # end vagrant-nsidc
+
+Gemfile.lock
+/vendor/bundle
+*.gem

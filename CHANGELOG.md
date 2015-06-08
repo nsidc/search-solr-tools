@@ -1,3 +1,7 @@
+## v3.0.0
+
+  - Packaged as a gem.
+
 ## v2.0.0
 
   - Upgrade from Ruby version 1.9.3 to 2.2.2
