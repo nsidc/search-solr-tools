@@ -14,7 +14,6 @@ module SolrFormat
     NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
     NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
     RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
-    EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
     USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
     BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
     TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
