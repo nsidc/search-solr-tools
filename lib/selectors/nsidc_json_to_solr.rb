@@ -111,18 +111,21 @@ class NsidcJsonToSolr
   end
 
   def translate_personnel_and_creators_to_authors(personnel_json, creator_json)
-    authors = []
-    contact_array = personnel_json.to_a | creator_json.to_a
-    contact_array.each do |person|
-      next if person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
-      author_string = person['firstName']
-      author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
-      author_string = author_string + ' ' + person['lastName'] unless person['lastName'].to_s.empty?
-      unless author_string.to_s.empty?
-        author_string.strip!
-        authors << author_string
-      end
+    author_set = (personnel_json.to_a | creator_json.to_a)
+
+    authors = author_set.map do |author|
+      first  = author['firstName'].to_s
+      middle = author['middleName'].to_s
+      last   = author['lastName'].to_s
+
+      full = [first, middle, last].reject(&:empty?)
+      full.join(' ').strip
     end
+
+    authors.reject! do |author|
+      author.empty? || author == 'NSIDC User Services'
+    end
+
     authors.uniq
   end
 
