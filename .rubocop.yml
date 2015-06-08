@@ -4,8 +4,8 @@ AllCops:
     - Guardfile
     - Rakefile
   Exclude:
-    - puppet/**
-    - vendor/**
+    - puppet/**/*
+    - vendor/**/*
 
 AbcSize:
   Max: 20
