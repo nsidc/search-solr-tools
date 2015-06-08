@@ -71,7 +71,7 @@ nsidc_jenkins::jobs:
           - minor
           - major
     command: |
-      bundle install
+      bundle install --path /var/lib/jenkins/gems/
       bundle exec rake jenkins:release:bump[$version_type]
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/release
     trigger_job: "%{hiera('project')}_Release_2_Publish_Latest"
