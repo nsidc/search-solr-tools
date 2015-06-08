@@ -1,9 +1,9 @@
 AllCops:
-  Includes:
+  Include:
     - tasks/*.rake
     - Guardfile
     - Rakefile
-  Excludes:
+  Exclude:
     - puppet/**
     - vendor/**
 
