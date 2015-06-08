@@ -1,4 +1,4 @@
-# rubocop:disable ClassLength
+# rubocop:disable Metrics/ClassLength
 require 'rgeo/geo_json'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/iso_to_solr_format'
@@ -9,8 +9,8 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 class NsidcJsonToSolr
   PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
@@ -51,8 +51,8 @@ class NsidcJsonToSolr
       'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
     )
   end
-  # rubocop:enable MethodLength
-  # rubocop:enable AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def convert_spatial_coverages(nsidc_geom)
     geometries = []
@@ -185,4 +185,4 @@ class NsidcJsonToSolr
     parts
   end
 end
-# rubocop:disable ClassLength
+# rubocop:enable Metrics/ClassLength
