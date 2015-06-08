@@ -158,5 +158,85 @@ describe 'SOLR format methods' do
         end
       end
     end
+
+    describe '#spatial_resolution_index_degrees' do
+      def described_method(degrees)
+        SolrFormat.spatial_resolution_index_degrees(degrees)
+      end
+
+      it 'returns the 2-5 km index for 0 degrees' do
+        expect(described_method(0)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 2-5 km index for 0.05 degrees' do
+        expect(described_method(0.05)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 16-30 km index for 0.06 degrees' do
+        expect(described_method(0.06)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the 16-30 km index for 0.49 degrees' do
+        expect(described_method(0.49)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the >30 km index for 0.5 degrees' do
+        expect(described_method(0.5)).to eql SolrFormat::SPATIAL_GREATER_30_INDEX
+      end
+
+      it 'returns the >30 km index for 180 degrees' do
+        expect(described_method(180)).to eql SolrFormat::SPATIAL_GREATER_30_INDEX
+      end
+    end
+
+    describe '#spatial_resolution_index_meters' do
+      def described_method(meters)
+        SolrFormat.spatial_resolution_index_meters(meters)
+      end
+
+      it 'returns the 0-500 m index for 0 meters' do
+        expect(described_method(0)).to eql SolrFormat::SPATIAL_0_500_INDEX
+      end
+
+      it 'returns the 0-500 m index for 500 meters' do
+        expect(described_method(500)).to eql SolrFormat::SPATIAL_0_500_INDEX
+      end
+
+      it 'returns the 501m - 1km index for 501 meters' do
+        expect(described_method(501)).to eql SolrFormat::SPATIAL_501_1_INDEX
+      end
+
+      it 'returns the 501m - 1km index for 1_000 meters' do
+        expect(described_method(1_000)).to eql SolrFormat::SPATIAL_501_1_INDEX
+      end
+
+      it 'returns the 2-5 km index for 1_001 meters' do
+        expect(described_method(1_001)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 2-5 km index for 5_000 meters' do
+        expect(described_method(5_000)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 6-15 km index for 5_001 meters' do
+        expect(described_method(5_001)).to eql SolrFormat::SPATIAL_6_15_INDEX
+      end
+
+      it 'returns the 6-15 km index for 15_000 meters' do
+        expect(described_method(15_000)).to eql SolrFormat::SPATIAL_6_15_INDEX
+      end
+
+      it 'returns the 16-30 km index for 15_001 meters' do
+        expect(described_method(15_001)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the 16-30 km index for 30_000 meters' do
+        expect(described_method(30_000)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the >30 km index for 30_001 meters' do
+        expect(described_method(30_001)).to eql SolrFormat::SPATIAL_GREATER_30_INDEX
+      end
+    end
   end
 end

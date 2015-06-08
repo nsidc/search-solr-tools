@@ -197,37 +197,39 @@ module SolrFormat
       return MULTIYEARLY_INDEX
     end
   end
+  # rubocop:enable MethodLength, CyclomaticComplexity
 
   def self.find_index_for_single_spatial_resolution_value(string_duration)
     value, units = string_duration.split(' ')
-    value = value.to_f
+
     if units == 'deg'
-      if value <= 0.05
-        return SPATIAL_2_5_INDEX
-      elsif value < 0.5 # && value > .05
-        return SPATIAL_16_30_INDEX
-      else # value >= .5
-        return SPATIAL_GREATER_30_INDEX
-      end
+      spatial_resolution_index_degrees(value)
     elsif units == 'm'
-      if value <= 500
-        return SPATIAL_0_500_INDEX
-      elsif value <= 1_000 # && value > 500
-        return SPATIAL_501_1_INDEX
-      elsif value <= 5_000 # && value > 1000
-        return SPATIAL_2_5_INDEX
-      elsif value <= 15_000 # && value > 5000
-        return SPATIAL_6_15_INDEX
-      elsif value <= 30_000 # && value > 15000
-        return SPATIAL_16_30_INDEX
-      else # value > 30000
-        return SPATIAL_GREATER_30_INDEX
-      end
-    else
-      return nil
+      spatial_resolution_index_meters(value)
     end
   end
-  # rubocop:enable MethodLength, CyclomaticComplexity
+
+  def self.spatial_resolution_index_degrees(degrees)
+    if degrees.to_f <= 0.05
+      SPATIAL_2_5_INDEX
+    elsif degrees.to_f < 0.5
+      SPATIAL_16_30_INDEX
+    else
+      SPATIAL_GREATER_30_INDEX
+    end
+  end
+
+  def self.spatial_resolution_index_meters(meters)
+    case meters.to_f
+    when 0..500 then SPATIAL_0_500_INDEX
+    when 500..1_000 then SPATIAL_501_1_INDEX
+    when 1_000..5_000 then SPATIAL_2_5_INDEX
+    when 5_000..15_000 then SPATIAL_6_15_INDEX
+    when 15_000..30_000 then SPATIAL_16_30_INDEX
+    else
+      SPATIAL_GREATER_30_INDEX
+    end
+  end
 
   # takes a temporal_duration in years, returns a string representing the range
   # for faceting
