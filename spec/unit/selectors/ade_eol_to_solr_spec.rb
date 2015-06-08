@@ -1,4 +1,4 @@
-require 'selectors/helpers/iso_to_solr'
+require 'search_solr_tools/helpers/iso_to_solr'
 
 describe 'EOL ISO to Solr converter' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/eol_iso.xml')

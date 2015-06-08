@@ -1,4 +1,4 @@
-require 'selectors/helpers/iso_to_solr'
+require 'search_solr_tools/helpers/iso_to_solr'
 
 describe 'NMI ISO to Solr converter' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nmi_iso.xml')

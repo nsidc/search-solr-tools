@@ -1,6 +1,8 @@
-require 'nokogiri'
 require 'json'
-require './lib/selectors/helpers/solr_format'
+require 'nokogiri'
+require 'webmock/rspec'
+
+require 'search_solr_tools/helpers/solr_format'
 
 describe 'SOLR format methods' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')

@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'iso_to_solr')
+require 'search_solr_tools/helpers/iso_to_solr'
 
 describe 'USGS ISO to Solr converter' do
   fixture = Nokogiri.XML File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'usgs_iso.xml'))

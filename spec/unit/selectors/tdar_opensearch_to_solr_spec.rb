@@ -1,5 +1,5 @@
-require 'selectors/helpers/iso_to_solr'
-require 'selectors/helpers/iso_namespaces'
+require 'search_solr_tools/helpers/iso_namespaces'
+require 'search_solr_tools/helpers/iso_to_solr'
 
 describe 'TDAR to Solr converter' do
   puts "\n\n-----------\n"

@@ -1,7 +1,8 @@
 require 'nokogiri'
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'usgs_format')
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'iso_namespaces')
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'selectors')
+
+require 'search_solr_tools/helpers/iso_namespaces'
+require 'search_solr_tools/helpers/selectors'
+require 'search_solr_tools/helpers/usgs_format'
 
 describe 'converting date strings to Hash date ranges' do
   it 'converts YYYY-MM-DD to a date range with that date as the start and end date' do

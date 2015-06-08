@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'version'
+require 'search_solr_tools/version'
 
 # no need for tests or dev files like .rubocop.yml to be packaged with the gem
 gem_files = %(.ruby-version CHANGELOG.md COPYING README.md config/ lib/ search_solr_tools.gemspec)

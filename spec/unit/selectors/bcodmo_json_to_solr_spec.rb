@@ -1,5 +1,6 @@
-require 'selectors/bcodmo_json_to_solr'
 require 'json'
+
+require 'search_solr_tools/selectors/bcodmo_json'
 
 describe BcodmoJsonToSolr do
   before :each do
