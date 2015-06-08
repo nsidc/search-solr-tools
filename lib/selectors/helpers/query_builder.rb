@@ -2,7 +2,8 @@
 class QueryBuilder
   class << self
     def build(params)
-      "?#{params.map { |k, v| "#{k}=#{v}" }.join('&')}"
+      param_str = params.map { |k, v| "#{k}=#{v}" }.join('&')
+      "?#{param_str}"
     end
   end
 end
