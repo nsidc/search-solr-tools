@@ -91,9 +91,9 @@ ECHO = {
     multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:ECHO][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:ECHO][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:ECHO][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:ECHO][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//Collection/Spatial/HorizontalSpatialDomain/Geometry/BoundingRectangle'],

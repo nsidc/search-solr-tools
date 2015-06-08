@@ -1,4 +1,4 @@
-# rubocop:disable ClassLength
+# rubocop:disable Metrics/ClassLength
 require 'rgeo/geo_json'
 require './lib/selectors/helpers/bounding_box_util'
 require './lib/selectors/helpers/iso_to_solr_format'
@@ -9,13 +9,14 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 class NsidcJsonToSolr
   PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
 
-# rubocop:disable MethodLength
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
     spatial_coverages = convert_spatial_coverages(json_doc['spatialCoverages'])
 
-    solr_add_hash = json_doc.select { |k, v| copy_keys.include?(k) }
+    solr_add_hash = json_doc.select { |k, _v| copy_keys.include?(k) }
     solr_add_hash.merge!(
       'authoritative_id' => json_doc['authoritativeId'],
       'dataset_version' => json_doc['majorVersion']['version'],
@@ -50,7 +51,8 @@ class NsidcJsonToSolr
       'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
     )
   end
-# rubocop:enable MethodLength
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def convert_spatial_coverages(nsidc_geom)
     geometries = []
@@ -66,7 +68,7 @@ class NsidcJsonToSolr
     json.each do |json_entry|
       sensor_bin = SolrFormat.facet_binning('sensor', json_entry['shortName'].to_s)
       if sensor_bin.eql? json_entry['shortName']
-        facet_values << "#{json_entry['longName'].to_s} | #{json_entry['shortName'].to_s}"
+        facet_values << "#{json_entry['longName']} | #{json_entry['shortName']}"
       else
         facet_values << " | #{sensor_bin}"
       end
@@ -109,19 +111,21 @@ class NsidcJsonToSolr
   end
 
   def translate_personnel_and_creators_to_authors(personnel_json, creator_json)
-    authors = []
-    contact_array = personnel_json.to_a | creator_json.to_a
-    contact_array.each do |person|
-      unless person['firstName'].eql?('NSIDC') && person['lastName'].eql?('User Services')
-        author_string = person['firstName']
-        author_string = author_string + ' ' + person['middleName'] unless person['middleName'].to_s.empty?
-        author_string = author_string + ' ' + person['lastName'] unless person['lastName'].to_s.empty?
-        unless author_string.to_s.empty?
-          author_string.strip!
-          authors << author_string
-        end
-      end
+    author_set = (personnel_json.to_a | creator_json.to_a)
+
+    authors = author_set.map do |author|
+      first  = author['firstName'].to_s
+      middle = author['middleName'].to_s
+      last   = author['lastName'].to_s
+
+      full = [first, middle, last].reject(&:empty?)
+      full.join(' ').strip
     end
+
+    authors.reject! do |author|
+      author.empty? || author == 'NSIDC User Services'
+    end
+
     authors.uniq
   end
 
@@ -172,13 +176,13 @@ class NsidcJsonToSolr
 
   def generate_part_array(json, limit_values = nil)
     parts =  []
-    json = json.select { |k, v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
+    json = json.select { |k, _v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
 
-    json.each do |k, v|
+    json.each do |_k, v|
       parts << v unless v.to_s.empty?
     end
 
     parts
   end
 end
-# rubocop:disable ClassLength
+# rubocop:enable Metrics/ClassLength

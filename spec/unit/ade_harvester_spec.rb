@@ -30,7 +30,6 @@ describe ADEHarvester do
 
         expect(query_string).to eql('http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&ElementSetName=full&resultType=hits&outputFormat=application/xml&maxRecords=1&startPosition=1&outputSchema=http://www.isotc211.org/2005/gmd&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)')
       end
-
     end
 
     describe 'Retrieving the records from GI-Cat' do
@@ -51,7 +50,7 @@ describe ADEHarvester do
         )
 
         stub_request(:get, csw_iso_url).with(query: query_params)
-        .to_return(status: 200, body: '<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"><foo/></gmd:MD_Metadata>')
+          .to_return(status: 200, body: '<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"><foo/></gmd:MD_Metadata>')
 
         start_index = 1
         results = @ade_harvester.get_results_from_gi_cat(start_index)
@@ -61,7 +60,6 @@ describe ADEHarvester do
     end
 
     describe 'Adding documents to Solr' do
-
       it 'constructs an xml document with <doc> children' do
         # the stubbed request for page 1 of results gets the fixture back
         stub_request(:get, 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso?ElementSetName=full&TypeNames=gmd:MD_Metadata&maxRecords=25&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&request=GetRecords&resultType=results&service=CSW&startPosition=1&version=2.0.2&namespace=xmlns(gmd=http://www.isotc211.org/2005/gmd)')
@@ -96,7 +94,6 @@ describe ADEHarvester do
 
         expect(response).to eql(true)
       end
-
     end
   end
 end

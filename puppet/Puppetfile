@@ -13,9 +13,6 @@ mod "nsidc/nsidc_jenkins",
 # Module for installing packages from apt
 mod 'puppetlabs/apt', "1.8.0"
 
-# Module for installing newer ruby from packages (using apt)
-mod "puppetlabs/ruby"
-
 # Module for installing python and pip.
 # You may want to use this if using python's bumpversion
 # for doing your version bumping.

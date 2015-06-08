@@ -51,6 +51,6 @@ class IcesHarvester < HarvesterBase
                                         'maxRecords' => maxRecords,
                                         'startPosition' => startPosition,
                                         'constraintLanguage' => 'CQL_TEXT'
-    )
+                                       )
   end
 end

@@ -1,7 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'iso_to_solr')
 
 describe 'USGS ISO to Solr converter' do
-
   fixture = Nokogiri.XML File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'usgs_iso.xml'))
   iso_to_solr = IsoToSolr.new(:usgs)
   solr_doc = iso_to_solr.translate fixture
@@ -20,8 +19,8 @@ describe 'USGS ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "This subset of a Landsat-5 image shows part of the upper Klamath Basin. " \
-        "The original images were obtained from the U.S. Geological Survey Earth Resources"
+      expected_text: 'This subset of a Landsat-5 image shows part of the upper Klamath Basin. ' \
+        'The original images were obtained from the U.S. Geological Survey Earth Resources'
     },
     {
       title: 'should grab the correct data center',

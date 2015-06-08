@@ -82,8 +82,6 @@ class IsoToSolr
     end
   end
 
-  private
-
   def strip_invalid_utf8_bytes(text)
     if text.respond_to?(:encode) && (!text.valid_encoding?)
       text.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')

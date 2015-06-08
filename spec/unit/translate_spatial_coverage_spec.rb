@@ -1,7 +1,6 @@
 require 'selectors/helpers/translate_spatial_coverage'
 
 describe TranslateSpatialCoverage do
-
   it 'translates GeoJSON polygon to spatial display str' do
     spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, 90.0], [180.0, 90.0], [180.0, 30.98], [-180.0, 30.98], [-180.0, 90.0]]]),
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -39.23], [180.0, -39.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -39.23]]])]

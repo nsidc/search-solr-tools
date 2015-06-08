@@ -8,46 +8,46 @@ require './lib/selectors/helpers/solr_format'
 
 NMI = {
   authoritative_id: {
-      xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
-      multivalue: false
+    xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
+    multivalue: false
   },
   title: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
-      multivalue: false,
-      format: IsoToSolrFormat::TITLE_FORMAT
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+    multivalue: false,
+    format: IsoToSolrFormat::TITLE_FORMAT
   },
   summary: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
-      multivalue: false
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString'],
+    multivalue: false
   },
   data_centers: {
-      xpaths: [''],
-      default_values: [SolrFormat::DATA_CENTER_NAMES[:NMI][:long_name]],
-      multivalue: false
+    xpaths: [''],
+    default_values: [SolrFormat::DATA_CENTER_NAMES[:NMI][:long_name]],
+    multivalue: false
   },
   authors: {
-      xpaths: [''],
-      multivalue: true
+    xpaths: [''],
+    multivalue: true
   },
   keywords: {
-      xpaths: ['.//gmd:keyword/gco:CharacterString'],
-      multivalue: true
+    xpaths: ['.//gmd:keyword/gco:CharacterString'],
+    multivalue: true
   },
   last_revision_date: {
-      xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
-      default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
-      multivalue: false,
-      format: SolrFormat::DATE
+    xpaths: ['.//gmd:dateStamp/gco:Date', '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'],
+    default_values: [SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+    multivalue: false,
+    format: SolrFormat::DATE
   },
   spatial_coverages: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_DISPLAY
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_DISPLAY
   },
   spatial: {
-      xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
-      multivalue: true,
-      format: IsoToSolrFormat::SPATIAL_INDEX
+    xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
+    multivalue: true,
+    format: IsoToSolrFormat::SPATIAL_INDEX
   },
   spatial_area: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],
@@ -56,9 +56,9 @@ NMI = {
     format: IsoToSolrFormat::SPATIAL_AREA
   },
   dataset_url: {
-      xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
-      multivalue: false,
-      format: IsoToSolrFormat::DATASET_URL
+    xpaths: ['.//gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'],
+    multivalue: false,
+    format: IsoToSolrFormat::DATASET_URL
   },
   temporal_coverages: {
     xpaths: ['.//gmd:EX_TemporalExtent'],
@@ -77,14 +77,14 @@ NMI = {
     format: IsoToSolrFormat::TEMPORAL_INDEX_STRING
   },
   source: {
-      xpaths: [''],
-      default_values: ['ADE'],
-      multivalue: false
+    xpaths: [''],
+    default_values: ['ADE'],
+    multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:NMI][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:NMI][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:NMI][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:NMI][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],

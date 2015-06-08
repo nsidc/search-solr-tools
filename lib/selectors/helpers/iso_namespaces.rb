@@ -4,8 +4,6 @@ class IsoNamespaces
     ISO_NAMESPACES.merge(doc.nil? ? {} : doc.namespaces)
   end
 
-  private
-
   ISO_NAMESPACES = {
     'csw' => 'http://www.opengis.net/cat/csw/2.0.2',
     'gmd' => 'http://www.isotc211.org/2005/gmd',

@@ -12,17 +12,17 @@ describe CislHarvester do
 
   describe '#initialize' do
     it 'has a @dataset instance variable' do
-      expect(@harvester.instance_variable_defined?(:@dataset)).to be_true
+      expect(@harvester.instance_variable_defined?(:@dataset)).to eql true
       expect(@harvester.instance_variable_get(:@dataset)).to eql '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
     end
 
     it 'has a @data_centers instance variable' do
-      expect(@harvester.instance_variable_defined?(:@data_centers)).to be_true
+      expect(@harvester.instance_variable_defined?(:@data_centers)).to eql true
       expect(@harvester.instance_variable_get(:@data_centers)).to eql 'Advanced Cooperative Arctic Data and Information Service'
     end
 
     it 'has a @translator instance variable' do
-      expect(@harvester.instance_variable_defined?(:@translator)).to be_true
+      expect(@harvester.instance_variable_defined?(:@translator)).to eql true
     end
   end
 

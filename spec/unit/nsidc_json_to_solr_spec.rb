@@ -30,10 +30,10 @@ describe NsidcJsonToSolr do
 
   it 'translates NSIDC citation creators to authors list' do
     creator_json = { 'creators' => [
-                   { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
-                   { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
-                   { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
-                   { 'role' => '',       'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' }] }
+      { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
+      { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+      { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
+      { 'role' => '',       'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' }] }
     authors = @translator.translate_personnel_and_creators_to_authors(nil, @translator.generate_data_citation_creators(creator_json))
     authors[0].should eql('Claire L. Parkinson')
     authors[1].should eql('Per Gloersen')
@@ -54,18 +54,17 @@ describe NsidcJsonToSolr do
   end
 
   it 'translates NSIDC citation creators and personnel json to authors list without duplicates' do
-
     personnel_json = [{ 'role' => 'technical contact', 'firstName' => 'NSIDC', 'middleName' => '', 'lastName' => 'User Services' },
                       { 'role' => 'investigator', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
                       { 'role' => 'investigator', 'firstName' => 'Per', 'middleName' => '', 'lastName' => 'Gloersen' },
                       { 'role' => 'investigator', 'firstName' => 'H. Jay', 'middleName' => '', 'lastName' => 'Zwally' }]
 
     creator_json = { 'creators' => [
-                    { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
-                    { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
-                    { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
-                    { 'role' => 'author', 'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' },
-                    { 'role' => 'author', 'firstName' => 'Ian',    'middleName' => 'M',  'lastName' => 'Banks' }] }
+      { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
+      { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+      { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
+      { 'role' => 'author', 'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' },
+      { 'role' => 'author', 'firstName' => 'Ian',    'middleName' => 'M',  'lastName' => 'Banks' }] }
 
     authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(creator_json))
     authors.length.should eql 4
@@ -199,8 +198,7 @@ describe NsidcJsonToSolr do
     it 'translates NSIDC instruments to defined solr facet sensor value' do
       sensor_json = [{ 'shortName' => 'MODIS', 'longName' => 'Modis Test Instrument' }, { 'shortName' => 'TEST', 'longName' => 'Instrument Long Name' }]
       facets = @translator.translate_sensor_to_facet_sensor(sensor_json)
-      facets.sort.should eql [' | TESTBIN' , 'Modis Test Instrument | MODIS']
+      facets.sort.should eql [' | TESTBIN', 'Modis Test Instrument | MODIS']
     end
   end
-
 end

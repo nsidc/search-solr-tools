@@ -14,7 +14,6 @@ describe 'converting date strings to Hash date ranges' do
 end
 
 describe 'converting "Time Period" ISO elements to date ranges' do
-
   fixture = Nokogiri.XML File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'usgs_iso.xml'))
 
   selector = SELECTORS[:usgs][:temporal][:xpaths].first

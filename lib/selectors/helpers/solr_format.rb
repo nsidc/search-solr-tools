@@ -3,21 +3,21 @@ require 'iso8601'
 require './lib/selectors/helpers/bounding_box_util'
 
 #  Methods for generating formatted values that can be indexed by SOLR
+# rubocop:disable Metrics/ModuleLength
 module SolrFormat
   DATA_CENTER_NAMES = {
-      NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
-      CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
-      ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
-      EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
-      ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
-      NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
-      NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
-      RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
-      EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
-      USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
-      BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
-      TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
-      PDC: { short_name: 'PDC', long_name: 'Polar Data Catalogue' }
+    NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
+    CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
+    ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
+    EOL: { short_name: 'UCAR/NCAR EOL', long_name: 'UCAR/NCAR - Earth Observing Laboratory' },
+    ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
+    NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
+    NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
+    RDA: { short_name: 'UCAR/NCAR RDA', long_name: 'UCAR/NCAR Research Data Archive' },
+    USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' },
+    BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
+    TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
+    PDC: { short_name: 'PDC', long_name: 'Polar Data Catalogue' }
   }
 
   NOT_SPECIFIED = 'Not specified'
@@ -43,11 +43,11 @@ module SolrFormat
   SPATIAL_GREATER_30_INDEX = 5
 
   REDUCE_TEMPORAL_DURATION = proc { |values| reduce_temporal_duration(values) }
-  DATE = proc { |date | date_str date.text }
+  DATE = proc { |date| date_str date.text }
 
   HTTP_URL_FORMAT = proc do |url_node|
     url = url_node.text
-    url =~ %r{//} ? url : "http://#{ url }"
+    url =~ %r{//} ? url : "http://#{url}"
   end
 
   def self.temporal_display_str(date_range)
@@ -117,20 +117,24 @@ module SolrFormat
   end
 
   def self.resolution_value(resolution, find_index_method, resolution_values)
-    return NOT_SPECIFIED if resolution.to_s.empty?
-
+    return NOT_SPECIFIED if self.resolution_not_specified? resolution
     if resolution['type'] == 'single'
-      return NOT_SPECIFIED if resolution['resolution'].to_s.empty?
       i = send(find_index_method, resolution['resolution'])
       return resolution_values[i]
-    elsif resolution['type'] == 'range'
-      return NOT_SPECIFIED if resolution['min_resolution'].to_s.empty?
+    end
+    if resolution['type'] == 'range'
       i = send(find_index_method, resolution['min_resolution'])
       j = send(find_index_method, resolution['max_resolution'])
       return resolution_values[i..j]
-    else
-      return NOT_SPECIFIED
     end
+    fail "Invalid resolution #{resolution['type']}"
+  end
+
+  def self.resolution_not_specified?(resolution)
+    return true if resolution.to_s.empty?
+    return true unless %w(single range).include? resolution['type']
+    return true if resolution['type'] == 'single' && resolution['resolution'].to_s.empty?
+    return true if resolution['type'] == 'range' && resolution['min_resolution'].to_s.empty?
   end
 
   def self.get_spatial_scope_facet_with_bounding_box(bbox)
@@ -169,65 +173,59 @@ module SolrFormat
     nil
   end
 
-  # rubocop:disable MethodLength, CyclomaticComplexity
+  # rubocop:disable CyclomaticComplexity
   def self.find_index_for_single_temporal_resolution_value(string_duration)
     iso8601_duration = ISO8601::Duration.new(string_duration)
-    dur_sec = iso8601_duration.to_seconds
-    if dur_sec < 3600
-      return SUBHOURLY_INDEX
-    elsif dur_sec == 3600
-      return HOURLY_INDEX
-    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
-      return SUBDAILY_INDEX
 
-    elsif dur_sec <= 172_800 # && dur_sec >= 86_400 - This is 1 to 2 days
-      return DAILY_INDEX
-    elsif dur_sec <= 691_200 # && dur_sec >= 172_800 - This is 3 to 8 days
-      return WEEKLY_INDEX
-    elsif dur_sec <= 1_728_000 # && dur_sec >= 691200 - This is 8 to 20 days
-      return SUBMONTHLY_INDEX
-    elsif iso8601_duration == ISO8601::Duration.new('P1M') || dur_sec <= 2_678_400 # && dur_sec >= 2_678_400 - 21 to 31 days
-      return MONTHLY_INDEX
-    elsif (iso8601_duration.months.to_i > 1 && iso8601_duration.months.to_i < 12 && iso8601_duration.years.to_i == 0) ||
-      (dur_sec < 31_536_000)
-      return SUBYEARLY_INDEX
-    elsif iso8601_duration == ISO8601::Duration.new('P1Y')
-      return YEARLY_INDEX
-    else # elsif dur_sec > 31536000
-      return MULTIYEARLY_INDEX
+    dur_sec = iso8601_duration.to_seconds
+
+    case dur_sec
+    when 0..3_599              then SUBHOURLY_INDEX
+    when 3600                  then HOURLY_INDEX
+    when 3601..86_399          then SUBDAILY_INDEX
+    when 86_400..172_800       then DAILY_INDEX
+    when 172_801..691_200      then WEEKLY_INDEX
+    when 691_201..1_728_000    then SUBMONTHLY_INDEX
+    when 1_728_001..2_678_400  then MONTHLY_INDEX
+    when 2_678_400..31_535_999 then SUBYEARLY_INDEX
+    when 31_536_000            then YEARLY_INDEX
+    else
+      MULTIYEARLY_INDEX
     end
   end
+  # rubocop:enable CyclomaticComplexity
 
   def self.find_index_for_single_spatial_resolution_value(string_duration)
     value, units = string_duration.split(' ')
-    value = value.to_f
+
     if units == 'deg'
-      if value <= 0.05
-        return SPATIAL_2_5_INDEX
-      elsif value < 0.5 # && value > .05
-        return SPATIAL_16_30_INDEX
-      else # value >= .5
-        return SPATIAL_GREATER_30_INDEX
-      end
+      spatial_resolution_index_degrees(value)
     elsif units == 'm'
-      if value <= 500
-        return SPATIAL_0_500_INDEX
-      elsif value <= 1_000 # && value > 500
-        return SPATIAL_501_1_INDEX
-      elsif value <= 5_000 # && value > 1000
-        return SPATIAL_2_5_INDEX
-      elsif value <= 15_000 # && value > 5000
-        return SPATIAL_6_15_INDEX
-      elsif value <= 30_000 # && value > 15000
-        return SPATIAL_16_30_INDEX
-      else # value > 30000
-        return SPATIAL_GREATER_30_INDEX
-      end
-    else
-      return nil
+      spatial_resolution_index_meters(value)
     end
   end
-  # rubocop:enable MethodLength, CyclomaticComplexity
+
+  def self.spatial_resolution_index_degrees(degrees)
+    if degrees.to_f <= 0.05
+      SPATIAL_2_5_INDEX
+    elsif degrees.to_f < 0.5
+      SPATIAL_16_30_INDEX
+    else
+      SPATIAL_GREATER_30_INDEX
+    end
+  end
+
+  def self.spatial_resolution_index_meters(meters)
+    case meters.to_f
+    when 0..500 then SPATIAL_0_500_INDEX
+    when 500..1_000 then SPATIAL_501_1_INDEX
+    when 1_000..5_000 then SPATIAL_2_5_INDEX
+    when 5_000..15_000 then SPATIAL_6_15_INDEX
+    when 15_000..30_000 then SPATIAL_16_30_INDEX
+    else
+      SPATIAL_GREATER_30_INDEX
+    end
+  end
 
   # takes a temporal_duration in years, returns a string representing the range
   # for faceting

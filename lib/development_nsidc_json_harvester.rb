@@ -15,13 +15,13 @@ class DevelopmentNsidcJsonHarvester < NsidcJsonHarvester
       <ListIdentifiers>'
 
     ids.each do |id|
-      response = response + "<header>
+      response += "<header>
       <identifier>oai:nsidc/#{id}</identifier>
       <datestamp>2005-02-01T07:00:00Z</datestamp>
       </header>"
     end
 
-    response = response + '</OAI-PMH>'
+    response += '</OAI-PMH>'
 
     doc = Nokogiri.XML(response)
     doc.xpath('//xmlns:identifier', IsoNamespaces.namespaces(doc))

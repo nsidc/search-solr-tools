@@ -1,7 +1,6 @@
 require 'selectors/helpers/iso_to_solr'
 
 describe 'CISL ISO to Solr converter' do
-
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_oai.xml')
   iso_to_solr = IsoToSolr.new(:cisl)
   solr_doc = iso_to_solr.translate fixture

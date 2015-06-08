@@ -1,7 +1,6 @@
 require 'selectors/helpers/iso_to_solr'
 
 describe 'EOL ISO to Solr converter' do
-
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/eol_iso_bad_spatial.xml')
   iso_to_solr = IsoToSolr.new(:eol)
   solr_doc = iso_to_solr.translate fixture
@@ -21,7 +20,7 @@ describe 'EOL ISO to Solr converter' do
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
       expected_text: 'Cloud free Quickbird satellite imagery was used to develop the land cover maps in this study. The dataset is composed of four multispectral (2.4m) and one panchromatic (0.6m) band. The multispectral bands were fused with the panchromatic scene' \
-      ' using a Principal Components sharpening method, which characteristically maintains spatial and spectral quality (Vijayaraj et al., 2006). Ten land cover types were chosen for the land cover classification. These included seven vegetated land cover types' +
+      ' using a Principal Components sharpening method, which characteristically maintains spatial and spectral quality (Vijayaraj et al., 2006). Ten land cover types were chosen for the land cover classification. These included seven vegetated land cover types' \
       ' identified from cluster analysis of plot level species cover data from ITEX and resampled IBP plots, bare ground, ice/snow/urban areas, and water.'
     },
     {
@@ -106,5 +105,4 @@ describe 'EOL ISO to Solr converter' do
       solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
     end
   end
-
 end

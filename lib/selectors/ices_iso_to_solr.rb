@@ -86,9 +86,9 @@ ICES = {
     multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:ICES][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:ICES][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:ICES][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:ICES][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],

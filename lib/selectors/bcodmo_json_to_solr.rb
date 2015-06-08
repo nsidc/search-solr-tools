@@ -9,11 +9,12 @@ require './lib/selectors/helpers/translate_temporal_coverage'
 
 # Translates Bcodmo json to solr json format
 class BcodmoJsonToSolr
-# rubocop:disable MethodLength
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def translate(json_doc, json_record, geometry)
     originators = json_doc.key?('people') ? JSON.parse(RestClient.get((json_doc['people']))) : []
     spatial_values = translate_geometry geometry
-    temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
+    temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{json_record['startDate']}", 'end' => "#{json_record['endDate']}" }]
     {
       'title' => json_doc['dataset_name'],
       'authoritative_id' => json_record['id'] + json_doc['dataset_nid'],
@@ -37,7 +38,7 @@ class BcodmoJsonToSolr
       'authors' => parse_people(originators)
     }
   end
-# rubocop:enable MethodLength
+  # rubocop:enable MethodLength
 
   def translate_dataset_version(dataset_version)
     version_translation = dataset_version.to_s.gsub(/\D/, '')

@@ -10,12 +10,12 @@ describe PdcHarvester do
   end
 
   it 'has a @data_centers instance variable' do
-    expect(@harvester.instance_variable_defined?(:@data_centers)).to be_true
+    expect(@harvester.instance_variable_defined?(:@data_centers)).to eql true
     expect(@harvester.instance_variable_get(:@data_centers)).to eql 'Polar Data Catalogue'
   end
 
   it 'has a @translator instance variable' do
-    expect(@harvester.instance_variable_defined?(:@translator)).to be_true
+    expect(@harvester.instance_variable_defined?(:@translator)).to eql true
   end
 
   describe '#metadata_url' do
@@ -60,6 +60,5 @@ describe PdcHarvester do
       @harvester.instance_variable_set(:@resumption_token, 'token')
       expect(described_method).to eql(verb: 'ListRecords', resumptionToken: 'token')
     end
-
   end
 end

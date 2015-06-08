@@ -34,6 +34,6 @@ class PdcHarvester < OaiHarvester
       verb: 'ListRecords',
       metadataPrefix: @resumption_token.nil? ? 'iso' : nil,
       resumptionToken: @resumption_token
-    }.delete_if { |k, v| v.nil? }
+    }.delete_if { |_k, v| v.nil? }
   end
 end

@@ -70,9 +70,9 @@ TDAR = {
     multivalue: false
   },
   facet_data_center: {
-      xpaths: [''],
-      default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:TDAR][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:TDAR][:short_name]}"],
-      multivalue: false
+    xpaths: [''],
+    default_values: ["#{SolrFormat::DATA_CENTER_NAMES[:TDAR][:long_name]} | #{SolrFormat::DATA_CENTER_NAMES[:TDAR][:short_name]}"],
+    multivalue: false
   },
   facet_spatial_scope: {
     xpaths: ['.//georss:box'],

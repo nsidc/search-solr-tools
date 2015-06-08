@@ -29,30 +29,29 @@ nsidc_jenkins::plugins:
 # Jenkins Jobs
 nsidc_jenkins::jobs:
   "%{hiera('project')}_1_Checkout_Project":
+    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+    parameters:
+      - type: string
+        name: ref
+        description: git ref (branch, tag, or SHA) to checkout
+        default: master
     git:
       repo: "%{hiera('gitrepo')}"
       poll_scm: true
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-    trigger_job: "%{hiera('project')}_2_Configure_System"
-  "%{hiera('project')}_2_Configure_System":
+      checkout_local: false
     command: |
-      cd puppet
-      librarian-puppet clean
-      librarian-puppet install
-      cd -
-      sudo puppet apply --environment=ci --debug --verbose --modulepath=./puppet/modules --hiera_config=./puppet/hiera.yaml ./puppet/site.pp
+      git checkout $ref
+    trigger_job: "%{hiera('project')}_2_Install_Dependencies"
 
-      curl localhost:8080/job/%{hiera('project')}_3_Install_Dependencies/build
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-  "%{hiera('project')}_3_Install_Dependencies":
+  "%{hiera('project')}_2_Install_Dependencies":
     command: bundle install --path /var/lib/jenkins/gems/
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-    trigger_job: "%{hiera('project')}_4_Check_Syntax"
-  "%{hiera('project')}_4_Check_Syntax":
+    trigger_job: "%{hiera('project')}_3_Check_Syntax"
+  "%{hiera('project')}_3_Check_Syntax":
     command: bundle exec rake jenkins:ci:rubocop
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-    trigger_job: "%{hiera('project')}_5_Run_Unit_Tests"
-  "%{hiera('project')}_5_Run_Unit_Tests":
+    trigger_job: "%{hiera('project')}_4_Run_Unit_Tests"
+  "%{hiera('project')}_4_Run_Unit_Tests":
     command: bundle exec rake spec:unit
     workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
 

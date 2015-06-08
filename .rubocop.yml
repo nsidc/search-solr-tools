@@ -1,11 +1,14 @@
 AllCops:
-  Includes:
+  Include:
     - tasks/*.rake
     - Guardfile
     - Rakefile
-  Excludes:
+  Exclude:
     - puppet/**
     - vendor/**
+
+AbcSize:
+  Max: 20
 
 ClassLength:
   Max: 125

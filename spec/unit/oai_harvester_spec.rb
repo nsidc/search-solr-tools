@@ -51,5 +51,4 @@ describe OaiHarvester do
       expect(@harvester.send(:request_string)).to eql 'http://nsidc.org/someapi/?verb=ListRecords&metadataPrefix=dif'
     end
   end
-
 end

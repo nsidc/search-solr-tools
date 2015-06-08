@@ -49,7 +49,7 @@ class IsoToSolrFormat
   end
 
   def self.get_max_spatial_area(values)
-    values.map { |v| v.to_f }.max
+    values.map(&:to_f).max
   end
 
   def self.get_spatial_facet(box_node)
@@ -104,8 +104,6 @@ class IsoToSolrFormat
     term = keywords.xpath('.//TermKeyword').text
     category << ' > ' << topic << ' > ' << term
   end
-
-  private
 
   def self.date_range(temporal_node, formatted = false)
     start_date = get_first_matching_child(
@@ -183,12 +181,8 @@ class IsoToSolrFormat
     }[lat_lon]
   end
 
-  def self.get_bound(box_node, direction)
-    lat_lon = axis_label(direction)
-
-    bound = coordinate_boundary(lat_lon)
-
-    child = get_first_matching_child(
+  def self.node_values(box_node, direction, lat_lon)
+    get_first_matching_child(
       box_node,
       [
         "./gmd:#{direction.to_s.downcase}Bounding#{lat_lon}/gco:Decimal",
@@ -196,13 +190,22 @@ class IsoToSolrFormat
         "./#{direction.to_s.capitalize}BoundingCoordinate",
         "./dif:#{direction.to_s.capitalize}ernmost_#{lat_lon}"
       ]
-    )
-    arr = child.split(' ')
+    ).split(' ')
+  end
 
-    val = arr.first
+  def self.get_bound(box_node, direction)
+    lat_lon = axis_label(direction)
 
-    return '' if arr.empty? || !(val.to_f.abs <= bound)
+    vals = node_values(box_node, direction, lat_lon)
+    val = vals.first
 
-    %w(West South).include?(arr.last) ? (-val.to_f).to_s : val.to_f.to_s
+    boundary = coordinate_boundary(lat_lon)
+    out_of_bounds = boundary < val.to_f.abs
+
+    return '' if vals.empty? || out_of_bounds
+
+    val = (-val.to_f) if %w(West South).include?(vals.last)
+
+    val.to_f.to_s
   end
 end

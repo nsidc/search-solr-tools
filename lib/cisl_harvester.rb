@@ -35,7 +35,7 @@ class CislHarvester < OaiHarvester
       metadataPrefix: 'dif',
       set: @dataset,
       resumptionToken: @resumption_token
-    }.delete_if { |k, v| v.nil? }
+    }.delete_if { |_k, v| v.nil? }
   end
 
   # The ruby response is lacking quotes, which the token requires in order to work...

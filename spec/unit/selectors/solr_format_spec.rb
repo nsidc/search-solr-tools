@@ -3,7 +3,6 @@ require 'json'
 require './lib/selectors/helpers/solr_format'
 
 describe 'SOLR format methods' do
-
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
   json_fixture = JSON.parse(File.read('spec/unit/fixtures/nsidc_G02199.json'))
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
@@ -131,7 +130,7 @@ describe 'SOLR format methods' do
 
       it 'bins range as range of facet values' do
         SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)
-        .should eql %w(Subdaily Daily Weekly Submonthly)
+          .should eql %w(Subdaily Daily Weekly Submonthly)
       end
 
       it 'bins varies as varies' do
@@ -141,6 +140,10 @@ describe 'SOLR format methods' do
       it 'returns not specified if the value is blank' do
         SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => '' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
         SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => '', 'max_resolution' => '' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
+      end
+
+      it 'returns not specified if the type is not single or range' do
+        SolrFormat.resolution_value({ 'type' => 'not a real type', 'resolution' => 'PT23H59M59S' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
       end
     end
 
@@ -157,6 +160,86 @@ describe 'SOLR format methods' do
             SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => val }, :find_index_for_single_spatial_resolution_value, SolrFormat::SPATIAL_RESOLUTION_FACET_VALUES).should eql bin
           end
         end
+      end
+    end
+
+    describe '#spatial_resolution_index_degrees' do
+      def described_method(degrees)
+        SolrFormat.spatial_resolution_index_degrees(degrees)
+      end
+
+      it 'returns the 2-5 km index for 0 degrees' do
+        expect(described_method(0)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 2-5 km index for 0.05 degrees' do
+        expect(described_method(0.05)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 16-30 km index for 0.06 degrees' do
+        expect(described_method(0.06)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the 16-30 km index for 0.49 degrees' do
+        expect(described_method(0.49)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the >30 km index for 0.5 degrees' do
+        expect(described_method(0.5)).to eql SolrFormat::SPATIAL_GREATER_30_INDEX
+      end
+
+      it 'returns the >30 km index for 180 degrees' do
+        expect(described_method(180)).to eql SolrFormat::SPATIAL_GREATER_30_INDEX
+      end
+    end
+
+    describe '#spatial_resolution_index_meters' do
+      def described_method(meters)
+        SolrFormat.spatial_resolution_index_meters(meters)
+      end
+
+      it 'returns the 0-500 m index for 0 meters' do
+        expect(described_method(0)).to eql SolrFormat::SPATIAL_0_500_INDEX
+      end
+
+      it 'returns the 0-500 m index for 500 meters' do
+        expect(described_method(500)).to eql SolrFormat::SPATIAL_0_500_INDEX
+      end
+
+      it 'returns the 501m - 1km index for 501 meters' do
+        expect(described_method(501)).to eql SolrFormat::SPATIAL_501_1_INDEX
+      end
+
+      it 'returns the 501m - 1km index for 1_000 meters' do
+        expect(described_method(1_000)).to eql SolrFormat::SPATIAL_501_1_INDEX
+      end
+
+      it 'returns the 2-5 km index for 1_001 meters' do
+        expect(described_method(1_001)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 2-5 km index for 5_000 meters' do
+        expect(described_method(5_000)).to eql SolrFormat::SPATIAL_2_5_INDEX
+      end
+
+      it 'returns the 6-15 km index for 5_001 meters' do
+        expect(described_method(5_001)).to eql SolrFormat::SPATIAL_6_15_INDEX
+      end
+
+      it 'returns the 6-15 km index for 15_000 meters' do
+        expect(described_method(15_000)).to eql SolrFormat::SPATIAL_6_15_INDEX
+      end
+
+      it 'returns the 16-30 km index for 15_001 meters' do
+        expect(described_method(15_001)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the 16-30 km index for 30_000 meters' do
+        expect(described_method(30_000)).to eql SolrFormat::SPATIAL_16_30_INDEX
+      end
+
+      it 'returns the >30 km index for 30_001 meters' do
+        expect(described_method(30_001)).to eql SolrFormat::SPATIAL_GREATER_30_INDEX
       end
     end
   end

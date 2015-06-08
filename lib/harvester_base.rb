@@ -39,23 +39,28 @@ class HarvesterBase
     delete_old_documents start_time, delete_constraints, solr_core
   end
 
-  def delete_old_documents(before_timestamp, constraints, solr_core, force = false)
-    delete_query = "last_update:[* TO #{before_timestamp}] AND #{constraints}"
-
+  def delete_old_documents(timestamp, constraints, solr_core, force = false)
+    delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
     solr = RSolr.connect url: solr_url + "/#{solr_core}"
-    all_response = solr.get 'select', params: { q: constraints, rows: 0 }
-    not_updated_response = solr.get 'select', params: { q: delete_query, rows: 0 }
+    unchanged_count = (solr.get 'select', params: { q: delete_query, rows: 0 })['response']['numFound'].to_i
+    if unchanged_count == 0
+      puts "All documents were updated after #{timestamp}, nothing to delete"
+    else
+      puts "Begin rmoving documents older than #{timestamp}"
+      remove_documents(solr, delete_query, constraints, force, unchanged_count)
+    end
+  end
 
-    if not_updated_response['response']['numFound'].to_i == 0
-      puts "All documents were updated after #{before_timestamp}, nothing to delete"
-    elsif force || not_updated_response['response']['numFound'].to_f / all_response['response']['numFound'].to_f < DELETE_DOCUMENTS_RATIO
-      puts "Deleting #{not_updated_response['response']['numFound']} documents for #{constraints}"
+  def remove_documents(solr, delete_query, constraints, force, numfound)
+    all_response_count = (solr.get 'select', params: { q: constraints, rows: 0 })['response']['numFound']
+    if force || (numfound / all_response_count.to_f < DELETE_DOCUMENTS_RATIO)
+      puts "Deleting #{numfound} documents for #{constraints}"
       solr.delete_by_query delete_query
       solr.commit
     else
-      puts "Failed to delete records older then #{before_timestamp} because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
-      puts "\tTotal records: #{all_response['response']['numFound']}"
-      puts "\tNon-updated records: #{not_updated_response['response']['numFound']}"
+      puts "Failed to delete records older than current harvest start because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
+      puts "\tTotal records: #{all_response_count}"
+      puts "\tNon-updated records: #{numfound}"
     end
   end
 
@@ -83,7 +88,7 @@ class HarvesterBase
 
     # Some docs will cause solr to time out during the POST
     begin
-      RestClient.post(url, doc_serialized,  content_type: content_type) do |response, request, result|
+      RestClient.post(url, doc_serialized,  content_type: content_type) do |response, _request, _result|
         success = response.code == 200
         puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
       end
@@ -153,27 +158,16 @@ class HarvesterBase
     # We've only seen the failure with 4 spatial coverage values
     return true if spatial_coverages.size < 4
 
-    !spatial_coverage_invalid?(spatial_coverages)
+    valid_solr_spatial_coverage?(spatial_coverages)
   end
 
   # spatial_coverages is an array with length 4:
   # [North, East, South, West]
-  # The failure occurs when the input is an infinitely narrow
-  # line, as in the following xml:
-  # <field name="spatial_coverages">-90 -180 -90 180</field>
-  #
-  # If N, S are the same and E, W span the globe, invalid
-  def spatial_coverage_invalid?(spatial_coverages)
-    (
-      spatial_coverages[0].to_f.abs == 90 &&
-      spatial_coverages[0] == spatial_coverages[2] &&
-      spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages[3].to_f.abs == 180
-    ) || (
-      spatial_coverages[1].to_f.abs == 180 &&
-      spatial_coverages[1] == spatial_coverages[3] &&
-      spatial_coverages[0].to_f.abs == 90 &&
-      spatial_coverages[2].to_f.abs == 90
-    )
+  def valid_solr_spatial_coverage?(spatial_coverages)
+    north, east, south, west = spatial_coverages
+
+    polar_point = (north == south) && (north.to_f.abs == 90)
+
+    (east == west) || !polar_point
   end
 end

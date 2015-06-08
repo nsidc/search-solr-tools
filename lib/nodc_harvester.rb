@@ -51,7 +51,7 @@ class NodcHarvester < HarvesterBase
                                         'maxRecords' => maxRecords,
                                         'startPosition' => startPosition,
                                         'constraint' => bbox_constraint
-    )
+                                       )
   end
 
   def bbox_constraint
@@ -63,11 +63,11 @@ class NodcHarvester < HarvesterBase
     }
 
     URI.encode '<Filter xmlns:ogc="http://www.opengis.net/ogc" ' \
-      'xmlns:gml="http://www.opengis.net/gml" ' +
-      'xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">' +
-      '<ogc:BBOX><PropertyName>apiso:BoundingBox</PropertyName><gml:Envelope>' +
-      '<gml:lowerCorner>' + bbox[:west] + ' ' + bbox[:south] + '</gml:lowerCorner>' +
-      '<gml:upperCorner>' + bbox[:east] + ' ' + bbox[:north] + '</gml:upperCorner>' +
+      'xmlns:gml="http://www.opengis.net/gml" ' \
+      'xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">' \
+      '<ogc:BBOX><PropertyName>apiso:BoundingBox</PropertyName><gml:Envelope>' \
+      '<gml:lowerCorner>' + bbox[:west] + ' ' + bbox[:south] + '</gml:lowerCorner>' \
+      '<gml:upperCorner>' + bbox[:east] + ' ' + bbox[:north] + '</gml:upperCorner>' \
       '</gml:Envelope></ogc:BBOX></Filter>'
   end
 end

@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 source 'http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc/'
+ruby "2.2.2"
 
 gem 'rake'
 gem 'rspec'
@@ -27,5 +28,7 @@ gem 'require_all'
 # - set breakpoints in the code with the statement "debugger"
 # - don't commit the Gemfile with the debugging gems uncommented :-)
 
-# gem 'pry'
-# gem 'pry-debugger'
+#gem 'pry-byebug'
+
+#gem 'pry'
+#gem 'pry-debugger'

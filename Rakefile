@@ -5,7 +5,7 @@ require File.join('.', 'config', 'environments.rb')
 Dir.glob('./tasks/*.rake').each { |r| import r }
 
 desc 'Run bumpversion'
-task :bump, [:part] do |t, args|
+task :bump, [:part] do |_t, args|
   version_filename = 'metadata.json'
   version = JSON.load(File.new(version_filename))['version']
 
