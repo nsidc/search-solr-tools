@@ -39,23 +39,28 @@ class HarvesterBase
     delete_old_documents start_time, delete_constraints, solr_core
   end
 
-  def delete_old_documents(before_timestamp, constraints, solr_core, force = false)
-    delete_query = "last_update:[* TO #{before_timestamp}] AND #{constraints}"
-
+  def delete_old_documents(timestamp, constraints, solr_core, force = false)
+    delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
     solr = RSolr.connect url: solr_url + "/#{solr_core}"
-    all_response = solr.get 'select', params: { q: constraints, rows: 0 }
-    not_updated_response = solr.get 'select', params: { q: delete_query, rows: 0 }
+    unchanged_count = (solr.get 'select', params: { q: delete_query, rows: 0 })['response']['numFound'].to_i
+    if unchanged_count == 0
+      puts "All documents were updated after #{timestamp}, nothing to delete"
+    else
+      puts "Begin rmoving documents older than #{timestamp}"
+      remove_documents(solr, delete_query, constraints, force, unchanged_count)
+    end
+  end
 
-    if not_updated_response['response']['numFound'].to_i == 0
-      puts "All documents were updated after #{before_timestamp}, nothing to delete"
-    elsif force || not_updated_response['response']['numFound'].to_f / all_response['response']['numFound'].to_f < DELETE_DOCUMENTS_RATIO
-      puts "Deleting #{not_updated_response['response']['numFound']} documents for #{constraints}"
+  def remove_documents(solr, delete_query, constraints, force, numfound)
+    all_response_count = (solr.get 'select', params: { q: constraints, rows: 0 })['response']['numFound']
+    if force || (numfound / all_response_count.to_f < DELETE_DOCUMENTS_RATIO)
+      puts "Deleting #{numfound} documents for #{constraints}"
       solr.delete_by_query delete_query
       solr.commit
     else
-      puts "Failed to delete records older then #{before_timestamp} because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
-      puts "\tTotal records: #{all_response['response']['numFound']}"
-      puts "\tNon-updated records: #{not_updated_response['response']['numFound']}"
+      puts "Failed to delete records older than current harvest start because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
+      puts "\tTotal records: #{all_response_count}"
+      puts "\tNon-updated records: #{numfound}"
     end
   end
 
