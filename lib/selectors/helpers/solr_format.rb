@@ -174,35 +174,27 @@ module SolrFormat
     nil
   end
 
-  # rubocop:disable MethodLength, CyclomaticComplexity
+  # rubocop:disable CyclomaticComplexity
   def self.find_index_for_single_temporal_resolution_value(string_duration)
     iso8601_duration = ISO8601::Duration.new(string_duration)
-    dur_sec = iso8601_duration.to_seconds
-    if dur_sec < 3600
-      return SUBHOURLY_INDEX
-    elsif dur_sec == 3600
-      return HOURLY_INDEX
-    elsif dur_sec < 86_400 # && dur.to_seconds > 3600
-      return SUBDAILY_INDEX
 
-    elsif dur_sec <= 172_800 # && dur_sec >= 86_400 - This is 1 to 2 days
-      return DAILY_INDEX
-    elsif dur_sec <= 691_200 # && dur_sec >= 172_800 - This is 3 to 8 days
-      return WEEKLY_INDEX
-    elsif dur_sec <= 1_728_000 # && dur_sec >= 691200 - This is 8 to 20 days
-      return SUBMONTHLY_INDEX
-    elsif iso8601_duration == ISO8601::Duration.new('P1M') || dur_sec <= 2_678_400 # && dur_sec >= 2_678_400 - 21 to 31 days
-      return MONTHLY_INDEX
-    elsif (iso8601_duration.months.to_i > 1 && iso8601_duration.months.to_i < 12 && iso8601_duration.years.to_i == 0) ||
-          (dur_sec < 31_536_000)
-      return SUBYEARLY_INDEX
-    elsif iso8601_duration == ISO8601::Duration.new('P1Y')
-      return YEARLY_INDEX
-    else # elsif dur_sec > 31536000
-      return MULTIYEARLY_INDEX
+    dur_sec = iso8601_duration.to_seconds
+
+    case dur_sec
+    when 0..3_599              then SUBHOURLY_INDEX
+    when 3600                  then HOURLY_INDEX
+    when 3601..86_399          then SUBDAILY_INDEX
+    when 86_400..172_800       then DAILY_INDEX
+    when 172_801..691_200      then WEEKLY_INDEX
+    when 691_201..1_728_000    then SUBMONTHLY_INDEX
+    when 1_728_001..2_678_400  then MONTHLY_INDEX
+    when 2_678_400..31_535_999 then SUBYEARLY_INDEX
+    when 31_536_000            then YEARLY_INDEX
+    else
+      MULTIYEARLY_INDEX
     end
   end
-  # rubocop:enable MethodLength, CyclomaticComplexity
+  # rubocop:enable CyclomaticComplexity
 
   def self.find_index_for_single_spatial_resolution_value(string_duration)
     value, units = string_duration.split(' ')
