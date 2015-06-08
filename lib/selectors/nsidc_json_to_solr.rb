@@ -10,6 +10,7 @@ class NsidcJsonToSolr
   PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
 
   # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def translate(json_doc)
     copy_keys = %w(title summary keywords brokered)
     temporal_coverage_values = TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
@@ -51,6 +52,7 @@ class NsidcJsonToSolr
     )
   end
   # rubocop:enable MethodLength
+  # rubocop:enable AbcSize
 
   def convert_spatial_coverages(nsidc_geom)
     geometries = []
