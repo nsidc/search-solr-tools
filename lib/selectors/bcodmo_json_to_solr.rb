@@ -14,7 +14,7 @@ class BcodmoJsonToSolr
   def translate(json_doc, json_record, geometry)
     originators = json_doc.key?('people') ? JSON.parse(RestClient.get((json_doc['people']))) : []
     spatial_values = translate_geometry geometry
-    temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{ json_record['startDate'] }", 'end' => "#{ json_record['endDate'] }" }]
+    temporal_coverage_values = TranslateTemporalCoverage.translate_coverages [{ 'start' => "#{json_record['startDate']}", 'end' => "#{json_record['endDate']}" }]
     {
       'title' => json_doc['dataset_name'],
       'authoritative_id' => json_record['id'] + json_doc['dataset_nid'],

@@ -48,7 +48,7 @@ module SolrFormat
 
   HTTP_URL_FORMAT = proc do |url_node|
     url = url_node.text
-    url =~ %r{//} ? url : "http://#{ url }"
+    url =~ %r{//} ? url : "http://#{url}"
   end
 
   def self.temporal_display_str(date_range)

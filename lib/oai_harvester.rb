@@ -54,6 +54,6 @@ class OaiHarvester < HarvesterBase
   end
 
   def request_string
-    "#{ metadata_url }#{ QueryBuilder.build(request_params) }"
+    "#{metadata_url}#{QueryBuilder.build(request_params)}"
   end
 end

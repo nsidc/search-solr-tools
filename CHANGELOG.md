@@ -1,6 +1,8 @@
 ## v2.0.0
 
   - Upgrade from Ruby version 1.9.3 to 2.2.2
+  - Compliant with
+    [RuboCop v0.32.0](https://github.com/bbatsov/rubocop/releases/tag/v0.32.0)
 
 ## v1.1.0 (2015-06-05)
 
