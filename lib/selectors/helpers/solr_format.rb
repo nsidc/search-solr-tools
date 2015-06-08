@@ -3,6 +3,7 @@ require 'iso8601'
 require './lib/selectors/helpers/bounding_box_util'
 
 #  Methods for generating formatted values that can be indexed by SOLR
+# rubocop:disable Metrics/ModuleLength
 module SolrFormat
   DATA_CENTER_NAMES = {
     NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
@@ -117,20 +118,24 @@ module SolrFormat
   end
 
   def self.resolution_value(resolution, find_index_method, resolution_values)
-    return NOT_SPECIFIED if resolution.to_s.empty?
-
+    return NOT_SPECIFIED if self.resolution_not_specified? resolution
     if resolution['type'] == 'single'
-      return NOT_SPECIFIED if resolution['resolution'].to_s.empty?
       i = send(find_index_method, resolution['resolution'])
       return resolution_values[i]
-    elsif resolution['type'] == 'range'
-      return NOT_SPECIFIED if resolution['min_resolution'].to_s.empty?
+    end
+    if resolution['type'] == 'range'
       i = send(find_index_method, resolution['min_resolution'])
       j = send(find_index_method, resolution['max_resolution'])
       return resolution_values[i..j]
-    else
-      return NOT_SPECIFIED
     end
+    fail "Invalid resolution #{resolution['type']}"
+  end
+
+  def self.resolution_not_specified?(resolution)
+    return true if resolution.to_s.empty?
+    return true unless %w(single range).include? resolution['type']
+    return true if resolution['type'] == 'single' && resolution['resolution'].to_s.empty?
+    return true if resolution['type'] == 'range' && resolution['min_resolution'].to_s.empty?
   end
 
   def self.get_spatial_scope_facet_with_bounding_box(bbox)

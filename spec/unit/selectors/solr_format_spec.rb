@@ -141,6 +141,10 @@ describe 'SOLR format methods' do
         SolrFormat.resolution_value({ 'type' => 'single', 'resolution' => '' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
         SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => '', 'max_resolution' => '' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
       end
+
+      it 'returns not specified if the type is not single or range' do
+        SolrFormat.resolution_value({ 'type' => 'not a real type', 'resolution' => 'PT23H59M59S' }, :find_index_for_single_temporal_resolution_value, SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES).should eql SolrFormat::NOT_SPECIFIED
+      end
     end
 
     describe 'spatial resolution facet' do
