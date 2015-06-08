@@ -7,6 +7,9 @@ AllCops:
     - puppet/**
     - vendor/**
 
+AbcSize:
+  Max: 20
+
 ClassLength:
   Max: 125
 
