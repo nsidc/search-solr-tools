@@ -24,16 +24,13 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = File.read(File.expand_path('../.ruby-version', __FILE__)).strip
 
   spec.add_runtime_dependency 'gi_cat_driver', '~> 0.3'
-  spec.add_runtime_dependency 'iso8601', '~> 0.8.6'
+  spec.add_runtime_dependency 'iso8601', '~> 0.8'
   spec.add_runtime_dependency 'multi_json', '~> 1.11'
   spec.add_runtime_dependency 'nokogiri', '~> 1.6'
-  spec.add_runtime_dependency 'rb-readline', '~> 0.5'
-  spec.add_runtime_dependency 'require_all', '~> 1.3'
   spec.add_runtime_dependency 'rest-client', '~> 1.6'
   spec.add_runtime_dependency 'rgeo', '~> 0.3'
   spec.add_runtime_dependency 'rgeo-geojson', '~> 0.3'
   spec.add_runtime_dependency 'rsolr', '~> 1.0'
-  spec.add_runtime_dependency 'webmock', '~> 1.13'
   spec.add_development_dependency 'guard', '~> 2.12'
   spec.add_development_dependency 'guard-rspec', '~> 4.5'
   spec.add_development_dependency 'guard-rubocop', '~> 1.2'
@@ -41,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.4'
   spec.add_development_dependency 'rspec', '~> 3.2'
   spec.add_development_dependency 'rubocop', '~> 0.32'
+  spec.add_development_dependency 'webmock', '~> 1.13'
 end
