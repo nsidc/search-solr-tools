@@ -25,6 +25,9 @@ LineLength:
 MethodLength:
   Max: 18
 
+Metrics/ModuleLength:
+  Max: 101
+
 RescueModifier:
   Enabled: false
 

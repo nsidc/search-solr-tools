@@ -1,10 +1,6 @@
-require 'json'
-require 'nokogiri'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/cisl'
-require 'search_solr_tools/helpers/iso_namespaces'
-
-describe CislHarvester do
+describe SearchSolrTools::Harvesters::Cisl do
   before(:each) do
     @harvester = described_class.new(:dev)
   end
@@ -61,7 +57,7 @@ describe CislHarvester do
 
     before(:each) do
       doc = Nokogiri.XML(File.open('spec/unit/fixtures/cisl_oai.xml'))
-      fixture = doc.xpath('//oai:ListRecords', IsoNamespaces.namespaces(doc))
+      fixture = doc.xpath('//oai:ListRecords', SearchSolrTools::Helpers::IsoNamespaces.namespaces(doc))
 
       allow(@harvester).to receive(:get_results).and_return(fixture)
     end

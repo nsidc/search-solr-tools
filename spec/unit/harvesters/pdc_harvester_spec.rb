@@ -1,7 +1,6 @@
-require 'search_solr_tools/harvesters/pdc'
-require 'search_solr_tools/helpers/iso_namespaces'
+require 'spec_helper'
 
-describe PdcHarvester do
+describe SearchSolrTools::Harvesters::Pdc do
   before(:each) do
     @harvester = described_class.new(:dev)
   end
@@ -28,7 +27,7 @@ describe PdcHarvester do
 
     before(:each) do
       doc = Nokogiri.XML(File.open('spec/unit/fixtures/pdc_oai.xml'))
-      fixture = doc.xpath('//oai:ListRecords', IsoNamespaces.namespaces(doc))
+      fixture = doc.xpath('//oai:ListRecords', SearchSolrTools::Helpers::IsoNamespaces.namespaces(doc))
 
       allow(@harvester).to receive(:get_results).and_return(fixture)
     end

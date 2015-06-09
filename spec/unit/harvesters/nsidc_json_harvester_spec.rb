@@ -1,8 +1,6 @@
-require 'webmock/rspec'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/nsidc_json'
-
-describe NsidcJsonHarvester do
+describe SearchSolrTools::Harvesters::NsidcJson do
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before :each do
     stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata//binConfiguration').with(headers: { Accept: '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' }).to_return(status: 200, body: bin_configuration, headers: {})
@@ -14,7 +12,7 @@ describe NsidcJsonHarvester do
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
-    @harvester.result_ids_from_nsidc.first.text.should eql('oai:nsidc/G02199')
+    expect(@harvester.result_ids_from_nsidc.first.text).to eql('oai:nsidc/G02199')
   end
 
   describe 'Adding documents to Solr' do
@@ -36,13 +34,13 @@ describe NsidcJsonHarvester do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       result = @harvester.docs_with_translated_entries_from_nsidc
-      result[:add_docs].first['add']['doc']['authoritative_id'].should eql('G02199')
-      result[:add_docs].first['add']['doc']['brokered'].should eql(false)
-      result[:add_docs].first['add']['doc']['dataset_version'].should eql(2)
-      result[:add_docs].first['add']['doc']['data_centers'].should eql('National Snow and Ice Data Center')
-      result[:add_docs].first['add']['doc']['published_date'].should eql('2013-01-01T00:00:00Z')
-      result[:add_docs].first['add']['doc']['last_revision_date'].should eql('2013-03-12T21:18:12Z')
-      result[:add_docs].first['add']['doc']['facet_format'].should eql([SolrFormat::NOT_SPECIFIED])
+      expect(result[:add_docs].first['add']['doc']['authoritative_id']).to eql('G02199')
+      expect(result[:add_docs].first['add']['doc']['brokered']).to eql(false)
+      expect(result[:add_docs].first['add']['doc']['dataset_version']).to eql(2)
+      expect(result[:add_docs].first['add']['doc']['data_centers']).to eql('National Snow and Ice Data Center')
+      expect(result[:add_docs].first['add']['doc']['published_date']).to eql('2013-01-01T00:00:00Z')
+      expect(result[:add_docs].first['add']['doc']['last_revision_date']).to eql('2013-03-12T21:18:12Z')
+      expect(result[:add_docs].first['add']['doc']['facet_format']).to eql([SearchSolrTools::Helpers::SolrFormat::NOT_SPECIFIED])
     end
 
     it 'constructs a sucessful doc children hash and an errors hash for failured ids' do
@@ -63,10 +61,10 @@ describe NsidcJsonHarvester do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       result = @harvester.docs_with_translated_entries_from_nsidc
-      result[:add_docs].first['add']['doc']['authoritative_id'].should eql('G02199')
-      result[:add_docs].length.should eql 2
-      result[:failure_ids].first.should eql('G02199')
-      result[:failure_ids].length.should eql 1
+      expect(result[:add_docs].first['add']['doc']['authoritative_id']).to eql('G02199')
+      expect(result[:add_docs].length).to eql 2
+      expect(result[:failure_ids].first).to eql('G02199')
+      expect(result[:failure_ids].length).to eql 1
     end
   end
 end

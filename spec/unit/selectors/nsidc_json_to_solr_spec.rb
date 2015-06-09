@@ -1,21 +1,21 @@
-require 'search_solr_tools/selectors/nsidc_json'
+require 'spec_helper'
 
-describe NsidcJsonToSolr do
+describe SearchSolrTools::Selectors::NsidcJsonToSolr do
   before :each do
     @translator = described_class.new
   end
 
   it 'translates NSIDC JSON date to SOLR format iso8601 date' do
     date = '2013-03-12T21:18:12-06:00'
-    (SolrFormat.date_str date).should eql '2013-03-12T21:18:12Z'
+    expect(SearchSolrTools::Helpers::SolrFormat.date_str date).to eql '2013-03-12T21:18:12Z'
   end
 
   it 'translates NSIDC internal data center to facet_sponsored_program string' do
     internal_datacenters_json = [{ 'shortName' => 'NASA DAAC', 'longName' => 'NASA DAAC at the National Snow and Ice Data Center', 'url' => 'http://nsidc.org/daac/index.html' },
                                  { 'shortName' => 'NOAA @ NSIDC', 'longName' => 'NSIDC National Oceanic and Atmospheric Administration', 'url' => 'http://nsidc.org/noaa/' }]
     facet_values = @translator.translate_short_long_names_to_facet_value(internal_datacenters_json)
-    facet_values[0].should eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
-    facet_values[1].should eql 'NSIDC National Oceanic and Atmospheric Administration | NOAA @ NSIDC'
+    expect(facet_values[0]).to eql 'NASA DAAC at the National Snow and Ice Data Center | NASA DAAC'
+    expect(facet_values[1]).to eql 'NSIDC National Oceanic and Atmospheric Administration | NOAA @ NSIDC'
   end
 
   it 'translates NSIDC sensors to facet_sensor string' do
@@ -23,9 +23,9 @@ describe NsidcJsonToSolr do
                                  { 'shortName' => 'MISC', 'longName' => '' },
                                  { 'shortName' => 'missing', 'longName' => nil }]
     facet_values = @translator.translate_short_long_names_to_facet_value(internal_datacenters_json)
-    facet_values[0].should eql 'Scanning Multichannel Microwave Radiometer | SMMR'
-    facet_values[1].should eql ' | MISC'
-    facet_values[2].should eql ' | missing'
+    expect(facet_values[0]).to eql 'Scanning Multichannel Microwave Radiometer | SMMR'
+    expect(facet_values[1]).to eql ' | MISC'
+    expect(facet_values[2]).to eql ' | missing'
   end
 
   it 'translates NSIDC citation creators to authors list' do
@@ -35,9 +35,9 @@ describe NsidcJsonToSolr do
       { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
       { 'role' => '',       'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' }] }
     authors = @translator.translate_personnel_and_creators_to_authors(nil, @translator.generate_data_citation_creators(creator_json))
-    authors[0].should eql('Claire L. Parkinson')
-    authors[1].should eql('Per Gloersen')
-    authors[2].should eql('H. Jay Zwally')
+    expect(authors[0]).to eql('Claire L. Parkinson')
+    expect(authors[1]).to eql('Per Gloersen')
+    expect(authors[2]).to eql('H. Jay Zwally')
   end
 
   it 'translates NSIDC personnel json to authors list' do
@@ -47,10 +47,10 @@ describe NsidcJsonToSolr do
                       { 'role' => 'investigator', 'firstName' => 'H. Jay', 'middleName' => '', 'lastName' => 'Zwally' }]
 
     authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(nil))
-    authors[0].should_not include('NSIDC User Services')
-    authors[0].should eql('Claire L. Parkinson')
-    authors[1].should eql('Per Gloersen')
-    authors[2].should eql('H. Jay Zwally')
+    expect(authors[0]).to_not include('NSIDC User Services')
+    expect(authors[0]).to eql('Claire L. Parkinson')
+    expect(authors[1]).to eql('Per Gloersen')
+    expect(authors[2]).to eql('H. Jay Zwally')
   end
 
   it 'translates NSIDC citation creators and personnel json to authors list without duplicates' do
@@ -67,11 +67,11 @@ describe NsidcJsonToSolr do
       { 'role' => 'author', 'firstName' => 'Ian',    'middleName' => 'M',  'lastName' => 'Banks' }] }
 
     authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(creator_json))
-    authors.length.should eql 4
-    authors[0].should eql('Claire L. Parkinson')
-    authors[1].should eql('Per Gloersen')
-    authors[2].should eql('H. Jay Zwally')
-    authors[3].should eql('Ian M Banks')
+    expect(authors.length).to eql 4
+    expect(authors[0]).to eql('Claire L. Parkinson')
+    expect(authors[1]).to eql('Per Gloersen')
+    expect(authors[2]).to eql('H. Jay Zwally')
+    expect(authors[3]).to eql('Ian M Banks')
   end
 
   it 'translates NSIDC parameters json to parameters' do
@@ -86,12 +86,12 @@ describe NsidcJsonToSolr do
                        { 'name' => 'ignore name', 'temporalResolution' => '', 'category' => '', 'topic' => '', 'term' => '', 'variableLevel1' => '', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
     params = @translator.translate_parameters parameters_json
-    params.should include('EARTH SCIENCE')
-    params.should include('Oceans')
-    params.should include('Sea Ice')
-    params.should include('Sea Ice Concentration')
-    params.should include('test detail')
-    params.should_not include('')
+    expect(params).to include('EARTH SCIENCE')
+    expect(params).to include('Oceans')
+    expect(params).to include('Sea Ice')
+    expect(params).to include('Sea Ice Concentration')
+    expect(params).to include('test detail')
+    expect(params).to_not include('')
   end
 
   it 'translates NSIDC parameters json to parameter strings' do
@@ -105,12 +105,12 @@ describe NsidcJsonToSolr do
                        { 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'name' => 'ignore name', 'temporalResolution' => '', 'category' => '', 'topic' => '', 'term' => '', 'variableLevel1' => '', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
-    params = @translator.translate_json_string(parameters_json, NsidcJsonToSolr::PARAMETER_PARTS)
-    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration > test detail')
-    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
-    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
-    params.should_not include ''
-    params.length.should eql 3
+    params = @translator.translate_json_string(parameters_json, described_class::PARAMETER_PARTS)
+    expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration > test detail')
+    expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
+    expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
+    expect(params).to_not include ''
+    expect(params.length).to eql 3
   end
 
   it 'translates NSIDC-0192 paramters json to parameter strings' do
@@ -119,13 +119,13 @@ describe NsidcJsonToSolr do
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => '', 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => '', 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
-    params = @translator.translate_json_string(parameters_json, NsidcJsonToSolr::PARAMETER_PARTS)
-    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
-    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
-    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
-    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
-    params.should_not include ''
-    params.length.should eql 4
+    params = @translator.translate_json_string(parameters_json, described_class::PARAMETER_PARTS)
+    expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
+    expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
+    expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
+    expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
+    expect(params).to_not include ''
+    expect(params.length).to eql 4
   end
 
   it 'translates G00799 parameters to parameter string' do
@@ -135,12 +135,12 @@ describe NsidcJsonToSolr do
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Cryosphere', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' },
                        { 'name' => 'Sea Ice Concentration', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'P1M' }, 'category' => 'EARTH SCIENCE', 'topic' => 'Oceans', 'term' => 'Sea Ice', 'variableLevel1' => 'Sea Ice Concentration', 'variableLevel2' => '', 'variableLevel3' => '', 'detailedVariable' => '' }]
 
-    params = @translator.translate_json_string(parameters_json, NsidcJsonToSolr::PARAMETER_PARTS)
-    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
-    params.should include('EARTH SCIENCE > Terrestrial Hydrosphere > Snow/Ice > Ice Extent')
-    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
-    params.should include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
-    params.should include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
+    params = @translator.translate_json_string(parameters_json, described_class::PARAMETER_PARTS)
+    expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Ice Extent')
+    expect(params).to include('EARTH SCIENCE > Terrestrial Hydrosphere > Snow/Ice > Ice Extent')
+    expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
+    expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
+    expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
   end
 
   it 'translates NSIDC platforms json to solr platforms json' do
@@ -149,8 +149,8 @@ describe NsidcJsonToSolr do
 
     platforms = @translator.translate_json_string platforms_json
 
-    platforms.should include('AQUA > Earth Observing System, AQUA')
-    platforms.should include('DMSP 5D-2/F11 > Defense Meteorological Satellite Program-F11')
+    expect(platforms).to include('AQUA > Earth Observing System, AQUA')
+    expect(platforms).to include('DMSP 5D-2/F11 > Defense Meteorological Satellite Program-F11')
   end
 
   it 'translates NSIDC instruments json to solr instruments json' do
@@ -159,8 +159,8 @@ describe NsidcJsonToSolr do
 
     instruments = @translator.translate_json_string instruments_json
 
-    instruments.should include('AMSR-E > Advanced Microwave Scanning Radiometer-EOS')
-    instruments.should include('SSM/I > Special Sensor Microwave/Imager')
+    expect(instruments).to include('AMSR-E > Advanced Microwave Scanning Radiometer-EOS')
+    expect(instruments).to include('SSM/I > Special Sensor Microwave/Imager')
   end
 
   it 'translates NSIDC distribution formats json to solr format facet json' do
@@ -168,8 +168,8 @@ describe NsidcJsonToSolr do
 
     formats = @translator.translate_format_to_facet_format(format_json)
 
-    formats.should include('.dat')
-    formats.should include('Documents')
+    expect(formats).to include('.dat')
+    expect(formats).to include('Documents')
   end
 
   describe 'temporal resolution faceting' do
@@ -177,7 +177,7 @@ describe NsidcJsonToSolr do
       parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
                          { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'P3D', 'max_resolution' => 'P20D' } }]
       facets = @translator.translate_temporal_resolution_facet_values(parameters_json)
-      facets.should eql %w(Subdaily Weekly Submonthly)
+      expect(facets).to eql %w(Subdaily Weekly Submonthly)
     end
   end
 
@@ -190,7 +190,7 @@ describe NsidcJsonToSolr do
                            'spatialXResolution' => { 'type' => 'range', 'min_resolution' => '300 m', 'max_resolution' => '2200 m' },
                            'spatialYResolution' => { 'type' => 'range', 'min_resolution' => '300 m', 'max_resolution' => '2200 m' } }]
       facets = @translator.translate_spatial_resolution_facet_values(parameters_json)
-      facets.sort.should eql ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '>30 km'].sort
+      expect(facets.sort).to eql ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '>30 km'].sort
     end
   end
 
@@ -198,7 +198,7 @@ describe NsidcJsonToSolr do
     it 'translates NSIDC instruments to defined solr facet sensor value' do
       sensor_json = [{ 'shortName' => 'MODIS', 'longName' => 'Modis Test Instrument' }, { 'shortName' => 'TEST', 'longName' => 'Instrument Long Name' }]
       facets = @translator.translate_sensor_to_facet_sensor(sensor_json)
-      facets.sort.should eql [' | TESTBIN', 'Modis Test Instrument | MODIS']
+      expect(facets.sort).to eql [' | TESTBIN', 'Modis Test Instrument | MODIS']
     end
   end
 end

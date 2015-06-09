@@ -1,12 +1,9 @@
-require 'webmock/rspec'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/ade'
-require 'search_solr_tools/helpers/csw_iso_query_builder'
-
-describe ADEHarvester do
+describe SearchSolrTools::Harvesters::ADE do
   describe 'Harvest process' do
     before(:each) do
-      @ade_harvester = ADEHarvester.new('integration')
+      @ade_harvester = described_class.new('integration')
       @ade_harvester.page_size = 25
     end
 
@@ -16,7 +13,7 @@ describe ADEHarvester do
       end
 
       it 'can enable a different profile' do
-        @ade_harvester = ADEHarvester.new('integration', 'EOL')
+        @ade_harvester = described_class.new('integration', 'EOL')
         expect(@ade_harvester.profile).to eql 'EOL'
       end
     end
@@ -43,7 +40,7 @@ describe ADEHarvester do
 
       it 'Makes a request to the GI-Cat CSW/ISO service' do
         csw_iso_url = 'http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso'
-        query_params = CswIsoQueryBuilder.query_params(
+        query_params = SearchSolrTools::Helpers::CswIsoQueryBuilder.query_params(
           'namespace' => 'xmlns(gmd=http://www.isotc211.org/2005/gmd)',
           'resultType' => 'results',
           'maxRecords' => '25',

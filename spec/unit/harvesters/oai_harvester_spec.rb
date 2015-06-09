@@ -1,8 +1,8 @@
-require 'search_solr_tools/harvesters/oai'
+require 'spec_helper'
 
-describe OaiHarvester do
+describe SearchSolrTools::Harvesters::Oai do
   before(:each) do
-    @harvester = OaiHarvester.new
+    @harvester = described_class.new
   end
 
   describe '#initialize' do

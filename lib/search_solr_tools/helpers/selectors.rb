@@ -1,25 +1,20 @@
-require_relative '../selectors/ade_cisl'
-require_relative '../selectors/ade_eol'
-require_relative '../selectors/ade_nmi'
-require_relative '../selectors/echo_iso'
-require_relative '../selectors/ices_iso'
-require_relative '../selectors/nodc_iso'
-require_relative '../selectors/pdc_iso'
-require_relative '../selectors/ade_rda'
-require_relative '../selectors/tdar_opensearch'
-require_relative '../selectors/usgs_iso'
+require 'search_solr_tools/selectors'
 
-# This hash grabs all the selector files inside the selectors directory,
-# to add a new source we need to create a selector file and add it to this hash.
-SELECTORS = {
-  cisl:   CISL,
-  echo:   ECHO,
-  eol:    EOL,
-  ices:   ICES,
-  nmi:    NMI,
-  nodc:   NODC,
-  pdc:    PDC,
-  rda:    RDA,
-  tdar:   TDAR,
-  usgs:   USGS
-}
+module SearchSolrTools
+  module Helpers
+    # This hash grabs all the selector files inside the selectors directory,
+    # to add a new source we need to create a selector file and add it to this hash.
+    SELECTORS = {
+      cisl:   Selectors::CISL,
+      echo:   Selectors::ECHO,
+      eol:    Selectors::EOL,
+      ices:   Selectors::ICES,
+      nmi:    Selectors::NMI,
+      nodc:   Selectors::NODC,
+      pdc:    Selectors::PDC,
+      rda:    Selectors::RDA,
+      tdar:   Selectors::TDAR,
+      usgs:   Selectors::USGS
+    }
+  end
+end

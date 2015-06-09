@@ -1,8 +1,6 @@
-require 'webmock/rspec'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/auto_suggest'
-
-describe AutoSuggestHarvester do
+describe SearchSolrTools::Harvesters::AutoSuggest do
   describe 'harvest_nsidc' do
     it 'harvests from nsidc_oai and inserts into auto_suggest' do
       auto_suggest_harvester = described_class.new 'integration'
@@ -17,19 +15,19 @@ describe AutoSuggestHarvester do
 
       auto_suggest_harvester.harvest_nsidc
 
-      a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true').should have_been_made
+      expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')).to have_been_made
 
-      a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
-        .with { |req| req.body.include?('"id":"NSIDC:AA_L2A","text_suggest":"AA_L2A","source":"NSIDC","weight"') }.should have_been_made
+      expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
+        .with { |req| req.body.include?('"id":"NSIDC:AA_L2A","text_suggest":"AA_L2A","source":"NSIDC","weight"') }).to have_been_made
 
-      a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
-        .with { |req| req.body.include?('AARI 10-Day Arctic Ocean EASE-Grid Sea Ice Observations') }.should have_been_made
+      expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
+        .with { |req| req.body.include?('AARI 10-Day Arctic Ocean EASE-Grid Sea Ice Observations') }).to have_been_made
 
-      a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
-        .with { |req| req.body.include?('Snow/Ice') }.should have_been_made
+      expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
+        .with { |req| req.body.include?('Snow/Ice') }).to have_been_made
 
-      a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
-        .with { |req| req.body.include?('H. Jay Zwally') }.should have_been_made
+      expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
+        .with { |req| req.body.include?('H. Jay Zwally') }).to have_been_made
     end
   end
 end

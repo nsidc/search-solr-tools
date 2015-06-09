@@ -1,8 +1,6 @@
-require 'webmock/rspec'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/tdar'
-
-describe TdarHarvester do
+describe SearchSolrTools::Harvesters::Tdar do
   before :each do
     @harvester = described_class.new 'integration'
   end
@@ -12,7 +10,7 @@ describe TdarHarvester do
     stub_request(:get, request_url)
       .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/xml', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<feed xmlns="http://www.w3.org/2005/Atom"><entry><foo/></entry></feed>')
-    @harvester.get_results_from_tdar(1).first.first_element_child.to_xml.should eql('<foo/>')
+    expect(@harvester.get_results_from_tdar(1).first.first_element_child.to_xml).to eql('<foo/>')
   end
 
   describe 'Adding documents to Solr' do
@@ -23,7 +21,7 @@ describe TdarHarvester do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/tdar_opensearch.xml'), headers: {})
 
       entries = @harvester.get_results_from_tdar(1)
-      @harvester.get_docs_with_translated_entries_from_tdar(entries).first.root.first_element_child.name.should eql('doc')
+      expect(@harvester.get_docs_with_translated_entries_from_tdar(entries).first.root.first_element_child.name).to eql('doc')
     end
 
     it 'Issues a request to update Solr with data' do
@@ -37,7 +35,7 @@ describe TdarHarvester do
                 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: 'success', headers: {})
 
-      @harvester.insert_solr_doc(Nokogiri.XML('<add><foo></add>')).should eql(true)
+      expect(@harvester.insert_solr_doc(Nokogiri.XML('<add><foo></add>'))).to eql(true)
     end
   end
 end

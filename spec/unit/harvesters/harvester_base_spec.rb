@@ -1,23 +1,20 @@
-require 'nokogiri'
+require 'spec_helper'
 
-require 'search_solr_tools/config/environments'
-require 'search_solr_tools/harvesters/base'
-
-describe HarvesterBase do
+describe SearchSolrTools::Harvesters::Base do
   describe 'Initialization' do
     it 'Uses a default environment if not specified' do
-      harvester = HarvesterBase.new
+      harvester = described_class.new
       expect(harvester.environment).to eq('development')
     end
 
     it 'Initializes with a specific environment name' do
-      harvester = HarvesterBase.new('qa')
+      harvester = described_class.new('qa')
       expect(harvester.environment).to eq('qa')
     end
   end
 
   it 'Builds a new Nokogiri XML document with an "add" root node' do
-    doc = HarvesterBase.new.create_new_solr_add_doc
+    doc = described_class.new.create_new_solr_add_doc
     expect(doc.root.name).to eql('add')
     expect(doc.to_xml).to eql("<?xml version=\"1.0\"?>\n<add/>\n")
   end
@@ -33,11 +30,11 @@ describe HarvesterBase do
               'Accept' => '*/*; q=0.5, application/xml',
               'Accept-Encoding' => 'gzip, deflate',
               'Content-Length' => '48',
-              'Content-Type' => HarvesterBase::JSON_CONTENT_TYPE,
+              'Content-Type' => described_class::JSON_CONTENT_TYPE,
               'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: 'success', headers: {})
 
-    harvester.insert_solr_doc(add_doc, HarvesterBase::JSON_CONTENT_TYPE).should eql(true)
+    expect(harvester.insert_solr_doc(add_doc, described_class::JSON_CONTENT_TYPE)).to eql(true)
   end
 
   it 'serializes an XML add document and adds it to solr in XML format' do
@@ -49,42 +46,41 @@ describe HarvesterBase do
               'Accept' => '*/*; q=0.5, application/xml',
               'Accept-Encoding' => 'gzip, deflate',
               'Content-Length' => '105',
-              'Content-Type' => HarvesterBase::XML_CONTENT_TYPE,
+              'Content-Type' => described_class::XML_CONTENT_TYPE,
               'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: 'success', headers: {})
 
-    harvester.insert_solr_doc(add_doc).should eql(true)
+    expect(harvester.insert_solr_doc(add_doc)).to eql(true)
   end
 
   describe 'harvest_and_delete' do
     before :each do
       @harvester = described_class.new 'integration'
-      @harvester.stub(:harvest)
-      @harvester.should_receive(:harvest).at_least(:once)
+      expect(@harvester).to receive(:harvest).at_least(:once)
     end
 
     it 'adds documents and then deletes documents that were not updated' do
       stubs = stub_update_and_delete(500, 10)
       @harvester.harvest_and_delete(@harvester.method(:harvest), "data_centers:\"test\"")
 
-      stubs[:delete_stub].should have_been_requested
-      stubs[:commit_stub].should have_been_requested
+      expect(stubs[:delete_stub]).to have_been_requested
+      expect(stubs[:commit_stub]).to have_been_requested
     end
 
     it 'Does not delete documents when more then .1 of documents are not updated' do
       stubs = stub_update_and_delete(500, 75)
       @harvester.harvest_and_delete(@harvester.method(:harvest), "data_centers:\"test\"")
 
-      stubs[:delete_stub].should_not have_been_requested
-      stubs[:commit_stub].should_not have_been_requested
+      expect(stubs[:delete_stub]).to_not have_been_requested
+      expect(stubs[:commit_stub]).to_not have_been_requested
     end
 
     it 'Does not delete documents when none exist' do
       stubs = stub_update_and_delete(0, 0)
       @harvester.harvest_and_delete(@harvester.method(:harvest), "data_centers:\"test\"")
 
-      stubs[:delete_stub].should_not have_been_requested
-      stubs[:commit_stub].should_not have_been_requested
+      expect(stubs[:delete_stub]).to_not have_been_requested
+      expect(stubs[:commit_stub]).to_not have_been_requested
     end
   end
 
@@ -95,10 +91,10 @@ describe HarvesterBase do
 
     it 'Can be forced to delete with a timestamp' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.delete_old_documents('20040202', "data_centers:\"test\"", SolrEnvironments[@harvester.environment][:collection_name], true)
+      @harvester.delete_old_documents('20040202', "data_centers:\"test\"", SearchSolrTools::SolrEnvironments[@harvester.environment][:collection_name], true)
 
-      stubs[:delete_stub].should have_been_requested
-      stubs[:commit_stub].should have_been_requested
+      expect(stubs[:delete_stub]).to have_been_requested
+      expect(stubs[:commit_stub]).to have_been_requested
     end
   end
 
@@ -141,7 +137,7 @@ describe HarvesterBase do
     end
 
     before :each do
-      @harvester = HarvesterBase.new
+      @harvester = described_class.new
     end
 
     describe 'non-polar points' do

@@ -1,8 +1,6 @@
-require 'webmock/rspec'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/echo'
-
-describe EchoHarvester do
+describe SearchSolrTools::Harvesters::Echo do
   before :each do
     @harvester = described_class.new 'integration'
   end
@@ -11,7 +9,7 @@ describe EchoHarvester do
     stub_request(:get, 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10?page_num=1&page_size=1000')
       .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/echo10+xml', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<results><result><Collection></Collection></result></results>')
-    @harvester.get_results_from_echo(1).first.first_element_child.to_xml.should eql('<Collection/>')
+    expect(@harvester.get_results_from_echo(1).first.first_element_child.to_xml).to eql('<Collection/>')
   end
 
   describe 'Adding documents to Solr' do
@@ -21,7 +19,7 @@ describe EchoHarvester do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/echo_echo10.xml'), headers: {})
 
       entries = @harvester.get_results_from_echo(1)
-      @harvester.get_docs_with_translated_entries_from_echo(entries).first.root.first_element_child.name.should eql('doc')
+      expect(@harvester.get_docs_with_translated_entries_from_echo(entries).first.root.first_element_child.name).to eql('doc')
     end
 
     it 'Issues a request to update Solr with data' do
@@ -35,7 +33,7 @@ describe EchoHarvester do
                 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: 'success', headers: {})
 
-      @harvester.insert_solr_doc(Nokogiri.XML('<add><foo></add>')).should eql(true)
+      expect(@harvester.insert_solr_doc(Nokogiri.XML('<add><foo></add>'))).to eql(true)
     end
   end
 end

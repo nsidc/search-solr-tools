@@ -1,9 +1,6 @@
-require 'nokogiri'
+require 'spec_helper'
 
-require 'search_solr_tools/harvesters/rda'
-require 'search_solr_tools/helpers/iso_namespaces'
-
-describe RdaHarvester do
+describe SearchSolrTools::Harvesters::Rda do
   before(:each) do
     @harvester = described_class.new(:dev)
   end
@@ -32,7 +29,7 @@ describe RdaHarvester do
 
     before(:each) do
       doc = Nokogiri.XML(File.open('spec/unit/fixtures/rda_oai.xml'))
-      fixture = doc.xpath('//oai:ListRecords', IsoNamespaces.namespaces(doc))
+      fixture = doc.xpath('//oai:ListRecords', SearchSolrTools::Helpers::IsoNamespaces.namespaces(doc))
 
       allow(@harvester).to receive(:get_results).and_return(fixture)
     end
