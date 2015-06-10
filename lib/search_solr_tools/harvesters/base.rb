@@ -5,9 +5,6 @@ require 'rest-client'
 require 'rsolr'
 require 'time'
 
-require 'search_solr_tools'
-require 'search_solr_tools/helpers'
-
 module SearchSolrTools
   module Harvesters
     # base class for solr harvesters

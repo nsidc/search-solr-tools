@@ -1,12 +1,4 @@
-require 'search_solr_tools/harvesters/ade'
-require 'search_solr_tools/harvesters/auto_suggest'
-require 'search_solr_tools/harvesters/bcodmo'
-require 'search_solr_tools/harvesters/cisl'
-require 'search_solr_tools/harvesters/echo'
-require 'search_solr_tools/harvesters/ices'
-require 'search_solr_tools/harvesters/nodc'
-require 'search_solr_tools/harvesters/tdar'
-require 'search_solr_tools/harvesters/usgs'
+require 'search_solr_tools'
 
 namespace :harvest do
   desc 'Harvest all ADE data, including auto-suggest'

@@ -1,8 +1,6 @@
 require 'json'
 require 'rest-client'
 
-require_relative './base'
-
 module SearchSolrTools
   module Harvesters
     # Use the nsidc_oai core to populate the auto_suggest core

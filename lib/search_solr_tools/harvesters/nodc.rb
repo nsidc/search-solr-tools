@@ -1,6 +1,3 @@
-require 'search_solr_tools/harvesters/base'
-require 'search_solr_tools/helpers'
-
 module SearchSolrTools
   module Harvesters
     # Harvests data from NODC and inserts it into Solr after it has been translated

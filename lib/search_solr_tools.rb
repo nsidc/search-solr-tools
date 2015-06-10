@@ -1,2 +1,5 @@
 require_relative './search_solr_tools/config/environments'
 require_relative './search_solr_tools/version'
+require_relative './search_solr_tools/harvesters'
+require_relative './search_solr_tools/selectors'
+require_relative './search_solr_tools/helpers'

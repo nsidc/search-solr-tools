@@ -1,9 +1,6 @@
 require 'json'
 require 'rest-client'
 
-require_relative 'base'
-require 'search_solr_tools/selectors'
-
 module SearchSolrTools
   module Harvesters
     # Harvests data from BcoDmo endpoint, translates and adds it to solr

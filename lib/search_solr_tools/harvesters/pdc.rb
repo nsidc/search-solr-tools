@@ -1,6 +1,3 @@
-require 'search_solr_tools/harvesters/oai'
-require 'search_solr_tools/helpers'
-
 module SearchSolrTools
   module Harvesters
     # Harvests data from Polar data catalogue and inserts it into

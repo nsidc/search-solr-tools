@@ -1,7 +1,11 @@
-require_relative './ade_harvester'
+require_relative './ade'
 
-class EolHarvester < ADEHarvester
-  def initialize(env = 'development', die_on_failure = false)
-    super env, 'EOL', die_on_failure
+module SearchSolrTools
+  module Harvesters
+    class Eol < ADE
+      def initialize(env = 'development', die_on_failure = false)
+        super env, 'EOL', die_on_failure
+      end
+    end
   end
 end

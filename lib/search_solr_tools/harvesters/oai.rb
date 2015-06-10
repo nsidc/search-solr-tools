@@ -1,8 +1,5 @@
 require 'json'
 
-require 'search_solr_tools/harvesters/base'
-require 'search_solr_tools/helpers'
-
 module SearchSolrTools
   module Harvesters
     # Base class for harvesting Oai feeds into SOLR

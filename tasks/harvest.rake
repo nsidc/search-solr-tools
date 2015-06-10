@@ -1,5 +1,4 @@
-require 'search_solr_tools/harvesters/auto_suggest'
-require 'search_solr_tools/harvesters/nsidc_json'
+require 'search_solr_tools'
 
 namespace :harvest do
   desc 'Harvest all of NSIDC and ADE data and auto suggest'
