@@ -1,14 +1,9 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'search_solr_tools/version'
-
 # no need for tests or dev files like .rubocop.yml to be packaged with the gem
 gem_files = %(.ruby-version CHANGELOG.md COPYING README.md config/ lib/ search_solr_tools.gemspec)
 
 Gem::Specification.new do |spec|
   spec.name          = 'search_solr_tools'
-  spec.version       = SearchSolrTools::VERSION
+  spec.version       = '3.0.0.rc'
   spec.authors       = ['Chris Chalstrom', 'Michael Brandt', 'Jonathan Kovarik', 'Luis Lopez', 'Stuart Reed']
   spec.email         = ['cchalstr@nsidc.org', 'mbrandt@colorado.edu', 'kovarik@nsidc.org', 'luis.lopezespinosa@colorado.edu', 'stuart.reed@colorado.edu']
   spec.summary       = ''
