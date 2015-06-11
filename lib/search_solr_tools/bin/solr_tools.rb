@@ -50,8 +50,8 @@ class SolrHarvestCLI < Thor
   def delete_by_data_center
     harvester = get_harvester_class(options[:from]).new options[:environment]
     harvester.delete_old_documents(options[:timestamp],
-                                   "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[options[:from].upcase.to_sym][:long_name]}\"",
-                                   SolrEnvironments[harvester.environment][:collection_name],
+                                   "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:from].upcase.to_sym][:long_name]}\"",
+                                   SearchSolrTools::SolrEnvironments[harvester.environment][:collection_name],
                                    true
                                   )
   end
