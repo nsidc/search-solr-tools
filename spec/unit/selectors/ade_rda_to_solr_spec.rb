@@ -19,7 +19,7 @@ describe 'RDA ISO to Solr converter' do
     {
       title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'UCAR/NCAR Research Data Archive'
+      expected_text: 'UCAR NCAR Research Data Archive'
     },
     {
       title: 'should grab the correct get data link',
