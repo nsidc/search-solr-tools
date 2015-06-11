@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = File.read(File.expand_path('../.ruby-version', __FILE__)).strip
 
   spec.add_runtime_dependency 'thor', '~> 0.18'
-  spec.add_runtime_dependency 'require_all'
+  spec.add_runtime_dependency 'require_all', '~> 1.3'
   spec.add_runtime_dependency 'gi_cat_driver', '~> 0.3'
   spec.add_runtime_dependency 'iso8601', '~> 0.8'
   spec.add_runtime_dependency 'multi_json', '~> 1.11'
