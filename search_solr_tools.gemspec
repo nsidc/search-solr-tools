@@ -1,5 +1,5 @@
 # no need for tests or dev files like .rubocop.yml to be packaged with the gem
-gem_files = %(.ruby-version CHANGELOG.md COPYING README.md config/ lib/ search_solr_tools.gemspec)
+gem_files = %(CHANGELOG.md COPYING README.md config/ lib/ search_solr_tools.gemspec)
 
 Gem::Specification.new do |spec|
   spec.name          = 'search_solr_tools'
