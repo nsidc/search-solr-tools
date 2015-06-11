@@ -4,12 +4,12 @@ require 'thor'
 
 class SolrHarvestCLI < Thor
   desc 'harvest', 'Harvest from one of the ADE harvesters'
-  option :from, type: :array, required: true
+  option :data_center, type: :array, required: true
   option :environment, required: true
   option :die_on_failure, type: :boolean
 
   def harvest(die_on_failure = options[:die_on_failure] || false)
-    options[:from].each do|target|
+    options[:data_center].each do|target|
       puts harvester_map["#{target}"]
       begin
         harvest_class = get_harvester_class(target)
@@ -46,11 +46,11 @@ class SolrHarvestCLI < Thor
   desc 'delete_by_data_center', 'Force deletion of documents for a specific data center with timestamps before the passed timestamp in format iso8601 (2014-07-14T21:49:21Z)'
   option :timestamp, required: true
   option :environment, required: true
-  option :from,  required: true
+  option :data_center,  required: true
   def delete_by_data_center
-    harvester = get_harvester_class(options[:from]).new options[:environment]
+    harvester = get_harvester_class(options[:data_center]).new options[:environment]
     harvester.delete_old_documents(options[:timestamp],
-                                   "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:from].upcase.to_sym][:long_name]}\"",
+                                   "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:data_center].upcase.to_sym][:long_name]}\"",
                                    SearchSolrTools::SolrEnvironments[harvester.environment][:collection_name],
                                    true
                                   )
