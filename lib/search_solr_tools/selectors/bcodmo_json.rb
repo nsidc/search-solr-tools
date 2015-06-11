@@ -3,7 +3,7 @@ require 'rest-client'
 require 'rgeo/geo_json'
 require 'rgeo/wkrep/wkt_parser'
 
-require 'search_solr_tools/helpers'
+require 'search_solr_tools'
 
 module SearchSolrTools
   module Selectors

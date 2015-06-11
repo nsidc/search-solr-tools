@@ -1,7 +1,5 @@
 require 'nokogiri'
 
-require 'search_solr_tools/helpers/selectors'
-
 module SearchSolrTools
   module Helpers
     # Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object

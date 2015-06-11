@@ -1,9 +1,7 @@
 require 'json'
 require 'rest-client'
 
-require 'search_solr_tools/harvesters/base'
-require 'search_solr_tools/helpers'
-require 'search_solr_tools/selectors'
+require 'search_solr_tools'
 
 module SearchSolrTools
   module Harvesters

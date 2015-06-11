@@ -1,4 +1,4 @@
-require 'search_solr_tools/helpers'
+require 'search_solr_tools'
 
 module SearchSolrTools
   module Selectors
@@ -28,7 +28,7 @@ module SearchSolrTools
       },
       data_centers: {
         xpaths: [''],
-        default_values: [Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
+        default_values: [SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
         multivalue: false
       },
       authors: {
@@ -46,9 +46,9 @@ module SearchSolrTools
       },
       last_revision_date: {
         xpaths: ['.//dif:Last_DIF_Revision_Date'],
-        default_values: [Helpers::SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+        default_values: [SearchSolrTools::Helpers::SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
         multivalue: false,
-        format: Helpers::SolrFormat::DATE
+        format: SearchSolrTools::Helpers::SolrFormat::DATE
       },
       dataset_url: {
         xpaths: ['.//dif:Related_URL/dif:URL'],
@@ -57,34 +57,34 @@ module SearchSolrTools
       spatial_coverages: {
         xpaths: ['.//dif:Spatial_Coverage'],
         multivalue: true,
-        format: Helpers::IsoToSolrFormat::SPATIAL_DISPLAY
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::SPATIAL_DISPLAY
       },
       spatial: {
         xpaths: ['.//dif:Spatial_Coverage'],
         multivalue: true,
-        format: Helpers::IsoToSolrFormat::SPATIAL_INDEX
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::SPATIAL_INDEX
       },
       spatial_area: {
         xpaths: ['.//dif:Spatial_Coverage'],
         multivalue: false,
-        reduce: Helpers::IsoToSolrFormat::MAX_SPATIAL_AREA,
-        format: Helpers::IsoToSolrFormat::SPATIAL_AREA
+        reduce: SearchSolrTools::Helpers::IsoToSolrFormat::MAX_SPATIAL_AREA,
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::SPATIAL_AREA
       },
       temporal: {
         xpaths: ['.//dif:Temporal_Coverage'],
         multivalue: true,
-        format: Helpers::IsoToSolrFormat::TEMPORAL_INDEX_STRING
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::TEMPORAL_INDEX_STRING
       },
       temporal_coverages: {
         xpaths: ['.//dif:Temporal_Coverage'],
         multivalue: true,
-        format: Helpers::IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
       },
       temporal_duration: {
         xpaths: ['.//dif:Temporal_Coverage'],
         multivalue: false,
-        reduce: Helpers::SolrFormat::REDUCE_TEMPORAL_DURATION,
-        format: Helpers::IsoToSolrFormat::TEMPORAL_DURATION
+        reduce: SearchSolrTools::Helpers::SolrFormat::REDUCE_TEMPORAL_DURATION,
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::TEMPORAL_DURATION
       },
       source: {
         xpaths: [''],
@@ -93,18 +93,18 @@ module SearchSolrTools
       },
       facet_data_center: {
         xpaths: [''],
-        default_values: ["#{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
+        default_values: ["#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
         multivalue: false
       },
       facet_spatial_scope: {
         xpaths: ['.//dif:Spatial_Coverage'],
         multivalue: true,
-        format: Helpers::IsoToSolrFormat::FACET_SPATIAL_SCOPE
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::FACET_SPATIAL_SCOPE
       },
       facet_temporal_duration: {
         xpaths: ['.//dif:Temporal_Coverage'],
-        default_values: [Helpers::SolrFormat::NOT_SPECIFIED],
-        format: Helpers::IsoToSolrFormat::FACET_TEMPORAL_DURATION,
+        default_values: [SearchSolrTools::Helpers::SolrFormat::NOT_SPECIFIED],
+        format: SearchSolrTools::Helpers::IsoToSolrFormat::FACET_TEMPORAL_DURATION,
         multivalue: true
       }
     }

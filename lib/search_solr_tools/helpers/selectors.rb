@@ -1,4 +1,5 @@
-require 'search_solr_tools/selectors'
+require 'require_all'
+require_rel '../selectors'
 
 module SearchSolrTools
   module Helpers
