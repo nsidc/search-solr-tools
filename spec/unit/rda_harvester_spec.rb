@@ -13,7 +13,7 @@ describe RdaHarvester do
   describe '#initialize' do
     it 'has a @data_centers instance variable' do
       expect(@harvester.instance_variable_defined?(:@data_centers)).to eql true
-      expect(@harvester.instance_variable_get(:@data_centers)).to eql 'UCAR/NCAR Research Data Archive'
+      expect(@harvester.instance_variable_get(:@data_centers)).to eql 'UCAR NCAR Research Data Archive'
     end
 
     it 'has a @translator instance variable' do

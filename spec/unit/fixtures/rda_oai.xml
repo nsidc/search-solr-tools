@@ -19,9 +19,9 @@
           <Entry_ID>NCAR_DS277.0</Entry_ID>
           <Entry_Title>NCEP Version 2.0 OI Global SST and NCDC Version 4.0 Extended Reconstructed SST Analyses</Entry_Title>
           <Data_Set_Citation>
-            <Dataset_Creator>UCAR/NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</Dataset_Creator>
+            <Dataset_Creator>UCAR NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</Dataset_Creator>
             <Dataset_Title>NCEP Version 2.0 OI Global SST and NCDC Version 4.0 Extended Reconstructed SST Analyses</Dataset_Title>
-            <Dataset_Publisher>UCAR/NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</Dataset_Publisher>
+            <Dataset_Publisher>UCAR NCAR/CISL/DSS > Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</Dataset_Publisher>
             <Online_Resource>http://rda.ucar.edu/datasets/ds277.0/</Online_Resource>
           </Data_Set_Citation>
           <Personnel>
@@ -88,7 +88,7 @@
           <Data_Set_Language>English</Data_Set_Language>
           <Data_Center>
             <Data_Center_Name>
-              <Short_Name>UCAR/NCAR/CISL/DSS</Short_Name>
+              <Short_Name>UCAR NCAR/CISL/DSS</Short_Name>
               <Long_Name>Data Support Section, Computational and Information Systems Laboratory, National Center for Atmospheric Research, University Corporation for Atmospheric Research</Long_Name>
             </Data_Center_Name>
             <Data_Center_URL>http://rda.ucar.edu/</Data_Center_URL>
