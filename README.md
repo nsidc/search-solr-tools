@@ -16,24 +16,31 @@ downloaded from
 [Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/). At
 NSIDC, the development VM can be provisioned with the
 [solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
-configure Solr.
+configure Solr. Alternatively, the
+[search-solr](https://bitbucket.org/nsidc/search-solr/) project, which contains
+puppetry to install solr and any other dependencies, as well some necessary
+config files like `schema.xml`, can be used.
 
 ### Harvesting Data
 
 The harvester requires additional metadata from services that may not yet be
 publicly available, which are referenced in
-lib/search_solr_tools/config/environments.yaml.
+`lib/search_solr_tools/config/environments.yaml`.
 
-To utilize the gem, build and install the search_solr_tools gem, this will add
-an executable 'search_solr_tools' to the path (source is in
-bin/search_solr_tools). The executable is self-documenting, for a brief overview
-of what's available run the command.
+To utilize the gem, build and install the **search_solr_tools** gem. This will
+add an executable `search_solr_tools` to the path (source is in
+`bin/search_solr_tools`). The executable is self-documenting; for a brief
+overview of what's available, simply run `search_solr_tools`.
 
-Harvesting of data can be done using the 'harvest' task, giving it a list of
-harvesters and an environment, deletion is possible via the 'delete_all' and/or
-'delete_by_data_center' tasks.   'list harvesters' will list the valid harvest
+Harvesting of data can be done using the `harvest` task, giving it a list of
+harvesters and an environment. Deletion is possible via the `delete_all` and/or
+`delete_by_data_center'`tasks. `list harvesters` will list the valid harvest
 targets.
 
+In addition to feed URLs, `environments.yaml` also defines various environments
+which can be modified, or additional environments can be added by just adding a
+new YAML stanza with the right keys; this new environment can then be used with
+the `--environment` flag when running `search_solr_tools harvest`.
 
 ### RuboCop
 
