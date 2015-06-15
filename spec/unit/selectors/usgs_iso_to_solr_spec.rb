@@ -1,8 +1,8 @@
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'selectors', 'helpers', 'iso_to_solr')
+require 'spec_helper'
 
 describe 'USGS ISO to Solr converter' do
   fixture = Nokogiri.XML File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'usgs_iso.xml'))
-  iso_to_solr = IsoToSolr.new(:usgs)
+  iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:usgs)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
@@ -116,7 +116,7 @@ describe 'USGS ISO to Solr converter' do
 
   test_expectations.each do |expectation|
     it expectation[:title] do
-      solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
+      expect(solr_doc.xpath(expectation[:xpath]).text.strip).to eql expectation[:expected_text]
     end
   end
 end

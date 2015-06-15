@@ -26,10 +26,67 @@ nsidc_jenkins::plugins:
   ansicolor: {}
   simple-theme-plugin: {}
 
+
+
+base_workspace: /var/lib/jenkins/workspaces/%{hiera('project')}
+ci_workspace: "%{hiera('base_workspace')}/ci"
+release_workspace: "%{hiera('base_workspace')}/release"
+
+gem_name: search_solr_tools
+refresh_gem_index: sudo -u scm ruby1.9.1 /usr/bin/gem generate_index -d /share/sw/packages/ruby/nsidc
+
+job_ci_checkout: "%{hiera('project')}_CI_1_Checkout_Project"
+job_ci_install_deps: "%{hiera('project')}_CI_2_Install_Dependencies"
+job_ci_syntax: "%{hiera('project')}_CI_3_RuboCop"
+job_ci_unit_tests: "%{hiera('project')}_CI_4_Unit_Tests"
+job_ci_publish_prerelease: "%{hiera('project')}_CI_5_Create_Prerelease"
+
+job_release_create_release: "%{hiera('project')}_Release_1_Create_Release"
+job_release_deploy_package: "%{hiera('project')}_Release_2_Deploy_Gem"
+
+cmd_install_deps: bundle install --path /var/lib/jenkins/gems/
+cmd_syntax: bundle exec rubocop --display-cop-names
+cmd_unit_tests: bundle exec rake spec:unit
+
+cmd_publish_prerelease: |
+  bumpversion build
+  bundle exec gem build %{hiera('gem_name')}.gemspec
+
+  sudo -u scm cp %{hiera('gem_name')}-*.gem /share/sw/packages/ruby/nsidc/gems/
+  %{hiera('refresh_gem_index')}
+
+  git push origin --all
+  git push origin --tags
+
+cmd_create_release: |
+  git checkout $ref
+
+  %{hiera('cmd_install_deps')}
+
+  if [ "$version_type" != "none" ]; then
+    bumpversion $version_type
+  fi
+
+  bumpversion release
+  bundle exec gem build %{hiera('gem_name')}.gemspec
+
+  # create next pre-release
+  bumpversion patch
+
+  git push origin --all
+  git push origin --tags
+
+cmd_deploy_package: |
+  sudo -u scm cp %{hiera('gem_name')}-*.gem /share/sw/packages/ruby/nsidc/gems/
+  %{hiera('refresh_gem_index')}
+
+
+
 # Jenkins Jobs
 nsidc_jenkins::jobs:
-  "%{hiera('project')}_1_Checkout_Project":
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
+
+  "%{hiera('job_ci_checkout')}":
+    workspace: "%{hiera('ci_workspace')}"
     parameters:
       - type: string
         name: ref
@@ -39,52 +96,57 @@ nsidc_jenkins::jobs:
       repo: "%{hiera('gitrepo')}"
       poll_scm: true
       checkout_local: false
-    command: |
-      git checkout $ref
-    trigger_job: "%{hiera('project')}_2_Install_Dependencies"
+    command: git checkout $ref
+    trigger_job: "%{hiera('job_ci_install_deps')}"
 
-  "%{hiera('project')}_2_Install_Dependencies":
-    command: bundle install --path /var/lib/jenkins/gems/
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-    trigger_job: "%{hiera('project')}_3_Check_Syntax"
-  "%{hiera('project')}_3_Check_Syntax":
-    command: bundle exec rake jenkins:ci:rubocop
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
-    trigger_job: "%{hiera('project')}_4_Run_Unit_Tests"
-  "%{hiera('project')}_4_Run_Unit_Tests":
-    command: bundle exec rake spec:unit
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/integration
 
-  "%{hiera('project')}_Release_1_Bump_Version_and_Tag":
-    git:
-      repo: "%{hiera('gitrepo')}"
-      poll_scm: false
+  "%{hiera('job_ci_install_deps')}":
+    workspace: "%{hiera('ci_workspace')}"
+    command: "%{hiera('cmd_install_deps')}"
+    trigger_job: "%{hiera('job_ci_syntax')}"
+
+
+  "%{hiera('job_ci_syntax')}":
+    workspace: "%{hiera('ci_workspace')}"
+    command: "%{hiera('cmd_syntax')}"
+    trigger_job: "%{hiera('job_ci_unit_tests')}"
+
+
+  "%{hiera('job_ci_unit_tests')}":
+    workspace: "%{hiera('ci_workspace')}"
+    command: "%{hiera('cmd_unit_tests')}"
+    trigger_job: "%{hiera('job_ci_publish_prerelease')}"
+
+
+  "%{hiera('job_ci_publish_prerelease')}":
+    workspace: "%{hiera('ci_workspace')}"
+    command: "%{hiera('cmd_publish_prerelease')}"
+
+
+  "%{hiera('job_release_create_release')}":
+    description: >-
+      Bump the version, tag, build the desired release gem, and push the git
+      changes.
+    workspace: "%{hiera('release_workspace')}"
     parameters:
       - type: string
-        name: branch
-        description: git branch to checkout and tag
+        name: ref
+        description: git ref to checkout and tag
         default: master
       - type: choice
         name: version_type
         choices:
-          - patch
+          - none
           - minor
           - major
-    command: |
-      bundle install --path /var/lib/jenkins/gems/
-      bundle exec rake jenkins:release:bump[$version_type]
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/release
-    trigger_job: "%{hiera('project')}_Release_2_Publish_Latest"
+    git:
+      repo: "%{hiera('gitrepo')}"
+      poll_scm: false
+      checkout_local: false
+    command: "%{hiera('cmd_create_release')}"
+    trigger_job: "%{hiera('job_release_deploy_package')}"
 
-  # This job is expecting that you have pushed up a branch called
-  # latest to the repo.  The latest branch can be referenced with the
-  # :ref => 'latest' option when calling the module in the consumer's Puppetfile.
-  "%{hiera('project')}_Release_2_Publish_Latest":
-    command: |
-      bundle exec rake jenkins:release:push
-      git fetch origin latest
-      git checkout latest
-      git pull
-      git merge master
-      git push origin latest
-    workspace: /var/lib/jenkins/workspaces/%{hiera('project')}/release
+
+  "%{hiera('job_release_deploy_package')}":
+    workspace: "%{hiera('release_workspace')}"
+    command: "%{hiera('cmd_deploy_package')}"

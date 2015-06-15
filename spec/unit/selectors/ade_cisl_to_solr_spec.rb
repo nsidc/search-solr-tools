@@ -1,8 +1,8 @@
-require 'selectors/helpers/iso_to_solr'
+require 'spec_helper'
 
 describe 'CISL ISO to Solr converter' do
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_oai.xml')
-  iso_to_solr = IsoToSolr.new(:cisl)
+  iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:cisl)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
@@ -101,7 +101,7 @@ describe 'CISL ISO to Solr converter' do
 
   test_expectations.each do |expectation|
     it expectation[:title] do
-      solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
+      expect(solr_doc.xpath(expectation[:xpath]).text.strip).to eql expectation[:expected_text]
     end
   end
 end

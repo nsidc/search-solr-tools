@@ -1,9 +1,9 @@
-require 'selectors/helpers/iso_to_solr'
+require 'spec_helper'
 
 describe 'ECHO ECHO10 to Solr converter' do
   puts "\n\n-----------\n"
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/echo_echo10.xml')
-  iso_to_solr = IsoToSolr.new(:echo)
+  iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:echo)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
@@ -86,7 +86,7 @@ describe 'ECHO ECHO10 to Solr converter' do
 
   test_expectations.each do |expectation|
     it expectation[:title] do
-      solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
+      expect(solr_doc.xpath(expectation[:xpath]).text.strip).to eql expectation[:expected_text]
     end
   end
   puts "\n\n==============\n"

@@ -1,11 +1,10 @@
-require 'selectors/helpers/iso_to_solr'
-require 'selectors/helpers/iso_namespaces'
+require 'spec_helper'
 
 describe 'TDAR to Solr converter' do
   puts "\n\n-----------\n"
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/tdar_opensearch.xml')
-  fixture = fixture.at_xpath('.//atom:entry', IsoNamespaces.namespaces(fixture))
-  iso_to_solr = IsoToSolr.new(:tdar)
+  fixture = fixture.at_xpath('.//atom:entry', SearchSolrTools::Helpers::IsoNamespaces.namespaces(fixture))
+  iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:tdar)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
@@ -91,7 +90,7 @@ describe 'TDAR to Solr converter' do
 
   test_expectations.each do |expectation|
     it expectation[:title] do
-      solr_doc.xpath(expectation[:xpath]).text.strip.should eql expectation[:expected_text]
+      expect(solr_doc.xpath(expectation[:xpath]).text.strip).to eql expectation[:expected_text]
     end
   end
   puts "\n\n==============\n"

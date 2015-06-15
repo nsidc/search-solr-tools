@@ -1,0 +1,70 @@
+:common:
+  :auto_suggest_collection_name: auto_suggest
+  :collection_name: nsidc_oai
+  :collection_path: solr
+  :port: 8983
+  :bcodmo_url: http://www.bco-dmo.org/nsidc/arctic-deployments.json
+  :cisl_url: https://www.aoncadis.org/oai/repository
+  :echo_url: https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10
+  :ices_url: http://geo.ices.dk/geonetwork/srv/en/csw
+  :nodc_url: http://data.nodc.noaa.gov/geoportal/csw
+  :pdc_url: http://www.polardata.ca/oai/provider
+  :rda_url: http://rda.ucar.edu/cgi-bin/oai
+  :tdar_url: http://core.tdar.org/search/rss
+  :usgs_url: https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw
+
+:local:
+  :host: localhost
+  :gi_cat_url: http://liquid.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+
+:dev:
+  :host: dev.search-solr.reedsa.dev.int.nsidc.org
+  :gi_cat_url: http://liquid.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+
+:integration:
+  :host: integration.search-solr.apps.int.nsidc.org
+  :gi_cat_url: http://liquid.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+
+:qa:
+  :host: qa.search-solr.apps.int.nsidc.org
+  :gi_cat_url: http://brash.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://brash.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://qa.nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://qa.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://brash.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+
+:staging:
+  :host: staging.search-solr.apps.int.nsidc.org
+  :gi_cat_url: http://freeze.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://freeze.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://staging.nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://staging.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://freeze.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+
+:blue:
+  :host: blue.search-solr.apps.int.nsidc.org
+  :gi_cat_url: http://frozen.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+
+:production:
+  :host: blue.search-solr.apps.int.nsidc.org
+  :gi_cat_url: http://frozen.colorado.edu:11380/api/gi-cat
+  :gi_cat_csw_url: http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso
+  :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
