@@ -15,7 +15,7 @@ module SearchSolrTools
 
       def harvest_and_delete
         puts "Running harvest of NSIDC catalog from #{nsidc_json_url}"
-        super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]}\"")
+        super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]}\"")
       end
 
       # get translated entries from NSIDC OAI and add them to Solr
