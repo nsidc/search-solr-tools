@@ -59,7 +59,7 @@ class SolrHarvestCLI < Thor
   no_tasks do
     def harvester_map
       {
-        'bco_dmo' => 'BcoDmo'
+        'bco_dmo' => 'BcoDmo',
         'cisl' => 'Cisl',
         'echo' => 'Echo',
         'eol' => 'Eol',
