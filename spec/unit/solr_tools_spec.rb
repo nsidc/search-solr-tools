@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../lib/search_solr_tools/bin/solr_tools'
+load 'bin/search_solr_tools'
 
 describe SolrHarvestCLI do
   before(:each) do
