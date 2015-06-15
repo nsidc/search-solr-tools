@@ -51,10 +51,4 @@ describe SolrHarvestCLI do
       @cli.delete_by_data_center
     end
   end
-
-  describe '#list_harvesters' do
-    it 'returns the list of harvesters' do
-      expect(@cli.list_harvesters).to eql('cisl' => 'Cisl', 'echo' => 'Echo', 'nsidc' => 'NsidcJson')
-    end
-  end
 end

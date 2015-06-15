@@ -24,7 +24,7 @@ class SolrHarvestCLI < Thor
 
   desc 'list_harvesters', 'List all harvesters'
   def list_harvesters
-    harvester_map.each { |k, _v| puts k }
+    puts harvester_map.keys
   end
 
   desc 'delete_all', 'Delete all documents from the index'
