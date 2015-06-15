@@ -10,7 +10,7 @@ class SolrHarvestCLI < Thor
 
   def harvest(die_on_failure = options[:die_on_failure] || false)
     options[:data_center].each do |target|
-      puts harvester_map[target]
+      puts target
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new options[:environment], die_on_failure
@@ -59,30 +59,28 @@ class SolrHarvestCLI < Thor
   no_tasks do
     def harvester_map
       {
-        'bco_dmo' => 'BcoDmo',
-        'cisl' => 'Cisl',
-        'echo' => 'Echo',
-        'eol' => 'Eol',
-        'ices' => 'Ices',
-        'nmi' => 'Nmi',
-        'nodc' => 'Nodc',
-        'rda' => 'Rda',
-        'usgs' => 'Usgs',
-        'tdar' => 'Tdar',
-        'pdc' => 'Pdc',
-        'nsidc' => 'NsidcJson',
-        'nsidc_auto_suggest' => 'NsidcAutoSuggest',
-        'ade_auto_suggest' => 'AdeAutoSuggest'
+        'bco_dmo'            => SearchSolrTools::Harvesters::BcoDmo,
+        'cisl'               => SearchSolrTools::Harvesters::Cisl,
+        'echo'               => SearchSolrTools::Harvesters::Echo,
+        'eol'                => SearchSolrTools::Harvesters::Eol,
+        'ices'               => SearchSolrTools::Harvesters::Ices,
+        'nmi'                => SearchSolrTools::Harvesters::Nmi,
+        'nodc'               => SearchSolrTools::Harvesters::Nodc,
+        'rda'                => SearchSolrTools::Harvesters::Rda,
+        'usgs'               => SearchSolrTools::Harvesters::Usgs,
+        'tdar'               => SearchSolrTools::Harvesters::Tdar,
+        'pdc'                => SearchSolrTools::Harvesters::Pdc,
+        'nsidc'              => SearchSolrTools::Harvesters::NsidcJson,
+        'nsidc_auto_suggest' => SearchSolrTools::Harvesters::NsidcAutoSuggest,
+        'ade_auto_suggest'   => SearchSolrTools::Harvesters::AdeAutoSuggest
       }
     end
 
     def get_harvester_class(data_center_name)
-      SearchSolrTools::Harvesters.const_get harvester_class_name(data_center_name)
-    end
+      name = data_center_name.downcase.to_s
+      fail("Invalid data center #{name}") unless harvester_map.key?(name)
 
-    def harvester_class_name(data_center_name)
-      name = data_center_name.downcase
-      harvester_map[name].to_s.empty? ? fail("Invalid data center #{name}") : harvester_map[name]
+      harvester_map[name]
     end
   end
 end

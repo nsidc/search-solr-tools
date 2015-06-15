@@ -4,20 +4,14 @@ load 'bin/search_solr_tools'
 describe SolrHarvestCLI do
   before(:each) do
     @cli = described_class.new
-    allow(@cli).to receive(:harvester_map).and_return('cisl' => 'Cisl',
-                                                      'echo' => 'Echo',
-                                                      'nsidc' => 'NsidcJson')
+    allow(@cli).to receive(:harvester_map).and_return('cisl' => SearchSolrTools::Harvesters::Cisl,
+                                                      'echo' => SearchSolrTools::Harvesters::Echo,
+                                                      'nsidc' => SearchSolrTools::Harvesters::NsidcJson)
   end
 
   describe '#get_harvester_class' do
     it 'returns the correct harvester class' do
       expect(@cli.get_harvester_class('cisl')).to eql SearchSolrTools::Harvesters::Cisl
-    end
-  end
-
-  describe '#harvester_class_name' do
-    it 'returns the correct harvester class name' do
-      expect(@cli.harvester_class_name('nsidc')).to eql('NsidcJson')
     end
   end
 
@@ -32,7 +26,7 @@ describe SolrHarvestCLI do
       @cli.harvest
     end
 
-    it 'fails on failure if die_on_failure is true' do
+    it 'does not fail on failure if die_on_failure is false' do
       @cli.options = { data_center: ['not a real datacenter'], die_on_failure: false, environment: 'dev' }
       expect { @cli.harvest }.to_not raise_exception
     end
