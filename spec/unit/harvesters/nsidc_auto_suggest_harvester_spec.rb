@@ -15,8 +15,6 @@ describe SearchSolrTools::Harvesters::NsidcAutoSuggest do
 
       auto_suggest_harvester.harvest
 
-      expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')).to have_been_made
-
       expect(a_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/auto_suggest/update?commit=true')
         .with { |req| req.body.include?('"id":"NSIDC:AA_L2A","text_suggest":"AA_L2A","source":"NSIDC","weight"') }).to have_been_made
 

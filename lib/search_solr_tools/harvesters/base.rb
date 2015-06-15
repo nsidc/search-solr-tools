@@ -46,7 +46,7 @@ module SearchSolrTools
         if unchanged_count == 0
           puts "All documents were updated after #{timestamp}, nothing to delete"
         else
-          puts "Begin rmoving documents older than #{timestamp}"
+          puts "Begin removing documents older than #{timestamp}"
           remove_documents(solr, delete_query, constraints, force, unchanged_count)
         end
       end
