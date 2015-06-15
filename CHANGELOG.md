@@ -1,6 +1,10 @@
 ## v3.0.0
 
   - Packaged as a gem.
+  - Change the RDA and EOL harvesters to store the data center name as "UCAR
+    NCAR", rather than "UCAR/NCAR". This fixes a bug with deleting the datasets;
+    the query to Solr was failing because the "/" character could not be
+    correctly escaped.
 
 ## v2.0.0
 

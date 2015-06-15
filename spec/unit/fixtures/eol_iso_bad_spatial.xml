@@ -104,7 +104,7 @@
                                 <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115"/>
                             </gmd:role>
                             <gmd:organisationName>
-                                <gco:CharacterString>UCAR/NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility</gco:CharacterString>
+                                <gco:CharacterString>UCAR NCAR - Earth Observing Laboratory / Computing, Data, and Software Facility</gco:CharacterString>
                             </gmd:organisationName>
                             <gmd:contactInfo>
                                 <gmd:CI_Contact>
