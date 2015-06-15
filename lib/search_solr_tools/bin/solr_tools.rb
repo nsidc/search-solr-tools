@@ -70,7 +70,8 @@ class SolrHarvestCLI < Thor
         'tdar' => 'Tdar',
         'pdc' => 'Pdc',
         'nsidc' => 'NsidcJson',
-        'auto_suggest' => 'AutoSuggest'
+        'nsidc_auto_suggest' => 'NsidcAutoSuggest',
+        'ade_auto_suggest' => 'NsidcAutoSuggest'
       }
     end
 
