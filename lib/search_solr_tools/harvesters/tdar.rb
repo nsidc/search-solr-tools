@@ -10,7 +10,7 @@ module SearchSolrTools
 
       def harvest_and_delete
         puts "Running harvest of TDAR catalog from #{tdar_url}"
-        super(method(:harvest_tdar_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:TDAR][:long_name]}\"")
+        super(method(:harvest_tdar_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:TDAR][:long_name]}\"")
       end
 
       def harvest_tdar_into_solr

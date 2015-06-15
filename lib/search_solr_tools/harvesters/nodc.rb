@@ -10,7 +10,7 @@ module SearchSolrTools
 
       def harvest_and_delete
         puts "Running harvest of NODC catalog from #{nodc_url}"
-        super(method(:harvest_nodc_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]}\"")
+        super(method(:harvest_nodc_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]}\"")
       end
 
       # get translated entries from NODC and add them to Solr

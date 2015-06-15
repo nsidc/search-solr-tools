@@ -10,7 +10,7 @@ module SearchSolrTools
 
       def harvest_and_delete
         puts "Running harvest of ECHO catalog from #{echo_url}"
-        super(method(:harvest_echo_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:ECHO][:long_name]}\"")
+        super(method(:harvest_echo_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:ECHO][:long_name]}\"")
       end
 
       # get translated entries from ECHO and add them to Solr

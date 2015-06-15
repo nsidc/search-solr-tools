@@ -13,7 +13,7 @@ module SearchSolrTools
 
       def harvest_and_delete
         # TODO: add long name for deletion
-        super(method(:harvest_bcodmo_into_solr), "data_centers:\"#{SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name]}\"")
+        super(method(:harvest_bcodmo_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name]}\"")
       end
 
       def harvest_bcodmo_into_solr
