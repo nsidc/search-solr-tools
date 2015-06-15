@@ -1,9 +1,10 @@
 # NSIDC Search Solr Tools
 
-This is a collection of:
+This is a gem that contains:
 
-* Ruby files and rake tasks to transform ISO into Solr documents
-* Rake tasks to harvest NSIDC and ADE data
+* Ruby translators to transform various metadata feeds into solr documents
+* A command-line utility to access/utilize the gem's translators to harvest
+   metadata into a working solr instance.  
 
 ## Working on the Project
 
@@ -19,33 +20,20 @@ configure Solr.
 
 ### Harvesting Data
 
-The harvester requires additional metadata from services that are not yet publicly available, 
-which are referenced in config/environments.rb.
+The harvester requires additional metadata from services that may not yet be
+publicly available, which are referenced in
+lib/search_solr_tools/config/environments.yaml.
 
-Multiple harvester formats such as DIF and ISO are available for mapping different source APIs into Solr.
+To utilize the gem, build and install the search_solr_tools gem, this will add
+an executable 'search_solr_tools' to the path
+(source is in lib/search_solr_tools/bin/search_solr_tools). The executable is
+self-documenting, for a brief overview of what's available run the command.
 
-For only NSIDC results, run the task `rake
-dev:restart_with_clean_nsidc_harvest`. To harvest multiple collections, do these
-steps:
+Harvesting of data can be done using the 'harvest' task, giving it a list of
+harvesters and an environment, deletion is possible via the 'delete_all' and/or
+'delete_by_data_center' tasks.   'list harvesters' will list the valid harvest
+targets.
 
-* `rake build:setup`
-* `rake dev:deploy_schema`
-* `rake dev:restart`
-* `rake harvest:delete_all`
-* Harvest the feeds you want here.
-
-The above is what `rake dev:restart_with_clean_nsidc_harvest` does, with the
-last step being a `rake harvest:nsidc_json`.
-
-Manipulating data in Solr can be done with the `harvest` tasks.
-
-* `rake harvest:all` retrieves and inserts data for both NSIDC search and the
-  Arctic Data Explorer and deletes old documents.
-* `rake harvest:all_ade` gathers data for the Arctic Data Explorer, inserts it
-  into Solr, and deletes old documents.
-* `rake harvest:nsidc_json` will gather data for NSIDC search and delete old
-  documents.
-* `rake harvest:delete_all` wipes out the database in your local Solr.
 
 ### RuboCop
 
