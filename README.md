@@ -4,7 +4,7 @@ This is a gem that contains:
 
 * Ruby translators to transform various metadata feeds into solr documents
 * A command-line utility to access/utilize the gem's translators to harvest
-   metadata into a working solr instance.  
+   metadata into a working solr instance.
 
 ## Working on the Project
 
@@ -25,9 +25,9 @@ publicly available, which are referenced in
 lib/search_solr_tools/config/environments.yaml.
 
 To utilize the gem, build and install the search_solr_tools gem, this will add
-an executable 'search_solr_tools' to the path
-(source is in lib/search_solr_tools/bin/search_solr_tools). The executable is
-self-documenting, for a brief overview of what's available run the command.
+an executable 'search_solr_tools' to the path (source is in
+bin/search_solr_tools). The executable is self-documenting, for a brief overview
+of what's available run the command.
 
 Harvesting of data can be done using the 'harvest' task, giving it a list of
 harvesters and an environment, deletion is possible via the 'delete_all' and/or
@@ -74,18 +74,18 @@ some data indexed:
 
 ### How to contact NSIDC
 
-User Services and general information:  
-Support: http://support.nsidc.org  
-Email: nsidc@nsidc.org  
+User Services and general information:
+Support: http://support.nsidc.org
+Email: nsidc@nsidc.org
 
-Phone: +1 303.492.6199  
-Fax: +1 303.492.2468  
+Phone: +1 303.492.6199
+Fax: +1 303.492.2468
 
-Mailing address:  
-National Snow and Ice Data Center  
-CIRES, 449 UCB  
-University of Colorado  
-Boulder, CO 80309-0449 USA  
+Mailing address:
+National Snow and Ice Data Center
+CIRES, 449 UCB
+University of Colorado
+Boulder, CO 80309-0449 USA
 
 ### License
 
