@@ -9,8 +9,8 @@ class SolrHarvestCLI < Thor
   option :die_on_failure, type: :boolean
 
   def harvest(die_on_failure = options[:die_on_failure] || false)
-    options[:data_center].each do|target|
-      puts harvester_map["#{target}"]
+    options[:data_center].each do |target|
+      puts harvester_map[target]
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new options[:environment], die_on_failure
@@ -82,7 +82,7 @@ class SolrHarvestCLI < Thor
 
     def harvester_class_name(data_center_name)
       name = data_center_name.downcase
-      harvester_map["#{name}"].to_s.empty? ? fail("Invalid data center #{name}") : harvester_map["#{name}"]
+      harvester_map[name].to_s.empty? ? fail("Invalid data center #{name}") : harvester_map[name]
     end
   end
 end
