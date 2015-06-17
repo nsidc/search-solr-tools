@@ -59,11 +59,6 @@ Once you have the gem built in the project directory, install the utility:
 * All gems installed (preferably using bundler: `bundle install`)
 * A running, configured SOLR instance to accept data harvests.
 
-In addition to feed URLs, `environments.yaml` also defines various environments
-which can be modified, or additional environments can be added by just adding a
-new YAML stanza with the right keys; this new environment can then be used with
-the `--environment` flag when running `search_solr_tools harvest`.
-
 ### RuboCop
 
 The style checker [RuboCop](https://github.com/bbatsov/rubocop) can be run with
@@ -122,6 +117,10 @@ harvesters and an environment. Deletion is possible via the `delete_all` and/or
 `delete_by_data_center'`tasks. `list harvesters` will list the valid harvest
 targets.
 
+In addition to feed URLs, `environments.yaml` also defines various environments
+which can be modified, or additional environments can be added by just adding a
+new YAML stanza with the right keys; this new environment can then be used with
+the `--environment` flag when running `search_solr_tools harvest`.
 
 ## Organization Info
 
