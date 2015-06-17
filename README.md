@@ -39,25 +39,25 @@ Once you have the gem built in the project directory, install the utility:
 
 ### Requirements
 
-*  Ruby > 2.0.0
-*  [bundler](http://bundler.io/)
-*  Requirements for nokogiri:
-  *  [libxml2/libxml2-dev](http://xmlsoft.org/)
-  *  [zlibc](http://www.zlibc.linux.lu/)
-  *  [zlib1g/zlib1g-dev](http://zlib.net/)
-  * Dependency build requirements:
-    * For Ubuntu/Debian, install the build-essential package.
-    * On the latest Fedora release installing the following will get you all of the requirements:
+* Ruby > 2.0.0
+* [bundler](http://bundler.io/)
+* Requirements for nokogiri:
+    * [libxml2/libxml2-dev](http://xmlsoft.org/)
+    * [zlibc](http://www.zlibc.linux.lu/)
+    * [zlib1g/zlib1g-dev](http://zlib.net/)
+    * Dependency build requirements:
+        * For Ubuntu/Debian, install the build-essential package.
+        * On the latest Fedora release installing the following will get you all of the requirements:
 
-          `yum groupinstall 'Development Tools'`
+              `yum groupinstall 'Development Tools'`
 
-          `yum install gcc-c++`
+              `yum install gcc-c++`
 
-    *Please note*:  If you are having difficulty installing Nokogiri please review the
-      Nokogiri [installation tutorial](http://www.nokogiri.org/tutorials/installing_nokogiri.html)
+        *Please note*:  If you are having difficulty installing Nokogiri please review the
+          Nokogiri [installation tutorial](http://www.nokogiri.org/tutorials/installing_nokogiri.html)
 
-*  All gems installed (preferably using bundler: `bundle install`)
-*  A running, configured SOLR instance to accept data harvests.
+* All gems installed (preferably using bundler: `bundle install`)
+* A running, configured SOLR instance to accept data harvests.
 
 In addition to feed URLs, `environments.yaml` also defines various environments
 which can be modified, or additional environments can be added by just adding a
