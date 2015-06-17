@@ -6,20 +6,100 @@ This is a gem that contains:
 * A command-line utility to access/utilize the gem's translators to harvest
    metadata into a working solr instance.
 
+## Using the project
+
+### Deployed at NSIDC
+
+The most current copy of our gem is available on the internal gem repository,
+and is being automatically deployed to the search SOLR machine on provision.
+
+To install the gem, ensure all requirements below are met and run (providing the appropriate version):
+
+  `sudo gem install search_solr_tools -v $VERSION -s http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc`
+
+### Custom Deployment:
+
+Clone the repository, and install all requirements as noted below, then run:
+
+  `bundle exec gem build ./search_solr_tools.gemspec`
+
+Once you have the gem built in the project directory, install the utility:
+
+  `gem install --local ./search_solr_tools-version.gem`
+
 ## Working on the Project
 
-Be sure to run `bundle install`. If you encounter errors running `rake`, first
-try using `bundle exec rake` to be sure you are using the right version of Rake.
+1. Create your feature branch (`git checkout -b my-new-feature`)
+2. Stage your changes (`git add`)
+3. Commit your Rubocop compliant and test-passing changes with a
+   [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+  (`git commit`)
+4. Push to the branch (`git push -u origin my-new-feature`)
+5. Create a new Pull Request
 
-To use this project, you will need a local instance of Solr 4.3, which can be
-downloaded from
-[Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/). At
-NSIDC, the development VM can be provisioned with the
+### Requirements
+
+* Ruby > 2.0.0
+* [bundler](http://bundler.io/)
+* Requirements for nokogiri:
+    * [libxml2/libxml2-dev](http://xmlsoft.org/)
+    * [zlibc](http://www.zlibc.linux.lu/)
+    * [zlib1g/zlib1g-dev](http://zlib.net/)
+    * Dependency build requirements:
+        * For Ubuntu/Debian, install the build-essential package.
+        * On the latest Fedora release installing the following will get you all of the requirements:
+
+              `yum groupinstall 'Development Tools'`
+
+              `yum install gcc-c++`
+
+        *Please note*:  If you are having difficulty installing Nokogiri please review the
+          Nokogiri [installation tutorial](http://www.nokogiri.org/tutorials/installing_nokogiri.html)
+
+* All gems installed (preferably using bundler: `bundle install`)
+* A running, configured SOLR instance to accept data harvests.
+
+### RuboCop
+
+The style checker [RuboCop](https://github.com/bbatsov/rubocop) can be run with
+`rubocop` or `bundle exec rake guard:rubocop`. The rake task will also watch for
+ruby files (.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run
+RuboCop on the changed files.
+
+`bundle exec rake guard` will automatically run the unit tests and RuboCop in
+one terminal window.
+
+RuboCop can be configured by modifying `.rubocop.yml`.
+
+Pushing with failing tests or RuboCop violations will cause the Jenkins build to
+break. Jenkins jobs to build and deploy this project are named
+"NSIDC_Search_SOLR_()…" and can be viewed under the
+[NSIDC Search tab](https://scm.nsidc.org/jenkins/view/NSIDC%20Search/).
+
+### Testing
+
+Unit tests can be run with `rspec`, `bundle exec rake spec:unit`, or `bundle
+exec rake guard:specs`.  Running the rake guard task will also automatically run
+the tests whenever the appropriate files are changed.
+
+Please be sure to run them in the `bundle exec` context if you're utilizing bundler.
+
+### SOLR:
+
+To harvest data utilizing the gem, you will need a local configured instance of
+Solr 4.3, which can be downloaded from
+[Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/).
+
+#### NSIDC
+
+At NSIDC the development VM can be provisioned with the
 [solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
-configure Solr. Alternatively, the
-[search-solr](https://bitbucket.org/nsidc/search-solr/) project, which contains
-puppetry to install solr and any other dependencies, as well some necessary
-config files like `schema.xml`, can be used.
+configure Solr.
+
+#### Non-NSIDC
+
+Outside of NSIDC, setup solr using the instructions found in the
+[search-solr](https://bitbucket.org/nsidc/search-solr) project.
 
 ### Harvesting Data
 
@@ -41,41 +121,6 @@ In addition to feed URLs, `environments.yaml` also defines various environments
 which can be modified, or additional environments can be added by just adding a
 new YAML stanza with the right keys; this new environment can then be used with
 the `--environment` flag when running `search_solr_tools harvest`.
-
-### RuboCop
-
-The style checker [RuboCop](https://github.com/bbatsov/rubocop) can be run with
-`rubocop` or `rake guard:rubocop`. The rake task will also watch for ruby files
-(.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run RuboCop on the
-changed files.
-
-`rake guard` will automatically run the unit tests and RuboCop in one terminal
-window.
-
-RuboCop can be configured by modifying `.rubocop.yml`.
-
-Pushing with failing tests or RuboCop violations will cause the Jenkins build to
-break. Jenkins jobs to build and deply this project are named
-"NSIDC_Search_SOLR_()…" and can be viewed under the
-[NSIDC Search tab](https://scm.nsidc.org/jenkins/view/NSIDC%20Search/).
-
-### Testing
-
-Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`.
-Running the rake guard task will also automatically run the tests whenever the
-appropriate files are changed.
-
-Running the acceptance tests locally requires a running instance of Solr and
-some data indexed:
-
-* Use the [Solr dev VM](https://bitbucket.org/nsidc/dev-vm-search). Follow the
-  instructions in that project to get the VM started and running.
-* `vagrant ssh` into the VM
-* Clone this project, run `bundle install`
-* Run `rake build:setup`
-* Run `rake server:start` to start up Solr
-* Run `rake dev:restart_with_clean_nsidc_harvest` to suck in the NSIDC metadata
-* Once Solr has its data, `rake spec:acceptance` runs the ATs.
 
 ## Organization Info
 
