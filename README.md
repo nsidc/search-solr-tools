@@ -6,6 +6,27 @@ This is a gem that contains:
 * A command-line utility to access/utilize the gem's translators to harvest
    metadata into a working solr instance.
 
+## Using the project
+
+### Deployed at NSIDC
+
+The most current copy of our gem is available on the internal gem repository,
+and is being automatically deployed to the search SOLR machine on provision.
+
+To install the gem, ensure all requirements below are met and run (providing the appropraite version):
+
+  `sudo gem install search_solr_tools $VERSION -s http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc`
+
+### Custom Deployment:
+
+Clone the repository, and install all requirements as noted below, then run:
+
+  `bundle exec gem build ./search_solr_tools.gemspec`
+
+Once you have the gem built in the project directory, install the utility:
+
+  `gem install --local ./search_solr_tools-version.gem`
+
 ## Working on the Project
 
 1. Create your feature branch (`git checkout -b my-new-feature`)
@@ -20,6 +41,22 @@ This is a gem that contains:
 
 *  Ruby > 2.0.0
 *  [bundler](http://bundler.io/)
+*  Requirements for nokogiri:
+  *  [libxml2/libxml2-dev](http://xmlsoft.org/)
+  *  [zlibc](http://www.zlibc.linux.lu/)
+  *  [zlib1g/zlib1g-dev](http://zlib.net/)
+  * Dependency build requirements:
+    * For Ubuntu/Debian, install the build-essential package.
+    * On the latest Fedora release installing the following will get you all of the requirements:
+
+          `yum groupinstall 'Development Tools'`
+
+          `yum install gcc-c++`
+
+    *Please note*:  If you are having difficulty installing Nokogiri please review the
+      Nokogiri [installation tutorial](http://www.nokogiri.org/tutorials/installing_nokogiri.html)
+
+*  All gems installed (preferably using bundler: `bundle install`)
 *  A running, configured SOLR instance to accept data harvests.
 
 In addition to feed URLs, `environments.yaml` also defines various environments
@@ -46,9 +83,11 @@ break. Jenkins jobs to build and deply this project are named
 
 ### Testing
 
-Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`.
-Running the rake guard task will also automatically run the tests whenever the
-appropriate files are changed.
+Unit tests can be run with `rspec`, `rake spec:unit`, or
+`bundle exec rake guard:specs`.  Running the rake guard task will also automatically
+run the tests whenever the appropriate files are changed.
+
+Please be sure to run them in the `bundle exec` context if you're utilizing bundler.
 
 
 ###SOLR:
