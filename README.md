@@ -62,12 +62,12 @@ Once you have the gem built in the project directory, install the utility:
 ### RuboCop
 
 The style checker [RuboCop](https://github.com/bbatsov/rubocop) can be run with
-`rubocop` or `rake guard:rubocop`. The rake task will also watch for ruby files
-(.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run RuboCop on the
-changed files.
+`rubocop` or `bundle exec rake guard:rubocop`. The rake task will also watch for
+ruby files (.rb, .rake, Gemfile, Guardfile, Rakefile) to be changed, and run
+RuboCop on the changed files.
 
-`rake guard` will automatically run the unit tests and RuboCop in one terminal
-window.
+`bundle exec rake guard` will automatically run the unit tests and RuboCop in
+one terminal window.
 
 RuboCop can be configured by modifying `.rubocop.yml`.
 
@@ -78,9 +78,9 @@ break. Jenkins jobs to build and deploy this project are named
 
 ### Testing
 
-Unit tests can be run with `rspec`, `rake spec:unit`, or
-`bundle exec rake guard:specs`.  Running the rake guard task will also automatically
-run the tests whenever the appropriate files are changed.
+Unit tests can be run with `rspec`, `bundle exec rake spec:unit`, or `bundle
+exec rake guard:specs`.  Running the rake guard task will also automatically run
+the tests whenever the appropriate files are changed.
 
 Please be sure to run them in the `bundle exec` context if you're utilizing bundler.
 
