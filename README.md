@@ -13,7 +13,7 @@ This is a gem that contains:
 The most current copy of our gem is available on the internal gem repository,
 and is being automatically deployed to the search SOLR machine on provision.
 
-To install the gem, ensure all requirements below are met and run (providing the appropraite version):
+To install the gem, ensure all requirements below are met and run (providing the appropriate version):
 
   `sudo gem install search_solr_tools $VERSION -s http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc`
 
@@ -77,7 +77,7 @@ window.
 RuboCop can be configured by modifying `.rubocop.yml`.
 
 Pushing with failing tests or RuboCop violations will cause the Jenkins build to
-break. Jenkins jobs to build and deply this project are named
+break. Jenkins jobs to build and deploy this project are named
 "NSIDC_Search_SOLR_()…" and can be viewed under the
 [NSIDC Search tab](https://scm.nsidc.org/jenkins/view/NSIDC%20Search/).
 
