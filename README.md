@@ -15,7 +15,7 @@ and is being automatically deployed to the search SOLR machine on provision.
 
 To install the gem, ensure all requirements below are met and run (providing the appropriate version):
 
-  `sudo gem install search_solr_tools $VERSION -s http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc`
+  `sudo gem install search_solr_tools -v $VERSION -s http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc`
 
 ### Custom Deployment:
 
