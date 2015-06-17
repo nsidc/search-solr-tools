@@ -84,22 +84,22 @@ run the tests whenever the appropriate files are changed.
 
 Please be sure to run them in the `bundle exec` context if you're utilizing bundler.
 
+### SOLR:
 
-###SOLR:
+To harvest data utilizing the gem, you will need a local configured instance of
+Solr 4.3, which can be downloaded from
+[Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/).
 
-  To harvest data utilizing the gem, you will need a local configured instance of
-  Solr 4.3, which can be downloaded from
-  [Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/).
+#### NSIDC
 
-  #### NSIDC
-  At NSIDC the development VM can be provisioned with the
-  [solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
-  configure Solr.
+At NSIDC the development VM can be provisioned with the
+[solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
+configure Solr.
 
-  #### Non-NSIDC
-  Outside of NSIDC, setup solr using the instructions found in the
-  [search-solr](https://bitbucket.org/nsidc/search-solr) project.
+#### Non-NSIDC
 
+Outside of NSIDC, setup solr using the instructions found in the
+[search-solr](https://bitbucket.org/nsidc/search-solr) project.
 
 ### Harvesting Data
 
