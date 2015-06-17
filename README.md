@@ -8,34 +8,19 @@ This is a gem that contains:
 
 ## Working on the Project
 
-Be sure to run `bundle install`. If you encounter errors running `rake`, first
-try using `bundle exec rake` to be sure you are using the right version of Rake.
+1. Create your feature branch (`git checkout -b my-new-feature`)
+2. Stage your changes (`git add`)
+3. Commit your Rubocop compliant and test-passing changes with a
+   [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+  (`git commit`)
+4. Push to the branch (`git push -u origin my-new-feature`)
+5. Create a new Pull Request
 
-To use this project, you will need a local instance of Solr 4.3, which can be
-downloaded from
-[Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/). At
-NSIDC, the development VM can be provisioned with the
-[solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
-configure Solr. Alternatively, the
-[search-solr](https://bitbucket.org/nsidc/search-solr/) project, which contains
-puppetry to install solr and any other dependencies, as well some necessary
-config files like `schema.xml`, can be used.
+### Requirements
 
-### Harvesting Data
-
-The harvester requires additional metadata from services that may not yet be
-publicly available, which are referenced in
-`lib/search_solr_tools/config/environments.yaml`.
-
-To utilize the gem, build and install the **search_solr_tools** gem. This will
-add an executable `search_solr_tools` to the path (source is in
-`bin/search_solr_tools`). The executable is self-documenting; for a brief
-overview of what's available, simply run `search_solr_tools`.
-
-Harvesting of data can be done using the `harvest` task, giving it a list of
-harvesters and an environment. Deletion is possible via the `delete_all` and/or
-`delete_by_data_center'`tasks. `list harvesters` will list the valid harvest
-targets.
+*  Ruby > 2.0.0
+*  [bundler](http://bundler.io/)
+*  A running, configured SOLR instance to accept data harvests.
 
 In addition to feed URLs, `environments.yaml` also defines various environments
 which can be modified, or additional environments can be added by just adding a
@@ -65,17 +50,39 @@ Unit tests can be run with `rspec`, `rake spec:unit`, or `rake guard:specs`.
 Running the rake guard task will also automatically run the tests whenever the
 appropriate files are changed.
 
-Running the acceptance tests locally requires a running instance of Solr and
-some data indexed:
 
-* Use the [Solr dev VM](https://bitbucket.org/nsidc/dev-vm-search). Follow the
-  instructions in that project to get the VM started and running.
-* `vagrant ssh` into the VM
-* Clone this project, run `bundle install`
-* Run `rake build:setup`
-* Run `rake server:start` to start up Solr
-* Run `rake dev:restart_with_clean_nsidc_harvest` to suck in the NSIDC metadata
-* Once Solr has its data, `rake spec:acceptance` runs the ATs.
+###SOLR:
+
+  To harvest data utilizing the gem, you will need a local configured instance of
+  Solr 4.3, which can be downloaded from
+  [Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/).
+
+  #### NSIDC
+  At NSIDC the development VM can be provisioned with the
+  [solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
+  configure Solr.
+
+  #### Non-NSIDC
+  Outside of NSIDC, setup solr using the instructions found in the
+  [search-solr](https://bitbucket.org/nsidc/search-solr) project.
+
+
+### Harvesting Data
+
+The harvester requires additional metadata from services that may not yet be
+publicly available, which are referenced in
+`lib/search_solr_tools/config/environments.yaml`.
+
+To utilize the gem, build and install the **search_solr_tools** gem. This will
+add an executable `search_solr_tools` to the path (source is in
+`bin/search_solr_tools`). The executable is self-documenting; for a brief
+overview of what's available, simply run `search_solr_tools`.
+
+Harvesting of data can be done using the `harvest` task, giving it a list of
+harvesters and an environment. Deletion is possible via the `delete_all` and/or
+`delete_by_data_center'`tasks. `list harvesters` will list the valid harvest
+targets.
+
 
 ## Organization Info
 
