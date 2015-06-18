@@ -30,17 +30,17 @@ class SolrHarvestCLI < Thor
   desc 'delete_all', 'Delete all documents from the index'
   option :environment, required: true
   def delete_all
-    env = SolrEnvironments[options[:environment]]
-    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'"
-    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'"
+    env = SearchSolrTools::SolrEnvironments[options[:environment]]
+    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
+    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
   end
 
   desc 'delete_all_auto_suggest', 'Delete all documents from the auto_suggest index'
   option :environment, required: true
   def delete_all_auto_suggest
-    env = SolrEnvironments[options[:environment]]
-    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'"
-    sh "curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'"
+    env = SearchSolrTools::SolrEnvironments[options[:environment]]
+    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
+    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
   end
 
   desc 'delete_by_data_center', 'Force deletion of documents for a specific data center with timestamps before the passed timestamp in format iso8601 (2014-07-14T21:49:21Z)'
