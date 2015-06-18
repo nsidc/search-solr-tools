@@ -7,6 +7,7 @@
   :cisl_url: https://www.aoncadis.org/oai/repository
   :echo_url: https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10
   :ices_url: http://geo.ices.dk/geonetwork/srv/en/csw
+  :nmi_url: http://access.met.no/metamod/oai
   :nodc_url: http://data.nodc.noaa.gov/geoportal/csw
   :pdc_url: http://www.polardata.ca/oai/provider
   :rda_url: http://rda.ucar.edu/cgi-bin/oai

@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<OAI-PMH xmlns='http://www.openarchives.org/OAI/2.0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd'>
+  <responseDate>2015-06-18T17:12:00Z</responseDate>
+  <request>http://access.met.no/metamod/oai</request>
+  <ListRecords>
+    <record>
+      <header>
+        <identifier>oai:met.no:metamod/DAMOC/ecmwf</identifier>
+        <datestamp>2009-11-11T12:00:58Z</datestamp>
+      </header>
+      <metadata>
+        <DIF xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xmlns:jif="http://www.met.no/schema/metamod/jif" xmlns:topic="http://www.met.no/schema/metamod/mm2dif">
+          <Entry_ID>DAMOC_ecmwf</Entry_ID>
+          <Entry_Title>ECMWF deterministic model forecast</Entry_Title>
+          <Data_Set_Citation>
+            <Dataset_Creator>IPYCOORD Team</Dataset_Creator>
+            <Dataset_Title>ECMWF deterministic model forecast</Dataset_Title>
+            <Dataset_Release_Date>Not Available</Dataset_Release_Date>
+            <Dataset_Release_Place>Not Available</Dataset_Release_Place>
+            <Dataset_Publisher>met.no Norwegian Meteorological Institute</Dataset_Publisher>
+            <Version>Not Available</Version>
+          </Data_Set_Citation>
+          <Personnel>
+            <Role>Technical Contact</Role>
+            <First_Name>Egil</First_Name>
+            <Last_Name>Støren</Last_Name>
+            <Email>Not Available</Email>
+            <Phone>+4722963000</Phone>
+            <Contact_Address>
+              <Address>Norwegian Meteorological InstituteP.O. Box 43Blindern</Address>
+              <City>Oslo</City>
+              <Postal_Code>N-0313</Postal_Code>
+              <Country>Norway</Country>
+            </Contact_Address>
+          </Personnel>
+          <!--start of variables-->
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>PRECIPITATION</Term>
+            <Variable_Level_1>LIQUID WATER EQUIVALENT</Variable_Level_1>
+            <Detailed_Variable>lwe_thickness_of_convective_precipitation_amount</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>ATMOSPHERIC WATER VAPOR</Term>
+            <Variable_Level_1>HUMIDITY</Variable_Level_1>
+            <Detailed_Variable>relative_humidity</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>ATMOSPHERIC PRESSURE</Term>
+            <Variable_Level_1>SEA LEVEL PRESSURE</Variable_Level_1>
+            <Detailed_Variable>air_pressure_at_sea_level</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>CRYOSPHERE</Topic>
+            <Term>SNOW/ICE</Term>
+            <Variable_Level_1>SNOW WATER EQUIVALENT</Variable_Level_1>
+            <Detailed_Variable>lwe_thickness_of_surface_snow_amount</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>ALTITUDE</Term>
+            <Variable_Level_1>GEOPOTENTIAL HEIGHT</Variable_Level_1>
+            <Detailed_Variable>geopotential_height</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>PRECIPITATION</Term>
+            <Variable_Level_1>PRECIPITATION AMOUNT</Variable_Level_1>
+            <Detailed_Variable>precipitation_amount</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>OCEANS</Topic>
+            <Term>OCEAN TEMPERATURE</Term>
+            <Variable_Level_1>SEA SURFACE TEMPERATURE</Variable_Level_1>
+            <Detailed_Variable>sea_surface_temperature</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>ATMOSPHERIC TEMPERATURE</Term>
+            <Variable_Level_1>AIR TEMPERATURE</Variable_Level_1>
+            <Detailed_Variable>air_temperature</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>PRECIPITATION</Term>
+            <Variable_Level_1>LIQUID WATER EQUIVALENT</Variable_Level_1>
+            <Detailed_Variable>lwe_thickness_of_large_scale_precipitation_amount</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>CLOUDS</Term>
+            <Variable_Level_1>CLOUD AMOUNT/FREQUENCY</Variable_Level_1>
+            <Detailed_Variable>cloud_area_fraction_in_atmosphere_layer</Detailed_Variable>
+          </Parameters>
+          <Parameters>
+            <Category>EARTH SCIENCE</Category>
+            <Topic>ATMOSPHERE</Topic>
+            <Term>CLOUDS</Term>
+            <Variable_Level_1>CLOUD AMOUNT/FREQUENCY</Variable_Level_1>
+            <Detailed_Variable>cloud_area_fraction</Detailed_Variable>
+          </Parameters>
+          <!--end of variables-->
+          <ISO_Topic_Category>Climatology/Meteorology/Atmosphere</ISO_Topic_Category>
+          <Keyword>Model</Keyword>
+          <Keyword>Forecast</Keyword>
+          <Keyword>Temperature</Keyword>
+          <Keyword>Wind</Keyword>
+          <Keyword>Humidity</Keyword>
+          <Keyword>Clouds</Keyword>
+          <Keyword>unknown</Keyword>
+          <Temporal_Coverage>
+            <Start_Date>2008-06-02</Start_Date>
+            <Stop_Date>2011-12-12</Stop_Date>
+          </Temporal_Coverage>
+          <Data_Set_Progress>In Work</Data_Set_Progress>
+          <Spatial_Coverage>
+            <Southernmost_Latitude>60</Southernmost_Latitude>
+            <Northernmost_Latitude>90</Northernmost_Latitude>
+            <Westernmost_Longitude>-180</Westernmost_Longitude>
+            <Easternmost_Longitude>180</Easternmost_Longitude>
+          </Spatial_Coverage>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ATLANTIC OCEAN</Location_Type>
+            <Location_Subregion1>NORTH ATLANTIC OCEAN</Location_Subregion1>
+            <Detailed_Location>Iceland Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Denmark Strait Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Fram Strait</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Location_Subregion1>BARENTS SEA</Location_Subregion1>
+            <Detailed_Location>Barents Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Greenland Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Laptev Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Arctic Ocean</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Chukchi Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Beufort Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>East Siberian Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>White Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ARCTIC OCEAN</Location_Type>
+            <Detailed_Location>Kara Sea</Detailed_Location>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>POLAR</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>GEOGRAPHIC REGION</Location_Category>
+            <Location_Type>ARCTIC</Location_Type>
+          </Location>
+          <Location>
+            <Location_Category>OCEAN</Location_Category>
+            <Location_Type>ATLANTIC OCEAN</Location_Type>
+            <Location_Subregion1>NORTH ATLANTIC OCEAN</Location_Subregion1>
+            <Detailed_Location>Nordic Seas</Detailed_Location>
+          </Location>
+          <Project>
+            <Short_Name>ECMWF</Short_Name>
+            <Long_Name>ECMWF</Long_Name>
+          </Project>
+          <Project>
+            <Short_Name>IPY</Short_Name>
+            <Long_Name>INTERNATIONAL POLAR YEAR</Long_Name>
+          </Project>
+          <Access_Constraints>Restricted to IPY</Access_Constraints>
+          <Use_Constraints>Not Available</Use_Constraints>
+          <Data_Set_Language>Not Available</Data_Set_Language>
+          <Data_Center>
+            <Data_Center_Name>
+              <Short_Name>NO/MET</Short_Name>
+              <Long_Name>Norwegian Meteorological Institute, Norway</Long_Name>
+            </Data_Center_Name>
+            <Data_Center_URL>http://met.no/</Data_Center_URL>
+            <Personnel>
+              <Role>Data Center Contact</Role>
+              <First_Name>Egil</First_Name>
+              <Last_Name>Støren</Last_Name>
+              <Email>Not Available</Email>
+              <Phone>+4722963000</Phone>
+              <Contact_Address>
+                <Address>Norwegian Meteorological InstituteP.O. Box 43Blindern</Address>
+                <City>Oslo</City>
+                <Postal_Code>N-0313</Postal_Code>
+                <Country>Norway</Country>
+              </Contact_Address>
+            </Personnel>
+          </Data_Center>
+          <Reference/>
+          <Summary>
+            <Abstract>Products from the ECMWF Atmospheric Deterministic medium-range weather forecasts up to ten days. Check out http://www.ecmwf.int/ for details. The model output has been subsetted, reprojected and reformatted using FIMEX (http://wiki.met.no/fimex/). </Abstract>
+          </Summary>
+          <Related_URL>
+            <URL_Content_Type>
+              <Type>VIEW RELATED INFORMATION</Type>
+            </URL_Content_Type>
+            <URL>http://thredds.met.no/thredds/catalog/data/met.no/ecmwf/</URL>
+          </Related_URL>
+          <Related_URL>
+            <URL_Content_Type>
+              <Type>VIEW RELATED INFORMATION</Type>
+            </URL_Content_Type>
+            <URL/>
+          </Related_URL>
+          <Related_URL>
+            <URL_Content_Type>
+              <Type>VIEW RELATED INFORMATION</Type>
+            </URL_Content_Type>
+            <URL/>
+          </Related_URL>
+          <IDN_Node>
+            <Short_Name>ARCTIC/NO</Short_Name>
+          </IDN_Node>
+          <IDN_Node>
+            <Short_Name>ARCTIC</Short_Name>
+          </IDN_Node>
+          <IDN_Node>
+            <Short_Name>IPY</Short_Name>
+          </IDN_Node>
+          <IDN_Node>
+            <Short_Name>DOKIPY</Short_Name>
+          </IDN_Node>
+          <Metadata_Name>CEOS IDN DIF</Metadata_Name>
+          <Metadata_Version>9.8.2</Metadata_Version>
+          <DIF_Creation_Date>2009-11-11</DIF_Creation_Date>
+          <Last_DIF_Revision_Date>2009-11-11</Last_DIF_Revision_Date>
+          <Private>False</Private>
+        </DIF>
+      </metadata>
+    </record>
+  </ListRecords>
+</OAI-PMH>
