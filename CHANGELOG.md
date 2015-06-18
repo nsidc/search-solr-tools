@@ -1,3 +1,9 @@
+## v3.0.1
+
+Bugfixes
+
+  - Fix broken `delete_all` commands.
+
 ## v3.0.0
 
   - Packaged as a gem with a new executable file, providing a new interface to
