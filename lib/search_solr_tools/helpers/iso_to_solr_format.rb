@@ -142,18 +142,6 @@ module SearchSolrTools
         'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
       end
 
-      def self.eol_author_format(node)
-        name = ''
-        matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
-        if matches
-          name = node.xpath('./gmd:organisationName/gco:CharacterString', IsoNamespaces.namespaces(node)).text
-          if name.include?(' AT ') && name.include?(' dot ')
-            name = name[0..name.rindex(',') - 1]
-          end
-        end
-        name
-      end
-
       def self.get_first_matching_child(node, paths)
         matching_nodes = node.at_xpath(paths.join(' | '), IsoNamespaces.namespaces(node))
         matching_nodes.nil? ? '' : matching_nodes.text

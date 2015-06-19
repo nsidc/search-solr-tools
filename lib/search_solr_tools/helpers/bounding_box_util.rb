@@ -30,7 +30,7 @@ module SearchSolrTools
       end
 
       def self.box_invalid?(box)
-        [:north, :south, :east, :west].any? { |d| box[d].nil? || box[d].empty? }
+        [:north, :south, :east, :west].any? { |d| box[d].to_s.nil? || box[d].to_s.empty? }
       end
     end
   end
