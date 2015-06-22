@@ -1,7 +1,6 @@
 require_relative 'base'
 require 'json'
 require 'rgeo/geo_json'
-require 'pry-byebug'
 
 module SearchSolrTools
   module Harvesters
@@ -12,7 +11,6 @@ module SearchSolrTools
       end
 
       def harvest_eol_into_solr
-        record = 1
         eol_dataset_urls.each do |dataset|
           begin
             doc = open_xml_document(dataset)
@@ -21,10 +19,7 @@ module SearchSolrTools
             end
             metadata_doc = open_xml_document(doc.xpath('//xmlns:metadata')[0]['xlink:href'])
             insert_doc = [{ 'add' => { 'doc' => @translator.translate(doc, metadata_doc) } }]
-            binding.pry
             insert_solr_docs insert_doc, Base::JSON_CONTENT_TYPE
-            puts "Inserted record #{record}"
-            record += 1
           rescue => e
             puts "ERROR: #{e}"
             puts "Failed to translate this record: #{doc} -> #{metadata_doc}"

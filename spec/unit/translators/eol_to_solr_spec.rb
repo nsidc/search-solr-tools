@@ -148,4 +148,38 @@ describe SearchSolrTools::Translators::EolToSolr do
       expect(value).to be nil
     end
   end
+
+  describe '#parse_geospatial_coverages' do
+    before :each do
+      @doc = Nokogiri::XML(%(
+        <TEST xmlns="TEST">
+          <geospatialCoverage>
+            <northsouth>
+              <start>-90</start>
+              <size>180</size>
+            </northsouth>
+            <eastwest>
+              <start>-180</start>
+              <size>360</size>
+            </eastwest>
+          </geospatialCoverage>
+      ))
+    end
+
+    it 'returns the expected coverages' do ## TODO: Refactor to modify XML doc rather than recreating.
+      expect(@translator.parse_geospatial_coverages(@doc)).to eql(east: 180.0, west: -180.0, north: 90.0, south: -90.0)
+    end
+
+    it 'parses bounds that eastwardly cross the date line' do
+      @doc.xpath('//xmlns:eastwest/xmlns:start/text()')[0].content = -130
+      @doc.xpath('//xmlns:eastwest/xmlns:size/text()')[0].content = 340
+      expect(@translator.parse_geospatial_coverages(@doc)).to eql(east: -150.0, west: -130.0, north: 90.0, south: -90.0)
+    end
+
+    it 'parses bounds that westwardly cross the date line' do
+      @doc.xpath('//xmlns:eastwest/xmlns:start/text()')[0].content = -190
+      @doc.xpath('//xmlns:eastwest/xmlns:size/text()')[0].content = 50
+      expect(@translator.parse_geospatial_coverages(@doc)).to eql(east: -140.0, west: 170.0, north: 90.0, south: -90.0)
+    end
+  end
 end

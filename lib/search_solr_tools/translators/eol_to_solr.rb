@@ -70,9 +70,8 @@ module SearchSolrTools
       end
 
       def spatial_coverage_to_spatial_area(coverage)
-        unless [:north, :south].any? { |x| coverage[x].nil? } # TODO: refactor
-          coverage[:north].abs - coverage[:south].abs
-        end
+        return if [:north, :south].any? { |x| coverage[x].nil? } ## TODO Refactor
+        coverage[:north].abs - coverage[:south].abs
       end
 
       def parse_geospatial_coverages(doc)
@@ -81,6 +80,17 @@ module SearchSolrTools
         north = south + (node.xpath('./xmlns:northsouth/xmlns:size').text.to_f)
         west = node.xpath('./xmlns:eastwest/xmlns:start').text.to_f
         east = west + (node.xpath('./xmlns:eastwest/xmlns:size').text.to_f)
+
+        # EOL uses reversed east-west values to represent boxes that cross the
+        # date line.   For any correctly oriented box a value out of range,
+        # swap it.
+
+        if east > west && east > 180
+          east -= 360
+        elsif east > west && west < -180
+          west += 360
+        end
+
         { east: east, west: west, north: north, south: south }
       end
     end
