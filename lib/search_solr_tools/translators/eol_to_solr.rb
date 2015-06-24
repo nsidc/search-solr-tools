@@ -1,13 +1,11 @@
-require 'pry-byebug'
-
 module SearchSolrTools
   module Translators
     # Translates an EOL THREDDS dataset link set into a SOLR json ingest record
     class EolToSolr
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/AbcSize
+
       def translate(title_metadata, dataset_metadata)
-        # binding.pry
         temporal_coverage_values = Helpers::TranslateTemporalCoverage.translate_coverages get_time_coverages(dataset_metadata)
         rev_date = dataset_metadata.xpath('//xmlns:date[@type="metadataCreated"]').text
         geospatial_coverage = parse_geospatial_coverages(dataset_metadata)
@@ -22,7 +20,7 @@ module SearchSolrTools
           'temporal_duration' => temporal_coverage_values['temporal_duration'],
           'temporal' => temporal_coverage_values['temporal'],
           'facet_temporal_duration' => temporal_coverage_values['facet_temporal_duration'],
-          'last_revision_date' => rev_date.empty? ? (Helpers::SolrFormat.date_str(DateTime.now)) : (Helpers::SolrFormat.date_str rev_date),  # TODO: Fix this
+          'last_revision_date' => rev_date.empty? ? (Helpers::SolrFormat.date_str(DateTime.now)) : (Helpers::SolrFormat.date_str rev_date),
           'source' => 'ADE',
           'keywords' => dataset_metadata.xpath('//xmlns:keyword').map(&:text),
           'authors' => dataset_metadata.xpath('//xmlns:contributor[@role="author"]').map { |node| parse_eol_authors(node.text) }.join(', '),
@@ -54,23 +52,20 @@ module SearchSolrTools
         author
       end
 
-      def get_time_coverages(doc) # TODO: use map
-        time_coverages = []
-        doc.xpath('//xmlns:timeCoverage').each do |node|
-          time_coverages << { 'start' => node.xpath('./xmlns:start').text, 'end' => node.xpath('./xmlns:end').text }
+      def get_time_coverages(doc)
+        doc.xpath('//xmlns:timeCoverage').map do |node|
+          { 'start' => node.xpath('./xmlns:start').text, 'end' => node.xpath('./xmlns:end').text }
         end
-        time_coverages
       end
 
       def open_xml_document(url)
-        doc = Nokogiri::XML(open(url)) do |config|
+        Nokogiri::XML(open(url)) do |config|
           config.strict
         end
-        doc
       end
 
       def spatial_coverage_to_spatial_area(coverage)
-        return if [:north, :south].any? { |x| coverage[x].nil? } ## TODO Refactor
+        return if [:north, :south].any? { |x| coverage[x].nil? }
         coverage[:north].abs - coverage[:south].abs
       end
 
@@ -80,16 +75,11 @@ module SearchSolrTools
         north = south + (node.xpath('./xmlns:northsouth/xmlns:size').text.to_f)
         west = node.xpath('./xmlns:eastwest/xmlns:start').text.to_f
         east = west + (node.xpath('./xmlns:eastwest/xmlns:size').text.to_f)
-
-        # EOL uses reversed east-west values to represent boxes that cross the
-        # date line.   For any correctly oriented box a value out of range,
-        # swap it.
-
-        if east > west && east > 180
-          east -= 360
-        elsif east > west && west < -180
-          west += 360
-        end
+        # EOL uses out-of-range east-west values to represent bounding boxes
+        # that cross the date line.   For any box with a value out of range,
+        # adjust the east/west value to lie within the -180 to 180 range.
+        east -= 360 if east > 180
+        west += 360 if west < -180
 
         { east: east, west: west, north: north, south: south }
       end
