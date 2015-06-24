@@ -58,12 +58,6 @@ module SearchSolrTools
         end
       end
 
-      def open_xml_document(url)
-        Nokogiri::XML(open(url)) do |config|
-          config.strict
-        end
-      end
-
       def spatial_coverage_to_spatial_area(coverage)
         return if [:north, :south].any? { |x| coverage[x].nil? }
         coverage[:north].abs - coverage[:south].abs

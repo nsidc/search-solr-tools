@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry-byebug'
 
 describe SearchSolrTools::Translators::EolToSolr do
   before :all do
@@ -124,17 +123,6 @@ describe SearchSolrTools::Translators::EolToSolr do
                                     )
       expect(@translator.get_time_coverages(Nokogiri::XML(document))).to eql [{ 'start' => '1996-12-31T18:01:00Z', 'end' => '1997-12-31T18:01:00Z' },
                                                                               { 'start' => '2000-12-31T18:01:00Z', 'end' => '2007-12-31T18:01:00Z' }]
-    end
-  end
-
-  describe '#open_xml_document' do
-    before :all do
-      @doc_url = 'http://some.api.for.data.xml'
-      stub_request(:get, @doc_url).to_return(body: File.open(File.expand_path('../../../unit/fixtures/eol_thredds_106_295.thredds.xml', __FILE__)), status: 200)
-    end
-
-    it 'opens an xml document given a URL' do
-      expect(@translator.open_xml_document(@doc_url)).to be_kind_of(Nokogiri::XML::Document)
     end
   end
 
