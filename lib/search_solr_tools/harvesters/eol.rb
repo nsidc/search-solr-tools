@@ -50,6 +50,10 @@ module SearchSolrTools
           http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BeringSea.thredds.xml
           http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARCSS.thredds.xml
           http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BEST.thredds.xml
+          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BSIERP.thredds.xml
+          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BARROW.thredds.xml
+          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.DBO.thredds.xml
+          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml
         )
       end
 
