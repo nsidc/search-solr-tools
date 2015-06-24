@@ -12,6 +12,24 @@
   :rda_url: http://rda.ucar.edu/cgi-bin/oai
   :tdar_url: http://core.tdar.org/search/rss
   :usgs_url: https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw
+  :eol: [   'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SHEBA.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SBI.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.PacMARS.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BASE.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ATLAS.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARC_MIP.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.AMTS.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BOREAS.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BeringSea.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARCSS.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BEST.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BSIERP.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BARROW.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.DBO.thredds.xml',
+            'http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml',
+        ]
+
+
 
 :local:
   :host: localhost

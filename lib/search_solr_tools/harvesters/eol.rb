@@ -30,31 +30,11 @@ module SearchSolrTools
 
       def eol_dataset_urls
         results = []
-        eol_endpoints.each do |endpoint|
+        SearchSolrTools::SolrEnvironments[:common][:eol].each do |endpoint|
           doc = open_xml_document(endpoint)
           doc.xpath('//xmlns:catalogRef').each { |node| results.push(node['xlink:href']) }
         end
         results
-      end
-
-      def eol_endpoints
-        %w(
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SHEBA.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SBI.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.PacMARS.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BASE.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ATLAS.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARC_MIP.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.AMTS.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BOREAS.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BeringSea.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARCSS.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BEST.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BSIERP.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BARROW.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.DBO.thredds.xml
-          http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml
-        )
       end
 
       def open_xml_document(url)
