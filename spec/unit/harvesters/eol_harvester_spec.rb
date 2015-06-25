@@ -72,7 +72,7 @@ on_date" => '2007-11-05T04:12:58Z',
       @harvester = described_class.new('development', true)
     end
 
-    it 'inserts a translated document' do # TODO: Fixture
+    it 'inserts a translated document' do
       allow_any_instance_of(SearchSolrTools::Translators::EolToSolr).to receive(:translate).and_return(@translation)
       allow_any_instance_of(described_class).to receive(:open_xml_document).and_return(Nokogiri::XML(%(
         <TEST xmlns="TEST">
