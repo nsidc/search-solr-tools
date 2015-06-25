@@ -12,10 +12,7 @@ describe SearchSolrTools::Harvesters::Eol do
         development: {}
       )
       allow_any_instance_of(described_class).to receive(:open_xml_document).and_return(
-        Nokogiri::XML(File.open(File.expand_path(
-                                  '../../fixtures/eol_thredds_project.xml', __FILE__)
-                               )
-                     ))
+        Nokogiri::XML(File.open(File.expand_path('../../fixtures/eol_thredds_project.xml', __FILE__))))
     end
 
     it 'Returns a list of dataset_urls' do
