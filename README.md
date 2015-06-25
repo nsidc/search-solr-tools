@@ -19,7 +19,26 @@ To install the gem, ensure all requirements below are met and run (providing the
 
 ### Custom Deployment:
 
-Clone the repository, and install all requirements as noted below, then run:
+Clone the repository, and install all requirements as noted below.
+
+#### Configuration
+Once you have the code and requirements, edit the configuration file in
+lib/searcH_solr_tools/config/environments.yaml to match your environment.
+The configuration values are set by environment for each harvester
+(or specified in the 'common' settings list), with the environment  overriding
+common if it's specified for a given environment.
+
+Each harvester has it's own configuration settings, most are the target endpoint,
+however EOL has a list of THREDDS project endpoints and NSIDC has it's own oai/metadata
+endpoint settings.
+
+Most users should not need to change the harvester configuration unless they establish
+a local test node or in case of a provider changing available endpoints,
+however the "host:" option for each environment must specify the configured SOLR instance 
+you intend to use these tools with.
+
+#### Build and Install Gem
+Then run:
 
   `bundle exec gem build ./search_solr_tools.gemspec`
 
