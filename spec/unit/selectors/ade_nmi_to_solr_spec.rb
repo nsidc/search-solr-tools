@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'NMI ISO to Solr converter' do
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/nmi_iso.xml')
+describe 'NMI OAI to Solr converter' do
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/nmi_oai.xml')
   iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:nmi)
   solr_doc = iso_to_solr.translate fixture
 
@@ -19,8 +19,8 @@ describe 'NMI ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "Products from the ECMWF Atmospheric Deterministic medium-range weather forecasts up to ten\ndays. " \
-      "Check out http://www.ecmwf.int/ for details. The model output has been subsetted, reprojected\nand " \
+      expected_text: 'Products from the ECMWF Atmospheric Deterministic medium-range weather forecasts up to ten days. ' \
+      'Check out http://www.ecmwf.int/ for details. The model output has been subsetted, reprojected and ' \
       'reformatted using FIMEX (http://wiki.met.no/fimex/).'
     },
     {
@@ -31,7 +31,7 @@ describe 'NMI ISO to Solr converter' do
     {
       title: 'should grab the correct keywords',
       xpath: "/doc/field[@name='keywords']",
-      expected_text: 'ECMWF IPY / ECMWF INTERNATIONAL POLAR YEAR'
+      expected_text: 'LIQUID WATER EQUIVALENTHUMIDITYSEA LEVEL PRESSURESNOW WATER EQUIVALENTGEOPOTENTIAL HEIGHTPRECIPITATION AMOUNTSEA SURFACE TEMPERATUREAIR TEMPERATURELIQUID WATER EQUIVALENTCLOUD AMOUNT/FREQUENCYCLOUD AMOUNT/FREQUENCY'
     },
     {
       title: 'should grab the correct updated date',
