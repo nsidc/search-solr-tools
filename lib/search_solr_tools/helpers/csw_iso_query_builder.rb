@@ -1,4 +1,4 @@
-require_relative 'query_builder'
+require 'search_solr_tools/helpers/query_builder'
 
 module SearchSolrTools
   module Helpers
