@@ -33,13 +33,11 @@ module SearchSolrTools
       end
 
       def eol_dataset_url(node)
-        begin
-          node.xpath('//xmlns:documentation[@xlink:href]').each do |doc|
-            return doc['xlink:href'] if doc['xlink:href'].match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
-          end
-        rescue Nokogiri::XML::XPath::SyntaxError
-          puts "Warning - no documentation URL found in the following node: #{node.to_html}"
+        node.xpath('//xmlns:documentation[@xlink:href]').each do |doc|
+          return doc['xlink:href'] if doc['xlink:href'].match('http://data.eol.ucar.edu/codiac/dss/id=(\S*)')
         end
+      rescue Nokogiri::XML::XPath::SyntaxError
+        puts "Warning - no documentation URL found in the following node: #{node.to_html}"
       end
 
       def parse_eol_authors(author)
