@@ -28,9 +28,9 @@ describe SearchSolrTools::Translators::EolToSolr do
       expect(@solr_insert['facet_data_center']).to eql 'UCAR NCAR - Earth Observing Laboratory | UCAR NCAR EOL'
     end
 
-    # TODO: fixture!
     it 'populates summary' do
-      expect(@solr_insert['summary']).to eql " These data sets are the results of a model-data analysis of the contemporary C balance of the Arctic system. CO2 and CH4 exchange between the terrestrial ecosystems of the basin and the atmosphere, along with the export of dissolved organic C (DOC) to the Arctic Ocean, were estimated using the Terrestrial Ecosystem Model (TEM). The TEM considers the effects of a number of factors on its simulations of C dynamics including changes in atmospheric CO2, tropospheric ozone, nitrogen deposition, climate, and disturbance/land use including fire, forest harvest, and agricultural establishment/abandonment. We used the methane dynamics module of TEM (MDM-TEM) to estimate the exchange of CH4 with atmosphere of both wetlands. The MDM-TEM considers the effects of a number of factors on its simulations of CH4 dynamics including the area of wetlands, fluctuations in the water table of wetlands, temperature, and labile carbon inputs into the soil solution derived from the net primary production (NPP) estimates of TEM.\n The results of these simulations were compared with estimates of CO2 and CH4 exchange from atmospheric inversion models and with observations of terrestrial C export from Arctic watersheds. The simulated transfer of land-based C to the Arctic Ocean was compared against estimates based on a sampling of DOC export from major Arctic rivers (McClelland et al., 2008). We summarize our estimates of surface-atmosphere CO2 and CH4 exchange for the land and ocean area matching the three high-latitude regions defined in the Transcom 3 model experiments (Gurney et al., 2002), namely the Boreal North America, Boreal Asia and Northern Ocean regions. "
+      expect(@solr_insert['summary']).to eql File.read(
+        File.join(File.dirname(__FILE__), '../fixtures/eol_summary.txt')).chop
     end
 
     it 'populates temporal_coverages' do
@@ -154,7 +154,7 @@ describe SearchSolrTools::Translators::EolToSolr do
       ))
     end
 
-    it 'returns the expected coverages' do ## TODO: Refactor to modify XML doc rather than recreating.
+    it 'returns the expected coverages' do
       expect(@translator.parse_geospatial_coverages(@doc)).to eql(east: 180.0, west: -180.0, north: 90.0, south: -90.0)
     end
 
