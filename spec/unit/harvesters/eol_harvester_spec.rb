@@ -3,23 +3,6 @@ require 'spec_helper'
 describe SearchSolrTools::Harvesters::Eol do
   before :all do
     @harvester = described_class.new
-    @translation = {
-      'title' => 'Buoy: IABP Daily Buoy Positions [Moritz, R.]',
-      'authoritative_id' => 'ucar.ncar.eol.dataset.13_453',
-      'data_centers' => 'UCAR NCAR - Earth Observing Laboratory',
-      'facet_data_center' => 'UCAR NCAR - Earth Observing Laboratory | UCAR NCAR EOL',
-      'summary' => "During SHEBA, the Polar Science Center at the University of Washington deployed a network of automatic
-buoys for monitoring synoptic-scale fields of pressure, temperature, and ice motion throughout the Arctic Basin. This dataset contains the daily buoy positions. For more information, please see the readme file.", 'temporal_coverages' => ['1997-12-31,1998-12-31'], 'temporal_duration' => 365, 'temporal' => ['19.971231 19.981231'], 'facet_temporal_duration' => ['1+ years'], "last_revisi
-on_date" => '2007-11-05T04:12:58Z',
-      'source' => 'ADE',
-      'keywords' => %w(Arctic Surface),
-      'authors' => 'Richard Moritz',
-      'dataset_url' => 'http://data.eol.ucar.edu/codiac/dss/id=13.453',
-      'facet_spatial_coverage' => false, 'facet_spatial_scope' => 'Between 1 and 170 degrees of latitude change | Regional',
-      'spatial_coverages' => '70.0 -170.0 80.0 -130.0',
-      'spatial_area' => 10.0,
-      'spatial' => '-170.0 70.0 -130.0 80.0'
-    }
   end
 
   describe '#eol_dataset_urls' do
@@ -73,13 +56,17 @@ on_date" => '2007-11-05T04:12:58Z',
     end
 
     it 'inserts a translated document' do
-      allow_any_instance_of(SearchSolrTools::Translators::EolToSolr).to receive(:translate).and_return(@translation)
+      translation = {
+        'title' => 'Buoy: IABP Daily Buoy Positions [Moritz, R.]',
+        'authoritative_id' => 'ucar.ncar.eol.dataset.13_453'
+      }
+      allow_any_instance_of(SearchSolrTools::Translators::EolToSolr).to receive(:translate).and_return(translation)
       allow_any_instance_of(described_class).to receive(:open_xml_document).and_return(Nokogiri::XML(%(
         <TEST xmlns="TEST">
           <metadata xlink:href='http://test_dataset.thredds.xml'>
       )))
       expect_any_instance_of(SearchSolrTools::Harvesters::Base).to receive(:insert_solr_docs).with(
-        [{ 'add' => { 'doc' => @translation } }], SearchSolrTools::Harvesters::Base::JSON_CONTENT_TYPE
+        [{ 'add' => { 'doc' => translation } }], SearchSolrTools::Harvesters::Base::JSON_CONTENT_TYPE
       ).and_return true
       @harvester.harvest_eol_into_solr
     end
