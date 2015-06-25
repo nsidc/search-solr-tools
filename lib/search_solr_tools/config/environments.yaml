@@ -63,7 +63,7 @@
   :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :production:
-  :host: blue.search-solr.apps.int.nsidc.org
+  :host: search-solr.apps.int.nsidc.org
   :gi_cat_url: http://frozen.colorado.edu:11380/api/gi-cat
   :gi_cat_csw_url: http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/

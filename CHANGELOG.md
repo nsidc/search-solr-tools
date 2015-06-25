@@ -5,6 +5,11 @@ Features
   - Harvest the Norwegian Meteorological Institute feed directly instead of via
     GI-Cat.
 
+Bugfixes
+
+  - Fix broken configuration, where production was attempting to use the Blue,
+    rather than the the production, Solr host for harvesting. (see PCT-410)
+
 ## v3.0.1
 
 Bugfixes
