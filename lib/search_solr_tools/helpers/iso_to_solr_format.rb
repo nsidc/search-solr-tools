@@ -25,8 +25,6 @@ module SearchSolrTools
       TEMPORAL_DISPLAY_STRING = proc { |node| IsoToSolrFormat.temporal_display_str node }
       TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
 
-      TITLE_FORMAT = proc { |node| IsoToSolrFormat.title_format(node) }
-
       DATASET_URL = proc { |node| IsoToSolrFormat.dataset_url(node) }
       ICES_DATASET_URL = proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
       EOL_AUTHOR_FORMAT = proc { |node| IsoToSolrFormat.eol_author_format(node) }
@@ -127,10 +125,6 @@ module SearchSolrTools
           start: start_date,
           end: end_date
         }
-      end
-
-      def self.title_format(node)
-        node.text.strip =~ /not available/i ? 'Dataset title not available' : node.text.strip
       end
 
       # Met.no sometimes has bad metadata, such as <gmd:URL>SU-1 (planned activity)</gmd:URL>

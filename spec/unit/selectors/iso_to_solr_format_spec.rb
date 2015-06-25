@@ -70,11 +70,4 @@ describe 'ISO to SOLR format methods' do
       expect(SearchSolrTools::Helpers::IsoToSolrFormat.dataset_url(uri_node)).to eql ''
     end
   end
-
-  describe 'title' do
-    it 'replaces "Not Available" from GI-Cat with "Dataset title not available' do
-      title_node = bad_fixture.xpath('.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString').first
-      expect(SearchSolrTools::Helpers::IsoToSolrFormat.title_format(title_node)).to eql 'Dataset title not available'
-    end
-  end
 end
