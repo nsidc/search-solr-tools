@@ -2,7 +2,7 @@ require 'search_solr_tools/helpers/query_builder'
 
 module SearchSolrTools
   module Helpers
-    # Constructs the string to query GI-Cat for CSW-ISO data
+    # Constructs the string to query a CSW endpoint
     class CswIsoQueryBuilder
       DEFAULT_PARAMS = {
         service: 'CSW',
