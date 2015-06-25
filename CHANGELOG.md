@@ -1,3 +1,10 @@
+## v3.1.0
+
+Features
+
+  - Harvest the Norwegian Meteorological Institute feed directly instead of via
+    GI-Cat.
+
 ## v3.0.1
 
 Bugfixes
