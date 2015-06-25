@@ -6,7 +6,7 @@ require 'rgeo/wkrep/wkt_parser'
 require 'search_solr_tools'
 
 module SearchSolrTools
-  module Selectors
+  module Translators
     # Translates Bcodmo json to solr json format
     class BcodmoJsonToSolr
       # rubocop:disable MethodLength

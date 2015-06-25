@@ -25,8 +25,6 @@ module SearchSolrTools
       TEMPORAL_DISPLAY_STRING = proc { |node| IsoToSolrFormat.temporal_display_str node }
       TEMPORAL_DISPLAY_STRING_FORMATTED = proc { |node| IsoToSolrFormat.temporal_display_str(node, true) }
 
-      TITLE_FORMAT = proc { |node| IsoToSolrFormat.title_format(node) }
-
       DATASET_URL = proc { |node| IsoToSolrFormat.dataset_url(node) }
       ICES_DATASET_URL = proc { |node| IsoToSolrFormat.ices_dataset_url(node) }
       EOL_AUTHOR_FORMAT = proc { |node| IsoToSolrFormat.eol_author_format(node) }
@@ -129,10 +127,6 @@ module SearchSolrTools
         }
       end
 
-      def self.title_format(node)
-        node.text.strip =~ /not available/i ? 'Dataset title not available' : node.text.strip
-      end
-
       # Met.no sometimes has bad metadata, such as <gmd:URL>SU-1 (planned activity)</gmd:URL>
       def self.dataset_url(url_node)
         url_node.text.strip =~ %r{http[s]?://} ? url_node.text.strip : ''
@@ -140,18 +134,6 @@ module SearchSolrTools
 
       def self.ices_dataset_url(auth_id)
         'http://geo.ices.dk/geonetwork/srv/en/main.home?uuid=' + auth_id
-      end
-
-      def self.eol_author_format(node)
-        name = ''
-        matches = node.xpath('./gmd:role/gmd:CI_RoleCode').attribute('codeListValue').to_s.include?('author')
-        if matches
-          name = node.xpath('./gmd:organisationName/gco:CharacterString', IsoNamespaces.namespaces(node)).text
-          if name.include?(' AT ') && name.include?(' dot ')
-            name = name[0..name.rindex(',') - 1]
-          end
-        end
-        name
       end
 
       def self.get_first_matching_child(node, paths)

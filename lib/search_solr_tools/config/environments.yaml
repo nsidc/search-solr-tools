@@ -13,59 +13,61 @@
   :rda_url: http://rda.ucar.edu/cgi-bin/oai
   :tdar_url: http://core.tdar.org/search/rss
   :usgs_url: https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw
+  :eol:
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SHEBA.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SBI.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.PacMARS.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BASE.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ATLAS.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARC_MIP.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.AMTS.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BOREAS.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BeringSea.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARCSS.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BEST.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BSIERP.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BARROW.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.DBO.thredds.xml
+    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml
 
 :local:
   :host: localhost
-  :gi_cat_url: http://liquid.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :dev:
-  :host: dev.search-solr.reedsa.dev.int.nsidc.org
-  :gi_cat_url: http://liquid.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso
+  host: dev.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :integration:
   :host: integration.search-solr.apps.int.nsidc.org
-  :gi_cat_url: http://liquid.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://liquid.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :qa:
   :host: qa.search-solr.apps.int.nsidc.org
-  :gi_cat_url: http://brash.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://brash.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://qa.nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://qa.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://brash.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :staging:
   :host: staging.search-solr.apps.int.nsidc.org
-  :gi_cat_url: http://freeze.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://freeze.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://staging.nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://staging.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://freeze.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :blue:
   :host: blue.search-solr.apps.int.nsidc.org
-  :gi_cat_url: http://frozen.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
 
 :production:
   :host: search-solr.apps.int.nsidc.org
-  :gi_cat_url: http://frozen.colorado.edu:11380/api/gi-cat
-  :gi_cat_csw_url: http://frozen.colorado.edu:11380/api/gi-cat/services/cswiso
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
   :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso

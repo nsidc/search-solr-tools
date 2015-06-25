@@ -9,7 +9,7 @@ module SearchSolrTools
     class NsidcJson < Base
       def initialize(env = 'development', die_on_failure = false)
         super env, die_on_failure
-        @translator = Selectors::NsidcJsonToSolr.new
+        @translator = Translators::NsidcJsonToSolr.new
         Helpers::FacetConfiguration.import_bin_configuration(env)
       end
 

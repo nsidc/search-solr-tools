@@ -7,12 +7,11 @@ module SearchSolrTools
     class BcoDmo < Base
       def initialize(env = 'development', die_on_failure = false)
         super env, die_on_failure
-        @translator = Selectors::BcodmoJsonToSolr.new
+        @translator = Translators::BcodmoJsonToSolr.new
         @wkt_parser = RGeo::WKRep::WKTParser.new(nil, {})   # (factory_generator_=nil,
       end
 
       def harvest_and_delete
-        # TODO: add long name for deletion
         super(method(:harvest_bcodmo_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name]}\"")
       end
 

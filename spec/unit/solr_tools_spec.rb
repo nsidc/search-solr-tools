@@ -41,7 +41,9 @@ describe SolrHarvestCLI do
     it 'calls delete_old_documents on the correct class' do
       @cli.options = { timestamp: '2014-07-14T21:49:21Z', environment: 'dev', data_center: 'cisl' }
       allow_any_instance_of(SearchSolrTools::Harvesters::Cisl).to receive(:delete_old_documents).and_return(true)
-      expect_any_instance_of(SearchSolrTools::Harvesters::Cisl).to receive(:delete_old_documents).with('2014-07-14T21:49:21Z', "data_centers:\"Advanced Cooperative Arctic Data and Information Service\"", 'nsidc_oai', true)
+      expect_any_instance_of(SearchSolrTools::Harvesters::Cisl).to receive(:delete_old_documents).with(
+        '2014-07-14T21:49:21Z', 'data_centers:"Advanced Cooperative Arctic Data and Information Service"',
+        'nsidc_oai', true)
       @cli.delete_by_data_center
     end
   end

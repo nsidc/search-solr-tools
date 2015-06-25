@@ -8,7 +8,6 @@ module SearchSolrTools
     SELECTORS = {
       cisl:   Selectors::CISL,
       echo:   Selectors::ECHO,
-      eol:    Selectors::EOL,
       ices:   Selectors::ICES,
       nmi:    Selectors::NMI,
       nodc:   Selectors::NODC,

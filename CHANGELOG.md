@@ -2,6 +2,9 @@
 
 Features
 
+  - Remove gi-cat as a dependency as no harvesters utilize it.  
+  - Harvest the UCAR NCAR - Earth Observing Laboratory (UCAR/NCAR EOL) from
+    EOL's THREDDS endpoint instead of GI-Cat
   - Harvest the Norwegian Meteorological Institute feed directly instead of via
     GI-Cat.
 

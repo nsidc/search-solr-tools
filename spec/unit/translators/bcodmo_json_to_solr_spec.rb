@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SearchSolrTools::Selectors::BcodmoJsonToSolr do
+describe SearchSolrTools::Translators::BcodmoJsonToSolr do
   before :each do
     @translator = described_class.new
   end
