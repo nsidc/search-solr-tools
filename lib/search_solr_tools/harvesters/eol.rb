@@ -37,19 +37,16 @@ module SearchSolrTools
       end
 
       def eol_dataset_urls
-        results = []
-        SearchSolrTools::SolrEnvironments[:common][:eol].each do |endpoint|
+        SearchSolrTools::SolrEnvironments[:common][:eol].flat_map do |endpoint|
           doc = open_xml_document(endpoint)
-          doc.xpath('//xmlns:catalogRef').each { |node| results.push(node['xlink:href']) }
+          doc.xpath('//xmlns:catalogRef').map { |node| node['xlink:href'] }
         end
-        results
       end
 
       def open_xml_document(url)
-        doc = Nokogiri::XML(open(url)) do |config|
+        Nokogiri::XML(open(url)) do |config|
           config.strict
         end
-        doc
       end
     end
   end

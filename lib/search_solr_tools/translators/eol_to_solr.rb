@@ -39,9 +39,7 @@ module SearchSolrTools
           end
         rescue Nokogiri::XML::XPath::SyntaxError
           puts "Warning - no documentation URL found in the following node: #{node.to_html}"
-          return nil
         end
-        nil
       end
 
       def parse_eol_authors(author)
@@ -53,7 +51,8 @@ module SearchSolrTools
 
       def get_time_coverages(doc)
         doc.xpath('//xmlns:timeCoverage').map do |node|
-          { 'start' => node.xpath('./xmlns:start').text, 'end' => node.xpath('./xmlns:end').text }
+          { 'start' => node.xpath('./xmlns:start').text,
+            'end' => node.xpath('./xmlns:end').text }
         end
       end
 
