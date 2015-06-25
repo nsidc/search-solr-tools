@@ -4,7 +4,7 @@ require 'rgeo/geo_json'
 require 'search_solr_tools'
 
 module SearchSolrTools
-  module Selectors
+  module Translators
     # Translates NSIDC JSON format to Solr JSON add format
     class NsidcJsonToSolr
       PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
