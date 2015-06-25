@@ -2,14 +2,13 @@ module SearchSolrTools
   module Translators
     # Translates an EOL THREDDS dataset link set into a SOLR json ingest record
     class EolToSolr
-      # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
 
       def translate(title_metadata, dataset_metadata)
         temporal_coverage_values = Helpers::TranslateTemporalCoverage.translate_coverages get_time_coverages(dataset_metadata)
         rev_date = dataset_metadata.xpath('//xmlns:date[@type="metadataCreated"]').text
         geospatial_coverage = parse_geospatial_coverages(dataset_metadata)
-
         {
           'title' => title_metadata.xpath('//xmlns:dataset').first['name'],
           'authoritative_id' => title_metadata.xpath('//xmlns:dataset').first['ID'],
@@ -20,16 +19,16 @@ module SearchSolrTools
           'temporal_duration' => temporal_coverage_values['temporal_duration'],
           'temporal' => temporal_coverage_values['temporal'],
           'facet_temporal_duration' => temporal_coverage_values['facet_temporal_duration'],
-          'last_revision_date' => rev_date.empty? ? (Helpers::SolrFormat.date_str(DateTime.now)) : (Helpers::SolrFormat.date_str rev_date),
+          'last_revision_date' => rev_date.empty? ? Helpers::SolrFormat.date_str(DateTime.now) : Helpers::SolrFormat.date_str(rev_date),
           'source' => 'ADE',
           'keywords' => dataset_metadata.xpath('//xmlns:keyword').map(&:text),
           'authors' => dataset_metadata.xpath('//xmlns:contributor[@role="author"]').map { |node| parse_eol_authors(node.text) }.join(', '),
           'dataset_url' => eol_dataset_url(dataset_metadata),
           'facet_spatial_coverage' => Helpers::BoundingBoxUtil.box_global?(geospatial_coverage),
           'facet_spatial_scope' => Helpers::SolrFormat.get_spatial_scope_facet_with_bounding_box(geospatial_coverage),
-          'spatial_coverages' => "#{geospatial_coverage[:south]} #{geospatial_coverage[:west]} #{geospatial_coverage[:north]} #{geospatial_coverage[:east]}",
+          'spatial_coverages' => %i(south west north east).map { |d| geospatial_coverage[d] }.join(' '),
           'spatial_area' => spatial_coverage_to_spatial_area(geospatial_coverage),
-          'spatial' => "#{geospatial_coverage[:west]} #{geospatial_coverage[:south]} #{geospatial_coverage[:east]} #{geospatial_coverage[:north]}"
+          'spatial' => %i(west south east north).map { |d| geospatial_coverage[d] }.join(' ')
         }
       end
 
