@@ -10,16 +10,15 @@ This is a gem that contains:
 
 ## Using the project
 
-### Deployed at NSIDC
+### Standard Installation
 
-The most current copy of our gem is available on the internal gem repository,
-and is being automatically deployed to the search SOLR machine on provision.
+The gem is available through [RubyGems](https://rubygems.org/). To install the
+gem, ensure all requirements below are met and run (providing the appropriate
+version):
 
-To install the gem, ensure all requirements below are met and run (providing the appropriate version):
+`sudo gem install search_solr_tools -v $VERSION`
 
-  `sudo gem install search_solr_tools -v $VERSION -s http://snowhut.apps.int.nsidc.org/shares/export/sw/packages/ruby/nsidc`
-
-### Custom Deployment:
+### Custom Deployment
 
 Clone the repository, and install all requirements as noted below.
 
@@ -41,6 +40,7 @@ however, the `host` option for each environment must specify the configured SOLR
 instance you intend to use these tools with.
 
 #### Build and Install Gem
+
 Then run:
 
   `bundle exec gem build ./search_solr_tools.gemspec`
@@ -62,7 +62,7 @@ Once you have the gem built in the project directory, install the utility:
 ### Requirements
 
 * Ruby > 2.0.0
-* [bundler](http://bundler.io/)
+* [Bundler](http://bundler.io/)
 * Requirements for nokogiri:
     * [libxml2/libxml2-dev](http://xmlsoft.org/)
     * [zlibc](http://www.zlibc.linux.lu/)
@@ -105,6 +105,35 @@ exec rake guard:specs`.  Running the rake guard task will also automatically run
 the tests whenever the appropriate files are changed.
 
 Please be sure to run them in the `bundle exec` context if you're utilizing bundler.
+
+### Creating Releases (NSIDC devs only)
+
+Requirements:
+
+* Ruby > 2.0.0
+* [Bundler](http://bundler.io/)
+* [Gem Release](https://github.com/svenfuchs/gem-release)
+* [Rake](https://github.com/ruby/rake)
+* a [RubyGems](https://rubygems.org) account that has
+  [ownership](http://guides.rubygems.org/publishing/) of the gem
+* RuboCop and the unit tests should all pass (`rake`)
+
+**gem release** is used by rake tasks in this project to handle version changes,
+tagging, and publishing to RubyGems.
+
+| Command                   | Description |
+|---------------------------|-------------|
+| `rake release:pre[false]` | Increase the current prerelease version number, push changes |
+| `rake release:pre[true]`  | Increase the current prerelease version number, publish release\* |
+| `rake release:none`       | Drop the prerelease version, publish release, then `pre[false]` |
+| `rake release:minor`      | Increase the minor version number, publish release, then `pre[false]` |
+| `rake release:major`      | Increase the major version number, publish release, then `pre[false]` |
+
+\*"publish release" means each of the following occurs:
+
+* a new tag is created
+* the changes are pushed
+* the tagged version is built and published to RubyGems
 
 ### SOLR:
 
@@ -149,7 +178,7 @@ the `--environment` flag when running `search_solr_tools harvest`.
 ### How to contact NSIDC
 
 User Services and general information:  
-Support: http://support.nsidc.org  
+Support: [http://support.nsidc.org](http://support.nsidc.org)  
 Email: nsidc@nsidc.org
 
 Phone: +1 303.492.6199  
