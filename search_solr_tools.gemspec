@@ -3,7 +3,7 @@ gem_files = %(CHANGELOG.md COPYING README.md bin/ lib/ search_solr_tools.gemspec
 
 Gem::Specification.new do |spec|
   spec.name          = 'search_solr_tools'
-  spec.version       = '3.1.1.rc2'
+  spec.version       = '3.1.1.rc3'
   spec.authors       = ['Chris Chalstrom', 'Michael Brandt', 'Jonathan Kovarik', 'Luis Lopez', 'Stuart Reed']
   spec.email         = ['cchalstr@nsidc.org', 'mbrandt@colorado.edu', 'kovarik@nsidc.org', 'luis.lopezespinosa@colorado.edu', 'stuart.reed@colorado.edu']
   spec.summary       = ''
