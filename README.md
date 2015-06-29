@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nsidc/search-solr-tools.svg?branch=master)](https://travis-ci.org/nsidc/search-solr-tools)
+
 # NSIDC Search Solr Tools
 
 This is a gem that contains:
