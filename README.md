@@ -119,7 +119,7 @@ configure Solr.
 #### Non-NSIDC
 
 Outside of NSIDC, setup solr using the instructions found in the
-[search-solr](https://bitbucket.org/nsidc/search-solr) project.
+[search-solr](https://github.com/nsidc/search-solr) project.
 
 ### Harvesting Data
 
