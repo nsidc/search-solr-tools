@@ -11,3 +11,5 @@ tmp/
 Gemfile.lock
 /vendor/bundle
 *.gem
+
+results.xml

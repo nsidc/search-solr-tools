@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites errors="0" failures="0" skipped="0" tests="1" time="0.078982" timestamp="2015-02-10T09:24:03-07:00">
-  <testsuite name="Successful Response" tests="1" errors="0" failures="0" skipped="0">
-    <properties/>
-    <testcase name="Solr Basics Successful Response Given I search for &quot;sea ice&quot; -&gt; Then I should get a valid response with results" time="0.078617">
-    </testcase>
-  </testsuite>
-</testsuites>
