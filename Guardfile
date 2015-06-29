@@ -1,4 +1,4 @@
-guard :rspec, spec_paths: ['spec/unit'], keep_failed: true, all_after_pass: true, all_on_start: true do
+guard :rspec, spec_paths: ['spec/unit'], failed_mode: :keep, all_after_pass: true, all_on_start: true, cmd: 'rspec' do
   watch %r{/^spec\/.+_spec\.rb/}
   watch(%r{/^lib\/(.+)\.rb/}) { |m| "spec/unit/#{m[1]}_spec.rb" }
   watch(%r{spec/unit/fixtures/(.+)\.xml}) { |m| File.dirname(m[0]) }

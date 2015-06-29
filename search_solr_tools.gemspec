@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rgeo-geojson', '~> 0.3'
   spec.add_runtime_dependency 'rsolr', '~> 1.0'
   spec.add_development_dependency 'guard', '~> 2.12'
-  spec.add_development_dependency 'guard-rspec', '~> 4.5'
+  spec.add_development_dependency 'guard-rspec', '~> 4.6'
   spec.add_development_dependency 'guard-rubocop', '~> 1.2'
   # spec.add_development_dependency 'pry-byebug', '~> 3.1'
   spec.add_development_dependency 'rake', '~> 10.4'
