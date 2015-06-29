@@ -1,6 +1,6 @@
 ---
 project: search-solr-tools
-gitrepo: git@bitbucket.org:nsidc/search-solr-tools.git
+gitrepo: git@github.com:nsidc/search-solr-tools.git
 vsphere:
   template: trusty64-nsidc
 virtualbox:
