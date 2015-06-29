@@ -40,6 +40,7 @@ module SearchSolrTools
       end
 
       def delete_old_documents(timestamp, constraints, solr_core, force = false)
+        constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
         solr = RSolr.connect url: solr_url + "/#{solr_core}"
         unchanged_count = (solr.get 'select', params: { q: delete_query, rows: 0 })['response']['numFound'].to_i
@@ -49,6 +50,13 @@ module SearchSolrTools
           puts "Begin removing documents older than #{timestamp}"
           remove_documents(solr, delete_query, constraints, force, unchanged_count)
         end
+      end
+
+      def sanitize_data_centers_constraints(query_string)
+        # Remove lucene special characters, preserve the query parameter and compress whitespace
+        query_string.gsub!(/[:&|!~\-\(\)\{\}\[\]\^\*\?\+]+/, ' ')
+        query_string.gsub!(/data_centers /, 'data_centers:')
+        query_string.squeeze(' ').strip
       end
 
       def remove_documents(solr, delete_query, constraints, force, numfound)

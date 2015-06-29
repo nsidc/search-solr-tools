@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe SearchSolrTools::Harvesters::Base do
+  describe '#sanitize_data_centers_constraints' do
+    it 'Removes all lucene chars' do
+      test_string = '1+ 2  -  3&&  4| 5|6!7 8(  9)   10  11{ 12} 13[ 14]15 '\
+                    '16+  ^17   ~18  *19  ?  20:    21'
+      expect(described_class.new.sanitize_data_centers_constraints(test_string)).to eql [*1...22].join(' ')
+    end
+
+    it 'Retains the data_centers query seperator' do
+      test_string = 'data_centers:"one| {} two [three]"'
+      expect(described_class.new.sanitize_data_centers_constraints(test_string)).to eql('data_centers:"one two three "')
+    end
+  end
+
   describe 'Initialization' do
     it 'Uses a default environment if not specified' do
       harvester = described_class.new
@@ -61,7 +74,7 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'adds documents and then deletes documents that were not updated' do
       stubs = stub_update_and_delete(500, 10)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), "data_centers:\"test\"")
+      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
 
       expect(stubs[:delete_stub]).to have_been_requested
       expect(stubs[:commit_stub]).to have_been_requested
@@ -69,7 +82,7 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'Does not delete documents when more then .1 of documents are not updated' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), "data_centers:\"test\"")
+      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
 
       expect(stubs[:delete_stub]).to_not have_been_requested
       expect(stubs[:commit_stub]).to_not have_been_requested
@@ -77,7 +90,7 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'Does not delete documents when none exist' do
       stubs = stub_update_and_delete(0, 0)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), "data_centers:\"test\"")
+      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
 
       expect(stubs[:delete_stub]).to_not have_been_requested
       expect(stubs[:commit_stub]).to_not have_been_requested

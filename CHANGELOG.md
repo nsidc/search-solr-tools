@@ -1,3 +1,10 @@
+## v3.1.1
+
+Bugfixes
+
+  - Updated deletion constraints such that lucene special characters in
+    dataset names do not cause deletion of that data provider's data to fail.
+
 ## v3.1.0
 
 Features
