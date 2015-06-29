@@ -6,9 +6,13 @@ Gem::Specification.new do |spec|
   spec.version       = '3.1.2.rc3'
   spec.authors       = ['Chris Chalstrom', 'Michael Brandt', 'Jonathan Kovarik', 'Luis Lopez', 'Stuart Reed']
   spec.email         = ['cchalstr@nsidc.org', 'mbrandt@colorado.edu', 'kovarik@nsidc.org', 'luis.lopezespinosa@colorado.edu', 'stuart.reed@colorado.edu']
-  spec.summary       = ''
-  spec.description   = ''
-  spec.homepage      = ''
+  spec.summary       = 'Tools to harvest and manage various scientific dataset feeds in a Solr instance.'
+  spec.description   = <<-EOF
+    Ruby translators to transform various metadata feeds into solr documents and
+    a command-line utility to access/utilize the gem's translators to harvest
+    metadata into a working solr instance.
+  EOF
+  spec.homepage      = 'https://github.com/nsidc/search-solr-tools'
   spec.license       = 'GNU GPL Version 3'
 
   spec.files         = `git ls-files -z #{gem_files}`.split("\x0")
