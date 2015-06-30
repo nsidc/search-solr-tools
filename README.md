@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nsidc/search-solr-tools.svg?branch=master)](https://travis-ci.org/nsidc/search-solr-tools)
+[![Gem Version](https://badge.fury.io/rb/search_solr_tools.svg)](http://badge.fury.io/rb/search_solr_tools) [![Build Status](https://travis-ci.org/nsidc/search-solr-tools.svg?branch=master)](https://travis-ci.org/nsidc/search-solr-tools)
 
 # NSIDC Search Solr Tools
 
