@@ -1,3 +1,9 @@
+## v3.1.2
+
+Changes
+
+  - Gem is available via [RubyGems](https://rubygems.org)
+
 ## v3.1.1
 
 Bugfixes
@@ -9,7 +15,7 @@ Bugfixes
 
 Features
 
-  - Remove gi-cat as a dependency as no harvesters utilize it.  
+  - Remove gi-cat as a dependency as no harvesters utilize it.
   - Harvest the UCAR NCAR - Earth Observing Laboratory (UCAR/NCAR EOL) from
     EOL's THREDDS endpoint instead of GI-Cat
   - Harvest the Norwegian Meteorological Institute feed directly instead of via
