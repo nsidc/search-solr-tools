@@ -12,6 +12,7 @@ module SearchSolrTools
       nmi:    Selectors::NMI,
       nodc:   Selectors::NODC,
       pdc:    Selectors::PDC,
+      r2r:    Selectors::R2R,
       rda:    Selectors::RDA,
       tdar:   Selectors::TDAR,
       usgs:   Selectors::USGS

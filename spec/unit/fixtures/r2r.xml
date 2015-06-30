@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gmi:MI_Metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://ngdc.noaa.gov/metadata/published/xsd/schema.xsd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:srv="http://www.isotc211.org/2005/srv">
+  <!--NOAA National Data Centers/Rolling Deck to Repository (R2R) ISO Cruise-Level Metadata Template-->
+  <!--Version date: March 23, 2011-->
+  <!--Contact: Anna.Milan@noaa.gov-->
+  <!--http://www.ngdc.noaa.gov/mgg/ecs/metadata/cruise/-->
+  <gmd:fileIdentifier>
+    <gco:CharacterString>AE1319</gco:CharacterString>
+  </gmd:fileIdentifier>
+  <gmd:language>
+    <gco:CharacterString>eng</gco:CharacterString>
+  </gmd:language>
+  <gmd:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">utf8</gmd:MD_CharacterSetCode>
+  </gmd:characterSet>
+  <gmd:hierarchyLevel>
+    <gmd:MD_ScopeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="fieldSession">fieldSession</gmd:MD_ScopeCode>
+  </gmd:hierarchyLevel>
+  <gmd:hierarchyLevelName>
+    <gco:CharacterString>cruise level metadata</gco:CharacterString>
+  </gmd:hierarchyLevelName>
+  <gmd:contact>
+    <gmd:CI_ResponsibleParty>
+      <gmd:individualName>
+        <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/person/100001" xlink:actuate="onRequest">R2R Manager</gmx:Anchor>
+      </gmd:individualName>
+      <gmd:organisationName>
+        <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/organization/us.rvdata" xlink:actuate="onRequest">Rolling Deck to Repository (R2R) Program</gmx:Anchor>
+      </gmd:organisationName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:electronicMailAddress>
+                <gco:CharacterString>info@rvdata.us</gco:CharacterString>
+              </gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+  <gmd:dateStamp>
+    <gco:DateTime>2015-06-28T03:11:52Z</gco:DateTime>
+  </gmd:dateStamp>
+  <gmd:metadataStandardName>
+    <gco:CharacterString>ISO 19115-2 Geographic Information - Metadata Part 2 Extensions for imagery and gridded data</gco:CharacterString>
+  </gmd:metadataStandardName>
+  <gmd:metadataStandardVersion>
+    <gco:CharacterString>ISO 19115-2:2009(E)</gco:CharacterString>
+  </gmd:metadataStandardVersion>
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/cruise/AE1319" xlink:actuate="onRequest">AE1319</gmx:Anchor>
+          </gmd:title>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date>
+                <gco:DateTime>2015-06-28T03:11:52Z</gco:DateTime>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation">creation</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:identifier>
+            <gmd:MD_Identifier>
+              <gmd:code>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/cruise/AE1319" xlink:actuate="onRequest">AE1319</gmx:Anchor>
+              </gmd:code>
+            </gmd:MD_Identifier>
+          </gmd:identifier>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract>
+        <gco:CharacterString>Biological Controls on the Ocean's C:N:P Ratio</gco:CharacterString>
+      </gmd:abstract>
+      <gmd:purpose>
+        <gco:CharacterString>Biological Controls on the Ocean's C:N:P Ratio</gco:CharacterString>
+      </gmd:purpose>
+      <gmd:status>
+        <gmd:MD_ProgressCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="onGoing">onGoing</gmd:MD_ProgressCode>
+      </gmd:status>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/person/100351" xlink:actuate="onRequest">Lomas, Michael</gmx:Anchor>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/organization/org.bigelow" xlink:actuate="onRequest">Bigelow Laboratory for Ocean Sciences</gmx:Anchor>
+          </gmd:organisationName>
+          <gmd:positionName>
+            <gmx:Anchor xlink:href="http://voc.rvdata.us/role/100002" xlink:actuate="onRequest">Scientist, Chief</gmx:Anchor>
+          </gmd:positionName>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="contributor">contributor</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; Oceans</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>NASA/GCMD Science Keywords</gco:CharacterString>
+              </gmd:title>
+              <gmd:date/>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:organisationName>
+                    <gco:CharacterString>NASA Global Change Master Directory (GCMD) User Support Office</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:contactInfo/>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:resourceConstraints>
+        <gmd:MD_Constraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>Data are not to be used for navigation.</gco:CharacterString>
+          </gmd:useLimitation>
+        </gmd:MD_Constraints>
+      </gmd:resourceConstraints>
+      <gmd:language>
+        <gco:CharacterString>eng</gco:CharacterString>
+      </gmd:language>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>oceans</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>geoscientificInformation</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:extent>
+        <gmd:EX_Extent id="boundingExtent">
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox id="boundingGeographicBoundingBox">
+              <gmd:westBoundLongitude>
+                <gco:Decimal>-70.24632</gco:Decimal>
+              </gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude>
+                <gco:Decimal>-39.98639</gco:Decimal>
+              </gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude>
+                <gco:Decimal>31.63968</gco:Decimal>
+              </gmd:southBoundLatitude>
+              <gmd:northBoundLatitude>
+                <gco:Decimal>55.00906</gco:Decimal>
+              </gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:extent>
+        <gmd:EX_Extent id="cruiseCoordinates">
+          <gmd:description>
+            <gco:CharacterString>coordinates of ship track</gco:CharacterString>
+          </gmd:description>
+          <gmd:geographicElement>
+            <gmd:EX_BoundingPolygon>
+              <gmd:polygon><gml:MultiCurve gml:id="segid_1" srsName="EPSG:4326"><gml:curveMember><gml:Curve gml:id="track_1"><gml:segments><gml:LineStringSegment><gml:posList srsDimension="2">-64.6585 32.37952 -64.68182 32.37832 -64.62989 32.37889 -64.61003 32.3647 -64.16727 31.66684 -64.1969 31.70789 -64.31344 32.11482 -64.43391 32.42067 -64.6624 32.88173 -65.00591 33.68543 -65.14102 33.94832 -65.31959 34.3702 -65.5279 34.92214 -66.09715 36.14471 -66.22688 36.54595 -66.30929 36.65658 -66.34509 36.73394 -66.54293 37.34804 -66.64986 37.73413 -66.68159 37.74092 -66.79162 37.87299 -66.92097 38.10114 -67.00066 38.3381 -67.08463 38.75369 -67.37159 39.2181 -67.62526 39.58364 -67.80357 39.90607 -67.9677 40.16232 -68.27736 40.51597 -68.42065 40.7254 -68.67627 41.16857 -68.73165 41.30615 -69.03666 41.79969 -69.07415 41.82417 -69.20425 42.02538 -69.22521 42.03351 -69.44345 42.44624 -69.6186 42.70537 -69.67387 42.71977 -69.72292 42.79518 -69.93017 43.22067 -70.03201 43.47887 -70.15779 43.57992 -70.22406 43.65561 -70.24626 43.65593 -70.22715 43.65722 -70.20547 43.62804 -70.14543 43.61896 -69.77389 43.67311 -69.65523 43.72647 -69.62025 43.80591 -69.6362 43.85081 -69.62043 43.81165 -69.62835 43.72192 -69.54058 43.69702 -69.29859 43.68408 -68.98348 43.60873 -68.3052 43.51018 -67.6375 43.3928 -66.79646 43.36219 -66.56527 43.26678 -66.0504 43.15746 -65.68528 43.13526 -65.28958 43.20847 -65.16003 43.21245 -64.21605 43.45952 -63.55441 43.65312 -63.03734 43.82981 -62.70865 43.8563 -62.22406 43.96487 -61.12793 44.26646 -59.36748 44.67246 -58.32367 45.01399 -54.85433 45.95289 -54.22249 46.16873 -53.96601 46.23622 -53.03192 46.41783 -52.73306 46.49473 -52.4202 47.23143 -52.23719 47.71625 -51.79094 48.75427 -51.52752 49.42431 -51.11832 50.33192 -50.89482 50.90208 -50.47169 51.81412 -50.40391 52.01929 -50.02329 52.87545 -49.84971 53.17104 -49.69426 53.54633 -49.54692 53.83498 -49.13926 54.73439 -48.99907 55.001 -48.9882 54.99446 -49.00797 54.99999 -48.99057 54.99708 -48.99601 55.00899 -49.00859 54.9825 -49.00017 55.00207 -48.86671 54.91358 -48.87872 54.93112 -47.82274 54.23866 -45.99983 52.99842 -46.03603 52.99825 -45.98857 52.99105 -46.02548 53.0181 -45.99568 53.00551 -45.0278 52.40496 -44.25587 51.89261 -43.61944 51.42416 -42.99381 51.00448 -43.00789 50.9978 -42.7809 50.8562 -42.76407 50.87546 -42.74361 50.86668 -42.40996 50.6231 -42.02281 50.3841 -41.57094 50.07862 -41.42544 49.95336 -41.46326 49.91855 -41.45149 49.90468 -40.77537 49.47259 -40.69555 49.40639 -40.62994 49.17876 -40.37439 49.20436 -40.36412 49.08283 -40.0187 49.04209 -39.99315 48.98911 -40.01213 48.9552 -39.98682 49.01151 -40.0846 48.95951 -40.53529 48.60559 -41.255 47.99195 -42.01387 47.40677 -42.49514 47.00373 -42.43243 47.04645 -42.50196 46.99921 -42.49981 47.0118 -42.49878 46.99675 -42.50226 47.01365 -43.17939 46.47101 -43.52138 46.16962 -43.95683 45.81666 -44.82613 45.15984 -44.96785 45.02585 -45.00048 45.03242 -45.00039 44.9931 -45.05532 44.95338 -45.20601 44.7657 -45.42511 44.61449 -45.70113 44.46522 -46.0576 44.20618 -46.20178 44.12145 -46.18677 44.07921 -46.1959 44.06611 -46.41461 43.91742 -46.77377 43.61882 -46.82164 43.59925 -46.95795 43.48778 -47.01169 43.22207 -47.45841 43.02506 -47.48524 42.99885 -47.50952 43.01676 -47.48004 42.99377 -47.50164 42.99932 -48.45492 42.26852 -48.78702 41.98908 -48.97257 41.79971 -49.26824 41.57238 -49.35338 41.48675 -49.89994 41.0904 -50.00135 41.00649 -49.99015 40.99963 -50.0142 40.99727 -50.4916 40.62677 -50.7991 40.36235 -51.69965 39.6649 -52.1074 39.31217 -52.50417 38.99961 -52.48882 38.99668 -53.28171 38.38569 -54.07305 37.7416 -54.36487 37.52598 -54.80891 37.13461 -55.00747 37.00207 -56.32847 35.93569 -56.76771 35.59947 -57.31471 35.14263 -57.52296 34.99415 -57.49516 34.99871 -57.76987 34.76453 -58.40506 34.28795 -60.01291 32.99363 -59.9983 32.99321 -60.00153 33.00331 -60.8831 32.71995 -61.44751 32.52655 -62.02238 32.36197 -63.49868 31.89695 -63.57769 31.86942 -63.59951 31.83019 -63.83332 31.76292 -63.84594 31.71616 -64.1734 31.66577 -64.17338 31.68282 -64.17898 31.64276 -64.16487 31.66909 -64.1703 31.65636 -64.16801 31.67747 -64.19353 31.68955 -64.15314 31.66888 -64.17487 31.66859 -64.16674 31.64702 -64.16408 31.67754 -64.17215 31.64221 -64.19251 31.67695 -64.17352 31.70641 -64.15468 31.70581 -64.1798 31.66714 -64.18076 31.65404 -64.16642 31.68739 -64.16439 31.64493 -64.18087 31.68336 -64.15644 31.65983 -64.15869 31.64633 -64.17856 31.67728 -64.17145 31.63972 -64.18498 31.64523 -64.17657 31.69119 -64.18315 31.64535 -64.2103 31.68612 -64.1796 31.65944 -64.16932 31.67993 -64.33705 32.01436 -64.55608 32.34045 -64.48627 32.32923 -64.54713 32.36787 -64.51721 32.3295 -64.67818 32.39972 -64.72526 32.36463 -64.69586 32.36972</gml:posList></gml:LineStringSegment></gml:segments></gml:Curve></gml:curveMember></gml:MultiCurve></gmd:polygon>
+            </gmd:EX_BoundingPolygon>
+          </gmd:geographicElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:extent>
+        <gmd:EX_Extent id="temporalExtent">
+          <gmd:description>
+            <gco:CharacterString>Cruise Start and End</gco:CharacterString>
+          </gmd:description>
+          <gmd:temporalElement>
+            <gmd:EX_SpatialTemporalExtent>
+              <gmd:extent>
+                <gml:TimeInstant gml:id="start">
+                  <gml:timePosition>2013-08-14</gml:timePosition>
+                </gml:TimeInstant>
+              </gmd:extent>
+              <gmd:spatialExtent>
+                <gmd:EX_GeographicDescription>
+                  <gmd:geographicIdentifier>
+                    <gmd:MD_Identifier>
+                      <gmd:authority>
+                        <gmd:CI_Citation>
+                          <gmd:title>
+                            <gco:CharacterString>University-National Oceanographic Laboratory System (UNOLS) Port Code List</gco:CharacterString>
+                          </gmd:title>
+                          <gmd:date/>
+                        </gmd:CI_Citation>
+                      </gmd:authority>
+                      <gmd:code>
+                        <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/port/100061" xlink:actuate="onRequest">St. George's</gmx:Anchor>
+                      </gmd:code>
+                    </gmd:MD_Identifier>
+                  </gmd:geographicIdentifier>
+                </gmd:EX_GeographicDescription>
+              </gmd:spatialExtent>
+            </gmd:EX_SpatialTemporalExtent>
+          </gmd:temporalElement>
+          <gmd:temporalElement>
+            <gmd:EX_SpatialTemporalExtent>
+              <gmd:extent>
+                <gml:TimeInstant gml:id="end">
+                  <gml:timePosition>2013-09-11</gml:timePosition>
+                </gml:TimeInstant>
+              </gmd:extent>
+              <gmd:spatialExtent>
+                <gmd:EX_GeographicDescription>
+                  <gmd:geographicIdentifier>
+                    <gmd:MD_Identifier>
+                      <gmd:authority>
+                        <gmd:CI_Citation>
+                          <gmd:title>
+                            <gco:CharacterString>University-National Oceanographic Laboratory System (UNOLS) Port Code List</gco:CharacterString>
+                          </gmd:title>
+                          <gmd:date/>
+                        </gmd:CI_Citation>
+                      </gmd:authority>
+                      <gmd:code>
+                        <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/port/100061" xlink:actuate="onRequest">St. George's</gmx:Anchor>
+                      </gmd:code>
+                    </gmd:MD_Identifier>
+                  </gmd:geographicIdentifier>
+                </gmd:EX_GeographicDescription>
+              </gmd:spatialExtent>
+            </gmd:EX_SpatialTemporalExtent>
+          </gmd:temporalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+  <gmd:dataQualityInfo>
+    <gmd:DQ_DataQuality>
+      <gmd:scope>
+        <gmd:DQ_Scope>
+          <gmd:level>
+            <gmd:MD_ScopeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="collectionSession">collectionSession</gmd:MD_ScopeCode>
+          </gmd:level>
+          <gmd:levelDescription>
+            <gmd:MD_ScopeDescription>
+              <gmd:other>
+                <gco:CharacterString>Descriptions of datasets collected by devices.</gco:CharacterString>
+              </gmd:other>
+            </gmd:MD_ScopeDescription>
+          </gmd:levelDescription>
+        </gmd:DQ_Scope>
+      </gmd:scope>
+      <gmd:lineage>
+        <gmd:LI_Lineage>
+          <gmd:source>
+            <gmi:LE_Source>
+              <gmd:description>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100001" xlink:actuate="onRequest">RDI OS-75</gmx:Anchor>
+              </gmd:description>
+              <gmd:sourceStep>
+                <gmi:LE_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>Data was collected from this device.</gco:CharacterString>
+                  </gmd:description>
+                  <gmi:output>
+                    <gmi:LE_Source>
+                      <gmd:description>
+                        <gmx:Anchor xlink:href="http://voc.rvdata.us/device/adcp" xlink:actuate="onRequest">adcp</gmx:Anchor>
+                      </gmd:description>
+                      <gmi:processedLevel>
+                        <gmd:MD_Identifier>
+                          <gmd:code>
+                            <gmx:Anchor xlink:href="http://voc.rvdata.us/processing/1" xlink:actuate="onRequest">raw</gmx:Anchor>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmi:processedLevel>
+                    </gmi:LE_Source>
+                  </gmi:output>
+                </gmi:LE_ProcessStep>
+              </gmd:sourceStep>
+            </gmi:LE_Source>
+          </gmd:source>
+          <gmd:source>
+            <gmi:LE_Source>
+              <gmd:description>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100002" xlink:actuate="onRequest">Sea-Bird SBE-911plus</gmx:Anchor>
+              </gmd:description>
+              <gmd:sourceStep>
+                <gmi:LE_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>Data was collected from this device.</gco:CharacterString>
+                  </gmd:description>
+                  <gmi:output>
+                    <gmi:LE_Source>
+                      <gmd:description>
+                        <gmx:Anchor xlink:href="http://voc.rvdata.us/device/ctd" xlink:actuate="onRequest">ctd</gmx:Anchor>
+                      </gmd:description>
+                      <gmi:processedLevel>
+                        <gmd:MD_Identifier>
+                          <gmd:code>
+                            <gmx:Anchor xlink:href="http://voc.rvdata.us/processing/1" xlink:actuate="onRequest">raw</gmx:Anchor>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmi:processedLevel>
+                    </gmi:LE_Source>
+                  </gmi:output>
+                </gmi:LE_ProcessStep>
+              </gmd:sourceStep>
+            </gmi:LE_Source>
+          </gmd:source>
+          <gmd:source>
+            <gmi:LE_Source>
+              <gmd:description>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100004" xlink:actuate="onRequest">Turner 10-AU</gmx:Anchor>
+              </gmd:description>
+              <gmd:sourceStep>
+                <gmi:LE_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>Data was collected from this device.</gco:CharacterString>
+                  </gmd:description>
+                  <gmi:output>
+                    <gmi:LE_Source>
+                      <gmd:description>
+                        <gmx:Anchor xlink:href="http://voc.rvdata.us/device/fluorometer" xlink:actuate="onRequest">fluorometer</gmx:Anchor>
+                      </gmd:description>
+                      <gmi:processedLevel>
+                        <gmd:MD_Identifier>
+                          <gmd:code>
+                            <gmx:Anchor xlink:href="http://voc.rvdata.us/processing/1" xlink:actuate="onRequest">raw</gmx:Anchor>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmi:processedLevel>
+                    </gmi:LE_Source>
+                  </gmi:output>
+                </gmi:LE_ProcessStep>
+              </gmd:sourceStep>
+            </gmi:LE_Source>
+          </gmd:source>
+          <gmd:source>
+            <gmi:LE_Source>
+              <gmd:description>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100006" xlink:actuate="onRequest">Furuno GP-90</gmx:Anchor>
+              </gmd:description>
+              <gmd:sourceStep>
+                <gmi:LE_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>Data was collected from this device.</gco:CharacterString>
+                  </gmd:description>
+                  <gmi:output>
+                    <gmi:LE_Source>
+                      <gmd:description>
+                        <gmx:Anchor xlink:href="http://voc.rvdata.us/device/gnss" xlink:actuate="onRequest">gnss</gmx:Anchor>
+                      </gmd:description>
+                      <gmi:processedLevel>
+                        <gmd:MD_Identifier>
+                          <gmd:code>
+                            <gmx:Anchor xlink:href="http://voc.rvdata.us/processing/1" xlink:actuate="onRequest">raw</gmx:Anchor>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmi:processedLevel>
+                    </gmi:LE_Source>
+                  </gmi:output>
+                </gmi:LE_ProcessStep>
+              </gmd:sourceStep>
+            </gmi:LE_Source>
+          </gmd:source>
+          <gmd:source>
+            <gmi:LE_Source>
+              <gmd:description>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100012" xlink:actuate="onRequest">Knudsen 3260</gmx:Anchor>
+              </gmd:description>
+              <gmd:sourceStep>
+                <gmi:LE_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>Data was collected from this device.</gco:CharacterString>
+                  </gmd:description>
+                  <gmi:output>
+                    <gmi:LE_Source>
+                      <gmd:description>
+                        <gmx:Anchor xlink:href="http://voc.rvdata.us/device/singlebeam" xlink:actuate="onRequest">singlebeam</gmx:Anchor>
+                      </gmd:description>
+                      <gmi:processedLevel>
+                        <gmd:MD_Identifier>
+                          <gmd:code>
+                            <gmx:Anchor xlink:href="http://voc.rvdata.us/processing/1" xlink:actuate="onRequest">raw</gmx:Anchor>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmi:processedLevel>
+                    </gmi:LE_Source>
+                  </gmi:output>
+                </gmi:LE_ProcessStep>
+              </gmd:sourceStep>
+            </gmi:LE_Source>
+          </gmd:source>
+          <gmd:source>
+            <gmi:LE_Source>
+              <gmd:description>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100014" xlink:actuate="onRequest">Markey DUSH-5</gmx:Anchor>
+              </gmd:description>
+              <gmd:sourceStep>
+                <gmi:LE_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>Data was collected from this device.</gco:CharacterString>
+                  </gmd:description>
+                  <gmi:output>
+                    <gmi:LE_Source>
+                      <gmd:description>
+                        <gmx:Anchor xlink:href="http://voc.rvdata.us/device/winch" xlink:actuate="onRequest">winch</gmx:Anchor>
+                      </gmd:description>
+                      <gmi:processedLevel>
+                        <gmd:MD_Identifier>
+                          <gmd:code>
+                            <gmx:Anchor xlink:href="http://voc.rvdata.us/processing/1" xlink:actuate="onRequest">raw</gmx:Anchor>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmi:processedLevel>
+                    </gmi:LE_Source>
+                  </gmi:output>
+                </gmi:LE_ProcessStep>
+              </gmd:sourceStep>
+            </gmi:LE_Source>
+          </gmd:source>
+        </gmd:LI_Lineage>
+      </gmd:lineage>
+    </gmd:DQ_DataQuality>
+  </gmd:dataQualityInfo>
+  <gmi:acquisitionInformation>
+    <gmi:MI_AcquisitionInformation>
+      <gmi:platform>
+        <gmi:MI_Platform>
+          <gmi:identifier>
+            <gmd:MD_Identifier>
+              <gmd:authority>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>International Council for the Exploration of the Sea (ICES) Platform Code List</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date/>
+                  <gmd:citedResponsibleParty/>
+                </gmd:CI_Citation>
+              </gmd:authority>
+              <gmd:code>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/vessel/33H4" xlink:actuate="onRequest">Atlantic Explorer</gmx:Anchor>
+              </gmd:code>
+            </gmd:MD_Identifier>
+          </gmi:identifier>
+          <gmi:description>
+            <gco:CharacterString>SHIP &gt; Atlantic Explorer</gco:CharacterString>
+          </gmi:description>
+          <gmi:sponsor>
+            <gmd:CI_ResponsibleParty>
+              <gmd:organisationName>
+                <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/organization/edu.bios" xlink:actuate="onRequest">Bermuda Institute of Ocean Sciences</gmx:Anchor>
+              </gmd:organisationName>
+              <gmd:contactInfo/>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="operator">operator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmi:sponsor>
+          <gmi:instrument>
+            <gmi:MI_Instrument>
+              <gmi:identifier>
+                <gmd:MD_Identifier>
+                  <gmd:code>
+                    <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100001" xlink:actuate="onRequest">RDI OS-75</gmx:Anchor>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmi:identifier>
+              <gmi:type>
+                <gmx:Anchor xlink:href="http://voc.rvdata.us/device/adcp" xlink:actuate="onRequest">adcp</gmx:Anchor>
+              </gmi:type>
+              <gmi:description>
+                <gco:CharacterString>(acoustic doppler current profiler) sonar measures water current velocities</gco:CharacterString>
+              </gmi:description>
+            </gmi:MI_Instrument>
+          </gmi:instrument>
+          <gmi:instrument>
+            <gmi:MI_Instrument>
+              <gmi:identifier>
+                <gmd:MD_Identifier>
+                  <gmd:code>
+                    <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100002" xlink:actuate="onRequest">Sea-Bird SBE-911plus</gmx:Anchor>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmi:identifier>
+              <gmi:type>
+                <gmx:Anchor xlink:href="http://voc.rvdata.us/device/ctd" xlink:actuate="onRequest">ctd</gmx:Anchor>
+              </gmi:type>
+              <gmi:description>
+                <gco:CharacterString>integrated hydro system measures conductivity, temp, pressure, etc.</gco:CharacterString>
+              </gmi:description>
+            </gmi:MI_Instrument>
+          </gmi:instrument>
+          <gmi:instrument>
+            <gmi:MI_Instrument>
+              <gmi:identifier>
+                <gmd:MD_Identifier>
+                  <gmd:code>
+                    <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100004" xlink:actuate="onRequest">Turner 10-AU</gmx:Anchor>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmi:identifier>
+              <gmi:type>
+                <gmx:Anchor xlink:href="http://voc.rvdata.us/device/fluorometer" xlink:actuate="onRequest">fluorometer</gmx:Anchor>
+              </gmi:type>
+              <gmi:description>
+                <gco:CharacterString>measures fluorescence (usually for phytoplankton)</gco:CharacterString>
+              </gmi:description>
+            </gmi:MI_Instrument>
+          </gmi:instrument>
+          <gmi:instrument>
+            <gmi:MI_Instrument>
+              <gmi:identifier>
+                <gmd:MD_Identifier>
+                  <gmd:code>
+                    <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100006" xlink:actuate="onRequest">Furuno GP-90</gmx:Anchor>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmi:identifier>
+              <gmi:type>
+                <gmx:Anchor xlink:href="http://voc.rvdata.us/device/gnss" xlink:actuate="onRequest">gnss</gmx:Anchor>
+              </gmi:type>
+              <gmi:description>
+                <gco:CharacterString>(global navigation satellite system) - GPS/WAAS, GLONASS, Galileo, etc.</gco:CharacterString>
+              </gmi:description>
+            </gmi:MI_Instrument>
+          </gmi:instrument>
+          <gmi:instrument>
+            <gmi:MI_Instrument>
+              <gmi:identifier>
+                <gmd:MD_Identifier>
+                  <gmd:code>
+                    <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100012" xlink:actuate="onRequest">Knudsen 3260</gmx:Anchor>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmi:identifier>
+              <gmi:type>
+                <gmx:Anchor xlink:href="http://voc.rvdata.us/device/singlebeam" xlink:actuate="onRequest">singlebeam</gmx:Anchor>
+              </gmi:type>
+              <gmi:description>
+                <gco:CharacterString>single, dual, or split beam echosounder (profiling sonar); may be either fixed frequency or chirped</gco:CharacterString>
+              </gmi:description>
+            </gmi:MI_Instrument>
+          </gmi:instrument>
+          <gmi:instrument>
+            <gmi:MI_Instrument>
+              <gmi:identifier>
+                <gmd:MD_Identifier>
+                  <gmd:code>
+                    <gmx:Anchor xlink:href="http://linked.rvdata.us/resource/device/100014" xlink:actuate="onRequest">Markey DUSH-5</gmx:Anchor>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmi:identifier>
+              <gmi:type>
+                <gmx:Anchor xlink:href="http://voc.rvdata.us/device/winch" xlink:actuate="onRequest">winch</gmx:Anchor>
+              </gmi:type>
+              <gmi:description>
+                <gco:CharacterString>measures wire tension, speed, payout, etc.</gco:CharacterString>
+              </gmi:description>
+            </gmi:MI_Instrument>
+          </gmi:instrument>
+        </gmi:MI_Platform>
+      </gmi:platform>
+    </gmi:MI_AcquisitionInformation>
+  </gmi:acquisitionInformation>
+</gmi:MI_Metadata>

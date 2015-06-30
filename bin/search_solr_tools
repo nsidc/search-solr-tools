@@ -66,6 +66,7 @@ class SolrHarvestCLI < Thor
         'ices'               => SearchSolrTools::Harvesters::Ices,
         'nmi'                => SearchSolrTools::Harvesters::Nmi,
         'nodc'               => SearchSolrTools::Harvesters::Nodc,
+        'r2r'                => SearchSolrTools::Harvesters::R2R,
         'rda'                => SearchSolrTools::Harvesters::Rda,
         'usgs'               => SearchSolrTools::Harvesters::Usgs,
         'tdar'               => SearchSolrTools::Harvesters::Tdar,
