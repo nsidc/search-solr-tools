@@ -3,9 +3,9 @@ require 'search_solr_tools'
 require 'thor'
 
 class SolrHarvestCLI < Thor
-  map %w[--version -v] => :__print_version
+  map %w(--version -v) => :__print_version
 
-  desc "--version, -v", "print the version"
+  desc '--version, -v', 'print the version'
   def __print_version
     puts SearchSolrTools::VERSION
   end
