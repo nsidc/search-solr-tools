@@ -3,11 +3,17 @@ require 'search_solr_tools'
 require 'thor'
 
 class SolrHarvestCLI < Thor
+  map %w(--version -v) => :__print_version
+
+  desc '--version, -v', 'print the version'
+  def __print_version
+    puts SearchSolrTools::VERSION
+  end
+
   desc 'harvest', 'Harvest from one of the ADE harvesters'
   option :data_center, type: :array, required: true
   option :environment, required: true
   option :die_on_failure, type: :boolean
-
   def harvest(die_on_failure = options[:die_on_failure] || false)
     options[:data_center].each do |target|
       puts target
@@ -66,6 +72,7 @@ class SolrHarvestCLI < Thor
         'ices'               => SearchSolrTools::Harvesters::Ices,
         'nmi'                => SearchSolrTools::Harvesters::Nmi,
         'nodc'               => SearchSolrTools::Harvesters::Nodc,
+        'r2r'                => SearchSolrTools::Harvesters::R2R,
         'rda'                => SearchSolrTools::Harvesters::Rda,
         'usgs'               => SearchSolrTools::Harvesters::Usgs,
         'tdar'               => SearchSolrTools::Harvesters::Tdar,

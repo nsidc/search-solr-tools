@@ -29,6 +29,7 @@
     - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BARROW.thredds.xml
     - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.DBO.thredds.xml
     - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml
+  :r2r_url: http://get.rvdata.us/services/cruise/
 
 :local:
   :host: localhost
