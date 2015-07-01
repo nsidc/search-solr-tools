@@ -4,6 +4,8 @@ New Features
 
   - Add `harvest` support for
     [Rolling Deck to Repository (R2R)](http://get.rvdata.us/services/cruise/)
+  - Add subcommands `-v` and `--version` to display the installed version of the
+    gem
 
 ## v3.1.2
 
