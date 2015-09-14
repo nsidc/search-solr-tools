@@ -127,7 +127,7 @@ module SearchSolrTools
         begin
           puts "Request: #{request_url}"
           response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
-        rescue OpenURI::HTTPError, Timeout::Error => e
+        rescue OpenURI::HTTPError, Timeout::Error, Errno::ETIMEDOUT => e
           retries_left -= 1
           puts "## REQUEST FAILED ## Retrying #{retries_left} more times..."
 
