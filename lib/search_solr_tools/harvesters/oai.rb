@@ -27,7 +27,7 @@ module SearchSolrTools
           begin
             insert_solr_docs(translated_docs(results))
           rescue => e
-            puts "ERROR: #{e}"
+            puts "ERROR: #{e.class} #{e}"
             raise e if @die_on_failure
           end
         end
