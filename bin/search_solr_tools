@@ -52,7 +52,7 @@ class SolrHarvestCLI < Thor
   desc 'delete_by_data_center', 'Force deletion of documents for a specific data center with timestamps before the passed timestamp in format iso8601 (2014-07-14T21:49:21Z)'
   option :timestamp, required: true
   option :environment, required: true
-  option :data_center,  required: true
+  option :data_center, required: true
   def delete_by_data_center
     harvester = get_harvester_class(options[:data_center]).new options[:environment]
     harvester.delete_old_documents(options[:timestamp],

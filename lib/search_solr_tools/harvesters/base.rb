@@ -96,7 +96,7 @@ module SearchSolrTools
 
         # Some docs will cause solr to time out during the POST
         begin
-          RestClient.post(url, doc_serialized,  content_type: content_type) do |response, _request, _result|
+          RestClient.post(url, doc_serialized, content_type: content_type) do |response, _request, _result|
             success = response.code == 200
             puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
           end

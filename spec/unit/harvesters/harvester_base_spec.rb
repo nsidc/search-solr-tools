@@ -59,9 +59,9 @@ describe SearchSolrTools::Harvesters::Base do
       describe 'with error OpenURI::HTTPError' do
         before(:each) do
           exception_io = double('io')
-          exception_io.stub_chain(:status,:[]).with(0).and_return('302')
+          exception_io.stub_chain(:status, :[]).with(0).and_return('302')
 
-          allow(described_object).to receive(:open).and_raise(OpenURI::HTTPError.new('',exception_io))
+          allow(described_object).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
         end
 
         it 'makes 3 attempts before propagating the error' do
@@ -83,10 +83,11 @@ describe SearchSolrTools::Harvesters::Base do
 
           it 'makes 3 attempts before propagating the error' do
             expect(described_object).to receive(:open).exactly(3).times
-            expect do described_method(
-                        'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
-                        '/metadata/xpath'
-                      )
+            expect do
+              described_method(
+                'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                '/metadata/xpath'
+              )
             end.to raise_error(err_type)
           end
         end

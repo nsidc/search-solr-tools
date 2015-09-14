@@ -44,9 +44,7 @@ module SearchSolrTools
       end
 
       def open_xml_document(url)
-        Nokogiri::XML(open(url)) do |config|
-          config.strict
-        end
+        Nokogiri::XML(open(url), &:strict)
       end
     end
   end

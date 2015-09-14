@@ -175,7 +175,7 @@ module SearchSolrTools
       end
 
       def generate_part_array(json, limit_values = nil)
-        parts =  []
+        parts = []
         json = json.select { |k, _v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
 
         json.each do |_k, v|

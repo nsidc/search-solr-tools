@@ -72,7 +72,7 @@ module SearchSolrTools
       temporal_coverages: {
         xpaths: ['.//Collection/Temporal/RangeDateTime'],
         multivalue: true,
-        format:  Helpers::IsoToSolrFormat::TEMPORAL_DISPLAY_STRING_FORMATTED
+        format: Helpers::IsoToSolrFormat::TEMPORAL_DISPLAY_STRING_FORMATTED
       },
       temporal_duration: {
         xpaths: ['.//Collection/Temporal/RangeDateTime'],
