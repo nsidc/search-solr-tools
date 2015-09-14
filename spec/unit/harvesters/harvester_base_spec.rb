@@ -34,6 +34,28 @@ describe SearchSolrTools::Harvesters::Base do
         described_object.get_results(request_url, metadata_path, content_type)
       end
 
+      describe 'with a successful response' do
+        let(:nokogiri) { double(Nokogiri) }
+        let(:doc) { double('doc') }
+        let(:parsed_metadata) { double('parsed_metadata') }
+
+        before(:each) do
+          response = double('response')
+          allow(described_object).to receive(:open).and_return(response)
+          allow(nokogiri).to receive(:XML).and_return(doc)
+          allow(doc).to receive(:xpath).and_return(parsed_metadata)
+        end
+
+        it 'returns metadata from the XML response' do
+          expect do
+            described_method(
+              'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
+              '/metadata/xpath'
+            ).to eql(parsed_metadata)
+          end
+        end
+      end
+
       describe 'with error OpenURI::HTTPError' do
         before(:each) do
           exception_io = double('io')
