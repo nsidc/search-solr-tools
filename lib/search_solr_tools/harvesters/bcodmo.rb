@@ -8,7 +8,7 @@ module SearchSolrTools
       def initialize(env = 'development', die_on_failure = false)
         super env, die_on_failure
         @translator = Translators::BcodmoJsonToSolr.new
-        @wkt_parser = RGeo::WKRep::WKTParser.new(nil, {})   # (factory_generator_=nil,
+        @wkt_parser = RGeo::WKRep::WKTParser.new(nil, {}) # (factory_generator_=nil,
       end
 
       def harvest_and_delete

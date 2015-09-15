@@ -25,7 +25,7 @@ module SearchSolrTools
         max_temporal_duration = SolrFormat.reduce_temporal_duration(temporal_durations)
         facet = SolrFormat.get_temporal_duration_facet(max_temporal_duration)
 
-        { 'temporal_coverages' => temporal_display, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal_index_str, 'facet_temporal_duration' => facet  }
+        { 'temporal_coverages' => temporal_display, 'temporal_duration' => max_temporal_duration, 'temporal' => temporal_index_str, 'facet_temporal_duration' => facet }
       end
 
       def self.format_string(value)

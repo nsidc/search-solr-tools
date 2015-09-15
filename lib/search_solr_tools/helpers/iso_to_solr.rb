@@ -87,7 +87,7 @@ module SearchSolrTools
           text.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
         end
 
-        text.gsub!("\u00BF", '') if text.respond_to?(:gsub!)
+        text.delete!("\u00BF") if text.respond_to?(:gsub!)
 
         text
       end

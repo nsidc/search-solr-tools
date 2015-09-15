@@ -96,7 +96,7 @@ module SearchSolrTools
 
         # Some docs will cause solr to time out during the POST
         begin
-          RestClient.post(url, doc_serialized,  content_type: content_type) do |response, _request, _result|
+          RestClient.post(url, doc_serialized, content_type: content_type) do |response, _request, _result|
             success = response.code == 200
             puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
           end
@@ -127,9 +127,9 @@ module SearchSolrTools
         begin
           puts "Request: #{request_url}"
           response = open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
-        rescue OpenURI::HTTPError, Timeout::Error => e
+        rescue OpenURI::HTTPError, Timeout::Error, Errno::ETIMEDOUT => e
           retries_left -= 1
-          puts "## REQUEST FAILED ## Retrying #{retries_left} more times..."
+          puts "## REQUEST FAILED ## #{e.class} ## Retrying #{retries_left} more times..."
 
           retry if retries_left > 0
 

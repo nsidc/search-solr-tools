@@ -75,7 +75,7 @@ module SearchSolrTools
       temporal: {
         xpaths: ['.//gmd:EX_TemporalExtent'],
         multivalue: true,
-        format:  Helpers::IsoToSolrFormat::TEMPORAL_INDEX_STRING
+        format: Helpers::IsoToSolrFormat::TEMPORAL_INDEX_STRING
       },
       sensors: {
         xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],

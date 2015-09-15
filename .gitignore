@@ -12,4 +12,5 @@ Gemfile.lock
 /vendor/bundle
 *.gem
 
+results.html
 results.xml

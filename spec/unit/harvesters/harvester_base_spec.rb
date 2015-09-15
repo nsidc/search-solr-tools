@@ -26,6 +26,75 @@ describe SearchSolrTools::Harvesters::Base do
     end
   end
 
+  describe '#get_results' do
+    describe 'with @die_on_failure ' do
+      let(:described_object) { described_class.new('development', true) }
+
+      def described_method(request_url, metadata_path, content_type = 'application/xml')
+        described_object.get_results(request_url, metadata_path, content_type)
+      end
+
+      describe 'with a successful response' do
+        let(:nokogiri) { double(Nokogiri) }
+        let(:doc) { double('doc') }
+        let(:parsed_metadata) { double('parsed_metadata') }
+
+        before(:each) do
+          response = double('response')
+          allow(described_object).to receive(:open).and_return(response)
+          allow(nokogiri).to receive(:XML).and_return(doc)
+          allow(doc).to receive(:xpath).and_return(parsed_metadata)
+        end
+
+        it 'returns metadata from the XML response' do
+          expect do
+            described_method(
+              'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
+              '/metadata/xpath'
+            ).to eql(parsed_metadata)
+          end
+        end
+      end
+
+      describe 'with error OpenURI::HTTPError' do
+        before(:each) do
+          exception_io = double('io')
+          exception_io.stub_chain(:status, :[]).with(0).and_return('302')
+
+          allow(described_object).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
+        end
+
+        it 'makes 3 attempts before propagating the error' do
+          expect(described_object).to receive(:open).exactly(3).times
+          expect do
+            described_method(
+              'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
+              '/metadata/xpath'
+            )
+          end.to raise_error(OpenURI::HTTPError)
+        end
+      end
+
+      [Timeout::Error, Errno::ETIMEDOUT].each do |err_type|
+        describe "with error #{err_type}" do
+          before(:each) do
+            allow(described_object).to receive(:open).and_raise(err_type)
+          end
+
+          it 'makes 3 attempts before propagating the error' do
+            expect(described_object).to receive(:open).exactly(3).times
+            expect do
+              described_method(
+                'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
+                '/metadata/xpath'
+              )
+            end.to raise_error(err_type)
+          end
+        end
+      end
+    end
+  end
+
   it 'Builds a new Nokogiri XML document with an "add" root node' do
     doc = described_class.new.create_new_solr_add_doc
     expect(doc.root.name).to eql('add')

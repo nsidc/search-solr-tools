@@ -81,7 +81,7 @@ module SearchSolrTools
       temporal: {
         xpaths: ['.//gmd:EX_Extent[@id="temporalExtent"]'],
         multivalue: false,
-        format:  Helpers::R2RFormat::TEMPORAL_INDEX_STRING
+        format: Helpers::R2RFormat::TEMPORAL_INDEX_STRING
       },
       sensors: {
         xpaths: ['.//gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:instrument/gmi:MI_Instrument/gmi:type/gmx:Anchor'],
