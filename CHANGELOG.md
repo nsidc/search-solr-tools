@@ -7,7 +7,7 @@ Bugfixes
     times, instead of simply failing after 3 failed
     attempts. [Pivotal 103057378](https://www.pivotaltracker.com/story/show/103057378)
 
-## v3.2.0
+## v3.2.0 (2015-07-01)
 
 New Features
 
@@ -16,20 +16,20 @@ New Features
   - Add subcommands `-v` and `--version` to display the installed version of the
     gem
 
-## v3.1.2
+## v3.1.2 (2015-06-30)
 
 Changes
 
   - Gem is available via [RubyGems](https://rubygems.org)
 
-## v3.1.1
+## v3.1.1 (2015-06-29)
 
 Bugfixes
 
   - Updated deletion constraints such that lucene special characters in
     dataset names do not cause deletion of that data provider's data to fail.
 
-## v3.1.0
+## v3.1.0 (2015-06-25)
 
 Features
 
@@ -44,13 +44,13 @@ Bugfixes
   - Fix broken configuration, where production was attempting to use the Blue,
     rather than the the production, Solr host for harvesting. (see PCT-410)
 
-## v3.0.1
+## v3.0.1 (2015-06-18)
 
 Bugfixes
 
   - Fix broken `delete_all` commands.
 
-## v3.0.0
+## v3.0.0 (2015-06-15)
 
   - Packaged as a gem with a new executable file, providing a new interface to
     harvest feeds into solr.
@@ -59,7 +59,7 @@ Bugfixes
     the query to Solr was failing because the "/" character could not be
     correctly escaped.
 
-## v2.0.0
+## v2.0.0 (2015-06-08)
 
   - Upgrade from Ruby version 1.9.3 to 2.2.2
   - Compliant with
