@@ -1,3 +1,12 @@
+## v3.2.1
+
+Bugfixes
+
+  - Catch a timeout error earlier in the stack to prevent an infinite loop of
+    retries; this bug caused the PDC harvester to attempt to access the feed 150
+    times, instead of simply failing after 3 failed
+    attempts. [Pivotal 103057378](https://www.pivotaltracker.com/story/show/103057378)
+
 ## v3.2.0
 
 New Features
