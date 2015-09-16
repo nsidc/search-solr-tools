@@ -1,0 +1,161 @@
+<doc>
+<str name="abstract">Dissolved inorganic carbon, carbon dioxide, and methane in waters from pre-labeled wet sedge plots near Toolik Lake, AK during the summer of 2000.</str>
+<arr name="attribute">
+<str>Vegetation Vegetation Vegetation Type where t= tussock, w = wet sedge</str>
+<str>Treatment Treatment Treatment Type where c = control, f = fertilized (N+P)</str>
+<str>Plot# Plot# Plot Number (1, 2, or 3)</str>
+<str>Round Round Replicate Identification a = 1st replicate; b = 2nd replicate; c = 3rd replicate</str>
+<str>Location Location Location sampled within the plot, pre label = before the 14C was applied</str>
+<str>Date Date Date sampled</str>
+<str>Time Time Time sampled</str>
+<str>Category Category Type of sample, d-dic = Dissolved Inorganic Carbon sample| d-gas = Dissolved gas sample</str>
+<str>Elev_m Elev_m Elevation of the sample site meter</str>
+<str>Depth_m Depth_m Depth of the sample site meter</str>
+<str>PCO2_uatm PCO2_uatm Partial Pressure of Carbon Dioxide microatmosphere</str>
+<str>PCH4_uatm PCH4_uatm Partial Pressure of Methane microatmosphere</str>
+<str>CO2_umol_L CO2_umol_L Concentration of Carbon Dioxide per Liter of water or gas micromolePerLiter</str>
+<str>CH4_umol_L CH4_umol_L Concentration of Methane per Liter of water or gas micromolePerLiter</str>
+<str>DIC_umol_L DIC_umol_L Concentration of Dissolved Inorganic Carbon micromolePerLiter</str>
+</arr>
+<arr name="attributeDescription">
+<str>Vegetation Type where t= tussock, w = wet sedge</str>
+<str>Treatment Type where c = control, f = fertilized (N+P)</str>
+<str>Plot Number (1, 2, or 3)</str>
+<str>Replicate Identification a = 1st replicate; b = 2nd replicate; c = 3rd replicate</str>
+<str>Location sampled within the plot, pre label = before the 14C was applied</str>
+<str>Date sampled</str>
+<str>Time sampled</str>
+<str>Type of sample, d-dic = Dissolved Inorganic Carbon sample| d-gas = Dissolved gas sample</str>
+<str>Elevation of the sample site</str>
+<str>Depth of the sample site</str>
+<str>Partial Pressure of Carbon Dioxide</str>
+<str>Partial Pressure of Methane</str>
+<str>Concentration of Carbon Dioxide per Liter of water or gas</str>
+<str>Concentration of Methane per Liter of water or gas</str>
+<str>Concentration of Dissolved Inorganic Carbon</str>
+</arr>
+<arr name="attributeLabel">
+<str>Vegetation</str>
+<str>Treatment</str>
+<str>Plot#</str>
+<str>Round</str>
+<str>Location</str>
+<str>Date</str>
+<str>Time</str>
+<str>Category</str>
+<str>Elev_m</str>
+<str>Depth_m</str>
+<str>PCO2_uatm</str>
+<str>PCH4_uatm</str>
+<str>CO2_umol_L</str>
+<str>CH4_umol_L</str>
+<str>DIC_umol_L</str>
+</arr>
+<arr name="attributeName">
+<str>Vegetation</str>
+<str>Treatment</str>
+<str>Plot#</str>
+<str>Round</str>
+<str>Location</str>
+<str>Date</str>
+<str>Time</str>
+<str>Category</str>
+<str>Elev_m</str>
+<str>Depth_m</str>
+<str>PCO2_uatm</str>
+<str>PCH4_uatm</str>
+<str>CO2_umol_L</str>
+<str>CH4_umol_L</str>
+<str>DIC_umol_L</str>
+</arr>
+<arr name="attributeUnit">
+<str>meter</str>
+<str>meter</str>
+<str>microatmosphere</str>
+<str>microatmosphere</str>
+<str>micromolePerLiter</str>
+<str>micromolePerLiter</str>
+<str>micromolePerLiter</str>
+</arr>
+<str name="author">George Kling</str>
+<str name="authorGivenName">George</str>
+<arr name="authorLastName">
+<str>Kling</str>
+<str>Nadelhoffer</str>
+<str>Sommerkorn</str>
+</arr>
+<str name="authorSurName">Kling</str>
+<str name="authoritativeMN">urn:node:LTER</str>
+<date name="beginDate">2000-06-30T00:00:00Z</date>
+<arr name="changePermission">
+<str>uid=ARC,o=lter,dc=ecoinformatics,dc=org</str>
+</arr>
+<str name="checksum">f71e095f0df458a2744ee03163c5aaba</str>
+<str name="checksumAlgorithm">MD5</str>
+<arr name="contactOrganization">
+<str>Arctic LTER Program</str>
+</arr>
+<str name="dataUrl">https://cn.dataone.org/cn/v1/resolve/knb-lter-arc.10353.1</str>
+<str name="datasource">urn:node:LTER</str>
+<date name="dateModified">2014-03-29T19:52:13.52Z</date>
+<date name="datePublished">2002-01-01T00:00:00Z</date>
+<date name="dateUploaded">2013-10-20T23:00:00Z</date>
+<float name="eastBoundCoord">-149.5773</float>
+<date name="endDate">2000-07-14T00:00:00Z</date>
+<str name="fileID">https://cn.dataone.org/cn/v1/resolve/knb-lter-arc.10353.1</str>
+<str name="formatId">eml://ecoinformatics.org/eml-2.1.0</str>
+<str name="formatType">METADATA</str>
+<str name="id">knb-lter-arc.10353.1</str>
+<str name="identifier">knb-lter-arc.10353.1</str>
+<arr name="investigator">
+<str>Kling</str>
+<str>Nadelhoffer</str>
+<str>Sommerkorn</str>
+</arr>
+<bool name="isPublic">true</bool>
+<arr name="keywords">
+<str>Dissolved inorganic carbon</str>
+<str>DIC</str>
+<str>carbon dioxide</str>
+<str>CO2</str>
+<str>CH4</str>
+<str>methane</str>
+</arr>
+<float name="northBoundCoord">68.64762</float>
+<str name="obsoletedBy">knb-lter-arc.10353.2</str>
+<arr name="origin">
+<str>George Kling</str>
+<str>Knute Nadelhoffer</str>
+<str>Martin Sommerkorn</str>
+</arr>
+<str name="project">Arctic Long-Term Ecological Research (ARC LTER) Program</str>
+<date name="pubDate">2002-01-01T00:00:00Z</date>
+<arr name="readPermission">
+<str>uid=ARC,o=lter,dc=ecoinformatics,dc=org</str>
+<str>public</str>
+</arr>
+<arr name="replicaMN">
+<str>urn:node:CN</str>
+<str>urn:node:LTER</str>
+</arr>
+<arr name="replicaVerifiedDate">
+<date>2013-10-20T23:15:14.752Z</date>
+<date>2013-10-20T23:15:14.646Z</date>
+</arr>
+<bool name="replicationAllowed">false</bool>
+<str name="rightsHolder">uid=ARC,o=LTER,dc=ecoinformatics,dc=org</str>
+<arr name="site">
+<str>Arctic LTER Experimental Plots: Wet Sedge Tundra Block 2 Northeast corner near Toolik Field Station, North Slope, Alaska.</str>
+<str>Arctic LTER Experimental Plots: Moist Acidic Tussock Tundra (MAT) Northeast corner block 1 near Toolik Field Station, North Slope, Alaska.</str>
+</arr>
+<long name="size">31621</long>
+<str name="sku">knb-lter-arc.10353.1</str>
+<float name="southBoundCoord">68.64762</float>
+<str name="submitter">uid=ARC,o=LTER,dc=ecoinformatics,dc=org</str>
+<str name="title">Pre-labeled dissolved inorganic carbon, carbon dioxide, and methane from experiemental plots near Toolik Lake, AK from 2000</str>
+<date name="updateDate">2013-10-20T23:00:00Z</date>
+<float name="westBoundCoord">-149.5773</float>
+<arr name="writePermission">
+<str>uid=ARC,o=lter,dc=ecoinformatics,dc=org</str>
+</arr>
+</doc>

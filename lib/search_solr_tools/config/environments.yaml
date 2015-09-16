@@ -5,6 +5,7 @@
   :port: 8983
   :bcodmo_url: http://www.bco-dmo.org/nsidc/arctic-deployments.json
   :cisl_url: https://www.aoncadis.org/oai/repository
+  :data_one_url: https://cn.dataone.org/cn/v1/query/solr/select?q=northBoundCoord:%5B45.0%20TO%2090.0%5D
   :echo_url: https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10
   :ices_url: http://geo.ices.dk/geonetwork/srv/en/csw
   :ncdc_paleo_url: http://gis.ncdc.noaa.gov/gptpaleo/csw

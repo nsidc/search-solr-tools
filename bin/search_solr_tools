@@ -67,6 +67,7 @@ class SolrHarvestCLI < Thor
       {
         'bco_dmo'            => SearchSolrTools::Harvesters::BcoDmo,
         'cisl'               => SearchSolrTools::Harvesters::Cisl,
+        'data_one'           => SearchSolrTools::Harvesters::DataOne,
         'echo'               => SearchSolrTools::Harvesters::Echo,
         'eol'                => SearchSolrTools::Harvesters::Eol,
         'ices'               => SearchSolrTools::Harvesters::Ices,
