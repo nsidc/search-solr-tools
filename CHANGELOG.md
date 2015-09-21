@@ -7,6 +7,12 @@ Bugfixes
     times, instead of simply failing after 3 failed
     attempts. [Pivotal 103057378](https://www.pivotaltracker.com/story/show/103057378)
 
+Changes
+
+  - Change NODC harvester's default page size from 100 to 50. The NODC feed is
+    responding with HTTP 500 when requesting records 301-400, but not when
+    requesting 301-350 or 351-400.
+
 ## v3.2.0 (2015-07-01)
 
 New Features
