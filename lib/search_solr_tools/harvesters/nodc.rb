@@ -4,7 +4,7 @@ module SearchSolrTools
     class Nodc < Base
       def initialize(env = 'development', die_on_failure = false)
         super env, die_on_failure
-        @page_size = 100
+        @page_size = 50
         @translator = Helpers::IsoToSolr.new :nodc
       end
 
