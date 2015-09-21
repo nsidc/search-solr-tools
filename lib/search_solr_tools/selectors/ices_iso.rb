@@ -43,7 +43,7 @@ module SearchSolrTools
       dataset_url: {
         xpaths: ['.//gmd:fileIdentifier/gco:CharacterString'],
         multivalue: false,
-        format: Helpers::IsoToSolrFormat:: ICES_DATASET_URL
+        format: Helpers::IsoToSolrFormat::ICES_DATASET_URL
       },
       spatial_coverages: {
         xpaths: ['.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox'],

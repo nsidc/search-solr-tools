@@ -47,7 +47,8 @@ module SearchSolrTools
                                                      'resultType' => resultType,
                                                      'maxRecords' => maxRecords,
                                                      'startPosition' => startPosition,
-                                                     'constraint' => bbox_constraint
+                                                     'constraint' => bbox_constraint,
+                                                     'outputSchema' => 'http://www.isotc211.org/2005/gmd'
                                                     )
       end
 

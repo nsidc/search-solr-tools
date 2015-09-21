@@ -70,6 +70,7 @@ class SolrHarvestCLI < Thor
         'echo'               => SearchSolrTools::Harvesters::Echo,
         'eol'                => SearchSolrTools::Harvesters::Eol,
         'ices'               => SearchSolrTools::Harvesters::Ices,
+        'ncdc_paleo'         => SearchSolrTools::Harvesters::NcdcPaleo,
         'nmi'                => SearchSolrTools::Harvesters::Nmi,
         'nodc'               => SearchSolrTools::Harvesters::Nodc,
         'r2r'                => SearchSolrTools::Harvesters::R2R,
