@@ -25,7 +25,7 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
 
   describe '#get_docs_with_translated_entries_from_ncdc_paleo' do
     check_values = {
-      'data_centers' => ['NOAA National Oceanographic Data Center'],
+      'data_centers' => ['NOAA Paleoclimatology Data Center'],
       'authors' => ['Hou, X.', 'Li, J.', 'Li, L.', 'Lu, H.', 'Shi, J.', 'Shi, S.', 'Wu, S.'],
       'keywords' => ['Precipitation Reconstruction', 'PIMA', 'Pinus massoniana Lamb.', 'Masson pine', 'earth science/paleoclimate/reconstructions', '(Lower Yangtze River::LATITUDE ::LONGITUDE )'],
       'spatial_coverages' => ['28 116 34 122'],
@@ -34,7 +34,7 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
       'temporal' => ['00.010101 20.150923'],
       'temporal_coverages' => ['1856-01-01T00:00:00+00:00,2013-01-01T00:00:00+00:00'],
       'source' => ['ADE'],
-      'facet_data_center' => ['NOAA Paleoclimate data center | NCDC PALEO'],
+      'facet_data_center' => ['NOAA Paleoclimatology Data Center | NOAA Paleo'],
       'facet_temporal_duration' => ['1+ years', '10+ years', '5+ years'],
       'authoritative_id' => ['{BA24F713-5035-4A21-8EEA-56C162517572}'],
       'dataset_url' => ['http://gis.ncdc.noaa.gov/gptpaleo/catalog/search/resource/details.page?uuid={BA24F713-5035-4A21-8EEA-56C162517572}'],

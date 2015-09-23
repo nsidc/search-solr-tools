@@ -13,7 +13,7 @@ module SearchSolrTools
       },
       data_centers: {
         xpaths: [''],
-        default_values: [Helpers::SolrFormat::DATA_CENTER_NAMES[:NODC][:long_name]],
+        default_values: [Helpers::SolrFormat::DATA_CENTER_NAMES[:NCDC_PALEO][:long_name]],
         multivalue: false
       },
       authors: {
