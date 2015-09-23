@@ -37,7 +37,10 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
       'facet_data_center' => ['NOAA Paleoclimate data center | NCDC PALEO'],
       'facet_temporal_duration' => ['1+ years', '10+ years', '5+ years'],
       'authoritative_id' => ['{BA24F713-5035-4A21-8EEA-56C162517572}'],
-      'dataset_url' => ['http://gis.ncdc.noaa.gov/gptpaleo/catalog/search/resource/details.page?uuid={BA24F713-5035-4A21-8EEA-56C162517572}']
+      'dataset_url' => ['http://gis.ncdc.noaa.gov/gptpaleo/catalog/search/resource/details.page?uuid={BA24F713-5035-4A21-8EEA-56C162517572}'],
+      'last_revision_date' => ['2015-05-19T00:00:00Z'],
+      'temporal_duration' => ['57344'],
+      'facet_spatial_scope' => ['Between 1 and 170 degrees of latitude change | Regional']
     }
 
     let(:described_object) { described_class.new }
