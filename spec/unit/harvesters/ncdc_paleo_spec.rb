@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry-byebug'
 
 describe SearchSolrTools::Harvesters::NcdcPaleo do
   describe '#initialize' do

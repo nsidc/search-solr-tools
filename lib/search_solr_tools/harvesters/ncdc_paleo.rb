@@ -35,18 +35,17 @@ module SearchSolrTools
       end
 
       def get_docs_with_translated_entries_from_ncdc_paleo(entries)
-        docs = []
         auth_ids = entries.map { |e| e.xpath("./dc:identifier[@scheme='urn:x-esri:specification:ServiceType:ArcIMS:Metadata:DocID']").text }
-        auth_ids.each do |record|
+
+        auth_ids.map do |record|
           result_xml = get_results("http://gis.ncdc.noaa.gov/gptpaleo/csw?getxml=#{record}",
                                    '/rdf:RDF/rdf:Description').first
           solr_doc = create_new_solr_add_doc_with_child(@translator.translate(result_xml).root)
           insert_node = solr_doc.at_xpath('//doc')
           insert_node.add_child("<field name='authoritative_id'>#{record}</field>")
           insert_node.add_child("<field name='dataset_url'>http://gis.ncdc.noaa.gov/gptpaleo/catalog/search/resource/details.page?uuid=#{record}")
-          docs.push(solr_doc.root)
+          solr_doc.root
         end
-        docs
       end
 
       def build_csw_request(resultType = 'results', maxRecords = '1000', startPosition = '1')
