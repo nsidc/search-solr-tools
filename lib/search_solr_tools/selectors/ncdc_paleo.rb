@@ -27,7 +27,7 @@ module SearchSolrTools
       },
       last_revision_date: {
         xpaths: ['/rdf:RDF/rdf:Description/dc:date'],
-        default_values: [Helpers::SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+        default_values: [''], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
         multivalue: false,
         format: Helpers::SolrFormat::DATE
       },
