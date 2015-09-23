@@ -14,7 +14,7 @@ module SearchSolrTools
         ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
         EOL: { short_name: 'UCAR NCAR EOL', long_name: 'UCAR NCAR - Earth Observing Laboratory' },
         ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
-        NCDC_PALEO: { short_name: 'NOAA Paleo', long_name: 'NOAA Paleoclimatology Data Center' },
+        NCDC_PALEO: { short_name: 'NOAA WDS Paleo', long_name: 'NOAA’s National Centers for Environmental Information, World Data Service for Paleoclimatology' },
         NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
         NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
         NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
