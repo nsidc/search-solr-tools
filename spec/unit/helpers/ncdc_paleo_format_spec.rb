@@ -26,6 +26,18 @@ describe SearchSolrTools::Helpers::NcdcPaleoFormat do
     end
   end
 
+  describe '#temporal_index_str' do
+    it 'generates a temporal index string' do
+      node = Nokogiri::XML("<dc:coverage xmlns:ds='test'>START YEAR: 11739 14C yr BP  * END YEAR: 11293 14C yr BP</dc:coverage>")
+      expect(described_class.temporal_index_str(node)).to eql '-137.110101 -133.570101'
+    end
+
+    it 'returns nil on an unparsable node' do
+      node = Nokogiri::XML("<dc:coverage xmlns:ds='test'>foo bar foo bar</dc:coverage>")
+      expect(described_class.temporal_index_str(node)).to eql(nil)
+    end
+  end
+
   describe '#get_tmeporal_duration' do
     it 'gets the temporal duration' do
       node = Nokogiri::XML("<dc:coverage xmlns:ds='test'>START YEAR: 1856 AD  * END YEAR: 2013 AD</dc:coverage>")

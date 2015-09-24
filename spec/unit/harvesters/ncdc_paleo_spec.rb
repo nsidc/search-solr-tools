@@ -31,7 +31,7 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
       'spatial_coverages' => ['28 116 34 122'],
       'spatial' => ['116 28 122 34'],
       'spatial_area' => ['6.0'],
-      'temporal' => ['00.010101 20.150923'],
+      'temporal' => ['18.560101 20.130101'],
       'temporal_coverages' => ['1856-01-01T00:00:00+00:00,2013-01-01T00:00:00+00:00'],
       'source' => ['ADE'],
       'facet_data_center' => ['NOAA’s National Centers for Environmental Information, World Data Service for Paleoclimatology | NOAA WDS Paleo'],

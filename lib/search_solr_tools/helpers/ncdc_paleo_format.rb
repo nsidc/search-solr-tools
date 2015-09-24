@@ -40,6 +40,11 @@ module SearchSolrTools
         }
       end
 
+      def self.temporal_index_str(node)
+        range = date_range(node)
+        SolrFormat.temporal_index_str(start: range[:start].to_s, end: range[:end].to_s) unless range.nil?
+      end
+
       def self.get_temporal_duration(node)
         range = date_range(node)
         return if range.empty?
