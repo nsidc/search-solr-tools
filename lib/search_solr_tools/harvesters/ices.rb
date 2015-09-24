@@ -47,7 +47,8 @@ module SearchSolrTools
                                                      'resultType' => resultType,
                                                      'maxRecords' => maxRecords,
                                                      'startPosition' => startPosition,
-                                                     'constraintLanguage' => 'CQL_TEXT'
+                                                     'constraintLanguage' => 'CQL_TEXT',
+                                                     'outputSchema' => 'http://www.isotc211.org/2005/gmd'
                                                     )
       end
     end

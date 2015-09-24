@@ -1,4 +1,11 @@
-## v3.2.1 (2015-9-23)
+## v3.3.0
+
+New Features
+
+-  Add harvest support for
+   [NOAA Paleoclimatology Data Center (NOAA Paleo)](https://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets).
+
+## v3.2.1 (2015-09-23)
 
 Bugfixes
 

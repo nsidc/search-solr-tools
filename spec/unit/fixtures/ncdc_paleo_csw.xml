@@ -1,0 +1,46 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcmiBox="http://dublincore.org/documents/2000/07/11/dcmi-box/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ows="http://www.opengis.net/ows">
+<rdf:Description rdf:about="http://dublincore.org/">
+<dc:title>Lower Yangtze River 158 Year February-April Precipitation Reconstruction</dc:title>
+<dc:creator>Shi, J.; Lu, H.; Li, J.; Shi, S.; Wu, S.; Hou, X.; Li, L.; </dc:creator>
+<dc:creator>Shi, J.</dc:creator>
+<dc:creator>Lu, H.</dc:creator>
+<dc:creator>Li, J.</dc:creator>
+<dc:creator>Shi, S.</dc:creator>
+<dc:creator>Wu, S.</dc:creator>
+<dc:creator>Hou, X.</dc:creator>
+<dc:creator>Li, L.</dc:creator>
+<dc:subject>Precipitation Reconstruction</dc:subject>
+<dc:subject>PIMA</dc:subject>
+<dc:subject>Pinus massoniana Lamb.</dc:subject>
+<dc:subject>Masson pine</dc:subject>
+<dc:subject>earth science/paleoclimate/reconstructions</dc:subject>
+<dc:subject> (Lower Yangtze River::LATITUDE ::LONGITUDE )</dc:subject>
+<dc:description>February-April drought strongly affects agriculture and socio-economics in southeastern China, yet its long-term variability has not been assessed due to the shortness of instrumental records. In this study, we reported a 168-year tree-ring width chronology from a steep, low-elevation site with thin soil layers in the Xianxia Mountains, southeastern China. Contrary to the existing chronologies that are mostly temperature sensitive, this chronology contained a strong February-April precipitation signal, indicating great potential for tree-ring based precipitation reconstructions in southeastern China. The reconstruction explained 47.8% of the instrumental variance during 1951-2012. The full reconstruction indicated that there were 3 dry periods (1873-1896, 1924-1971, 1995-2012) and 2 wet periods (1856-1872, 1972-1994) during 1856-2013. The extreme drought in 2011 was not unprecedented for the past 168 years, and the recent severe droughts may be part of interdecadal variations in regional February-April precipitation. Our results also suggested that February-April precipitation in southeastern China was highly influenced by the tropical Pacific climate system, in particular El Niño-Southern Oscillation (ENSO).           STUDY NOTES: Spring (February-April) 158 year precipitation reconstruction for the lower reaches of the Yangtze River, based on tree-ring data. </dc:description>
+<dc:publisher>NCDC-Paleoclimatology</dc:publisher>
+<dc:publisher>http://www.ncdc.noaa.gov/paleo/ - Bauer Bruce</dc:publisher>
+<dc:contributor>Investigator : Shi, J.</dc:contributor>
+<dc:contributor>Investigator : Lu, H.</dc:contributor>
+<dc:contributor>Investigator : Li, J.</dc:contributor>
+<dc:contributor>Investigator : Shi, S.</dc:contributor>
+<dc:contributor>Investigator : Wu, S.</dc:contributor>
+<dc:contributor>Investigator : Hou, X.</dc:contributor>
+<dc:contributor>Investigator : Li, L.</dc:contributor>
+<dc:date>2015-05-19</dc:date>
+<dc:type>Online Files</dc:type>
+<dc:format>online, ASCII</dc:format>
+<dc:identifier>https://www.ncdc.noaa.gov/paleo/study/18335</dc:identifier>
+<dc:identifier>http://www1.ncdc.noaa.gov/pub/data/paleo/treering/reconstructions/asia/china/shi2015precip.txt</dc:identifier>
+<dc:source>http://www1.ncdc.noaa.gov/pub/data/paleo/treering/reconstructions/asia/china/shi2015precip.txt</dc:source>
+<dc:language>English</dc:language>
+<dc:relation>https://www.ncdc.noaa.gov/paleo/study/18335</dc:relation>
+<dc:relation>http://www1.ncdc.noaa.gov/pub/data/paleo/treering/reconstructions/asia/china/shi2015precip.txt</dc:relation>
+<dc:relation>Jiangfeng Shi, Huayu Lu, Jinbao Li, Shiyuan Shi, Shuangye Wu, Xinyuan Hou, Lingling Li2015Tree-ring based February-April precipitation reconstruction for the lower reaches of the Yangtze River, southeastern ChinaGlobal and Planetary Change13182-8810.1016/j.gloplacha.2015.05.006http://www.sciencedirect.com/science/article/pii/S0921818115000910</dc:relation>
+<dc:coverage>START YEAR: 1856 AD  * END YEAR: 2013 AD</dc:coverage>
+<ows:WGS84BoundingBox>
+<ows:LowerCorner>116  28</ows:LowerCorner>
+<ows:UpperCorner>122  34</ows:UpperCorner>
+</ows:WGS84BoundingBox>
+</rdf:Description>
+<div/>
+<div/>
+</rdf:RDF>

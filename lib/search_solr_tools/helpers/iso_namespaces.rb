@@ -21,6 +21,7 @@ module SearchSolrTools
         'gss'    => 'http://www.isotc211.org/2005/gss',
         'gts'    => 'http://www.isotc211.org/2005/gts',
         'oai'    => 'http://www.openarchives.org/OAI/2.0/',
+        'rdf'    => 'http://www.w3.org/TR/REC-rdf-syntax',
         'srv'    => 'http://www.isotc211.org/2005/srv',
         'xlink'  => 'http://www.w3.org/1999/xlink',
         'xsi'    => 'http://www.w3.org/2001/XMLSchema-instance'

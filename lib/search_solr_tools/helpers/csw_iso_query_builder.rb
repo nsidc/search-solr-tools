@@ -13,8 +13,7 @@ module SearchSolrTools
         'resultType' => 'results',
         'outputFormat' => 'application/xml',
         'maxRecords' => '25',
-        'startPosition' => '1',
-        'outputSchema' => 'http://www.isotc211.org/2005/gmd'
+        'startPosition' => '1'
       }
 
       def self.get_query_string(url, query_params = {})

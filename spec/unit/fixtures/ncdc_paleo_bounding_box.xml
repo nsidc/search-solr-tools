@@ -1,0 +1,4 @@
+<ows:WGS84BoundingBox xmlns:ows='testing'>
+<ows:LowerCorner>116  28</ows:LowerCorner>
+<ows:UpperCorner>122  34</ows:UpperCorner>
+</ows:WGS84BoundingBox>
