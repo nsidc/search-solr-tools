@@ -47,12 +47,15 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
     let(:entry_list_fixture) { Nokogiri::XML(File.open('spec/unit/fixtures/ncdc_paleo_entry.xml')) }
     let(:entry_fixture) { Nokogiri::XML(File.open('spec/unit/fixtures/ncdc_paleo_csw.xml')) }
 
-    it 'translates_a_document' do
+    before(:each) do
       allow(described_object).to receive(:get_results).with(
         'http://gis.ncdc.noaa.gov/gptpaleo/csw?getxml={BA24F713-5035-4A21-8EEA-56C162517572}',
         '/rdf:RDF/rdf:Description').and_return([entry_fixture])
-      doc = described_object.get_docs_with_translated_entries_from_ncdc_paleo([entry_list_fixture.at_xpath('//csw:Record')])
-      check_values.each do |key, values|
+    end
+
+    check_values.each do |key, values|
+      it "translates '#{key}' from the document" do
+        doc = described_object.get_docs_with_translated_entries_from_ncdc_paleo([entry_list_fixture.at_xpath('//csw:Record')])
         translated_values = doc.first.xpath("//field[@name='#{key}']").map(&:text)
         expect(translated_values).to match_array values
       end
