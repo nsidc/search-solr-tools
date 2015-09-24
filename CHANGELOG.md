@@ -2,9 +2,10 @@
 
 New Features
 
--  Add harvest support for NOAA Paleoclimatology Data Center(NOAA Paleo) (https://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets)
+-  Add harvest support for
+   [NOAA Paleoclimatology Data Center (NOAA Paleo)](https://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets).
 
-## v3.2.1
+## v3.2.1 (2015-09-23)
 
 Bugfixes
 
