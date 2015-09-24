@@ -77,9 +77,8 @@ module SearchSolrTools
 
       def self.get_temporal_duration(temporal_node)
         dr = date_range(temporal_node)
-        dr[:end].to_s.empty? ? end_time = Time.now : end_time = Time.parse(dr[:end])
-        dr[:start].to_s.empty? ? duration = nil : duration = SolrFormat.get_temporal_duration(Time.parse(dr[:start]), end_time)
-        duration
+        end_time = dr[:end].to_s.empty? ? Time.now : Time.parse(dr[:end])
+        SolrFormat.get_temporal_duration(Time.parse(dr[:start]), end_time) unless dr[:start].to_s.empty?
       end
 
       def self.get_temporal_duration_facet(temporal_node)
