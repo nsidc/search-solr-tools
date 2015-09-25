@@ -47,7 +47,7 @@ module SearchSolrTools
 
       def self.get_temporal_duration(node)
         range = date_range(node)
-        return if range.empty?
+        return if range.to_s.empty?
         (range[:start] - range[:end]).to_i.abs
       end
 

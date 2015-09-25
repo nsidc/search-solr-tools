@@ -1,13 +1,19 @@
+## v3.3.1
+
+Bugfix
+
+  - Remove strange facet string for temporal duration from NOAA Paleo search
+    results.
+
 ## v3.3.0
 
 New Features
 
--  Add harvest support for
+  -  Add harvest support for
    [NOAA Paleoclimatology Data Center (NOAA Paleo)](https://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets).
 
--  Add harvest support for
-   [Data Observation Network for Earth (Data ONE)](https://www.dataone.org/).
-   [Pivotal 77763710](https://www.pivotaltracker.com/story/show/77763710)
+  -  Add harvest support for
+   [Data Observation Network for Earth (Data ONE)](https://www.dataone.org/). [Pivotal 77763710](https://www.pivotaltracker.com/story/show/77763710)
 
 ## v3.2.1 (2015-09-23)
 
