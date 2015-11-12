@@ -36,41 +36,34 @@
 :local:
   :host: localhost
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
 
 :dev:
   :host: dev.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
 
 :integration:
   :host: integration.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://liquid.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
 
 :qa:
   :host: qa.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://qa.nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://qa.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://brash.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://qa.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
 
 :staging:
   :host: staging.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://staging.nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://staging.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://freeze.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://staging.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
 
 :blue:
   :host: blue.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
 
 :production:
   :host: search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
-  :oai_url: http://frozen.colorado.edu:11580/api/dataset/2/oai?verb=ListRecords&metadata_prefix=iso
+  :nsidc_oai_identifiers_url: http://nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=iso
