@@ -7,4 +7,14 @@ Dir.glob('./tasks/*.rake').each { |r| import r }
 RuboCop::RakeTask.new
 
 desc 'Run RuboCop and RSpec code examples'
-task default: %w(rubocop spec:unit)
+task :default do
+  failure = false
+
+  %w(rubocop spec:unit).each do |task_name|
+    sh "rake #{task_name}" do
+      failure = true
+    end
+  end
+
+  exit failure ? 1 : 0
+end
