@@ -1,9 +1,3 @@
-## Unreleased
-
-Cleanup
-
-  - Removed outdated configuration references to NSIDC web servers.
-
 ## v3.3.1
 
 Bugfix
