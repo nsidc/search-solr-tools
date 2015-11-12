@@ -11,8 +11,8 @@ task :default do
   failure = false
 
   %w(rubocop spec:unit).each do |task_name|
-    sh "rake #{task_name}" do
-      failure = true
+    sh "rake #{task_name}" do |ok, _res|
+      failure = !ok
     end
   end
 
