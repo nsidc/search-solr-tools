@@ -42,12 +42,14 @@ module SearchSolrTools
       # To get around this I'd prefer to make assumptions about the token and let it break if
       # they change the formatting.  For now, all fields other than offset should be able to be
       # assumed to remain constant.
+      # glewis 2016-01-15: It broke, offset has quotes around it, so I updated the regex to account for
+      # the possibility, including '"' or '&quot;'
       # If the input is empty, then we are done - return an empty string, which is checked for
       # in the harvest loop.
       def format_resumption_token(resumption_token)
         return '' if resumption_token.empty?
 
-        resumption_token =~ /offset:(\d+)/
+        resumption_token =~ /offset(?:"|&quot;)?:(\d+)/
         offset = Regexp.last_match(1)
 
         {
