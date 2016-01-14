@@ -47,7 +47,7 @@ module SearchSolrTools
       def format_resumption_token(resumption_token)
         return '' if resumption_token.empty?
 
-        resumption_token =~ /offset:(\d+)/
+        resumption_token =~ /offset(?:"|&quot;):(\d+)/
         offset = Regexp.last_match(1)
 
         {
