@@ -1,0 +1,300 @@
+[
+  {
+    "title": "Global Terrestrial Network - Thermal State of Permafrost",
+    "abstract": "The Global Terrestrial Network for Permafrost Data Management System contains time series for borehole temperatures (TSP: Thermal State of Permafrost) plus air and surface temperature and soil moisture (DUE Permafrost, MODIS) measured in the terrestrial Panarctic, Antarctic and Mountainous realms.",
+    "bbox": {
+      "longitude": {
+        "min": -170.498,
+        "max": 171.9447
+      },
+      "latitude": {
+        "min": -78.51155,
+        "max": 82.5
+      }
+    }
+  },
+  {
+    "name": "Keller 4. King George Island",
+    "link": "http://gtnpdatabase.org/boreholes/view/646",
+    "coordinates": {
+      "projection": "epsg:4326",
+      "latitude": -62.075753,
+      "longitude": -58.403733
+    },
+    "elevation": {
+      "measure_unit": "Meter",
+      "value": 196
+    },
+    "depth": {
+      "measure_unit": "Meter",
+      "value": 0.8
+    },
+    "citation": {
+      "title": "TSP Antarctica Brazil",
+      "keywords": "Borehole, Antarctica, Ground temperature",
+      "abstract": "",
+      "language": "English",
+      "organizations": [
+        {
+          "name": "Federal University of Viçosa",
+          "alternateName": "UFV",
+          "sponsor": "Brazilian National Council for Science and Technology (CNPq). Research Agency of the Minas Gerais State (FAPEMIG)",
+          "telephone": "(31) 3899-2200",
+          "faxNumber": "(31) 3899-2108",
+          "url": "http://www.ufv.br/",
+          "email": "reitoria@ufv.br",
+          "address": {
+            "streetAddress": "Peter Henry Rolfs Avenue, s / n  Campus",
+            "postalCode": "36570-900",
+            "addressLocality": "Viçosa",
+            "addressCountry": "Brazil",
+            "addressRegion": null
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "givenName": "Carlos",
+          "familyName": "Schaefer",
+          "role": "Responsible Person",
+          "position": "",
+          "telephone": "",
+          "faxNumber": "",
+          "url": "",
+          "email": "carlos.schaefer@ufv.br",
+          "address": {
+            "streetAddress": "",
+            "postalCode": "",
+            "addressLocality": "",
+            "addressCountry": "Brazil",
+            "addressRegion": null
+          },
+          "organization": {
+            "name": "Federal University of Viçosa",
+            "alternateName": "UFV",
+            "sponsor": "Brazilian National Council for Science and Technology (CNPq). Research Agency of the Minas Gerais State (FAPEMIG)",
+            "telephone": "(31) 3899-2200",
+            "faxNumber": "(31) 3899-2108",
+            "url": "http://www.ufv.br/",
+            "email": "reitoria@ufv.br",
+            "address": {
+              "streetAddress": "Peter Henry Rolfs Avenue, s / n  Campus",
+              "postalCode": "36570-900",
+              "addressLocality": "Viçosa",
+              "addressCountry": "Brazil",
+              "addressRegion": null
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Barrow 1 (N.Meadow Lake 1 NM1)",
+    "link": "http://gtnpdatabase.org/boreholes/view/27",
+    "coordinates": {
+      "projection": "epsg:4326",
+      "latitude": 71.310532,
+      "longitude": -156.654053
+    },
+    "elevation": {
+      "measure_unit": "Meter",
+      "value": 6.21255112
+    },
+    "depth": {
+      "measure_unit": "Meter",
+      "value": 45
+    },
+    "citation": {
+      "title": "TSP USA Alaska UAF",
+      "keywords": "Borehole, Ground temperature",
+      "abstract": "",
+      "language": "English",
+      "organizations": [
+        {
+          "name": "University of Alaska Fairbanks Geophysical Institute",
+          "alternateName": "UAF-GI",
+          "sponsor": "NSF",
+          "telephone": "(907)474-7459",
+          "faxNumber": "(907)474-7290",
+          "url": "http://www.gi.alaska.edu/",
+          "email": "",
+          "address": {
+            "streetAddress": "903 Koyukuk Drive, P.O.Box 757320",
+            "postalCode": "99775",
+            "addressLocality": "Fairbanks",
+            "addressCountry": "USA",
+            "addressRegion": "AK "
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "givenName": "Vladimir E.",
+          "familyName": "Romanovsky",
+          "role": "Responsible Person",
+          "position": "",
+          "telephone": "(907)474-7459",
+          "faxNumber": "(907)474-7290 ",
+          "url": "http://www.gi.alaska.edu/profile/vladimir-romanovsky",
+          "email": "veromanovsky@alaska.edu",
+          "address": {
+            "streetAddress": "903 Koyukuk Drive, P.O.Box 757320 ",
+            "postalCode": "99775",
+            "addressLocality": "Fairbanks",
+            "addressCountry": "USA",
+            "addressRegion": "AK"
+          },
+          "organization": {
+            "name": "University of Alaska Fairbanks Geophysical Institute",
+            "alternateName": "UAF-GI",
+            "sponsor": "NSF",
+            "telephone": "(907)474-7459",
+            "faxNumber": "(907)474-7290",
+            "url": "http://www.gi.alaska.edu/",
+            "email": "",
+            "address": {
+              "streetAddress": "903 Koyukuk Drive, P.O.Box 757320",
+              "postalCode": "99775",
+              "addressLocality": "Fairbanks",
+              "addressCountry": "USA",
+              "addressRegion": "AK "
+            }
+          }
+        },
+        {
+          "givenName": "Alexander L.",
+          "familyName": "Kholodov",
+          "role": "Collaborator",
+          "position": "",
+          "telephone": "1 (907) 474-7698",
+          "faxNumber": "1 (907) 474-7290",
+          "url": "",
+          "email": "akholodov@gi.alaska.edu",
+          "address": {
+            "streetAddress": "Geophysical Institute University of Alaska Fairbanks 903 Koyukuk Drive",
+            "postalCode": "",
+            "addressLocality": "Fairbanks",
+            "addressCountry": "USA",
+            "addressRegion": ""
+          },
+          "organization": {
+            "name": "University of Alaska Fairbanks Geophysical Institute",
+            "alternateName": "UAF-GI",
+            "sponsor": "NSF",
+            "telephone": "(907)474-7459",
+            "faxNumber": "(907)474-7290",
+            "url": "http://www.gi.alaska.edu/",
+            "email": "",
+            "address": {
+              "streetAddress": "903 Koyukuk Drive, P.O.Box 757320",
+              "postalCode": "99775",
+              "addressLocality": "Fairbanks",
+              "addressCountry": "USA",
+              "addressRegion": "AK "
+            }
+          }
+        },
+        {
+          "givenName": "Thomas E.",
+          "familyName": "Osterkamp",
+          "role": "Collaborator",
+          "position": "",
+          "telephone": "+1 9074747459",
+          "faxNumber": "+1 9074747290 ",
+          "url": "http://permafrost.gi.alaska.edu/",
+          "email": "ffteo@uaf.edu",
+          "address": {
+            "streetAddress": "903 Koyukuk Drive",
+            "postalCode": "903",
+            "addressLocality": "Fairbanks",
+            "addressCountry": "United States",
+            "addressRegion": "Alaska"
+          },
+          "organization": {
+            "name": "University of Alaska Fairbanks Geophysical Institute",
+            "alternateName": "UAF-GI",
+            "sponsor": "NSF",
+            "telephone": "(907)474-7459",
+            "faxNumber": "(907)474-7290",
+            "url": "http://www.gi.alaska.edu/",
+            "email": "",
+            "address": {
+              "streetAddress": "903 Koyukuk Drive, P.O.Box 757320",
+              "postalCode": "99775",
+              "addressLocality": "Fairbanks",
+              "addressCountry": "USA",
+              "addressRegion": "AK "
+            }
+          }
+        },
+        {
+          "givenName": "Kenji",
+          "familyName": "Yoshikawa",
+          "role": "Collaborator",
+          "position": "",
+          "telephone": "",
+          "faxNumber": "",
+          "url": "",
+          "email": "kyoshikawa@alaska.edu",
+          "address": {
+            "streetAddress": "University of Alaska Institute of Northern Engineering",
+            "postalCode": "99775",
+            "addressLocality": "Fairbanks",
+            "addressCountry": "USA",
+            "addressRegion": "Alaska"
+          },
+          "organization": {
+            "name": "University of Alaska Fairbanks Institute of Northern Engineering",
+            "alternateName": "UAF-INE",
+            "sponsor": "",
+            "telephone": "907-474-5457",
+            "faxNumber": "907-474-7041",
+            "url": "http://ine.uaf.edu/",
+            "email": "",
+            "address": {
+              "streetAddress": "PO Box 755910 539 Duckering Building 306 Tanana Loop",
+              "postalCode": "99775-5910",
+              "addressLocality": "Fairbanks",
+              "addressCountry": "USA",
+              "addressRegion": "Alaska"
+            }
+          }
+        },
+        {
+          "givenName": "William L.",
+          "familyName": "Cable",
+          "role": "Collaborator",
+          "position": "Research Professional",
+          "telephone": "+1 303-351-1105",
+          "faxNumber": "",
+          "url": "http://permafrost.gi.alaska.edu/users/wlcable",
+          "email": "wlcable@alaska.edu",
+          "address": {
+            "streetAddress": "903 Koyukuk Dr.",
+            "postalCode": "99775",
+            "addressLocality": "Fairbanks",
+            "addressCountry": "United States",
+            "addressRegion": "AK"
+          },
+          "organization": {
+            "name": "University of Alaska Fairbanks Geophysical Institute",
+            "alternateName": "UAF-GI",
+            "sponsor": "NSF",
+            "telephone": "(907)474-7459",
+            "faxNumber": "(907)474-7290",
+            "url": "http://www.gi.alaska.edu/",
+            "email": "",
+            "address": {
+              "streetAddress": "903 Koyukuk Drive, P.O.Box 757320",
+              "postalCode": "99775",
+              "addressLocality": "Fairbanks",
+              "addressCountry": "USA",
+              "addressRegion": "AK "
+            }
+          }
+        }
+      ]
+    }
+  }
+]

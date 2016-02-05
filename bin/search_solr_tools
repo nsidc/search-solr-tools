@@ -71,6 +71,7 @@ class SolrHarvestCLI < Thor
         'data_one'           => SearchSolrTools::Harvesters::DataOne,
         'echo'               => SearchSolrTools::Harvesters::Echo,
         'eol'                => SearchSolrTools::Harvesters::Eol,
+        'gtnp'               => SearchSolrTools::Harvesters::GtnP,
         'ices'               => SearchSolrTools::Harvesters::Ices,
         'ncdc_paleo'         => SearchSolrTools::Harvesters::NcdcPaleo,
         'nmi'                => SearchSolrTools::Harvesters::Nmi,
