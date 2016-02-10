@@ -10,7 +10,7 @@ describe SearchSolrTools::Harvesters::GtnP do
                'Global Terrestrial Network - Active Layer Thawing - Betty Pingo',
                'Global Terrestrial Network - Active Layer Thawing - Deadhorse',
                'Global Terrestrial Network - Active Layer Thawing - Talnik']
-  data_center = 'Global Terrestrial Network for Permafrost (GTN-P)'
+  data_center = 'Global Terrestrial Network for Permafrost'
   facet_data_center = "#{data_center} | GTN-P"
   summary = ['The Global Terrestrial Network for Permafrost Data Management System contains time series for borehole temperatures (TSP: Thermal State of Permafrost) plus air and surface temperature and soil moisture (DUE Permafrost, MODIS) measured in the terrestrial Panarctic, Antarctic and Mountainous realms.',
              'The Global Terrestrial Network for Permafrost Data Management System contains time series for active layer thawing measurements(ALT: Active Layer Thawing) plus air and surface temperature and soil moisture (DUE Permafrost, MODIS) measured in the terrestrial Panarctic, Antarctic and Mountainous realms.']

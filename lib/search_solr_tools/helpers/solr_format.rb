@@ -14,7 +14,7 @@ module SearchSolrTools
         DATA_ONE: { short_name: 'DataONE', long_name: 'DataONE' },
         ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
         EOL: { short_name: 'UCAR NCAR EOL', long_name: 'UCAR NCAR - Earth Observing Laboratory' },
-        GTNP: { short_name: 'GTN-P', long_name: 'Global Terrestrial Network for Permafrost (GTN-P)' },
+        GTNP: { short_name: 'GTN-P', long_name: 'Global Terrestrial Network for Permafrost' },
         ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
         NCDC_PALEO: { short_name: 'NOAA WDS Paleo', long_name: 'NOAA’s National Centers for Environmental Information, World Data Service for Paleoclimatology' },
         NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },

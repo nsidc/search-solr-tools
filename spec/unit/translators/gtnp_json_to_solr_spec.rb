@@ -57,8 +57,8 @@ describe SearchSolrTools::Translators::GtnpJsonToSolr do
     title_id = "#{header_entry['title']} - #{valid_activelayers['name']}"
     expect(result['title']).to eql title_id
     expect(result['authoritative_id']).to eql title_id
-    expect(result['data_centers']).to eql 'Global Terrestrial Network for Permafrost (GTN-P)'
-    expect(result['facet_data_center']).to eql 'Global Terrestrial Network for Permafrost (GTN-P) | GTN-P'
+    expect(result['data_centers']).to eql 'Global Terrestrial Network for Permafrost'
+    expect(result['facet_data_center']).to eql 'Global Terrestrial Network for Permafrost | GTN-P'
     expect(result['summary']).to eql 'A summary'
     expect(result['dataset_url']).to eql 'http://gtnpdatabase.org/activelayers/view/1'
     expect(result['source']).to eql 'ADE'
@@ -75,8 +75,8 @@ describe SearchSolrTools::Translators::GtnpJsonToSolr do
     title_id = "#{header_entry['title']} - #{valid_boreholes['name']}"
     expect(result['title']).to eql title_id
     expect(result['authoritative_id']).to eql title_id
-    expect(result['data_centers']).to eql 'Global Terrestrial Network for Permafrost (GTN-P)'
-    expect(result['facet_data_center']).to eql 'Global Terrestrial Network for Permafrost (GTN-P) | GTN-P'
+    expect(result['data_centers']).to eql 'Global Terrestrial Network for Permafrost'
+    expect(result['facet_data_center']).to eql 'Global Terrestrial Network for Permafrost | GTN-P'
     expect(result['summary']).to eql 'A summary'
     expect(result['dataset_url']).to eql 'http://gtnpdatabase.org/boreholes/view/646'
     expect(result['source']).to eql 'ADE'
