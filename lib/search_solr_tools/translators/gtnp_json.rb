@@ -8,6 +8,7 @@ module SearchSolrTools
   module Translators
     # Translates GTN-P json to solr json format
     class GtnpJsonToSolr
+      # rubocop:disable Metrics/MethodLength
       # rubocop:disable AbcSize
       def translate(json_doc, json_record)
         json_geo = json_doc['geo'].nil? ? json_doc['coordinates'] : json_doc['geo']['coordinates']
@@ -26,6 +27,7 @@ module SearchSolrTools
           'spatial_area' => spatial_values[:spatial_area],
           'spatial' => spatial_values[:spatial_index],
           'temporal_coverages' => Helpers::SolrFormat::NOT_SPECIFIED,
+          'facet_temporal_duration' => Helpers::SolrFormat::NOT_SPECIFIED,
           'authors' => parse_people(json_doc)
         }
       end

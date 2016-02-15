@@ -36,6 +36,7 @@ describe SearchSolrTools::Harvesters::GtnP do
              ['-148.466667 70.166667'],
              ['63.733 67.33']]
   temporal_coverages = 'Not specified'
+  facet_temporal_duration = 'Not specified'
   authors = [['Carlos Schaefer'],
              ['Vladimir E. Romanovsky', 'Alexander L. Kholodov', 'Thomas E. Osterkamp', 'Kenji Yoshikawa', 'William L. Cable'],
              ['Nikolay Shiklomanov'],
@@ -86,6 +87,7 @@ describe SearchSolrTools::Harvesters::GtnP do
         expect(doc['spatial_area']).to eql spatial_area
         expect(spatial).to include(doc['spatial'])
         expect(doc['temporal_coverages']).to eql temporal_coverages
+        expect(doc['facet_temporal_duration']).to eql facet_temporal_duration
         expect(authors).to include(doc['authors'])
       end
     end

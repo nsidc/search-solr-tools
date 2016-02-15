@@ -67,6 +67,7 @@ describe SearchSolrTools::Translators::GtnpJsonToSolr do
     expect(result['spatial_area']).to be 0.0
     expect(result['spatial']).to eql ['-148.498186 69.100007']
     expect(result['temporal_coverages']).to eql 'Not specified'
+    expect(result['facet_temporal_duration']).to eql 'Not specified'
     expect(result['authors']).to eql []
   end
 
@@ -85,6 +86,7 @@ describe SearchSolrTools::Translators::GtnpJsonToSolr do
     expect(result['spatial_area']).to be 0.0
     expect(result['spatial']).to eql ['-58.403733 -62.075753']
     expect(result['temporal_coverages']).to eql 'Not specified'
+    expect(result['facet_temporal_duration']).to eql 'Not specified'
     expect(result['authors']).to eql ['Fred Ethel', 'Nikolay Shiklomanov']
   end
 end
