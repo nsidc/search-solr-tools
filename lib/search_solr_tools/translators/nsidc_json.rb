@@ -46,6 +46,7 @@ module SearchSolrTools
           'facet_format' => (json_doc['distributionFormats'].empty?) ? [Helpers::SolrFormat::NOT_SPECIFIED] : translate_format_to_facet_format(json_doc['distributionFormats']),
           'source' => %w(NSIDC ADE),
           'popularity' => json_doc['popularity'],
+          'data_access_urls' => translate_data_access_urls(json_doc['dataAccessLinks']),
           'facet_sponsored_program' => translate_short_long_names_to_facet_value(json_doc['internalDataCenters']),
           'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters']),
           'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
@@ -96,6 +97,20 @@ module SearchSolrTools
 
       def translate_iso_topic_categories(iso_topic_categories_json)
         iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
+      end
+
+      def translate_data_access_urls(json)
+        values = []
+        return values if json.nil?
+        json.each do |json_entry|
+          link_display = json_entry['displayText'].nil? ? '' : json_entry['displayText']
+          link_type = json_entry['type'].nil? ? '' : json_entry['type']
+          link_uri = json_entry['uri'].nil? ? '' : json_entry['uri']
+          link_desc = json_entry['description'].nil? ? '' : json_entry['description']
+
+          values << "#{link_display} | #{link_type} | #{link_uri} | #{link_desc}"
+        end
+        values
       end
 
       def translate_short_long_names_to_facet_value(json)

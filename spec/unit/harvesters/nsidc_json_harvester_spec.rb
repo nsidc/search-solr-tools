@@ -41,6 +41,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
       expect(result[:add_docs].first['add']['doc']['published_date']).to eql('2013-01-01T00:00:00Z')
       expect(result[:add_docs].first['add']['doc']['last_revision_date']).to eql('2013-03-12T21:18:12Z')
       expect(result[:add_docs].first['add']['doc']['facet_format']).to eql([SearchSolrTools::Helpers::SolrFormat::NOT_SPECIFIED])
+      expect(result[:add_docs].first['add']['doc']['data_access_urls'].first).to eql('FTP | download | http://localhost:11580/forms/G02199_or.html | Direct download, with optional registration page.')
     end
 
     it 'constructs a sucessful doc children hash and an errors hash for failured ids' do

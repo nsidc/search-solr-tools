@@ -1,3 +1,16 @@
+## v3.3.3 (2015-05-10)
+
+New Features
+
+  - Add support for ingesting Data Access Links from NSIDC JSON
+
+
+## v3.3.2
+
+Bugfix
+
+  - Added quote checking for cisl offset parsing check
+
 ## v3.3.1
 
 Bugfix

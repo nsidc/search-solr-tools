@@ -10,6 +10,14 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     expect(SearchSolrTools::Helpers::SolrFormat.date_str date).to eql '2013-03-12T21:18:12Z'
   end
 
+  it 'translates Data Access Links to data_access_links string' do
+    data_access_links_json = [{ 'displayText' => 'FTP', 'uri' => 'ftp://fake.nsidc.org/fake/path/to/data', 'type' => 'download', 'description' => 'Test Description'},
+                              { 'displayText' => 'HTTP', 'uri' => 'http://fake.nsidc.org/another/fake/path', 'type' => 'download', 'description' => 'Blah Blah'}]
+    values = @translator.translate_data_access_urls(data_access_links_json)
+    expect(values[0]).to eql('FTP | download | ftp://fake.nsidc.org/fake/path/to/data | Test Description')
+    expect(values[1]).to eql('HTTP | download | http://fake.nsidc.org/another/fake/path | Blah Blah')
+  end
+
   it 'translates NSIDC internal data center to facet_sponsored_program string' do
     internal_datacenters_json = [{ 'shortName' => 'NASA DAAC', 'longName' => 'NASA DAAC at the National Snow and Ice Data Center', 'url' => 'http://nsidc.org/daac/index.html' },
                                  { 'shortName' => 'NOAA @ NSIDC', 'longName' => 'NSIDC National Oceanic and Atmospheric Administration', 'url' => 'http://nsidc.org/noaa/' }]

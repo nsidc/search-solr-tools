@@ -29,7 +29,9 @@
   "dataAccessLinks": [
   {
     "uri": "http://localhost:11580/forms/G02199_or.html",
-    "displayText": "FTP"
+    "displayText": "FTP",
+    "type": "download",
+    "description": "Direct download, with optional registration page."
   }],
   "sampleMediaLinks": [],
   "newestPublishedMajorVersion": null,
