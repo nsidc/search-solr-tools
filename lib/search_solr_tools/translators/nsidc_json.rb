@@ -49,7 +49,8 @@ module SearchSolrTools
           'data_access_urls' => translate_data_access_urls(json_doc['dataAccessLinks']),
           'facet_sponsored_program' => translate_short_long_names_to_facet_value(json_doc['internalDataCenters']),
           'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters']),
-          'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters'])
+          'facet_spatial_resolution' => translate_spatial_resolution_facet_values(json_doc['parameters']),
+          'sponsored_programs' => translate_internal_datacenters(json_doc['internalDataCenters'])
         )
       end
       # rubocop:enable Metrics/MethodLength
@@ -109,6 +110,16 @@ module SearchSolrTools
           link_desc = json_entry['description'].nil? ? '' : json_entry['description']
 
           values << "#{link_display} | #{link_type} | #{link_uri} | #{link_desc}"
+        end
+        values
+      end
+
+      def translate_internal_datacenters(json)
+        values = []
+        return values if json.nil?
+        json.each do |json_entry|
+          short_name = json_entry['shortName'].nil? ? '' : json_entry['shortName']
+          values << short_name
         end
         values
       end

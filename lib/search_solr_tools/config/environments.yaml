@@ -42,10 +42,11 @@
   :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
 
 :dev:
-  ## For host below, you'll need to instantiate your own search-solr instance, and point host to that.  
+  ## For the below, you'll need to instantiate your own search-solr instance, and point host to that.
   :host: dev.search-solr.USERNAME.dev.int.nsidc.org
-  :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
-  :nsidc_oai_identifiers_url: http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
+  ## For these, either set up your own instance of dataset serach catalog or change it to point to integration
+  :nsidc_dataset_metadata_url: http://dev.dcs.USERNAME.dev.int.nsidc.org:1580/api/dataset/metadata/
+  :nsidc_oai_identifiers_url: http://dev.dcs.USERNAME.dev.int.nsidc.org:1580/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
 
 :integration:
   :host: integration.search-solr.apps.int.nsidc.org
