@@ -49,8 +49,7 @@ module SearchSolrTools
                                                      'startPosition' => startPosition,
                                                      'TypeNames' => '',
                                                      'constraint' => bbox_constraint,
-                                                     'outputSchema' => 'http://www.isotc211.org/2005/gmd'
-                                                    )
+                                                     'outputSchema' => 'http://www.isotc211.org/2005/gmd')
       end
 
       def bbox_constraint

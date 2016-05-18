@@ -188,7 +188,7 @@ module SearchSolrTools
 
         return '' if vals.empty? || out_of_bounds
 
-        val = (-val.to_f) if %w(West South).include?(vals.last)
+        val = -val.to_f if %w(West South).include?(vals.last)
 
         val.to_f.to_s
       end

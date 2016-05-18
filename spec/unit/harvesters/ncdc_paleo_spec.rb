@@ -50,7 +50,8 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
     before(:each) do
       allow(described_object).to receive(:get_results).with(
         'http://gis.ncdc.noaa.gov/gptpaleo/csw?getxml={BA24F713-5035-4A21-8EEA-56C162517572}',
-        '/rdf:RDF/rdf:Description').and_return([entry_fixture])
+        '/rdf:RDF/rdf:Description'
+      ).and_return([entry_fixture])
     end
 
     check_values.each do |key, values|
@@ -77,7 +78,8 @@ describe SearchSolrTools::Harvesters::NcdcPaleo do
       harvester = described_class.new('dev', true)
       expect_any_instance_of(SearchSolrTools::Harvesters::Base).to receive(:get_results).with(
         'http://gis.ncdc.noaa.gov/gptpaleo/csw?service=CSW&version=2.0.2&request=GetRecords&TypeNames=gmd:MD_Metadata&ElementSetName=full&resultType=results&outputFormat=application/xml&maxRecords=50&startPosition=1',
-        '//csw:Record').and_return(true)
+        '//csw:Record'
+      ).and_return(true)
       harvester.get_results_from_ncdc_paleo_url(1)
     end
   end

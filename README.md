@@ -93,11 +93,6 @@ one terminal window.
 
 RuboCop can be configured by modifying `.rubocop.yml`.
 
-Pushing with failing tests or RuboCop violations will cause the Jenkins build to
-break. Jenkins jobs to build and deploy this project are named
-"NSIDC_Search_SOLR_()…" and can be viewed under the
-[NSIDC Search tab](https://scm.nsidc.org/jenkins/view/NSIDC%20Search/).
-
 ### Testing
 
 Unit tests can be run with `rspec`, `bundle exec rake spec:unit`, or `bundle
@@ -114,7 +109,7 @@ Requirements:
 * [Bundler](http://bundler.io/)
 * [Gem Release](https://github.com/svenfuchs/gem-release)
 * [Rake](https://github.com/ruby/rake)
-* a [RubyGems](https://rubygems.org) account that has
+* A [RubyGems](https://rubygems.org) account that has
   [ownership](http://guides.rubygems.org/publishing/) of the gem
 * RuboCop and the unit tests should all pass (`rake`)
 
@@ -125,7 +120,7 @@ tagging, and publishing to RubyGems.
 |---------------------------|-------------|
 | `rake release:pre[false]` | Increase the current prerelease version number, push changes |
 | `rake release:pre[true]`  | Increase the current prerelease version number, publish release\* |
-| `rake release:none`       | Drop the prerelease version, publish release, then `pre[false]` |
+| `rake release:none`       | Drop the prerelease version, publish release, then `pre[false]` (does a patch release) |
 | `rake release:minor`      | Increase the minor version number, publish release, then `pre[false]` |
 | `rake release:major`      | Increase the major version number, publish release, then `pre[false]` |
 

@@ -22,7 +22,7 @@ module SearchSolrTools
             doc = open_xml_document(dataset)
             if doc.xpath('//xmlns:metadata').size > 1
               # THREDDS allows for a dataset of datasests, EOL should not utilize this
-              fail "Complex dataset encountered at #{doc.xpath('//xmlns:catalog').to_html}"
+              raise "Complex dataset encountered at #{doc.xpath('//xmlns:catalog').to_html}"
             end
             metadata_doc = open_xml_document(doc.xpath('//xmlns:metadata')[0]['xlink:href'])
             { 'add' => { 'doc' => @translator.translate(doc, metadata_doc) } }

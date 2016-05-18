@@ -7,12 +7,18 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
 
   it 'translates NSIDC JSON date to SOLR format iso8601 date' do
     date = '2013-03-12T21:18:12-06:00'
-    expect(SearchSolrTools::Helpers::SolrFormat.date_str date).to eql '2013-03-12T21:18:12Z'
+    expect(SearchSolrTools::Helpers::SolrFormat.date_str(date)).to eql '2013-03-12T21:18:12Z'
   end
 
   it 'translates Data Access Links to data_access_links string' do
-    data_access_links_json = [{ 'displayText' => 'FTP', 'uri' => 'ftp://fake.nsidc.org/fake/path/to/data', 'type' => 'download', 'description' => 'Test Description'},
-                              { 'displayText' => 'HTTP', 'uri' => 'http://fake.nsidc.org/another/fake/path', 'type' => 'download', 'description' => 'Blah Blah'}]
+    data_access_links_json = [{ 'displayText' => 'FTP',
+                                'uri' => 'ftp://fake.nsidc.org/fake/path/to/data',
+                                'type' => 'download',
+                                'description' => 'Test Description' },
+                              { 'displayText' => 'HTTP',
+                                'uri' => 'http://fake.nsidc.org/another/fake/path',
+                                'type' => 'download',
+                                'description' => 'Blah Blah' }]
     values = @translator.translate_data_access_urls(data_access_links_json)
     expect(values[0]).to eql('FTP | download | ftp://fake.nsidc.org/fake/path/to/data | Test Description')
     expect(values[1]).to eql('HTTP | download | http://fake.nsidc.org/another/fake/path | Blah Blah')
@@ -45,11 +51,14 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
   end
 
   it 'translates NSIDC citation creators to authors list' do
-    creator_json = { 'creators' => [
-      { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
-      { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
-      { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
-      { 'role' => '',       'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' }] }
+    creator_json = {
+      'creators' => [
+        { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
+        { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+        { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
+        { 'role' => '',       'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' }
+      ]
+    }
     authors = @translator.translate_personnel_and_creators_to_authors(nil, @translator.generate_data_citation_creators(creator_json))
     expect(authors[0]).to eql('Claire L. Parkinson')
     expect(authors[1]).to eql('Per Gloersen')
@@ -75,12 +84,15 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
                       { 'role' => 'investigator', 'firstName' => 'Per', 'middleName' => '', 'lastName' => 'Gloersen' },
                       { 'role' => 'investigator', 'firstName' => 'H. Jay', 'middleName' => '', 'lastName' => 'Zwally' }]
 
-    creator_json = { 'creators' => [
-      { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
-      { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
-      { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
-      { 'role' => 'author', 'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' },
-      { 'role' => 'author', 'firstName' => 'Ian',    'middleName' => 'M',  'lastName' => 'Banks' }] }
+    creator_json = {
+      'creators' => [
+        { 'role' => 'author', 'firstName' => 'NSIDC',  'middleName' => '',   'lastName' => 'User Services' },
+        { 'role' => 'editor', 'firstName' => 'Claire', 'middleName' => 'L.', 'lastName' => 'Parkinson' },
+        { 'role' => 'author', 'firstName' => 'Per',    'middleName' => '',   'lastName' => 'Gloersen' },
+        { 'role' => 'author', 'firstName' => 'H. Jay', 'middleName' => '',   'lastName' => 'Zwally' },
+        { 'role' => 'author', 'firstName' => 'Ian',    'middleName' => 'M',  'lastName' => 'Banks' }
+      ]
+    }
 
     authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(creator_json))
     expect(authors.length).to eql 4

@@ -34,11 +34,11 @@ module SearchSolrTools
       end
 
       def results
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def metadata_url
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def translated_docs(entries)
@@ -48,7 +48,7 @@ module SearchSolrTools
       private
 
       def request_params
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def request_string

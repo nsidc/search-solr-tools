@@ -62,9 +62,9 @@ module SearchSolrTools
       def parse_geospatial_coverages(doc)
         node = doc.xpath('//xmlns:geospatialCoverage')
         south = node.xpath('./xmlns:northsouth/xmlns:start').text.to_f
-        north = south + (node.xpath('./xmlns:northsouth/xmlns:size').text.to_f)
+        north = south + node.xpath('./xmlns:northsouth/xmlns:size').text.to_f
         west = node.xpath('./xmlns:eastwest/xmlns:start').text.to_f
-        east = west + (node.xpath('./xmlns:eastwest/xmlns:size').text.to_f)
+        east = west + node.xpath('./xmlns:eastwest/xmlns:size').text.to_f
         # EOL uses out-of-range east-west values to represent bounding boxes
         # that cross the date line.   For any box with a value out of range,
         # adjust the east/west value to lie within the -180 to 180 range.
