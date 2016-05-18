@@ -3,7 +3,7 @@ module SearchSolrTools
     class NsidcAutoSuggest < AutoSuggest
       def harvest_and_delete
         puts 'Building auto-suggest indexes for NSIDC'
-        super(method(:harvest), "source:\"NSIDC\"", @env_settings[:auto_suggest_collection_name])
+        super(method(:harvest), 'source:"NSIDC"', @env_settings[:auto_suggest_collection_name])
       end
 
       def harvest
@@ -12,7 +12,8 @@ module SearchSolrTools
       end
 
       def fields
-        { 'authoritative_id' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) },
+        {
+          'authoritative_id' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) },
           'full_title' => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
           'copy_parameters' => { weight: 5, source: 'NSIDC', creator: method(:standard_add_creator) },
           'full_platforms' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },

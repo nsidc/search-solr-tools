@@ -104,16 +104,15 @@ describe SearchSolrTools::Harvesters::Base do
   it 'serializes a hash and adds it to solr in JSON format' do
     harvester = described_class.new 'integration'
     add_doc = { 'add' => { 'doc' => { 'authoritative_id' => 'TEST-0001' } } }
-    serialized_add_doc = "{\"add\":{\"doc\":{\"authoritative_id\":\"TEST-0001\"}}}"
+    serialized_add_doc = '{"add":{"doc":{"authoritative_id":"TEST-0001"}}}'
 
     stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
       .with(body: serialized_add_doc,
-            headers: {
-              'Accept' => '*/*; q=0.5, application/xml',
-              'Accept-Encoding' => 'gzip, deflate',
-              'Content-Length' => '48',
-              'Content-Type' => described_class::JSON_CONTENT_TYPE,
-              'User-Agent' => 'Ruby' })
+            headers: { 'Accept'          => '*/*; q=0.5, application/xml',
+                       'Accept-Encoding' => 'gzip, deflate',
+                       'Content-Length'  => '48',
+                       'Content-Type'    => described_class::JSON_CONTENT_TYPE,
+                       'User-Agent'      => 'Ruby' })
       .to_return(status: 200, body: 'success', headers: {})
 
     expect(harvester.insert_solr_doc(add_doc, described_class::JSON_CONTENT_TYPE)).to eql(true)
@@ -124,12 +123,11 @@ describe SearchSolrTools::Harvesters::Base do
     add_doc = Nokogiri.XML('<add><doc><field name="authoritative_id">TEST-0001</field></doc></add>')
     stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
       .with(body: add_doc.to_xml,
-            headers: {
-              'Accept' => '*/*; q=0.5, application/xml',
-              'Accept-Encoding' => 'gzip, deflate',
-              'Content-Length' => '105',
-              'Content-Type' => described_class::XML_CONTENT_TYPE,
-              'User-Agent' => 'Ruby' })
+            headers: { 'Accept'          => '*/*; q=0.5, application/xml',
+                       'Accept-Encoding' => 'gzip, deflate',
+                       'Content-Length'  => '105',
+                       'Content-Type'    => described_class::XML_CONTENT_TYPE,
+                       'User-Agent'      => 'Ruby' })
       .to_return(status: 200, body: 'success', headers: {})
 
     expect(harvester.insert_solr_doc(add_doc)).to eql(true)
@@ -173,7 +171,8 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'Can be forced to delete with a timestamp' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.delete_old_documents('20040202', "data_centers:\"test\"", SearchSolrTools::SolrEnvironments[@harvester.environment][:collection_name], true)
+      @harvester.delete_old_documents('20040202', 'data_centers:"test"', SearchSolrTools::SolrEnvironments[@harvester
+.environment][:collection_name], true)
 
       expect(stubs[:delete_stub]).to have_been_requested
       expect(stubs[:commit_stub]).to have_been_requested

@@ -43,7 +43,7 @@ module SearchSolrTools
           'last_revision_date' => (Helpers::SolrFormat.date_str json_doc['lastRevisionDate']),
           'dataset_url' => json_doc['datasetUrl'],
           'distribution_formats' => json_doc['distributionFormats'],
-          'facet_format' => (json_doc['distributionFormats'].empty?) ? [Helpers::SolrFormat::NOT_SPECIFIED] : translate_format_to_facet_format(json_doc['distributionFormats']),
+          'facet_format' => json_doc['distributionFormats'].empty? ? [Helpers::SolrFormat::NOT_SPECIFIED] : translate_format_to_facet_format(json_doc['distributionFormats']),
           'source' => %w(NSIDC ADE),
           'popularity' => json_doc['popularity'],
           'data_access_urls' => translate_data_access_urls(json_doc['dataAccessLinks']),

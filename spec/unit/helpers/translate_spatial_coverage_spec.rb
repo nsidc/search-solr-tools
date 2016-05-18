@@ -27,8 +27,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
                                 '-80.0 179.0 -80.0 179.0',
                                 '0.0 0.0 0.0 0.0',
                                 '80.0 0.0 80.0 0.0',
-                                '179.0 -179.0 179.0 -179.0'
-                               ]
+                                '179.0 -179.0 179.0 -179.0']
   end
 
   it 'translates GeoJSON polygon to spatial index str' do
@@ -54,8 +53,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
                                          '-179.0 -80.0',
                                          '50.22 45.0',
                                          '0.0 80.0',
-                                         '-179.0 179.0'
-                                        ]
+                                         '-179.0 179.0']
   end
 
   it 'translates GeoJSON geometries to single maximum spatial area value' do

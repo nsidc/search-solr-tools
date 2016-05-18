@@ -3,7 +3,7 @@ module SearchSolrTools
     class AdeAutoSuggest < AutoSuggest
       def harvest_and_delete
         puts 'Building auto-suggest indexes for ADE'
-        super(method(:harvest), "source:\"ADE\"", @env_settings[:auto_suggest_collection_name])
+        super(method(:harvest), 'source:"ADE"', @env_settings[:auto_suggest_collection_name])
       end
 
       def harvest
@@ -12,7 +12,8 @@ module SearchSolrTools
       end
 
       def fields
-        { 'full_keywords_and_parameters' => { weight: 2, source: 'ADE', creator: method(:keyword_creator) },
+        {
+          'full_keywords_and_parameters' => { weight: 2, source: 'ADE', creator: method(:keyword_creator) },
           'full_authors' => { weight: 1, source: 'ADE', creator: method(:author_creator) }
         }
       end

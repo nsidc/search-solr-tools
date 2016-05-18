@@ -30,7 +30,8 @@ describe SearchSolrTools::Translators::EolToSolr do
 
     it 'populates summary' do
       expect(@solr_insert['summary']).to eql File.read(
-        File.join(File.dirname(__FILE__), '../fixtures/eol_summary.txt')).chop
+        File.join(File.dirname(__FILE__), '../fixtures/eol_summary.txt')
+      ).chop
     end
 
     it 'populates temporal_coverages' do

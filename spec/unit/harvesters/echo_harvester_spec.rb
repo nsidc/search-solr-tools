@@ -25,12 +25,11 @@ describe SearchSolrTools::Harvesters::Echo do
     it 'Issues a request to update Solr with data' do
       stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
         .with(body: Nokogiri.XML('<add><foo></add>').to_xml,
-              headers: {
-                'Accept' => '*/*; q=0.5, application/xml',
-                'Accept-Encoding' => 'gzip, deflate',
-                'Content-Length' => '44',
-                'Content-Type' => 'text/xml; charset=utf-8',
-                'User-Agent' => 'Ruby' })
+              headers: { 'Accept'          => '*/*; q=0.5, application/xml',
+                         'Accept-Encoding' => 'gzip, deflate',
+                         'Content-Length'  => '44',
+                         'Content-Type'    => 'text/xml; charset=utf-8',
+                         'User-Agent'      => 'Ruby' })
         .to_return(status: 200, body: 'success', headers: {})
 
       expect(@harvester.insert_solr_doc(Nokogiri.XML('<add><foo></add>'))).to eql(true)

@@ -58,8 +58,7 @@ class SolrHarvestCLI < Thor
     harvester.delete_old_documents(options[:timestamp],
                                    "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:data_center].upcase.to_sym][:long_name]}\"",
                                    SearchSolrTools::SolrEnvironments[harvester.environment][:collection_name],
-                                   true
-                                  )
+                                   true)
   end
 
   no_tasks do
@@ -90,7 +89,7 @@ class SolrHarvestCLI < Thor
 
     def get_harvester_class(data_center_name)
       name = data_center_name.downcase.to_s
-      fail("Invalid data center #{name}") unless harvester_map.key?(name)
+      raise("Invalid data center #{name}") unless harvester_map.key?(name)
 
       harvester_map[name]
     end

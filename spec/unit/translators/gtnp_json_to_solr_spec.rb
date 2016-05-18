@@ -2,39 +2,42 @@ require 'spec_helper'
 
 describe SearchSolrTools::Translators::GtnpJsonToSolr do
   header_entry = { 'title' => 'A title', 'abstract' => 'A summary' }
-  valid_boreholes =
-      {
-        'name' => 'Keller 4. King George Island',
-        'link' => 'http://gtnpdatabase.org/boreholes/view/646',
-        'coordinates' => {
-          'projection' => 'EPSG:4326',
-          'latitude' => -62.075753,
-          'longitude' => -58.403733
+  valid_boreholes = {
+    'name' => 'Keller 4. King George Island',
+    'link' => 'http://gtnpdatabase.org/boreholes/view/646',
+    'coordinates' => {
+      'projection' => 'EPSG:4326',
+      'latitude' => -62.075753,
+      'longitude' => -58.403733
+    },
+    'citation' => {
+      'contacts' => [
+        {
+          'givenName'  => 'Fred',
+          'familyName' => 'Ethel'
         },
-        'citation' => {
-          'contacts' => [
-            {
-              'givenName' => 'Fred',
-              'familyName' => 'Ethel'
-            },
-            {
-              'givenName' => 'Nikolay',
-              'familyName' => 'Shiklomanov'
-            }] } }
+        {
+          'givenName'  => 'Nikolay',
+          'familyName' => 'Shiklomanov'
+        }
+      ]
+    }
+  }
 
-  valid_activelayers =
-      {
-        'name' => 'Happy Valley 1km',
-        'link' => 'http://gtnpdatabase.org/activelayers/view/1',
-        'geo' => {
-          'coordinates' => {
-            'projection' => 'EPSG:4326',
-            'latitude' => 69.100007,
-            'longitude' => -148.498186
-          }
-        },
-        'citation' => {
-          'contacts' => [] } }
+  valid_activelayers = {
+    'name' => 'Happy Valley 1km',
+    'link' => 'http://gtnpdatabase.org/activelayers/view/1',
+    'geo' => {
+      'coordinates' => {
+        'projection' => 'EPSG:4326',
+        'latitude' => 69.100007,
+        'longitude' => -148.498186
+      }
+    },
+    'citation' => {
+      'contacts' => []
+    }
+  }
 
   before :each do
     @translator = described_class.new

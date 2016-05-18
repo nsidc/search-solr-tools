@@ -52,8 +52,7 @@ module SearchSolrTools
         Helpers::CswIsoQueryBuilder.get_query_string(ncdc_paleo_url,
                                                      'resultType' => resultType,
                                                      'maxRecords' => maxRecords,
-                                                     'startPosition' => startPosition
-                                                    )
+                                                     'startPosition' => startPosition)
       end
     end
   end

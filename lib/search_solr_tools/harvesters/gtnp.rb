@@ -28,7 +28,7 @@ module SearchSolrTools
       def harvest_gtnp_into_solr
         result = translate_gtnp
         insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
-        fail 'Failed to harvest some records from the provider' if result[:failure_ids].length > 0
+        raise 'Failed to harvest some records from the provider' if result[:failure_ids].length > 0
       end
 
       def translate_gtnp
