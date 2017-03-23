@@ -62,7 +62,6 @@ class SolrHarvestCLI < Thor
   end
 
   no_tasks do
-    # rubocop: disable MethodLength
     def harvester_map
       {
         'bco_dmo'            => SearchSolrTools::Harvesters::BcoDmo,
@@ -85,7 +84,6 @@ class SolrHarvestCLI < Thor
         'ade_auto_suggest'   => SearchSolrTools::Harvesters::AdeAutoSuggest
       }
     end
-    # rubocop: enable MethodLength
 
     def get_harvester_class(data_center_name)
       name = data_center_name.downcase.to_s

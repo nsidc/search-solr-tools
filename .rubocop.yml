@@ -23,7 +23,7 @@ LineLength:
   Enabled: false
 
 MethodLength:
-  Max: 18
+  Max: 22
 
 Metrics/ModuleLength:
   Max: 101
