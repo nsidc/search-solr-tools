@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rubocop', '~> 1.2'
   spec.add_development_dependency 'rake', '~> 10.4'
   spec.add_development_dependency 'rspec', '~> 3.2'
-  spec.add_development_dependency 'rubocop', '~> 0.32'
+  spec.add_development_dependency 'rubocop', '~> 0.32.1'
   spec.add_development_dependency 'webmock', '~> 1.13'
   spec.add_development_dependency 'listen', '3.0.5'
 end
