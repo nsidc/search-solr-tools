@@ -8,7 +8,6 @@ module SearchSolrTools
   module Translators
     # Translates GTN-P json to solr json format
     class GtnpJsonToSolr
-      # rubocop:disable Metrics/MethodLength
       # rubocop:disable AbcSize
       def translate(json_doc, json_record)
         json_geo = json_doc['geo'].nil? ? json_doc['coordinates'] : json_doc['geo']['coordinates']

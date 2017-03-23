@@ -6,6 +6,7 @@ AllCops:
   Exclude:
     - puppet/**/*
     - vendor/**/*
+    - spec/unit/helpers/iso_to_solr_spec.rb
 
 AbcSize:
   Max: 20
@@ -23,7 +24,7 @@ LineLength:
   Enabled: false
 
 MethodLength:
-  Max: 18
+  Max: 22
 
 Metrics/ModuleLength:
   Max: 101
