@@ -23,7 +23,7 @@ module SearchSolrTools
       def harvest_nsidc_json_into_solr
         result = docs_with_translated_entries_from_nsidc
         insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
-        raise 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
+        fail 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
       end
 
       def nsidc_json_url

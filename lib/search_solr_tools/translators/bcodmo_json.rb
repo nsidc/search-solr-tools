@@ -50,7 +50,6 @@ module SearchSolrTools
       end
 
       def translate_geometry(wkt_geom)
-
         if wkt_geom['geometry']['type'] == 'LineString'
           wkt_geom['geometry']['type'] = 'MultiPoint'
         end
@@ -60,7 +59,7 @@ module SearchSolrTools
         # This feed sometimes returns MultiLineString but wrongly calls them 'LineString'
         # If the above fails, we assume this is why. If the feed gets fixed, this code
         # should still handle that.
-        if geometry.nil? or geometry.num_geometries == 0
+        if geometry.nil? || geometry.num_geometries == 0
           # Try to decode as an actual MultiLineString.
           wkt_geom['geometry']['type'] = 'MultiLineString'
           geometry = RGeo::GeoJSON.decode(wkt_geom).geometry
@@ -68,9 +67,9 @@ module SearchSolrTools
           # Convert to a MultiPoint, for passing into the helper functions below.
           coords = geometry.coordinates.flatten
           coords = coords.each_slice(2).to_a
-          f = RGeo::Geos.factory()
+          f = RGeo::Geos.factory
           points = []
-          coords.each {|x,y| points << f.point(x,y)}
+          coords.each { |x, y| points << f.point(x, y) }
           geometry = f.multi_point(points)
         end
 

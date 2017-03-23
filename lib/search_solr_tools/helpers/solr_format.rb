@@ -134,7 +134,7 @@ module SearchSolrTools
           j = send(find_index_method, resolution['max_resolution'])
           return resolution_values[i..j]
         end
-        raise "Invalid resolution #{resolution['type']}"
+        fail "Invalid resolution #{resolution['type']}"
       end
 
       def self.resolution_not_specified?(resolution)

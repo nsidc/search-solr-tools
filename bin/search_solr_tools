@@ -89,7 +89,7 @@ class SolrHarvestCLI < Thor
 
     def get_harvester_class(data_center_name)
       name = data_center_name.downcase.to_s
-      raise("Invalid data center #{name}") unless harvester_map.key?(name)
+      fail("Invalid data center #{name}") unless harvester_map.key?(name)
 
       harvester_map[name]
     end
