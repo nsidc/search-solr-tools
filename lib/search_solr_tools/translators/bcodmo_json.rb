@@ -50,12 +50,30 @@ module SearchSolrTools
       end
 
       def translate_geometry(wkt_geom)
-        wkt_geom['geometry'].sub! '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> ', ''
-        # Consider all linestring and polygon geometries to be multipoint for this provider
-        wkt_geom['geometry'].sub! 'LINESTRING', 'MULTIPOINT'
-        wkt_geom['geometry'].sub! 'POLYGON', 'MULTIPOINT'
-        parser = RGeo::WKRep::WKTParser.new(nil, {})
-        geometry = parser.parse(wkt_geom['geometry'])
+
+        if wkt_geom['geometry']['type'] == 'LineString'
+          wkt_geom['geometry']['type'] = 'MultiPoint'
+        end
+        geometry = RGeo::GeoJSON.decode(wkt_geom).geometry
+        geometry = RGeo::Feature.cast(geometry, RGeo::Feature::MultiPoint)
+
+        # This feed sometimes returns MultiLineString but wrongly calls them 'LineString'
+        # If the above fails, we assume this is why. If the feed gets fixed, this code
+        # should still handle that.
+        if geometry.nil? or geometry.num_geometries == 0
+          # Try to decode as an actual MultiLineString.
+          wkt_geom['geometry']['type'] = 'MultiLineString'
+          geometry = RGeo::GeoJSON.decode(wkt_geom).geometry
+
+          # Convert to a MultiPoint, for passing into the helper functions below.
+          coords = geometry.coordinates.flatten
+          coords = coords.each_slice(2).to_a
+          f = RGeo::Geos.factory()
+          points = []
+          coords.each {|x,y| points << f.point(x,y)}
+          geometry = f.multi_point(points)
+        end
+
         {
           spatial_display: Helpers::TranslateSpatialCoverage.geojson_to_spatial_display_str([geometry]),
           spatial_index: Helpers::TranslateSpatialCoverage.geojson_to_spatial_index_str([geometry]),
