@@ -8,13 +8,11 @@ RuboCop::RakeTask.new
 
 desc 'Run RuboCop and RSpec code examples'
 task :default do
-  failure = false
-
-  %w(rubocop spec:unit).each do |task_name|
+  results_ok = %w(rubocop spec:unit).map do |task_name|
     sh "rake #{task_name}" do |ok, _res|
-      failure = !ok
+      ok
     end
   end
 
-  exit failure ? 1 : 0
+  exit results_ok.all? ? 0 : 1
 end
