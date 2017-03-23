@@ -34,6 +34,7 @@ module SearchSolrTools
       end
 
       def request_json(url)
+        puts "Request: #{url}"
         JSON.parse(RestClient.get(url))
       end
 
