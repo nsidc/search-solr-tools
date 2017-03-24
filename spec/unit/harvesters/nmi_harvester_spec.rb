@@ -18,7 +18,7 @@ describe SearchSolrTools::Harvesters::Nmi do
 
   describe '#metadata_url' do
     it 'is set to the NMI feed URL' do
-      expect(@harvester.metadata_url).to eql 'http://access.met.no/metamod/oai'
+      expect(@harvester.metadata_url).to eql 'http://arcticdata.met.no/metamod/oai'
     end
   end
 
