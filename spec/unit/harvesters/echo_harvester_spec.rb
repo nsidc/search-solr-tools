@@ -6,7 +6,7 @@ describe SearchSolrTools::Harvesters::Echo do
   end
 
   it 'should retrieve records from the ECHO CSW url' do
-    stub_request(:get, 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10?page_num=1&page_size=1000')
+    stub_request(:get, 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10?page_num=1&page_size=100')
       .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/echo10+xml', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<results><result><Collection></Collection></result></results>')
     expect(@harvester.get_results_from_echo(1).first.first_element_child.to_xml).to eql('<Collection/>')
@@ -14,7 +14,7 @@ describe SearchSolrTools::Harvesters::Echo do
 
   describe 'Adding documents to Solr' do
     it 'constructs an xml document with <doc> children' do
-      stub_request(:get, 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10?page_num=1&page_size=1000')
+      stub_request(:get, 'https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10?page_num=1&page_size=100')
         .with(headers: { 'Accept' => '*/*', 'Content-Type' => 'application/echo10+xml', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/echo_echo10.xml'), headers: {})
 
