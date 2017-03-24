@@ -15,7 +15,7 @@
   :nmi_url: http://access.met.no/metamod/oai
   :nodc_url: https://data.nodc.noaa.gov/geoportal/csw
   :pdc_url: http://www.polardata.ca/oai/provider
-  :rda_url: http://rda.ucar.edu/cgi-bin/oai
+  :rda_url: https://rda.ucar.edu/cgi-bin/oai
   :tdar_url: http://core.tdar.org/search/rss
   :usgs_url: https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw
   :eol:

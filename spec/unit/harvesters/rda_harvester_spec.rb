@@ -18,7 +18,7 @@ describe SearchSolrTools::Harvesters::Rda do
 
   describe '#metadata_url' do
     it 'is set to the Polar Data Catalogue feed URL' do
-      expect(@harvester.metadata_url).to eql 'http://rda.ucar.edu/cgi-bin/oai'
+      expect(@harvester.metadata_url).to eql 'https://rda.ucar.edu/cgi-bin/oai'
     end
   end
 
