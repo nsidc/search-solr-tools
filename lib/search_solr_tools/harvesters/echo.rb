@@ -4,7 +4,7 @@ module SearchSolrTools
     class Echo < Base
       def initialize(env = 'development', die_on_failure = false)
         super env, die_on_failure
-        @page_size = 1000
+        @page_size = 100
         @translator = Helpers::IsoToSolr.new :echo
       end
 
