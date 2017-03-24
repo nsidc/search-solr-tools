@@ -12,7 +12,7 @@
     - http://www.gtnpdatabase.org/rest/activelayers/json
   :ices_url: http://geo.ices.dk/geonetwork/srv/en/csw
   :ncdc_paleo_url: http://gis.ncdc.noaa.gov/gptpaleo/csw
-  :nmi_url: http://access.met.no/metamod/oai
+  :nmi_url: http://arcticdata.met.no/metamod/oai
   :nodc_url: https://data.nodc.noaa.gov/geoportal/csw
   :pdc_url: http://www.polardata.ca/oai/provider
   :rda_url: https://rda.ucar.edu/cgi-bin/oai
