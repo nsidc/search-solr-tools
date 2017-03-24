@@ -2,89 +2,72 @@ require 'search_solr_tools'
 
 module SearchSolrTools
   module Selectors
-    # The hash contains keys that should map to the fields in the solr schema,
-    # the keys are called selectors and are in charge of selecting the nodes
-    # from the ISO document, applying the default value if none of the xpaths
-    # resolved to a value and formatting the field.  xpaths and multivalue are
-    # required, default_value, format, and reduce are optional.
-    #
-    # reduce takes the formatted result of multiple nodes and produces a single
-    #   result. This is for fields that are not multivalued, but their value
-    #   should consider information from all the nodes (for example, storing
-    #   only the maximum duration from multiple temporal coverage fields, taking
-    #   the sum of multiple spatial areas)
     CISL = {
       authoritative_id: {
-        xpaths: ['.//oai:header/oai:identifier'],
+        xpaths: ['.//str[@name="id"]'],
         multivalue: false
       },
       title: {
-        xpaths: ['.//dif:Entry_Title'],
+        xpaths: ['.//str[@name="title"]'],
         multivalue: false
       },
       summary: {
-        xpaths: ['.//dif:Summary/dif:Abstract'],
+        xpaths: ['.//str[@name="abstract"]'],
         multivalue: false
       },
       data_centers: {
         xpaths: [''],
-        default_values: [SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
+        default_values: [Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
         multivalue: false
       },
       authors: {
-        xpaths: [''],
-        multivalue: true
+        xpaths: ['.//str[@name="author"]'],
+        multivalue: false
       },
       keywords: {
-        xpaths: [
-          './/dif:Parameters/dif:Category',
-          './/dif:Parameters/dif:Topic',
-          './/dif:Parameters/dif:Term',
-          './/dif:Parameters/dif:Variable_Level_1'
-        ].reverse,
+        xpaths: ['.//arr[@name="keywords"]/str'],
         multivalue: true
       },
       last_revision_date: {
-        xpaths: ['.//dif:Last_DIF_Revision_Date'],
-        default_values: [SearchSolrTools::Helpers::SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
+        xpaths: ['.//date[@name="updateDate"]'],
+        default_values: [Helpers::SolrFormat.date_str(DateTime.now)], # formats the date into ISO8601 as in http://lucene.apache.org/solr/4_4_0/solr-core/org/apache/solr/schema/DateField.html
         multivalue: false,
-        format: SearchSolrTools::Helpers::SolrFormat::DATE
+        format: Helpers::SolrFormat::DATE
       },
       dataset_url: {
-        xpaths: ['.//dif:Related_URL/dif:URL'],
+        xpaths: ['.//str[@name="dataUrl"]'],
+        default_values: [''],
         multivalue: false
       },
       spatial_coverages: {
-        xpaths: ['.//dif:Spatial_Coverage'],
-        multivalue: true,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::SPATIAL_DISPLAY
+        xpaths: ['.'],
+        multivalue: false,
+        format: Helpers::DataOneFormat.method(:spatial_display)
       },
       spatial: {
-        xpaths: ['.//dif:Spatial_Coverage'],
-        multivalue: true,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::SPATIAL_INDEX
+        xpaths: ['.'],
+        multivalue: false,
+        format: Helpers::DataOneFormat.method(:spatial_index)
       },
       spatial_area: {
-        xpaths: ['.//dif:Spatial_Coverage'],
+        xpaths: ['.'],
         multivalue: false,
-        reduce: SearchSolrTools::Helpers::IsoToSolrFormat::MAX_SPATIAL_AREA,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::SPATIAL_AREA
-      },
-      temporal: {
-        xpaths: ['.//dif:Temporal_Coverage'],
-        multivalue: true,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::TEMPORAL_INDEX_STRING
+        format: Helpers::DataOneFormat.method(:spatial_area)
       },
       temporal_coverages: {
-        xpaths: ['.//dif:Temporal_Coverage'],
-        multivalue: true,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::TEMPORAL_DISPLAY_STRING
+        xpaths: ['.'],
+        multivalue: false,
+        format: Helpers::DataOneFormat.method(:temporal_coverage)
       },
       temporal_duration: {
-        xpaths: ['.//dif:Temporal_Coverage'],
+        xpaths: ['.'],
         multivalue: false,
-        reduce: SearchSolrTools::Helpers::SolrFormat::REDUCE_TEMPORAL_DURATION,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::TEMPORAL_DURATION
+        format: Helpers::DataOneFormat.method(:temporal_duration)
+      },
+      temporal: {
+        xpaths: ['.'],
+        multivalue: false,
+        format: Helpers::DataOneFormat.method(:temporal_index_string)
       },
       source: {
         xpaths: [''],
@@ -93,19 +76,19 @@ module SearchSolrTools
       },
       facet_data_center: {
         xpaths: [''],
-        default_values: ["#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
+        default_values: ["#{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
         multivalue: false
       },
       facet_spatial_scope: {
-        xpaths: ['.//dif:Spatial_Coverage'],
-        multivalue: true,
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::FACET_SPATIAL_SCOPE
+        xpaths: ['.'],
+        multivalue: false,
+        format: Helpers::DataOneFormat.method(:facet_spatial_scope)
       },
       facet_temporal_duration: {
-        xpaths: ['.//dif:Temporal_Coverage'],
-        default_values: [SearchSolrTools::Helpers::SolrFormat::NOT_SPECIFIED],
-        format: SearchSolrTools::Helpers::IsoToSolrFormat::FACET_TEMPORAL_DURATION,
-        multivalue: true
+        xpaths: ['.'],
+        default_values: [Helpers::SolrFormat::NOT_SPECIFIED],
+        format: Helpers::DataOneFormat.method(:facet_temporal_duration),
+        multivalue: false
       }
     }
   end

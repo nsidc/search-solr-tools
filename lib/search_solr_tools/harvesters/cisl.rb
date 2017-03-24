@@ -1,64 +1,46 @@
-
 module SearchSolrTools
   module Harvesters
-    # Harvests data from CISL and inserts it into Solr after it has been translated
-    class Cisl < Oai
+    class Cisl < Base
       def initialize(env = 'development', die_on_failure = false)
         super
-        @data_centers = Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]
+        @page_size = 250
         @translator = Helpers::IsoToSolr.new :cisl
+      end
 
-        # Used in query string params, resumptionToken
-        @dataset = '0bdd2d39-3493-4fa2-98f9-6766596bdc50'
+      def harvest_and_delete
+        puts "Running harvest of cisl catalog from #{metadata_url}"
+        super(method(:harvest_cisl_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]}\"")
+      end
+
+      def harvest_cisl_into_solr
+        start = 0
+        while (entries = get_results_from_cisl(start)) && (entries.length > 0)
+          begin
+            insert_solr_docs(get_docs_with_translated_entries_from_cisl(entries))
+          rescue => e
+            puts "ERROR: #{e}\n\n"
+            raise e if @die_on_failure
+          end
+          start += @page_size
+        end
+      end
+
+      def get_results_from_cisl(start)
+        get_results(build_request(start, @page_size), './response/result/doc')
       end
 
       def metadata_url
         SolrEnvironments[@environment][:cisl_url]
       end
 
-      def results
-        list_records_oai_response = get_results(request_string, '//oai:ListRecords', '')
-
-        @resumption_token = list_records_oai_response.xpath('.//oai:resumptionToken', Helpers::IsoNamespaces.namespaces)
-        @resumption_token = format_resumption_token(@resumption_token.first.text)
-
-        list_records_oai_response.xpath('.//oai:record', Helpers::IsoNamespaces.namespaces)
+      def get_docs_with_translated_entries_from_cisl(entries)
+        entries.map do |e|
+          create_new_solr_add_doc_with_child(@translator.translate(e).root)
+        end
       end
 
-      private
-
-      def request_params
-        {
-          verb: 'ListRecords',
-          metadataPrefix: 'dif',
-          set: @dataset,
-          resumptionToken: @resumption_token
-        }.delete_if { |_k, v| v.nil? }
-      end
-
-      # The ruby response is lacking quotes, which the token requires in order to work...
-      # Also, the response back seems to be inconsistent - sometimes it adds &quot; instead of '"',
-      # which makes the token fail to work.
-      # To get around this I'd prefer to make assumptions about the token and let it break if
-      # they change the formatting.  For now, all fields other than offset should be able to be
-      # assumed to remain constant.
-      # glewis 2016-01-15: It broke, offset has quotes around it, so I updated the regex to account for
-      # the possibility, including '"' or '&quot;'
-      # If the input is empty, then we are done - return an empty string, which is checked for
-      # in the harvest loop.
-      def format_resumption_token(resumption_token)
-        return '' if resumption_token.empty?
-
-        resumption_token =~ /offset(?:"|&quot;)?:(\d+)/
-        offset = Regexp.last_match(1)
-
-        {
-          from: nil,
-          until: nil,
-          set: @dataset,
-          metadataPrefix: 'dif',
-          offset: offset
-        }.to_json
+      def build_request(start = 0, max_records = 100)
+        "#{metadata_url}?q=*:*&start=#{start}&rows=#{max_records}"
       end
     end
   end
