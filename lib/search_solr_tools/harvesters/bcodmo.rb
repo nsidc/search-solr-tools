@@ -12,7 +12,12 @@ module SearchSolrTools
       end
 
       def harvest_and_delete
+        puts "Running harvest of BCO-DMO catalog from #{bcodmo_url}"
         super(method(:harvest_bcodmo_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:BCODMO][:long_name]}\"")
+      end
+
+      def bcodmo_url
+        SolrEnvironments[@environment][:bcodmo_url]
       end
 
       def harvest_bcodmo_into_solr
