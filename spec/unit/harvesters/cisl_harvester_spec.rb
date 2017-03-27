@@ -14,7 +14,6 @@ describe SearchSolrTools::Harvesters::Cisl do
     it 'has a @translator instance variable' do
       expect(@harvester.instance_variable_defined?(:@translator)).to eql true
     end
-
   end
 
   describe '#metadata_url' do
@@ -22,5 +21,4 @@ describe SearchSolrTools::Harvesters::Cisl do
       expect(@harvester.metadata_url).to eql 'https://knb.ecoinformatics.org/knb/d1/mn/v2/query/solr/'
     end
   end
-
 end

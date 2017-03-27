@@ -14,12 +14,12 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct summary',
       xpath: "/doc/field[@name='summary']",
-      expected_text: "Georges River Vegetation Survey 1999. The GEORGES(Georges" \
-      " River Vegetation Survey 1999) Survey is part of the Vegetation Information" \
-      " System Survey Program of New South Wales which is a series of systematic" \
-      " vegetation surveys conducted across the state between 1970 and the" \
-      " present. Please use the following URL to access the dataset:" \
-      " http://aekos.org.au/collection/nsw.gov.au/nsw_atlas/vis_flora_module/GEORGES"
+      expected_text: 'Georges River Vegetation Survey 1999. The GEORGES(Georges' \
+      ' River Vegetation Survey 1999) Survey is part of the Vegetation Information' \
+      ' System Survey Program of New South Wales which is a series of systematic' \
+      ' vegetation surveys conducted across the state between 1970 and the' \
+      ' present. Please use the following URL to access the dataset:' \
+      ' http://aekos.org.au/collection/nsw.gov.au/nsw_atlas/vis_flora_module/GEORGES'
     },
     {
       title: 'should grab the correct data center',
