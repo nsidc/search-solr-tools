@@ -1,3 +1,13 @@
+## v3.7.2
+
+Bugfixes
+
+  - Harvesting tDAR starts from record 0 instead of record 1
+  - tDAR harvester no longer attempts to obtain another page of records after
+    all the records have been harvested; where other feeds return an empty
+    response that our harvester handles without issue, tDAR throws an error if
+    the "startRecord" parameter is higher than their last record.
+
 ## v3.3.3 (2015-05-10)
 
 New Features

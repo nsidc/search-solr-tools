@@ -14,14 +14,22 @@ module SearchSolrTools
       end
 
       def harvest_tdar_into_solr
-        start_record = 1
+        start_record = 0
+        total_harvested = 0
+        total_expected = total_results
         while (entries = get_results_from_tdar(start_record)) && (entries.length > 0)
           begin
-            insert_solr_docs get_docs_with_translated_entries_from_tdar(entries)
+            insert_solr_docs(get_docs_with_translated_entries_from_tdar(entries))
           rescue => e
             puts "ERROR: #{e}\n\n"
             raise e if @die_on_failure
           end
+
+          # if we have all the records we expect, don't attempt another request;
+          # it would result in an error
+          total_harvested += entries.length
+          break if total_harvested >= total_expected
+
           start_record += @page_size
         end
       end
@@ -31,7 +39,7 @@ module SearchSolrTools
       end
 
       def get_results_from_tdar(start_record)
-        get_results build_request(@page_size, start_record), './/atom:entry', 'application/xml'
+        get_results(build_request(@page_size, start_record), './/atom:entry', 'application/xml')
       end
 
       def get_docs_with_translated_entries_from_tdar(entries)
@@ -40,7 +48,7 @@ module SearchSolrTools
         end
       end
 
-      def build_request(max_records = '25', start_record = '1')
+      def build_request(max_records = '25', start_record = '0')
         request_url = tdar_url + '?_tDAR.searchType=ACADIS_RSS&'\
                                  'resourceTypes=DATASET&'\
                                  'groups[0].latitudeLongitudeBoxes[0].maximumLongitude=180&'\
@@ -51,6 +59,10 @@ module SearchSolrTools
                                  'recordsPerPage=' + max_records.to_s + '&startRecord=' + start_record.to_s
 
         request_url
+      end
+
+      def total_results
+        get_results(build_request(0, 0), './/opensearch:totalResults').text.to_i
       end
     end
   end
