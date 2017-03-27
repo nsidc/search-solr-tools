@@ -19,11 +19,11 @@ class SolrHarvestCLI < Thor
       puts target
       begin
         harvest_class = get_harvester_class(target)
-        harvester = harvest_class.new options[:environment], die_on_failure
+        harvester = harvest_class.new(options[:environment], die_on_failure)
         harvester.harvest_and_delete
       rescue => e
         puts "harvest failed for #{target}: #{e.message}"
-        raise e if die_on_failure
+        raise e
       end
     end
   end
