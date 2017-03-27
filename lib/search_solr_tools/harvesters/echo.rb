@@ -37,9 +37,9 @@ module SearchSolrTools
       end
 
       def get_docs_with_translated_entries_from_echo(entries)
-        docs = []
-        entries.each { |r| docs.push(create_new_solr_add_doc_with_child(@translator.translate(r).root)) }
-        docs
+        entries.map do |entry|
+          create_new_solr_add_doc_with_child(@translator.translate(entry).root)
+        end
       end
 
       def build_request(max_records = '25', page_num = '1')

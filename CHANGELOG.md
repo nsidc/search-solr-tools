@@ -1,3 +1,18 @@
+## v3.7.2
+
+Bugfixes
+
+  - Harvesting tDAR starts from record 0 instead of record 1
+  - tDAR harvester no longer attempts to obtain another page of records after
+    all the records have been harvested; where other feeds return an empty
+    response that our harvester handles without issue, tDAR throws an error if
+    the "startRecord" parameter is higher than their last record.
+  - Exit with a non-0 status when a problem with the whole feed is encountered,
+    even if `--die-on-failure` is not passed. That flag should only cause
+    failures when there are issues with individual records; we don't want
+    harvesting to stop due to a metadata issue with a small number of
+    records.
+
 ## v3.3.3 (2015-05-10)
 
 New Features

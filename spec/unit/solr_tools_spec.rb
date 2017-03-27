@@ -26,11 +26,6 @@ describe SolrHarvestCLI do
       @cli.harvest
     end
 
-    it 'does not fail on failure if die_on_failure is false' do
-      @cli.options = { data_center: ['not a real datacenter'], die_on_failure: false, environment: 'dev' }
-      expect { @cli.harvest }.to_not raise_exception
-    end
-
     it 'fails on failure if die_on_failure is true' do
       @cli.options = { data_center: ['not a real datacenter'], die_on_failure: true, environment: 'dev' }
       expect { @cli.harvest }.to raise_exception(RuntimeError)
