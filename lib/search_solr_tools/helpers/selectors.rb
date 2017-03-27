@@ -6,7 +6,7 @@ module SearchSolrTools
     # This hash grabs all the selector files inside the selectors directory,
     # to add a new source we need to create a selector file and add it to this hash.
     SELECTORS = {
-      cisl:        Selectors::CISL,
+      adc:         Selectors::ADC,
       data_one:    Selectors::DATA_ONE,
       echo:        Selectors::ECHO,
       ices:        Selectors::ICES,

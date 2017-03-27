@@ -10,7 +10,7 @@ module SearchSolrTools
     module SolrFormat
       DATA_CENTER_NAMES = {
         BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
-        CISL: { short_name: 'ACADIS Gateway', long_name: 'Advanced Cooperative Arctic Data and Information Service' },
+        ADC: { short_name: 'NSF ADC', long_name: 'NSF Arctic Data Center' },
         DATA_ONE: { short_name: 'DataONE', long_name: 'DataONE' },
         ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
         EOL: { short_name: 'UCAR NCAR EOL', long_name: 'UCAR NCAR - Earth Observing Laboratory' },

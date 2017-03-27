@@ -27,9 +27,9 @@ describe SearchSolrTools::Helpers::IsoToSolr do
     end
   end
 
-  describe 'CISL ISO to Solr converter' do
-    fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_iso.xml')
-    iso_to_solr = described_class.new(:cisl)
+  describe 'nsdic ISO to Solr converter' do
+    fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
+    iso_to_solr = described_class.new(:adc)
 
     it 'should use the default value if none of the xpaths are present' do
       selector = {
@@ -57,40 +57,40 @@ describe SearchSolrTools::Helpers::IsoToSolr do
         multivalue: true
       }
       keywords = iso_to_solr.create_solr_fields fixture, selector
-      expect(keywords.size).to eql 9
-      expect(keywords.first).to eql 'Land cover'
+      expect(keywords.size).to eql 5
+      expect(keywords.first).to eql 'Place'
     end
 
     it 'should fall over the second xpath when the first is not present' do
       selector = {
-        xpaths: ['//gmd:YouWontFindThis', '//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+        xpaths: ['//gmd:YouWontFindThis', '//gmd:dataSetURI/gco:CharacterString'],
         multivalue: false
       }
-      titles = iso_to_solr.create_solr_fields fixture, selector
-      expect(titles.size).to eql 1
-      expect(titles.first).to eql 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
+      uri = iso_to_solr.create_solr_fields fixture, selector
+      expect(uri.size).to eql 1
+      expect(uri.first).to eql 'http://nsidc.org/data/test'
     end
 
     it 'should format the field using the format key if present' do
       selector = {
-        xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+        xpaths: ['//gmd:citedResponsibleParty/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
         multivalue: false,
         format: proc { |x| x.text.upcase }
       }
-      titles = iso_to_solr.create_solr_fields fixture, selector
-      expect(titles.size).to eql 1
-      expect(titles.first).to eql 'CARBON ISOTOPIC VALUES OF ALKANES EXTRACTED FROM PALEOSOLS'
+      org = iso_to_solr.create_solr_fields fixture, selector
+      expect(org.size).to eql 1
+      expect(org.first).to eql 'NATIONAL SNOW AND ICE DATA CENTER'
     end
 
     it 'should return the same value if the format function breaks' do
       selector = {
-        xpaths: ['//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString'],
+        xpaths: ['//gmd:citedResponsibleParty/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString'],
         multivalue: false,
         format: proc { |x| x[nil].upcase }
       }
       titles = iso_to_solr.create_solr_fields fixture, selector
       expect(titles.size).to eql 1
-      expect(titles.first).to eql 'Carbon Isotopic Values of Alkanes Extracted from Paleosols'
+      expect(titles.first).to eql 'National Snow and Ice Data Center'
     end
 
     it 'should use the default_value array to create multiple fields if multivalue is set to true' do
@@ -134,12 +134,12 @@ describe SearchSolrTools::Helpers::IsoToSolr do
 
     it 'should reduce multiple values to one when :reduce is set' do
       selector = {
-        xpaths: ['//gmd:keyword/gco:CharacterString'],
+        xpaths: ['//gmd:pointOfContact'],
         multivalue: false,
         reduce: proc { |values| values.max }
       }
-      keywords = iso_to_solr.create_solr_fields(fixture, selector)
-      expect(keywords).to eq ["Soils\n/\nCarbon"]
+      points_of_contact = iso_to_solr.create_solr_fields(fixture, selector)
+      expect(points_of_contact).to eq ["User Services NASA DAAC at the National Snow and Ice Data Center NASA DAAC custodian"]
     end
   end
 end
