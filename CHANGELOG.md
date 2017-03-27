@@ -12,6 +12,8 @@ Bugfixes
     failures when there are issues with individual records; we don't want
     harvesting to stop due to a metadata issue with a small number of
     records.
+  - Include BCO-DMO URL in the harvester output the same way all the other URLs
+    are displayed.
 
 ## v3.3.3 (2015-05-10)
 
