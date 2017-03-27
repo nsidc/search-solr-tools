@@ -18,7 +18,7 @@ describe SearchSolrTools::Harvesters::Adc do
 
   describe '#metadata_url' do
     it 'is set to the arctic data center feed URL' do
-      expect(@harvester.metadata_url).to eql 'https://knb.ecoinformatics.org/knb/d1/mn/v2/query/solr/'
+      expect(@harvester.metadata_url).to eql 'https://arcticdata.io/metacat/d1/mn/v2/query/solr/'
     end
   end
 end
