@@ -29,7 +29,7 @@ describe SearchSolrTools::Helpers::IsoToSolr do
 
   describe 'nsdic ISO to Solr converter' do
     fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
-    iso_to_solr = described_class.new(:cisl)
+    iso_to_solr = described_class.new(:adc)
 
     it 'should use the default value if none of the xpaths are present' do
       selector = {

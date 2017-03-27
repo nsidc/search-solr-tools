@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'CISL ISO to Solr converter' do
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/cisl_data_one.xml')
-  iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:cisl)
+describe 'ADC ISO to Solr converter' do
+  fixture = Nokogiri.XML File.open('spec/unit/fixtures/adc_data_one.xml')
+  iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:adc)
   solr_doc = iso_to_solr.translate fixture
 
   test_expectations = [
@@ -24,7 +24,7 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct data center',
       xpath: "/doc/field[@name='data_centers']",
-      expected_text: 'Advanced Cooperative Arctic Data and Information Service'
+      expected_text: 'NSF Arctic Data Center'
     },
     {
       title: 'should grab the correct author',
@@ -84,7 +84,7 @@ describe 'CISL ISO to Solr converter' do
     {
       title: 'should grab the correct data center facet',
       xpath: "/doc/field[@name='facet_data_center']",
-      expected_text: 'Advanced Cooperative Arctic Data and Information Service | ACADIS Gateway'
+      expected_text: 'NSF Arctic Data Center | NSF ADC'
     },
     {
       title: 'should grab the correct spatial scope facet',

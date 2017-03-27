@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SearchSolrTools::Harvesters::Cisl do
+describe SearchSolrTools::Harvesters::Adc do
   before(:each) do
     @harvester = described_class.new(:dev)
   end

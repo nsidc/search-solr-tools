@@ -65,7 +65,7 @@ class SolrHarvestCLI < Thor
     def harvester_map
       {
         'bco_dmo'            => SearchSolrTools::Harvesters::BcoDmo,
-        'cisl'               => SearchSolrTools::Harvesters::Cisl,
+        'adc'                => SearchSolrTools::Harvesters::Adc,
         'data_one'           => SearchSolrTools::Harvesters::DataOne,
         'echo'               => SearchSolrTools::Harvesters::Echo,
         'eol'                => SearchSolrTools::Harvesters::Eol,

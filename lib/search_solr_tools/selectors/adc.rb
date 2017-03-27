@@ -2,7 +2,7 @@ require 'search_solr_tools'
 
 module SearchSolrTools
   module Selectors
-    CISL = {
+    ADC = {
       authoritative_id: {
         xpaths: ['.//str[@name="id"]'],
         multivalue: false
@@ -17,7 +17,7 @@ module SearchSolrTools
       },
       data_centers: {
         xpaths: [''],
-        default_values: [Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]],
+        default_values: [Helpers::SolrFormat::DATA_CENTER_NAMES[:ADC][:long_name]],
         multivalue: false
       },
       authors: {
@@ -76,7 +76,7 @@ module SearchSolrTools
       },
       facet_data_center: {
         xpaths: [''],
-        default_values: ["#{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:CISL][:short_name]}"],
+        default_values: ["#{Helpers::SolrFormat::DATA_CENTER_NAMES[:ADC][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:ADC][:short_name]}"],
         multivalue: false
       },
       facet_spatial_scope: {
