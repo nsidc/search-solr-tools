@@ -1,8 +1,21 @@
-## v3.7.2
+## v3.8.0 (2017-03-28)
+
+Changes
+
+  - Change ECHO harvester to harvest 100 records at a time, rather than 1000 to
+    avoid timeout/hanging issues with the large requests.
+  - Change "CISL"/ACADIS Gateway harvester to "NSF Arctic Data Center";
+    aoncadis.org redirects to another site, and the data center's name was
+    changed. The feed format was also changed; the harvester was updated to
+    consume the new feed.
 
 Bugfixes
 
-  - Harvesting tDAR starts from record 0 instead of record 1
+  - Update NODC feed URL to use https.
+  - Update RDA feed URL to use https.
+  - Update handling of geometries to match new format provided by BCO-DMO feed.
+  - Update NMI feed URL; the feed was relocated.
+  - Harvesting tDAR starts from record 0 instead of record 1.
   - tDAR harvester no longer attempts to obtain another page of records after
     all the records have been harvested; where other feeds return an empty
     response that our harvester handles without issue, tDAR throws an error if
@@ -15,27 +28,58 @@ Bugfixes
   - Include BCO-DMO URL in the harvester output the same way all the other URLs
     are displayed.
 
-## v3.3.3 (2015-05-10)
+## v3.7.1 (2016-05-18)
+
+  - RuboCop fixes.
+
+## v3.7.0 (2016-05-18)
 
 New Features
 
+  - Add sponsored programs to NSIDC harvesting.
   - Add support for ingesting Data Access Links from NSIDC JSON
 
+Bugfixes
 
-## v3.3.2
+  - Fix dependency issue with gem "listen".
+  - Fix bad configuration for OAI feed URLs.
+
+## v3.5.1 (2016-02-15)
+
+Bugfixes
+
+  - Add temporal duration facet for GTN-P data center.
+
+## v3.5.0 (2016-02-11)
+
+Changes
+
+  - Update long name for GTN-P data center.
+
+## v3.4.0 (2016-02-11)
+
+New Features
+
+  - Add harvester for GTN-P.
+
+## v3.3.4 (2016-02-08)
+
+See v3.4.0.
+
+## v3.3.3 (2016-01-14)
 
 Bugfix
 
   - Added quote checking for cisl offset parsing check
 
-## v3.3.1
+## v3.3.1 (2015-09-25)
 
 Bugfix
 
   - Remove strange facet string for temporal duration from NOAA Paleo search
     results.
 
-## v3.3.0
+## v3.3.0 (2015-09-24)
 
 New Features
 
