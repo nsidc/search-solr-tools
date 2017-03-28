@@ -1,8 +1,21 @@
-## v3.7.2
+## v3.8.0 (2017-03-28)
+
+Changes
+
+  - Change ECHO harvester to harvest 100 records at a time, rather than 1000 to
+    avoid timeout/hanging issues with the large requests.
+  - Change "CISL"/ACADIS Gateway harvester to "NSF Arctic Data Center";
+    aoncadis.org redirects to another site, and the data center's name was
+    changed. The feed format was also changed; the harvester was updated to
+    consume the new feed.
 
 Bugfixes
 
-  - Harvesting tDAR starts from record 0 instead of record 1
+  - Update NODC feed URL to use https.
+  - Update RDA feed URL to use https.
+  - Update handling of geometries to match new format provided by BCO-DMO feed.
+  - Update NMI feed URL; the feed was relocated.
+  - Harvesting tDAR starts from record 0 instead of record 1.
   - tDAR harvester no longer attempts to obtain another page of records after
     all the records have been harvested; where other feeds return an empty
     response that our harvester handles without issue, tDAR throws an error if
