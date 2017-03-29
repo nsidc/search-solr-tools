@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.0'
 
+  spec.add_runtime_dependency 'ffi-geos', '~> 1.2.0'
   spec.add_runtime_dependency 'iso8601', '~> 0.8'
   spec.add_runtime_dependency 'multi_json', '~> 1.11'
   spec.add_runtime_dependency 'nokogiri', '~> 1.6'

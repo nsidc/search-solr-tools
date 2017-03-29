@@ -1,3 +1,10 @@
+## v3.8.3 (2017-03-29)
+
+Bugfix
+
+  - Add dependency on ffi-geos to fix issue where `RGeo::Geos.factory` returned
+    `nil` on Ubuntu 14 when parsing the BCO-DMO feed.
+
 ## v3.8.2 (2017-03-29)
 
 Bugfix
