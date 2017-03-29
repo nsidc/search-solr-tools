@@ -22,8 +22,10 @@ module SearchSolrTools
 
       def harvest_bcodmo_into_solr
         result = translate_bcodmo
-        insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
-        fail 'Failed to harvest some records from the provider' if result[:failure_ids].length > 0
+        insert_solr_docs(result[:add_docs], Base::JSON_CONTENT_TYPE)
+
+        errors_exist = result[:failure_ids].length > 0
+        fail 'Failed to harvest some records from BCO-DMO' if errors_exist && @die_on_failure
       end
 
       def translate_bcodmo
