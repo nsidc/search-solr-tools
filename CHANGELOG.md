@@ -1,3 +1,10 @@
+## v3.8.1 (2017-03-29)
+
+Bugfix
+
+  - Fix BCO-DMO harvester to only fail when there are issues with individual
+    records if `--die-on-failure` is given.
+
 ## v3.8.0 (2017-03-28)
 
 Changes
