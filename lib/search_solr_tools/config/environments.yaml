@@ -11,7 +11,7 @@
     - http://www.gtnpdatabase.org/rest/boreholes/json
     - http://www.gtnpdatabase.org/rest/activelayers/json
   :ices_url: http://geo.ices.dk/geonetwork/srv/en/csw
-  :ncdc_paleo_url: http://gis.ncdc.noaa.gov/gptpaleo/csw
+  :ncdc_paleo_url: https://gis.ncdc.noaa.gov/gptpaleo/csw
   :nmi_url: http://arcticdata.met.no/metamod/oai
   :nodc_url: https://data.nodc.noaa.gov/geoportal/csw
   :pdc_url: http://www.polardata.ca/oai/provider

@@ -1,3 +1,9 @@
+## v3.8.2 (2017-03-29)
+
+Bugfix
+
+  - Update NOAA WDS Paleo feed URL to use https.
+
 ## v3.8.1 (2017-03-29)
 
 Bugfix
