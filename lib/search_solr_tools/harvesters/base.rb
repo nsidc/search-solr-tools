@@ -56,6 +56,7 @@ module SearchSolrTools
         # Remove lucene special characters, preserve the query parameter and compress whitespace
         query_string.gsub!(/[:&|!~\-\(\)\{\}\[\]\^\*\?\+]+/, ' ')
         query_string.gsub!(/data_centers /, 'data_centers:')
+        query_string.gsub!(/source /, 'source:')
         query_string.squeeze(' ').strip
       end
 
