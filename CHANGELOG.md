@@ -1,3 +1,9 @@
+## v3.8.4 (2017-03-30)
+
+Bugfix
+
+  - Fix deleting old records after harvest for ADE auto suggest.
+
 ## v3.8.3 (2017-03-29)
 
 Bugfix
