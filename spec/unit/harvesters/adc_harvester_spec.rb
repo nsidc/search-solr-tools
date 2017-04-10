@@ -18,7 +18,7 @@ describe SearchSolrTools::Harvesters::Adc do
 
   describe '#metadata_url' do
     it 'is set to the arctic data center feed URL' do
-      expect(@harvester.metadata_url).to eql 'https://arcticdata.io/metacat/d1/mn/v2/query/solr/'
+      expect(@harvester.metadata_url).to eql 'https://arcticdata.io/metacat/d1/mn/v2/query/solr/select?q=northBoundCoord:%5B45.0%20TO%2090.0%5D'
     end
   end
 end

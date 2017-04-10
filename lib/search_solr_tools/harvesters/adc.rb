@@ -40,7 +40,7 @@ module SearchSolrTools
       end
 
       def build_request(start = 0, max_records = 100)
-        "#{metadata_url}?q=*:*&start=#{start}&rows=#{max_records}"
+        "#{metadata_url}&start=#{start}&rows=#{max_records}"
       end
     end
   end
