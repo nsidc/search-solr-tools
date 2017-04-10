@@ -1,3 +1,9 @@
+## v3.9.0 (2017-04-10)
+
+Changes
+
+  - Constrain ADC and ECHO feeds to only fetch records in the arctic.
+
 ## v3.8.4 (2017-03-30)
 
 Bugfix
