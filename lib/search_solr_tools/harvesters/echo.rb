@@ -43,7 +43,7 @@ module SearchSolrTools
       end
 
       def build_request(max_records = '25', page_num = '1')
-        echo_url + '?page_size=' + max_records.to_s + '&page_num=' + page_num.to_s
+        echo_url + '&page_size=' + max_records.to_s + '&page_num=' + page_num.to_s
       end
     end
   end
