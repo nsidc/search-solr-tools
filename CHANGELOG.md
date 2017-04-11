@@ -1,8 +1,13 @@
-## v3.9.0 (2017-04-10)
+## v3.10.0 (2017-04-10)
 
 Changes
 
   - Constrain ADC and ECHO feeds to only fetch records in the arctic.
+
+Note
+  - v3.9.1 and v3.10.0 were mistakenly released after version 3.9.0 was
+    tagged. All three versions are identical, although v3.9.0 was never
+    released to rubygems.org.
 
 ## v3.8.4 (2017-03-30)
 
