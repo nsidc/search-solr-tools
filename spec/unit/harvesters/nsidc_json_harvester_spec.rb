@@ -3,7 +3,9 @@ require 'spec_helper'
 describe SearchSolrTools::Harvesters::NsidcJson do
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before :each do
-    stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata//binConfiguration').with(headers: { Accept: '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' }).to_return(status: 200, body: bin_configuration, headers: {})
+    stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata//binConfiguration')
+      .with(headers: { Accept: '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+      .to_return(status: 200, body: bin_configuration, headers: {})
     @harvester = described_class.new 'integration'
   end
 
@@ -22,15 +24,15 @@ describe SearchSolrTools::Harvesters::NsidcJson do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/G02199.json')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0419.json')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0582.json')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       result = @harvester.docs_with_translated_entries_from_nsidc
@@ -47,19 +49,19 @@ describe SearchSolrTools::Harvesters::NsidcJson do
 
     it 'constructs a sucessful doc children hash and an errors hash for failured ids' do
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso')
-        .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/G02199.json')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
         .to_return(status: 500)
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0419.json')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0582.json')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       result = @harvester.docs_with_translated_entries_from_nsidc
