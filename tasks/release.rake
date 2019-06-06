@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :release do
   desc 'Create a new prerelease, optionally publishing to rubygems.org'
   task :pre, :publish do |_t, args|

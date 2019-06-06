@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 guard :rspec, spec_paths: ['spec/unit'], failed_mode: :keep, all_after_pass: true, all_on_start: true, cmd: 'rspec' do
   watch %r{/^spec\/.+_spec\.rb/}
   watch(%r{/^lib\/(.+)\.rb/}) { |m| "spec/unit/#{m[1]}_spec.rb" }
