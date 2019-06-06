@@ -44,7 +44,7 @@
 :dev:
   ## For the below, you'll need to instantiate your own search-solr instance, and point host to that.
   :host: dev.search-solr.USERNAME.dev.int.nsidc.org
-  ## For these, either set up your own instance of dataset serach catalog or change it to point to integration
+  ## For these, either set up your own instance of dataset search catalog or change it to point to integration
   :nsidc_dataset_metadata_url: http://dev.dcs.USERNAME.dev.int.nsidc.org:1580/api/dataset/metadata/
   :nsidc_oai_identifiers_url: http://dev.dcs.USERNAME.dev.int.nsidc.org:1580/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso
 
