@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'search_solr_tools'
 require 'thor'
 
 class SolrHarvestCLI < Thor
-  map %w(--version -v) => :__print_version
+  map %w[--version -v] => :__print_version
 
   desc '--version, -v', 'print the version'
   def __print_version
@@ -21,7 +23,7 @@ class SolrHarvestCLI < Thor
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure)
         harvester.harvest_and_delete
-      rescue => e
+      rescue StandardError => e
         puts "harvest failed for #{target}: #{e.message}"
         raise e
       end
@@ -64,30 +66,26 @@ class SolrHarvestCLI < Thor
   no_tasks do
     def harvester_map
       {
-        'bco_dmo'            => SearchSolrTools::Harvesters::BcoDmo,
-        'adc'                => SearchSolrTools::Harvesters::Adc,
-        'data_one'           => SearchSolrTools::Harvesters::DataOne,
-        'echo'               => SearchSolrTools::Harvesters::Echo,
-        'eol'                => SearchSolrTools::Harvesters::Eol,
-        'gtnp'               => SearchSolrTools::Harvesters::GtnP,
-        'ices'               => SearchSolrTools::Harvesters::Ices,
-        'ncdc_paleo'         => SearchSolrTools::Harvesters::NcdcPaleo,
-        'nmi'                => SearchSolrTools::Harvesters::Nmi,
-        'nodc'               => SearchSolrTools::Harvesters::Nodc,
-        'r2r'                => SearchSolrTools::Harvesters::R2R,
-        'rda'                => SearchSolrTools::Harvesters::Rda,
-        'usgs'               => SearchSolrTools::Harvesters::Usgs,
-        'tdar'               => SearchSolrTools::Harvesters::Tdar,
-        'pdc'                => SearchSolrTools::Harvesters::Pdc,
-        'nsidc'              => SearchSolrTools::Harvesters::NsidcJson,
+        'bco_dmo' => SearchSolrTools::Harvesters::BcoDmo,
+        'adc' => SearchSolrTools::Harvesters::Adc,
+        'echo' => SearchSolrTools::Harvesters::Echo,
+        'ices' => SearchSolrTools::Harvesters::Ices,
+        'nmi' => SearchSolrTools::Harvesters::Nmi,
+        'nodc' => SearchSolrTools::Harvesters::Nodc,
+        'r2r' => SearchSolrTools::Harvesters::R2R,
+        'rda' => SearchSolrTools::Harvesters::Rda,
+        'usgs' => SearchSolrTools::Harvesters::Usgs,
+        'tdar' => SearchSolrTools::Harvesters::Tdar,
+        'pdc' => SearchSolrTools::Harvesters::Pdc,
+        'nsidc' => SearchSolrTools::Harvesters::NsidcJson,
         'nsidc_auto_suggest' => SearchSolrTools::Harvesters::NsidcAutoSuggest,
-        'ade_auto_suggest'   => SearchSolrTools::Harvesters::AdeAutoSuggest
+        'ade_auto_suggest' => SearchSolrTools::Harvesters::AdeAutoSuggest
       }
     end
 
     def get_harvester_class(data_center_name)
       name = data_center_name.downcase.to_s
-      fail("Invalid data center #{name}") unless harvester_map.key?(name)
+      raise("Invalid data center #{name}") unless harvester_map.key?(name)
 
       harvester_map[name]
     end

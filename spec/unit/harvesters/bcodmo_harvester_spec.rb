@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+stubbed_headers = {
+  'Accept' => '*/*',
+  'Accept-Encoding' => 'gzip, deflate',
+  'Host' => 'www.bco-dmo.org',
+}
+
 describe SearchSolrTools::Harvesters::BcoDmo do
   before :all do
     @harvester = described_class.new 'integration'
@@ -8,11 +14,12 @@ describe SearchSolrTools::Harvesters::BcoDmo do
   describe 'Adding documents to Solr' do
     before :all do
       stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
+        .with(headers: stubbed_headers)
         .to_return(status: 200, body: File.read('spec/unit/fixtures/bcdmo.json'), headers: {})
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
         .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_datasets.json'), headers: {})
       stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/geometry')
-        .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+        .with(headers: stubbed_headers)
         .to_return(status: 200, body: File.read('spec/unit/fixtures/bcodmo_geometry.json'), headers: {})
 
       stub_request(:get, 'http://www.bco-dmo.org/api/dataset/511584/originators')
@@ -61,13 +68,13 @@ describe SearchSolrTools::Harvesters::BcoDmo do
 
   it 'successfully handles failed dataset returns' do
     stub_request(:get, 'http://www.bco-dmo.org/nsidc/arctic-deployments.json')
-      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'))
+      .with(headers: stubbed_headers)
+      .to_return(status: 200, body: File.open('spec/unit/fixtures/bcdmo.json'), headers: {})
     stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/datasets')
-      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .with(headers: stubbed_headers)
       .to_return(status: 500, body: File.open('spec/unit/fixtures/bcodmo_datasets.json', headers: {}))
     stub_request(:get, 'http://www.bco-dmo.org/api/deployment/511644/geometry')
-      .with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => 'gzip, deflate', 'User-Agent' => 'Ruby' })
+      .with(headers: stubbed_headers)
       .to_return(status: 200, body: File.open('spec/unit/fixtures/bcodmo_geometry.json'))
     result = @harvester.translate_bcodmo
     expect(result[:failure_ids].size).to eql(1)
