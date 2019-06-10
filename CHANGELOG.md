@@ -1,4 +1,4 @@
-## Unreleased
+## v3.11.0 (2019-06-10)
 
 Changes:
 
