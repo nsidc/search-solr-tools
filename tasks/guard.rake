@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :guard do
   desc 'Automatically run RuboCop'
   task :rubocop do

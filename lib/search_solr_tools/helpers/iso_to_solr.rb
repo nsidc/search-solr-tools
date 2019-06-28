@@ -2,9 +2,9 @@ require 'nokogiri'
 
 module SearchSolrTools
   module Helpers
-    # Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object
-    # This class should be constructed passing the selector file hash as a parameter (see selectors.rb)
-    # after creating an instance we call transtale with a nokogiri iso document as a parameter.
+    # Translates ISO nokogiri documents into solr nokogiri documents using a hash driver object.
+    # This class should be constructed passing the selector file hash as a parameter (see selectors.rb).
+    # After creating an instance we call translate with a nokogiri iso document as a parameter.
     class IsoToSolr
       def initialize(selector)
         @fields = SELECTORS[selector]

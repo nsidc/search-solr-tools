@@ -108,11 +108,10 @@ describe SearchSolrTools::Harvesters::Base do
 
     stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
       .with(body: serialized_add_doc,
-            headers: { 'Accept'          => '*/*; q=0.5, application/xml',
+            headers: { 'Accept' => '*/*',
                        'Accept-Encoding' => 'gzip, deflate',
-                       'Content-Length'  => '48',
-                       'Content-Type'    => described_class::JSON_CONTENT_TYPE,
-                       'User-Agent'      => 'Ruby' })
+                       'Content-Length' => '48',
+                       'Content-Type' => described_class::JSON_CONTENT_TYPE })
       .to_return(status: 200, body: 'success', headers: {})
 
     expect(harvester.insert_solr_doc(add_doc, described_class::JSON_CONTENT_TYPE)).to eql(true)
@@ -123,11 +122,10 @@ describe SearchSolrTools::Harvesters::Base do
     add_doc = Nokogiri.XML('<add><doc><field name="authoritative_id">TEST-0001</field></doc></add>')
     stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
       .with(body: add_doc.to_xml,
-            headers: { 'Accept'          => '*/*; q=0.5, application/xml',
+            headers: { 'Accept' => '*/*',
                        'Accept-Encoding' => 'gzip, deflate',
-                       'Content-Length'  => '105',
-                       'Content-Type'    => described_class::XML_CONTENT_TYPE,
-                       'User-Agent'      => 'Ruby' })
+                       'Content-Length' => '105',
+                       'Content-Type' => described_class::XML_CONTENT_TYPE })
       .to_return(status: 200, body: 'success', headers: {})
 
     expect(harvester.insert_solr_doc(add_doc)).to eql(true)

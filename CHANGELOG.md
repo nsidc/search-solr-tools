@@ -1,3 +1,11 @@
+## v3.11.0 (2019-06-10)
+
+Changes:
+
+  - Update Ruby, Nokogiri, RestClient, Rubocop, and Webmock versions to address
+    security warnings.
+  - Update syntax as necessary for new versions of Rubocop and RestClient.
+
 ## v3.10.0 (2017-04-10)
 
 Changes
