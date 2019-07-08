@@ -36,7 +36,7 @@ module SearchSolrTools
             "#{geo_json.x} #{geo_json.y}"
           else
             bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geo_json)
-            "#{bbox.min_x} #{bbox.min_y} #{bbox.max_x} #{bbox.max_y}"
+            "ENVELOPE(#{bbox.min_x}, #{bbox.max_x}, #{bbox.max_y}, #{bbox.min_y})"
           end
         end
       end

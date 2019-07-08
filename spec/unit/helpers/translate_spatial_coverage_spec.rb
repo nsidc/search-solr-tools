@@ -35,8 +35,8 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -39.23], [180.0, -39.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -39.23]]])]
     spatial_index_strs = described_class.geojson_to_spatial_index_str(spatial_coverages_json)
     expect(spatial_index_strs.length).to eql 2
-    expect(spatial_index_strs[0]).to eql '-180.0 30.98 180.0 90.0'
-    expect(spatial_index_strs[1]).to eql '-180.0 -90.0 180.0 -39.23'
+    expect(spatial_index_strs[0]).to eql 'ENVELOPE(-180.0, 180.0, 90.0, 30.98)'
+    expect(spatial_index_strs[1]).to eql 'ENVELOPE(-180.0, 180.0, -39.23, -90.0)'
   end
 
   it 'translates GeoJSON point to spatial index str' do

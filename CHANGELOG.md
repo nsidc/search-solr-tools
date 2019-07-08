@@ -1,3 +1,9 @@
+## Unreleased
+
+Changes:
+
+  - Update spatial field formatting to work with Solr 8.1.1.
+
 ## v3.11.0 (2019-06-10)
 
 Changes:

@@ -139,7 +139,7 @@ Solr 4.3, which can be downloaded from
 #### NSIDC
 
 At NSIDC the development VM can be provisioned with the
-[solr puppet module](https://bitbucket.org/nsidc/puppet-solr/) to install and
+[solr puppet module](https://bitbucket.org/nsidc/puppet-nsidc-solr/) to install and
 configure Solr.
 
 #### Non-NSIDC
