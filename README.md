@@ -134,11 +134,10 @@ tagging, and publishing to RubyGems.
 * the changes are pushed
 * the tagged version is built and published to RubyGems
 
-### SOLR:
+### SOLR
 
-To harvest data utilizing the gem, you will need a local configured instance of
-Solr 4.3, which can be downloaded from
-[Apache's archive](https://archive.apache.org/dist/lucene/solr/4.3.0/).
+To harvest data utilizing the gem, you will need an installed instance of [Solr
+8.1.1](https://lucene.apache.org/solr/guide/)
 
 #### NSIDC
 
@@ -176,17 +175,17 @@ the `--environment` flag when running `search_solr_tools harvest`.
 
 ### How to contact NSIDC
 
-User Services and general information:  
-Support: [http://support.nsidc.org](http://support.nsidc.org)  
+User Services and general information:
+Support: [http://support.nsidc.org](http://support.nsidc.org)
 Email: nsidc@nsidc.org
 
-Phone: +1 303.492.6199  
+Phone: +1 303.492.6199
 Fax: +1 303.492.2468
 
-Mailing address:  
-National Snow and Ice Data Center  
-CIRES, 449 UCB  
-University of Colorado  
+Mailing address:
+National Snow and Ice Data Center
+CIRES, 449 UCB
+University of Colorado
 Boulder, CO 80309-0449 USA
 
 ### License
