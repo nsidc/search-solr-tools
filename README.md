@@ -113,6 +113,10 @@ Requirements:
   [ownership](http://guides.rubygems.org/publishing/) of the gem
 * RuboCop and the unit tests should all pass (`rake`)
 
+The [CHANGELOG.md](CHANGELOG.md) is not automatically updated by the
+`rake release:*` tasks. Update it manually to insert the correct version and
+date, and commit the file, before creating the release package.
+
 **gem release** is used by rake tasks in this project to handle version changes,
 tagging, and publishing to RubyGems.
 
