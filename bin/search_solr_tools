@@ -24,8 +24,9 @@ class SolrHarvestCLI < Thor
         harvester = harvest_class.new(options[:environment], die_on_failure)
         harvester.harvest_and_delete
       rescue StandardError => e
+        # fail from harvest_nsidc_json_into_solr should end up here?
         puts "harvest failed for #{target}: #{e.message}"
-        raise e
+        exit 1
       end
     end
   end

@@ -134,6 +134,11 @@ tagging, and publishing to RubyGems.
 * the changes are pushed
 * the tagged version is built and published to RubyGems
 
+You will need to have a current Rubygems API key for the NSIDC developer user
+account in order to publish a new version of the gem.
+
+`curl -u username https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials`
+
 ### SOLR
 
 To harvest data utilizing the gem, you will need an installed instance of [Solr

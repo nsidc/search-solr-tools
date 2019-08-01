@@ -47,7 +47,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
       expect(result[:add_docs].first['add']['doc']['sponsored_programs'].first).to eql('NOAA @ NSIDC')
     end
 
-    it 'constructs a sucessful doc children hash and an errors hash for failured ids' do
+    it 'constructs a successful doc children hash and an errors hash for failed ids' do
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso')
         .with(headers: { 'Accept' => '*/*' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))

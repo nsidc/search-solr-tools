@@ -26,9 +26,12 @@ describe SolrHarvestCLI do
       @cli.harvest
     end
 
+    # Not testing what it thinks it's testing! The test will pass even if
+    # die_on_failure is set to false. die_on_failure is set in response to DCS errors,
+    # not non-existing data center errors.
     it 'fails on failure if die_on_failure is true' do
       @cli.options = { data_center: ['not a real datacenter'], die_on_failure: true, environment: 'dev' }
-      expect { @cli.harvest }.to raise_exception(RuntimeError)
+      expect { @cli.harvest }.to raise_exception(SystemExit)
     end
   end
 

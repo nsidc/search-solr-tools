@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rgeo', '~> 0.3'
   spec.add_runtime_dependency 'rgeo-geojson', '~> 0.3'
   spec.add_runtime_dependency 'rsolr', '~> 1.0'
-  spec.add_runtime_dependency 'thor', '~> 0.18'
+  spec.add_runtime_dependency 'thor', '~> 0.20.3'
   spec.add_development_dependency 'gem-release', '~> 0.7'
   spec.add_development_dependency 'guard', '~> 2.12'
   spec.add_development_dependency 'guard-rspec', '~> 4.6'
