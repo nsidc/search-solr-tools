@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Add details to steps for releasing gem.
+  - Update Thor version.
+
 ## v4.0.0 (2019-07-08)
 
 Changes:
