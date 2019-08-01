@@ -36,7 +36,6 @@ module SearchSolrTools
       def harvest_and_delete(harvest_method, delete_constraints, solr_core = SolrEnvironments[@environment][:collection_name])
         start_time = Time.now.utc.iso8601
 
-        # what happens if harvest_nsidc_json_into_solr issues a fail?
         harvest_method.call
         delete_old_documents start_time, delete_constraints, solr_core
       end
