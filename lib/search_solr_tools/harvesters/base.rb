@@ -77,6 +77,8 @@ module SearchSolrTools
 
       # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents
       def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
+        # TODO First issue a ping to Solr here to see if the service is responsive.
+        # If not, return error and exit the job.
         success = 0
         failure = 0
         docs.each do |doc|
@@ -84,15 +86,25 @@ module SearchSolrTools
         end
         puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
         puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
+
+        # TODO Return a useful error code rather than issuing a "fail"
         fail 'Some documents failed to be inserted into Solr' if failure > 0
       end
 
+      # TODO Need to return a specific type of failure:
+      #   - Bad record content identified and no ingest attempted
+      #   - Solr tries to ingest document and fails (bad content not detected prior to ingest)
+      #   - Solr is unavailable or cannot insert document for reasons other than the document
+      #     structure and content.
       def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
         url = solr_url + "/#{core}/update?commit=true"
         success = false
 
         # Some of the docs will cause Solr to crash - CPU goes to 195% with `top` and it
         # doesn't seem to recover.
+        #
+        # @TODO Need to differentiate this failure (bad record) from a failure resulting
+        # from problems with the Solr service itself.
         return success if content_type == XML_CONTENT_TYPE && !doc_valid?(doc)
 
         doc_serialized = get_serialized_doc(doc, content_type)
@@ -104,10 +116,10 @@ module SearchSolrTools
             puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
           end
         rescue => e
-          # need to reflect this exception with non-zero result status
+          # TODO Need to provide more detail re: this failure so we know whether to
+          # exit the job with a status != 0
           puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
         end
-
         success
       end
 
@@ -121,7 +133,7 @@ module SearchSolrTools
         end
       end
 
-      # Get results from some ISO end point specified in the query string
+      # Get results from an end point specified in the request_url
       def get_results(request_url, metadata_path, content_type = 'application/xml')
         timeout = 300
         retries_left = 3
