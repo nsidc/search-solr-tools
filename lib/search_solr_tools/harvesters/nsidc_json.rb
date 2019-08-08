@@ -36,19 +36,26 @@ module SearchSolrTools
         get_results url, '//xmlns:identifier'
       end
 
-      def fetch_json_from_nsidc(id)
-        json_response = RestClient.get(nsidc_json_url + id + '.json')
+      # Fetch a JSON representation of a dataset's metadata
+      # @param id [String] NSIDC authoritative ID for the dataset
+      # @param version [String, Integer] The dataset version number (defaults to 1).
+      # @return [Hash] Parsed version of the JSON response
+      def fetch_json_from_nsidc(id, version = 1)
+        # The request to DCS looks something like .../v2/AE_L2A.json?major_version=2
+        json_response = RestClient.get(nsidc_json_url + id + '.json&major_version=' + version.to_s)
         JSON.parse(json_response)
       end
 
       def docs_with_translated_entries_from_nsidc
         docs = []
         failure_ids = []
-
-        result_ids_from_nsidc.each do |r|
-          id = r.text.split('/').last
+        all_ids = result_ids_from_nsidc
+        all_ids.each do |r|
+          # Each result looks like:
+          # oai:nsidc.org/AE_L2A.002
+          id, version = r.text.split('/').last.split('.')
           begin
-            docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
+            docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id, version)) } }
           rescue => e
             puts "Failed to fetch #{id} with error #{e}: #{e.backtrace}"
             failure_ids << id
