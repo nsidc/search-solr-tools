@@ -1,3 +1,9 @@
+## Unreleased
+
+  - Update dataset-catalog-services URL to only fetch current (*not*-retired)
+    metadata records.
+  - Add a few more gem release notes to README.
+
 ## v4.0.0 (2019-07-08)
 
 Changes:

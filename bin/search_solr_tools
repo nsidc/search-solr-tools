@@ -12,13 +12,13 @@ class SolrHarvestCLI < Thor
     puts SearchSolrTools::VERSION
   end
 
-  desc 'harvest', 'Harvest from one of the ADE harvesters'
+  desc 'harvest', 'Harvest from the specified data centers'
   option :data_center, type: :array, required: true
   option :environment, required: true
   option :die_on_failure, type: :boolean
   def harvest(die_on_failure = options[:die_on_failure] || false)
     options[:data_center].each do |target|
-      puts target
+      puts "Target: #{target}"
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure)

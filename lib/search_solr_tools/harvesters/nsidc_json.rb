@@ -31,7 +31,9 @@ module SearchSolrTools
       end
 
       def result_ids_from_nsidc
-        get_results SolrEnvironments[@environment][:nsidc_oai_identifiers_url], '//xmlns:identifier'
+        url = SolrEnvironments[@environment][:nsidc_dataset_metadata_url] +
+              SolrEnvironments[@environment][:nsidc_oai_identifiers_url]
+        get_results url, '//xmlns:identifier'
       end
 
       def fetch_json_from_nsidc(id)
