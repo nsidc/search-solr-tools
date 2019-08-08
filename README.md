@@ -141,7 +141,7 @@ order to publish a new version of the gem to Rubygems. To get the lastest API ke
 
 ## Release steps (summary)
 
-- Confirm no errors are returned by `bundle exec rubocop` 
+- Confirm no errors are returned by `bundle exec rubocop`
 - Confirm all tests pass (`bundle exec rake spec:unit`)
 - Update the version number and date manually in `CHANGELOG.md` and commit the
   changes.
