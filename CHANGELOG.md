@@ -1,7 +1,13 @@
-## Unreleased
+## v4.1.0 (2019-08-12)
 
-  - Add details to steps for releasing gem.
-  - Update Thor version.
+  - Update dataset-catalog-services URL to only fetch current (*not* retired)
+    metadata records.
+  - Add a few more gem release notes to README.
+
+## v4.0.1 (2019-07-08)
+
+  - Update CHANGELOG and release instructions.
+  - Fix README typo.
 
 ## v4.0.0 (2019-07-08)
 

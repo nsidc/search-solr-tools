@@ -3,14 +3,14 @@ require 'spec_helper'
 describe SearchSolrTools::Harvesters::NsidcJson do
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before :each do
-    stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata//binConfiguration')
+    stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration')
       .with(headers: { Accept: '*/*', 'Accept-Encoding' => 'gzip, deflate' })
       .to_return(status: 200, body: bin_configuration, headers: {})
     @harvester = described_class.new 'integration'
   end
 
   it 'should retrieve dataset identifiers from the NSIDC OAI url' do
-    stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso')
+    stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso&retired=false')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
@@ -19,7 +19,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
 
   describe 'Adding documents to Solr' do
     it 'constructs a hash with doc children' do
-      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso')
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso&retired=false')
         .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
@@ -47,8 +47,8 @@ describe SearchSolrTools::Harvesters::NsidcJson do
       expect(result[:add_docs].first['add']['doc']['sponsored_programs'].first).to eql('NOAA @ NSIDC')
     end
 
-    it 'constructs a successful doc children hash and an errors hash for failed ids' do
-      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso')
+    it 'constructs a sucessful doc children hash and an errors hash for failed ids' do
+      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadata_prefix=iso&retired=false')
         .with(headers: { 'Accept' => '*/*' })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 

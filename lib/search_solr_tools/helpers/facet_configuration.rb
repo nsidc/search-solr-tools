@@ -8,7 +8,7 @@ module SearchSolrTools
     class FacetConfiguration
       include Singleton
       def self.import_bin_configuration(env)
-        @bin_configuration = JSON.parse(RestClient.get(SolrEnvironments[env][:nsidc_dataset_metadata_url] + '/binConfiguration')) if @bin_configuration.nil?
+        @bin_configuration = JSON.parse(RestClient.get(SolrEnvironments[env][:nsidc_dataset_metadata_url] + 'binConfiguration')) if @bin_configuration.nil?
       end
 
       def self.get_facet_bin(facet_name)
