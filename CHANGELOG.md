@@ -1,3 +1,7 @@
+## v4.2.1 (2019-08-13)
+
+  - Patch release to include updated CHANGELOG.
+
 ## v4.2.0 (2019-08-12)
 
   - Update dataset-catalog-services URL to only fetch current (*not* retired)
