@@ -51,7 +51,7 @@ module SearchSolrTools
         result_ids_from_nsidc.each do |r|
           # Each result looks like:
           # oai:nsidc.org/AE_L2A
-          id, version = r.text.split('/').last
+          id = r.text.split('/').last
           begin
             docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
           rescue => e
