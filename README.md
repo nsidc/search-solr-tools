@@ -134,6 +134,19 @@ tagging, and publishing to RubyGems.
 * the changes are pushed
 * the tagged version is built and published to RubyGems
 
+You will need to have a current Rubygems API key for the _NSIDC developer user_ account in
+order to publish a new version of the gem to Rubygems. To get the lastest API key:
+
+`curl -u <username> https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials`
+
+## Release steps (summary)
+
+- Confirm no errors are returned by `bundle exec rubocop`
+- Confirm all tests pass (`bundle exec rake spec:unit`)
+- Update the version number and date manually in `CHANGELOG.md` and commit the
+  changes.
+- Run the appropriate `bundle exec rake release:*` task
+
 ### SOLR
 
 To harvest data utilizing the gem, you will need an installed instance of [Solr

@@ -31,9 +31,14 @@ module SearchSolrTools
       end
 
       def result_ids_from_nsidc
-        get_results SolrEnvironments[@environment][:nsidc_oai_identifiers_url], '//xmlns:identifier'
+        url = SolrEnvironments[@environment][:nsidc_dataset_metadata_url] +
+              SolrEnvironments[@environment][:nsidc_oai_identifiers_url]
+        get_results url, '//xmlns:identifier'
       end
 
+      # Fetch a JSON representation of a dataset's metadata
+      # @param id [String] NSIDC authoritative ID for the dataset
+      # @return [Hash] Parsed version of the JSON response
       def fetch_json_from_nsidc(id)
         json_response = RestClient.get(nsidc_json_url + id + '.json')
         JSON.parse(json_response)
@@ -44,6 +49,8 @@ module SearchSolrTools
         failure_ids = []
 
         result_ids_from_nsidc.each do |r|
+          # Each result looks like:
+          # oai:nsidc.org/AE_L2A
           id = r.text.split('/').last
           begin
             docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
