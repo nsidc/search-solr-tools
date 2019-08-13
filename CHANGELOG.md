@@ -1,4 +1,4 @@
-## v4.1.0 (2019-08-08)
+## v4.1.0 (2019-08-12)
 
   - Update dataset-catalog-services URL to only fetch current (*not* retired)
     metadata records.
