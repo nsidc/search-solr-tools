@@ -37,8 +37,8 @@
   :r2r_url: http://get.rvdata.us/services/cruise/
 
   # Not using DCS API v2 here because not all retired datasets have their "retired"
-  # flag checked. For example, GLA01.033 is retired, GLA01.018 is not, but it
-  # should be. GLA01.018 will show up if we use DCS API v2..
+  # flag checked. For example, GLA01.033 is retired; GLA01.018 is not, but it
+  # should be. GLA01.018 will show up if we use DCS API v2.
   :nsidc_oai_identifiers_url: oai?verb=ListIdentifiers&metadata_prefix=iso&retired=false
 
 :local:
