@@ -1,8 +1,13 @@
-## v4.1.0 (2019-08-12)
+## v4.2.0 (2019-08-12)
 
   - Update dataset-catalog-services URL to only fetch current (*not* retired)
     metadata records.
   - Add a few more gem release notes to README.
+
+Note: v4.1.0 was prematurely released and, in theory, yanked. However, on the
+second try at publishing 4.1.0, Rubygems complained about the attempt to
+republish a gem. The version was therefore bumped again to 4.2.0 as the path of
+least resistance to a successful publish. v4.1.0 should not be used.
 
 ## v4.0.1 (2019-07-08)
 
