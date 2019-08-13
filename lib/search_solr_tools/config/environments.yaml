@@ -36,8 +36,9 @@
     - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml
   :r2r_url: http://get.rvdata.us/services/cruise/
 
-  # Using API v2 here because we need to use dataset version numbers when retrieving JSON content.
-  :nsidc_oai_identifiers_url: v2/oai?verb=ListIdentifiers&metadata_prefix=iso&retired=false
+  # Not using API v2 here because not all retired datasets have their "retired"
+  # flag checked. For now, only retrieve the most recent version of a dataset.
+  :nsidc_oai_identifiers_url: oai?verb=ListIdentifiers&metadata_prefix=iso&retired=false
 
 :local:
   :host: localhost
