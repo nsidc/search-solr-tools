@@ -1,3 +1,7 @@
+## Unreleased
+
+  - Update Ruby to 2.6.5, update gem dependencies to more recent version.
+
 ## v4.2.1 (2019-08-13)
 
   - Patch release to include updated CHANGELOG.

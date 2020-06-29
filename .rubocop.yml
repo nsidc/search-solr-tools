@@ -8,29 +8,71 @@ AllCops:
     - vendor/**/*
     - spec/unit/helpers/iso_to_solr_spec.rb
 
-AbcSize:
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/LineLength:
+  Enabled: false
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Metrics/AbcSize:
   Max: 20
 
-ClassLength:
+Metrics/ClassLength:
   Max: 125
 
-CyclomaticComplexity:
+Metrics/CyclomaticComplexity:
   Max: 8
 
-Encoding:
-  Enabled: false
-
-LineLength:
-  Enabled: false
-
-MethodLength:
+Metrics/MethodLength:
   Max: 22
 
 Metrics/ModuleLength:
   Max: 101
 
-RescueModifier:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/SlicingWithRange:
+  Enabled: true
