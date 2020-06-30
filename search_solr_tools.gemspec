@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'iso8601', '~> 0.12.2'
   spec.add_runtime_dependency 'multi_json', '~> 1.14.1'
   spec.add_runtime_dependency 'nokogiri', '~> 1.10.9'
-  spec.add_runtime_dependency 'require_all', '~> 3.0'
+  spec.add_runtime_dependency 'require_all', '~> 1.3'
   spec.add_runtime_dependency 'rest-client', '~> 2.1.0'
   spec.add_runtime_dependency 'rgeo', '~> 2.1.1'
   spec.add_runtime_dependency 'rgeo-geojson', '~> 2.1.1'
