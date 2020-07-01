@@ -1,4 +1,9 @@
-Dir[File.join(__dir__, '..', 'selectors', '*.rb')].each { |file| require file }
+puts "--SELECTORS--"
+Dir[File.join(__dir__, '..', 'selectors', '*.rb')].each do |file|
+  puts file
+  require file
+end
+puts "--END SELECTORS"
 
 module SearchSolrTools
   module Helpers
