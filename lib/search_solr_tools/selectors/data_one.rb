@@ -1,5 +1,5 @@
-require_relative '../helpers/solr_format'
 require_relative '../helpers/data_one_format'
+require_relative '../helpers/solr_format'
 
 module SearchSolrTools
   module Selectors

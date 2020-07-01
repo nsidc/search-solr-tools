@@ -2,6 +2,8 @@ require_relative 'iso_namespaces'
 require_relative 'iso_to_solr_format'
 require_relative 'solr_format'
 
+puts "DATA ONE FORMAT"
+
 module SearchSolrTools
   module Helpers
     class DataOneFormat < IsoToSolrFormat
