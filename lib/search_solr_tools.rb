@@ -4,7 +4,9 @@ require_relative './search_solr_tools/version'
 %w( helpers selectors harvesters translators ).each do |subdir|
   puts File.join(__dir__, 'search_solr_tools', subdir)
   Dir[File.join(__dir__, 'search_solr_tools', subdir, '*.rb')].each do |file|
+    next if subdir == 'helpers' && file.include?('selectors.rb')  #punt
     puts file
     require file
   end
 end
+require File.join(__dir__, 'search_solr_tools', 'helpers', 'selectors.rb')
