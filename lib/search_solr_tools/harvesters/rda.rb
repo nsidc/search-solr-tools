@@ -1,4 +1,4 @@
-require_relative './oai'
+require_relative 'oai'
 
 module SearchSolrTools
   module Harvesters

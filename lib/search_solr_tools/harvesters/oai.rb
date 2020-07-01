@@ -1,5 +1,6 @@
+require_relative 'base'
+
 require 'json'
-require_relative './base'
 
 module SearchSolrTools
   module Harvesters

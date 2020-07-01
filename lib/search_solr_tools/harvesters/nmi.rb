@@ -1,3 +1,5 @@
+require_relative 'oai'
+
 module SearchSolrTools
   module Harvesters
     class Nmi < Oai

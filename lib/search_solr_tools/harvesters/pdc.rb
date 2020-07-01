@@ -1,3 +1,5 @@
+require_relative 'oai'
+
 module SearchSolrTools
   module Harvesters
     # Harvests data from Polar data catalogue and inserts it into

@@ -1,3 +1,5 @@
+require_relative 'base'
+
 module SearchSolrTools
   module Harvesters
     class DataOne < Base

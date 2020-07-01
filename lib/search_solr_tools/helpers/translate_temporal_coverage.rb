@@ -1,6 +1,6 @@
 require 'rgeo/geo_json'
 
-require 'search_solr_tools/helpers/solr_format'
+require_relative 'solr_format'
 
 module SearchSolrTools
   module Helpers
