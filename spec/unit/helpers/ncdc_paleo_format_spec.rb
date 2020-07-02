@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'date'
+require 'search_solr_tools/helpers/ncdc_paleo_format'
 
 describe SearchSolrTools::Helpers::NcdcPaleoFormat do
   describe '#bounding_box' do

@@ -2,6 +2,7 @@ require 'date'
 require 'iso8601'
 
 require_relative 'bounding_box_util'
+require_relative 'facet_configuration'
 
 module SearchSolrTools
   module Helpers

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'search_solr_tools/helpers/csw_iso_query_builder'
 
 describe SearchSolrTools::Helpers::CswIsoQueryBuilder do
   describe 'get_query_string returns CSW/ISO query URLs' do
