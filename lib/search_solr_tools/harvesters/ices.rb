@@ -1,4 +1,6 @@
 require_relative 'base'
+require_relative '../helpers/csw_iso_query_builder'
+
 module SearchSolrTools
   module Harvesters
     # Harvests data from ICES and inserts it into Solr after it has been translated

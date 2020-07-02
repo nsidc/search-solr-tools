@@ -1,4 +1,8 @@
-## Unreleased
+## v5.0.1 (2020-07-02)
+
+  - Bug fix: some requires weren't included that needed to be.
+
+## v5.0.0 (2020-07-02)
 
   - Update Ruby to 2.6.5, update gem dependencies to more recent version.
   - Updates to correspond with an update to Solr 8.5.2
