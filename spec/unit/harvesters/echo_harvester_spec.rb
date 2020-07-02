@@ -26,7 +26,7 @@ describe SearchSolrTools::Harvesters::Echo do
       stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
         .with(body: Nokogiri.XML('<add><foo></add>').to_xml,
               headers: { 'Accept' => '*/*',
-                         'Accept-Encoding' => 'gzip, deflate',
+                         'Accept-Encoding' => GZIP_DEFLATE_IDENTITY,
                          'Content-Length' => '44',
                          'Content-Type' => 'text/xml; charset=utf-8' })
         .to_return(status: 200, body: 'success', headers: {})

@@ -4,7 +4,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before :each do
     stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration')
-      .with(headers: { Accept: '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+      .with(headers: { Accept: '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
       .to_return(status: 200, body: bin_configuration, headers: {})
     @harvester = described_class.new 'integration'
   end
@@ -24,15 +24,15 @@ describe SearchSolrTools::Harvesters::NsidcJson do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/G02199.json')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0419.json')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0582.json')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       result = @harvester.docs_with_translated_entries_from_nsidc
@@ -53,15 +53,15 @@ describe SearchSolrTools::Harvesters::NsidcJson do
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/G02199.json')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 500)
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0419.json')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/NSIDC-0582.json')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
       result = @harvester.docs_with_translated_entries_from_nsidc

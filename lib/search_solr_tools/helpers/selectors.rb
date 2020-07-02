@@ -1,5 +1,4 @@
-require 'require_all'
-require_rel '../selectors'
+Dir[File.join(__dir__, '..', 'selectors', '*.rb')].each { |file| require file }
 
 module SearchSolrTools
   module Helpers

@@ -1,3 +1,5 @@
+require 'search_solr_tools'
+
 module SearchSolrTools
   module Translators
     # Translates an EOL THREDDS dataset link set into a SOLR json ingest record

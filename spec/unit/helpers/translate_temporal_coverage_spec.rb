@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'search_solr_tools/helpers/translate_temporal_coverage'
 
 describe SearchSolrTools::Helpers::TranslateTemporalCoverage do
   it 'generates temporal values from JSON' do

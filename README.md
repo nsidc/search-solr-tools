@@ -61,7 +61,7 @@ Once you have the gem built in the project directory, install the utility:
 
 ### Requirements
 
-* Ruby > 2.0.0
+* Ruby > 2.6.5
 * [Bundler](http://bundler.io/)
 * Requirements for nokogiri:
     * [libxml2/libxml2-dev](http://xmlsoft.org/)
@@ -105,7 +105,7 @@ Please be sure to run them in the `bundle exec` context if you're utilizing bund
 
 Requirements:
 
-* Ruby > 2.0.0
+* Ruby > 2.6.5
 * [Bundler](http://bundler.io/)
 * [Gem Release](https://github.com/svenfuchs/gem-release)
 * [Rake](https://github.com/ruby/rake)
@@ -150,7 +150,7 @@ order to publish a new version of the gem to Rubygems. To get the lastest API ke
 ### SOLR
 
 To harvest data utilizing the gem, you will need an installed instance of [Solr
-8.1.1](https://lucene.apache.org/solr/guide/)
+8.5.3](https://lucene.apache.org/solr/guide/)
 
 #### NSIDC
 

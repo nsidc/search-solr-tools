@@ -1,6 +1,6 @@
-require_relative './iso_namespaces'
-require_relative './iso_to_solr_format'
-require_relative './solr_format'
+require_relative 'iso_namespaces'
+require_relative 'iso_to_solr_format'
+require_relative 'solr_format'
 
 module SearchSolrTools
   module Helpers

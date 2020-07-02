@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'ECHO ECHO10 to Solr converter' do
-  puts "\n\n-----------\n"
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/echo_echo10.xml')
   iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:echo)
   solr_doc = iso_to_solr.translate fixture
@@ -89,5 +88,4 @@ describe 'ECHO ECHO10 to Solr converter' do
       expect(solr_doc.xpath(expectation[:xpath]).text.strip).to eql expectation[:expected_text]
     end
   end
-  puts "\n\n==============\n"
 end

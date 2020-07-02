@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
-  puts "\n\n-----------\n"
   fixture = Nokogiri.XML File.open('spec/unit/fixtures/nodc_iso_bad_spatial.xml')
   iso_to_solr = SearchSolrTools::Helpers::IsoToSolr.new(:nodc)
   solr_doc = iso_to_solr.translate fixture
@@ -96,5 +95,4 @@ describe 'NODC ISO with Bad Spatial Bounds to Solr converter' do
       expect(solr_doc.xpath(expectation[:xpath]).text.strip).to eql expectation[:expected_text]
     end
   end
-  puts "\n\n==============\n"
 end

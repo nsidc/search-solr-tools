@@ -1,3 +1,5 @@
+require_relative 'base'
+
 require 'json'
 
 module SearchSolrTools

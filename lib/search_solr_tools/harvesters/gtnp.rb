@@ -1,3 +1,4 @@
+require_relative 'base'
 require 'json'
 require 'rest-client'
 

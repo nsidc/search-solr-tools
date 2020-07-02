@@ -1,3 +1,4 @@
+require_relative 'base'
 module SearchSolrTools
   module Harvesters
     # Harvests data from ICES and inserts it into Solr after it has been translated

@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Update Ruby to 2.6.5, update gem dependencies to more recent version.
+  - Updates to correspond with an update to Solr 8.5.2
+
 ## v4.2.1 (2019-08-13)
 
   - Patch release to include updated CHANGELOG.

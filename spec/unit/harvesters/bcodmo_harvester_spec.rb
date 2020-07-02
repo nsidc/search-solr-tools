@@ -2,7 +2,7 @@ require 'spec_helper'
 
 stubbed_headers = {
   'Accept' => '*/*',
-  'Accept-Encoding' => 'gzip, deflate',
+  'Accept-Encoding' => GZIP_DEFLATE_IDENTITY,
   'Host' => 'www.bco-dmo.org',
 }
 
