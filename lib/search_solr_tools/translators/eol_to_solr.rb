@@ -1,4 +1,8 @@
 require 'search_solr_tools'
+require_relative '../helpers/solr_format'
+require_relative '../helpers/translate_temporal_coverage'
+require_relative '../helpers/translate_spatial_coverage'
+require_relative '../helpers/bounding_box_util'
 
 module SearchSolrTools
   module Translators

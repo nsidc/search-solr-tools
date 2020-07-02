@@ -1,4 +1,5 @@
 require_relative 'base'
+require_relative '../helpers/csw_iso_query_builder'
 
 module SearchSolrTools
   module Harvesters
