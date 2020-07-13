@@ -1,3 +1,4 @@
+require_relative 'selectors'
 require 'nokogiri'
 
 module SearchSolrTools

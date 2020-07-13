@@ -5,6 +5,12 @@ require 'rest-client'
 require 'rsolr'
 require 'time'
 
+require 'search_solr_tools'
+require_relative '../helpers/iso_namespaces'
+require_relative '../helpers/solr_format'
+require_relative '../helpers/iso_to_solr'
+
+
 module SearchSolrTools
   module Harvesters
     # base class for solr harvesters
@@ -44,7 +50,7 @@ module SearchSolrTools
         constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
         solr = RSolr.connect url: solr_url + "/#{solr_core}"
-        unchanged_count = (solr.get 'select', params: { q: delete_query, rows: 0 })['response']['numFound'].to_i
+        unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
         if unchanged_count == 0
           puts "All documents were updated after #{timestamp}, nothing to delete"
         else
@@ -62,7 +68,7 @@ module SearchSolrTools
       end
 
       def remove_documents(solr, delete_query, constraints, force, numfound)
-        all_response_count = (solr.get 'select', params: { q: constraints, rows: 0 })['response']['numFound']
+        all_response_count = (solr.get 'select', params: { wt: :ruby, q: constraints, rows: 0 })['response']['numFound']
         if force || (numfound / all_response_count.to_f < DELETE_DOCUMENTS_RATIO)
           puts "Deleting #{numfound} documents for #{constraints}"
           solr.delete_by_query delete_query

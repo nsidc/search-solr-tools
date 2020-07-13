@@ -1,3 +1,5 @@
+require_relative 'oai'
+
 module SearchSolrTools
   module Harvesters
     # Harvests the RDA feed

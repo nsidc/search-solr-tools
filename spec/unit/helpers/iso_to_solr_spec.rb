@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'search_solr_tools/helpers/iso_to_solr'
 
 describe SearchSolrTools::Helpers::IsoToSolr do
   describe '#strip_invalid_utf8_bytes' do

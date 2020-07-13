@@ -1,3 +1,6 @@
+require_relative 'base'
+require_relative '../helpers/query_builder'
+
 require 'json'
 
 module SearchSolrTools

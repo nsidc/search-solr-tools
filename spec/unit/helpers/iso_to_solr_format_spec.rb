@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'search_solr_tools/helpers/iso_to_solr_format'
 
 describe SearchSolrTools::Helpers::IsoToSolrFormat do
   describe '#get_temporal_duration' do

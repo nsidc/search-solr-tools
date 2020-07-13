@@ -1,7 +1,7 @@
+require_relative 'base'
+
 require 'nokogiri'
 require 'rest-client'
-
-require_relative 'base'
 
 module SearchSolrTools
   module Harvesters

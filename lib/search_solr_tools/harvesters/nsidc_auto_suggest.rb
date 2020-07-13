@@ -1,3 +1,5 @@
+require_relative 'auto_suggest'
+
 module SearchSolrTools
   module Harvesters
     class NsidcAutoSuggest < AutoSuggest
