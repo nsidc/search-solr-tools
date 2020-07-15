@@ -13,6 +13,17 @@ module SearchSolrTools
         Helpers::FacetConfiguration.import_bin_configuration(env)
       end
 
+      def ping_source
+        begin
+          RestClient.options(nsidc_json_url) do |response, _request, _result|
+            return response.code == 200
+          end
+        rescue => e
+          puts "Error trying to get options for #{nsidc_json_url} (ping)"
+        end
+        false
+      end
+
       def harvest_and_delete
         puts "Running harvest of NSIDC catalog from #{nsidc_json_url}"
         super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]}\"")
@@ -23,7 +34,7 @@ module SearchSolrTools
       def harvest_nsidc_json_into_solr
         result = docs_with_translated_entries_from_nsidc
 
-        # need to catch possible fail from insert_solr_docs?
+        # TODO:  need to catch possible fail from insert_solr_docs?
         insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
         fail 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
       end
@@ -33,7 +44,7 @@ module SearchSolrTools
       end
 
       # TODO First ping the nsidc_oai_identifiers_url (DCS) to make sure it's responsive.
-      # If it's not, return error and exit the job with a non-zero status.
+      #  If it's not, return error and exit the job with a non-zero status.
       def result_ids_from_nsidc
         url = SolrEnvironments[@environment][:nsidc_dataset_metadata_url] +
               SolrEnvironments[@environment][:nsidc_oai_identifiers_url]

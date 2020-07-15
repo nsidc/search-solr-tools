@@ -15,6 +15,24 @@ describe SolrHarvestCLI do
     end
   end
 
+  describe '#ping' do
+    it 'returns successful ping message and code if solr and source are up' do
+      expect(true).to be false
+    end
+
+    it 'returns error if solr is up but source is not' do
+      expect(true).to be false
+    end
+
+    it 'returns error if source is up but solr is not' do
+      expect(true).to be false
+    end
+
+    it 'returns error if neither solr nor source are up' do
+      expect(true).to be false
+    end
+  end
+
   describe '#harvest' do
     it 'calls the selected harvester classes' do
       puts 'CLI' + @cli.harvester_map.to_s
@@ -26,7 +44,7 @@ describe SolrHarvestCLI do
       @cli.harvest
     end
 
-    # Not testing what it thinks it's testing! The test will pass even if
+    # TODO: Not testing what it thinks it's testing! The test will pass even if
     # die_on_failure is set to false. die_on_failure is set in response to DCS errors,
     # not non-existing data center errors.
     it 'fails on failure if die_on_failure is true' do

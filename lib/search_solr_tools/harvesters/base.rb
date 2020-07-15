@@ -39,6 +39,33 @@ module SearchSolrTools
         url
       end
 
+      # Ping the Solr instance to ensure that it's running.
+      # The ping query is specified to manually check the title, as it's possible
+      # there is no "default" query in the solr instance.
+      def ping_solr(core = SolrEnvironments[@environment][:collection_name])
+        url = solr_url + "/#{core}/admin/ping?df=title"
+        success = false
+
+        # Some docs will cause solr to time out during the POST
+        begin
+          RestClient.get(url) do |response, _request, _result|
+            success = response.code == 200
+            puts "Error in ping request: #{response.body}" unless success
+          end
+        rescue => e
+          puts "Rest exception while pinging Solr: #{e}"
+        end
+        success
+      end
+
+      # This should be overridden by child classes to implement the ability
+      # to "ping" the dataset.  Returns true if the ping is successful (or, as
+      # in this default, no ping method was defined)
+      def ping_source
+        puts "Harvester does not have ping method defined, assuming true"
+        true
+      end
+
       def harvest_and_delete(harvest_method, delete_constraints, solr_core = SolrEnvironments[@environment][:collection_name])
         start_time = Time.now.utc.iso8601
 
@@ -83,7 +110,7 @@ module SearchSolrTools
       # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents
       def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
         # TODO First issue a ping to Solr here to see if the service is responsive.
-        # If not, return error and exit the job.
+        #  If not, return error and exit the job.
         success = 0
         failure = 0
         docs.each do |doc|
@@ -108,8 +135,8 @@ module SearchSolrTools
         # Some of the docs will cause Solr to crash - CPU goes to 195% with `top` and it
         # doesn't seem to recover.
         #
-        # @TODO Need to differentiate this failure (bad record) from a failure resulting
-        # from problems with the Solr service itself.
+        # TODO Need to differentiate this failure (bad record) from a failure resulting
+        #  from problems with the Solr service itself.
         return success if content_type == XML_CONTENT_TYPE && !doc_valid?(doc)
 
         doc_serialized = get_serialized_doc(doc, content_type)
@@ -122,7 +149,7 @@ module SearchSolrTools
           end
         rescue => e
           # TODO Need to provide more detail re: this failure so we know whether to
-          # exit the job with a status != 0
+          #  exit the job with a status != 0
           puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
         end
         success
