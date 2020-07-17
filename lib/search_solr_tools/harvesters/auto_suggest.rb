@@ -46,8 +46,11 @@ module SearchSolrTools
       end
 
       def add_documents_to_solr(add_docs)
-        if insert_solr_doc add_docs, Base::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
+        status = insert_solr_doc add_docs, Base::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
+
+        if status == INGEST_OK
           puts "Added #{add_docs.size} auto suggest documents in one commit"
+          return { INGEST_OK => add_docs, INGEST_ERR_SOLR_ERROR => [], INGEST_ERR_INVALID_DOC => [] }
         else
           puts "Failed adding #{add_docs.size} documents in single commit, retrying one by one"
           new_add_docs = []

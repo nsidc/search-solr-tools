@@ -10,14 +10,16 @@ class SolrHarvestCLI < Thor
   ERRCODE_SOLR_PING = 1
   ERRCODE_SOURCE_PING = 2
   ERRCODE_SOURCE_NO_RESULTS = 4
-  ERRCODE_DOCUMENT_INVALID = 8
-  ERRCODE_INGEST_ERROR = 16
+  ERRCODE_SOURCE_HARVEST_ERROR = 8
+  ERRCODE_DOCUMENT_INVALID = 16
+  ERRCODE_INGEST_ERROR = 32
   ERRCODE_UNKNOWN = 128
 
   ERRCODE_DESC = {
       ERRCODE_SOLR_PING => 'Solr instance did not return a successful ping',
       ERRCODE_SOURCE_PING => 'Source to be harvested did not return a successful ping',
       ERRCODE_SOURCE_NO_RESULTS => 'Source to be harvested returned no documents matching query',
+      ERRCODE_SOURCE_HARVEST_ERROR => 'One or more source documents returned an error when trying to retrieve or translate',
       ERRCODE_DOCUMENT_INVALID => 'One or more documents to be harvested was invalid (malformed)',
       ERRCODE_INGEST_ERROR => 'Solr returned an error trying to ingest one or more harvested documents',
       ERRCODE_UNKNOWN => 'Generic, unspecified placeholder error code'
@@ -102,9 +104,13 @@ class SolrHarvestCLI < Thor
         exit code if code != 0
 
         harvester.harvest_and_delete
+      rescue SearchSolrTools::Errors::HarvestError => e
+        puts "THERE WERE HARVEST STATUS ERRORS"
+        exit ERRCODE_UNKNOWN
       rescue StandardError => e
         # TODO: fail from harvest_nsidc_json_into_solr should end up here?
         puts "harvest failed for #{target}: #{e.message}"
+        puts e.backtrace
         exit ERRCODE_UNKNOWN
       end
     end

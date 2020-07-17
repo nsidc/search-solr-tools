@@ -3,6 +3,7 @@ require 'rest-client'
 
 require 'search_solr_tools'
 
+
 module SearchSolrTools
   module Harvesters
     # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
@@ -35,8 +36,13 @@ module SearchSolrTools
         result = docs_with_translated_entries_from_nsidc
 
         # TODO:  need to catch possible fail from insert_solr_docs?
-        insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
-        fail 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
+        status = insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
+
+        status.record_document_status('harvest', Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
+        status.record_multiple_document_status(result[:failure_ids],
+                                               Helpers::HarvestStatus::HARVEST_FAILURE) if result[:failure_ids].length > 0
+
+        raise Errors::HarvestError(status) unless status.ok?
       end
 
       def nsidc_json_url
@@ -61,7 +67,8 @@ module SearchSolrTools
         docs = []
         failure_ids = []
 
-        result_ids_from_nsidc.each do |r|
+        all_docs = result_ids_from_nsidc
+        all_docs.each do |r|
           # Each result looks like:
           # oai:nsidc.org/AE_L2A
           id = r.text.split('/').last
@@ -73,7 +80,7 @@ module SearchSolrTools
           end
         end
 
-        { add_docs: docs, failure_ids: failure_ids }
+        { num_docs: all_docs.size, add_docs: docs, failure_ids: failure_ids }
       end
     end
   end
