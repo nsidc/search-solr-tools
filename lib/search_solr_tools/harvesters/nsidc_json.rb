@@ -43,8 +43,6 @@ module SearchSolrTools
         SolrEnvironments[@environment][:nsidc_dataset_metadata_url]
       end
 
-      # TODO First ping the nsidc_oai_identifiers_url (DCS) to make sure it's responsive.
-      #  If it's not, return error and exit the job with a non-zero status.
       def result_ids_from_nsidc
         url = SolrEnvironments[@environment][:nsidc_dataset_metadata_url] +
               SolrEnvironments[@environment][:nsidc_oai_identifiers_url]

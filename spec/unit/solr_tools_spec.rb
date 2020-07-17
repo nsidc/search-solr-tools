@@ -16,20 +16,54 @@ describe SolrHarvestCLI do
   end
 
   describe '#ping' do
+    before(:each) do
+      @harvester_class = SearchSolrTools::Harvesters::NsidcJson
+    end
+
     it 'returns successful ping message and code if solr and source are up' do
-      expect(true).to be false
+      allow_any_instance_of(@harvester_class).to receive(:ping_solr).and_return(true)
+      expect_any_instance_of(@harvester_class).to receive(:ping_solr)
+      allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(true)
+      expect_any_instance_of(@harvester_class).to receive(:ping_source)
+
+      @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
+      expect { @cli.ping }.not_to raise_error
     end
 
     it 'returns error if solr is up but source is not' do
-      expect(true).to be false
+      allow_any_instance_of(@harvester_class).to receive(:ping_solr).and_return(true)
+      expect_any_instance_of(@harvester_class).to receive(:ping_solr)
+      allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(false)
+      expect_any_instance_of(@harvester_class).to receive(:ping_source)
+
+      @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
+      expect { @cli.ping }.to raise_error(SystemExit) do |error|
+        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_SOURCE_PING)
+      end
     end
 
     it 'returns error if source is up but solr is not' do
-      expect(true).to be false
+      allow_any_instance_of(@harvester_class).to receive(:ping_solr).and_return(false)
+      expect_any_instance_of(@harvester_class).to receive(:ping_solr)
+      allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(true)
+      expect_any_instance_of(@harvester_class).to receive(:ping_source)
+
+      @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
+      expect { @cli.ping }.to raise_error(SystemExit) do |error|
+        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_SOLR_PING)
+      end
     end
 
     it 'returns error if neither solr nor source are up' do
-      expect(true).to be false
+      allow_any_instance_of(@harvester_class).to receive(:ping_solr).and_return(false)
+      expect_any_instance_of(@harvester_class).to receive(:ping_solr)
+      allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(false)
+      expect_any_instance_of(@harvester_class).to receive(:ping_source)
+
+      @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
+      expect { @cli.ping }.to raise_error(SystemExit) do |error|
+        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_BOTH_PING)
+      end
     end
   end
 
@@ -37,6 +71,8 @@ describe SolrHarvestCLI do
     it 'calls the selected harvester classes' do
       puts 'CLI' + @cli.harvester_map.to_s
       [SearchSolrTools::Harvesters::Adc, SearchSolrTools::Harvesters::Echo].each do |harvester_class|
+        allow_any_instance_of(harvester_class).to receive(:ping_solr).and_return(true)
+        allow_any_instance_of(harvester_class).to receive(:ping_source).and_return(true)
         allow_any_instance_of(harvester_class).to receive(:harvest_and_delete).and_return(true)
         expect_any_instance_of(harvester_class).to receive(:harvest_and_delete)
       end

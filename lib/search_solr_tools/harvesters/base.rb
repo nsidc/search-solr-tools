@@ -109,8 +109,6 @@ module SearchSolrTools
 
       # Update Solr with an array of Nokogiri xml documents, report number of successfully added documents
       def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
-        # TODO First issue a ping to Solr here to see if the service is responsive.
-        #  If not, return error and exit the job.
         success = 0
         failure = 0
         docs.each do |doc|

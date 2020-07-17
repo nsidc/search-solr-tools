@@ -9,13 +9,17 @@ class SolrHarvestCLI < Thor
 
   ERRCODE_SOLR_PING = 1
   ERRCODE_SOURCE_PING = 2
-  ERRCODE_BOTH_PING = 3
-  ERRCODE_UNKNOWN = 99
+  ERRCODE_SOURCE_NO_RESULTS = 4
+  ERRCODE_DOCUMENT_INVALID = 8
+  ERRCODE_INGEST_ERROR = 16
+  ERRCODE_UNKNOWN = 128
 
   ERRCODE_DESC = {
       ERRCODE_SOLR_PING => 'Solr instance did not return a successful ping',
       ERRCODE_SOURCE_PING => 'Source to be harvested did not return a successful ping',
-      ERRCODE_BOTH_PING => 'Neither solr instance or source returned a successful ping',
+      ERRCODE_SOURCE_NO_RESULTS => 'Source to be harvested returned no documents matching query',
+      ERRCODE_DOCUMENT_INVALID => 'One or more documents to be harvested was invalid (malformed)',
+      ERRCODE_INGEST_ERROR => 'Solr returned an error trying to ingest one or more harvested documents',
       ERRCODE_UNKNOWN => 'Generic, unspecified placeholder error code'
   }
 
@@ -27,10 +31,21 @@ class SolrHarvestCLI < Thor
   desc 'errcode', 'Get a description of the specified error code'
   def errcode(code)
     code = code.to_i
-    if ERRCODE_DESC.keys.include? code
-      puts ERRCODE_DESC[code]
-    else
-      puts "Error code #{code} is unknown."
+    code_list = []
+
+    # Loop through all bit-flag values
+    [128, 64, 32, 16, 8, 4, 2, 1].each do |k|
+      if code >= k
+        code_list.prepend k
+        code -= k
+      end
+    end
+
+    puts "CODE | DESCRIPTION"
+    puts "-----+------------"
+    code_list.each do |k|
+      text = ERRCODE_DESC.keys.include?(k) ? ERRCODE_DESC[k] : "INVALID CODE NUMBER"
+      puts "%4d | %s" % [k, text]
     end
   end
 
@@ -62,7 +77,7 @@ class SolrHarvestCLI < Thor
     errcode = 0
     errcode += ERRCODE_SOLR_PING unless solr_success
     errcode += ERRCODE_SOURCE_PING unless source_success
-    exit errcode
+    exit errcode if errcode != 0
   end
 
   desc 'harvest', 'Harvest from the specified data centers'
