@@ -4,6 +4,8 @@
 require 'search_solr_tools'
 require 'thor'
 
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/AbcSize
 class SolrHarvestCLI < Thor
   map %w[--version -v] => :__print_version
 
@@ -16,14 +18,14 @@ class SolrHarvestCLI < Thor
   ERRCODE_UNKNOWN = 128
 
   ERRCODE_DESC = {
-      ERRCODE_SOLR_PING => 'Solr instance did not return a successful ping',
-      ERRCODE_SOURCE_PING => 'Source to be harvested did not return a successful ping',
-      ERRCODE_SOURCE_NO_RESULTS => 'Source to be harvested returned no documents matching query',
-      ERRCODE_SOURCE_HARVEST_ERROR => 'One or more source documents returned an error when trying to retrieve or translate',
-      ERRCODE_DOCUMENT_INVALID => 'One or more documents to be harvested was invalid (malformed)',
-      ERRCODE_INGEST_ERROR => 'Solr returned an error trying to ingest one or more harvested documents',
-      ERRCODE_UNKNOWN => 'Generic, unspecified placeholder error code'
-  }
+    ERRCODE_SOLR_PING => 'Solr instance did not return a successful ping',
+    ERRCODE_SOURCE_PING => 'Source to be harvested did not return a successful ping',
+    ERRCODE_SOURCE_NO_RESULTS => 'Source to be harvested returned no documents matching query',
+    ERRCODE_SOURCE_HARVEST_ERROR => 'One or more source documents returned an error when trying to retrieve or translate',
+    ERRCODE_DOCUMENT_INVALID => 'One or more documents to be harvested was invalid (malformed)',
+    ERRCODE_INGEST_ERROR => 'Solr returned an error trying to ingest one or more harvested documents',
+    ERRCODE_UNKNOWN => 'Generic, unspecified placeholder error code'
+  }.freeze
 
   desc '--version, -v', 'print the version'
   def __print_version
@@ -43,18 +45,18 @@ class SolrHarvestCLI < Thor
       end
     end
 
-    puts "CODE | DESCRIPTION"
-    puts "-----+------------"
+    puts 'CODE | DESCRIPTION'
+    puts '-----+------------'
     code_list.each do |k|
-      text = ERRCODE_DESC.keys.include?(k) ? ERRCODE_DESC[k] : "INVALID CODE NUMBER"
-      puts "%4d | %s" % [k, text]
+      text = ERRCODE_DESC.keys.include?(k) ? ERRCODE_DESC[k] : 'INVALID CODE NUMBER'
+      puts format('%4<code>d | %<text>s',  code: k, text: text)
     end
   end
 
   desc 'ping', 'Ping the solr and harvesting endpoints related to the specified data center(s)'
   option :data_center, type: :array, required: true
   option :environment, required: true
-  def ping()
+  def ping
     solr_success = true
     source_success = true
     options[:data_center].each do |target|
@@ -105,7 +107,7 @@ class SolrHarvestCLI < Thor
 
         harvester.harvest_and_delete
       rescue SearchSolrTools::Errors::HarvestError => e
-        puts "THERE WERE HARVEST STATUS ERRORS"
+        puts "THERE WERE HARVEST STATUS ERRORS: #{e.message}"
         exit ERRCODE_UNKNOWN
       rescue StandardError => e
         # TODO: fail from harvest_nsidc_json_into_solr should end up here?
@@ -177,4 +179,7 @@ class SolrHarvestCLI < Thor
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/AbcSize
+
 SolrHarvestCLI.start(ARGV)

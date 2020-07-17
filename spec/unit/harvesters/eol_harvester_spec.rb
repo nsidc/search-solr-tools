@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SearchSolrTools::Harvesters::Eol do
+describe SearchSolrTools::Harvesters::Eol, :skip => "Obsolete harvester, would need to be updated to new status handling method" do
   before :all do
     @harvester = described_class.new
   end

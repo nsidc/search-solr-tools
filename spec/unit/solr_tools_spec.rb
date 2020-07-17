@@ -62,7 +62,7 @@ describe SolrHarvestCLI do
 
       @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
       expect { @cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_BOTH_PING)
+        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_SOLR_PING + SolrHarvestCLI::ERRCODE_SOURCE_PING)
       end
     end
   end
