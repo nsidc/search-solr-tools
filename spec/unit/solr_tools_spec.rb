@@ -38,7 +38,7 @@ describe SolrHarvestCLI do
 
       @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
       expect { @cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_SOURCE_PING)
+        expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
       end
     end
 
@@ -50,7 +50,7 @@ describe SolrHarvestCLI do
 
       @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
       expect { @cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_SOLR_PING)
+        expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING)
       end
     end
 
@@ -62,7 +62,7 @@ describe SolrHarvestCLI do
 
       @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
       expect { @cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SolrHarvestCLI::ERRCODE_SOLR_PING + SolrHarvestCLI::ERRCODE_SOURCE_PING)
+        expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING + SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
       end
     end
   end
@@ -81,8 +81,8 @@ describe SolrHarvestCLI do
     end
 
     # TODO: Not testing what it thinks it's testing! The test will pass even if
-    # die_on_failure is set to false. die_on_failure is set in response to DCS errors,
-    # not non-existing data center errors.
+    #  die_on_failure is set to false. die_on_failure is set in response to DCS errors,
+    #  not non-existing data center errors.
     it 'fails on failure if die_on_failure is true' do
       @cli.options = { data_center: ['not a real datacenter'], die_on_failure: true, environment: 'dev' }
       expect { @cli.harvest }.to raise_exception(SystemExit)

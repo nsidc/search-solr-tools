@@ -9,24 +9,6 @@ require 'thor'
 class SolrHarvestCLI < Thor
   map %w[--version -v] => :__print_version
 
-  ERRCODE_SOLR_PING = 1
-  ERRCODE_SOURCE_PING = 2
-  ERRCODE_SOURCE_NO_RESULTS = 4
-  ERRCODE_SOURCE_HARVEST_ERROR = 8
-  ERRCODE_DOCUMENT_INVALID = 16
-  ERRCODE_INGEST_ERROR = 32
-  ERRCODE_UNKNOWN = 128
-
-  ERRCODE_DESC = {
-    ERRCODE_SOLR_PING => 'Solr instance did not return a successful ping',
-    ERRCODE_SOURCE_PING => 'Source to be harvested did not return a successful ping',
-    ERRCODE_SOURCE_NO_RESULTS => 'Source to be harvested returned no documents matching query',
-    ERRCODE_SOURCE_HARVEST_ERROR => 'One or more source documents returned an error when trying to retrieve or translate',
-    ERRCODE_DOCUMENT_INVALID => 'One or more documents to be harvested was invalid (malformed)',
-    ERRCODE_INGEST_ERROR => 'Solr returned an error trying to ingest one or more harvested documents',
-    ERRCODE_UNKNOWN => 'Generic, unspecified placeholder error code'
-  }.freeze
-
   desc '--version, -v', 'print the version'
   def __print_version
     puts SearchSolrTools::VERSION
@@ -34,22 +16,12 @@ class SolrHarvestCLI < Thor
 
   desc 'errcode', 'Get a description of the specified error code'
   def errcode(code)
-    code = code.to_i
-    code_list = []
-
-    # Loop through all bit-flag values
-    [128, 64, 32, 16, 8, 4, 2, 1].each do |k|
-      if code >= k
-        code_list.prepend k
-        code -= k
-      end
-    end
+    codes = SearchSolrTools::Errors::HarvestError.describe_exit_code(code)
 
     puts 'CODE | DESCRIPTION'
     puts '-----+------------'
-    code_list.each do |k|
-      text = ERRCODE_DESC.keys.include?(k) ? ERRCODE_DESC[k] : 'INVALID CODE NUMBER'
-      puts format('%4<code>d | %<text>s',  code: k, text: text)
+    codes.each do |c, text|
+      puts format('%4<code>d | %<text>s',  code: c, text: text)
     end
   end
 
@@ -75,13 +47,12 @@ class SolrHarvestCLI < Thor
       puts "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
     end
 
-    # Error code is 0 if all pings were successful.  Otherwise, add the ping
-    # error codes.  The "combined" error code was intentionally set to the sum
-    # of the individual pings for easier combination
-    errcode = 0
-    errcode += ERRCODE_SOLR_PING unless solr_success
-    errcode += ERRCODE_SOURCE_PING unless source_success
-    exit errcode if errcode != 0
+    ping_status = SearchSolrTools::Helpers::HarvestStatus.new
+    ping_status.ping_solr = solr_success
+    ping_status.ping_source = source_success
+    raise SearchSolrTools::Errors::HarvestError.new(ping_status) unless ping_status.ok?
+  rescue SearchSolrTools::Errors::HarvestError => e
+    exit e.exit_code
   end
 
   desc 'harvest', 'Harvest from the specified data centers'
@@ -94,26 +65,20 @@ class SolrHarvestCLI < Thor
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure)
-        code = 0
-        unless harvester.ping_solr
-          puts "Solr service for #{target} did not return a successful ping.  Is the instance up?"
-          code += ERRCODE_SOLR_PING
-        end
-        unless harvester.ping_source
-          puts "Data source for #{target} did not return a successful ping.  Is the source available?"
-          code += ERRCODE_SOURCE_PING
-        end
-        exit code if code != 0
+        ping_status = SearchSolrTools::Helpers::HarvestStatus.new
+        ping_status.ping_solr = false unless harvester.ping_solr
+        ping_status.ping_source = false unless harvester.ping_source
+        raise SearchSolrTools::Errors::HarvestError.new(ping_status) unless ping_status.ok?
 
         harvester.harvest_and_delete
       rescue SearchSolrTools::Errors::HarvestError => e
-        puts "THERE WERE HARVEST STATUS ERRORS: #{e.message}"
-        exit ERRCODE_UNKNOWN
+        puts "THERE WERE HARVEST STATUS ERRORS:\n#{e.message}"
+        exit e.exit_code
       rescue StandardError => e
-        # TODO: fail from harvest_nsidc_json_into_solr should end up here?
+        # If it gets here, there is an error that we aren't expecting.
         puts "harvest failed for #{target}: #{e.message}"
         puts e.backtrace
-        exit ERRCODE_UNKNOWN
+        exit 99999
       end
     end
   end
@@ -173,7 +138,7 @@ class SolrHarvestCLI < Thor
 
     def get_harvester_class(data_center_name)
       name = data_center_name.downcase.to_s
-      raise("Invalid data center #{name}") unless harvester_map.key?(name)
+      raise SearchSolrTools::Errors::HarvestError.new(nil, "Invalid data center #{name}") unless harvester_map.key?(name)
 
       harvester_map[name]
     end

@@ -7,11 +7,14 @@ module SearchSolrTools
       HARVEST_FAILURE = :harvest_fail
       INGEST_ERR_INVALID_DOC = :invalid
       INGEST_ERR_SOLR_ERROR = :solr_error
+      OTHER_ERROR = :other
 
-      ERROR_STATUS = [HARVEST_NO_DOCS, HARVEST_FAILURE, INGEST_ERR_INVALID_DOC, INGEST_ERR_SOLR_ERROR]
+      ERROR_STATUS = [HARVEST_NO_DOCS, HARVEST_FAILURE, INGEST_ERR_INVALID_DOC, INGEST_ERR_SOLR_ERROR, OTHER_ERROR]
 
       def initialize
         @status = { INGEST_OK => [] }
+        @ping_solr = true
+        @ping_source = true
         ERROR_STATUS.each { |s| @status[s] = [] }
       end
 
@@ -23,9 +26,25 @@ module SearchSolrTools
         @status[doc_status] << document
       end
 
+      def ping_solr=(newval)
+        @ping_solr = newval
+      end
+
+      def ping_source=(newval)
+        @ping_source = newval
+      end
+
       def ok?
         ERROR_STATUS.each { |s| return false unless @status[s].empty? }
-        true
+        @ping_solr && @ping_source
+      end
+
+      def ping_solr
+        @ping_solr
+      end
+
+      def ping_source
+        @ping_source
       end
 
       def documents_with_status(doc_status)

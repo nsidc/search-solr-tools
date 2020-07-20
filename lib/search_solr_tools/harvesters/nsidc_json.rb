@@ -35,7 +35,6 @@ module SearchSolrTools
       def harvest_nsidc_json_into_solr
         result = docs_with_translated_entries_from_nsidc
 
-        # TODO:  need to catch possible fail from insert_solr_docs?
         status = insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
 
         status.record_document_status('harvest', Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
@@ -43,6 +42,11 @@ module SearchSolrTools
                                                Helpers::HarvestStatus::HARVEST_FAILURE) if result[:failure_ids].length > 0
 
         raise Errors::HarvestError(status) unless status.ok?
+      rescue StandardError => e
+        puts "An unexpected exception occurred while trying to harvest or insert: #{e}"
+        status = Helpers::HarvestStatus.new
+        status.record_document_status(e, Helpers::HarvestStatus::OTHER_ERROR)
+        raise Errors::HarvestError(status)
       end
 
       def nsidc_json_url
