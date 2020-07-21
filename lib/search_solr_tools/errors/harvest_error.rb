@@ -58,6 +58,8 @@ module SearchSolrTools
         code += ERRCODE_DOCUMENT_INVALID if @status_data.documents_with_status(Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC).size > 0
         code += ERRCODE_INGEST_ERROR if @status_data.documents_with_status(Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR).size > 0
 
+        code = ERRCODE_OTHER if code == 0
+
         code
       end
 

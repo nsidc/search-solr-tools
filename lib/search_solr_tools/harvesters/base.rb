@@ -185,6 +185,9 @@ module SearchSolrTools
 
           retry if retries_left > 0
 
+          # TODO - Do we really need this "die_on_failure" anymore?  The empty return
+          #  will cause the "No Documents" error to be thrown in the harvester class
+          #  now, so it will pretty much always "die on failure"
           raise e if @die_on_failure
           return
         end

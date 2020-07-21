@@ -41,12 +41,15 @@ module SearchSolrTools
         status.record_multiple_document_status(result[:failure_ids],
                                                Helpers::HarvestStatus::HARVEST_FAILURE) if result[:failure_ids].length > 0
 
-        raise Errors::HarvestError(status) unless status.ok?
+        raise Errors::HarvestError, status unless status.ok?
+      rescue Errors::HarvestError => e
+        raise e
       rescue StandardError => e
         puts "An unexpected exception occurred while trying to harvest or insert: #{e}"
+        puts e.backtrace
         status = Helpers::HarvestStatus.new
         status.record_document_status(e, Helpers::HarvestStatus::OTHER_ERROR)
-        raise Errors::HarvestError(status)
+        raise Errors::HarvestError, status
       end
 
       def nsidc_json_url
@@ -56,7 +59,7 @@ module SearchSolrTools
       def result_ids_from_nsidc
         url = SolrEnvironments[@environment][:nsidc_dataset_metadata_url] +
               SolrEnvironments[@environment][:nsidc_oai_identifiers_url]
-        get_results url, '//xmlns:identifier'
+        get_results(url, '//xmlns:identifier') || []
       end
 
       # Fetch a JSON representation of a dataset's metadata
