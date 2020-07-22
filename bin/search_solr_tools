@@ -13,7 +13,7 @@ class SolrHarvestCLI < Thor
     puts SearchSolrTools::VERSION
   end
 
-  desc 'errcode', 'Get a description of the specified error exit code.  Leave empty to see all codes'
+  desc 'errcode CODE', 'Print all exit codes bundled in CODE.  Omit CODE to print all codes'
   def errcode(code = -1)
     codes = SearchSolrTools::Errors::HarvestError.describe_exit_code(code)
 

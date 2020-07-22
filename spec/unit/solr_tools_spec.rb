@@ -4,14 +4,12 @@ load 'bin/search_solr_tools'
 describe SolrHarvestCLI do
   before(:each) do
     @cli = described_class.new
-    allow(@cli).to receive(:harvester_map).and_return('adc' => SearchSolrTools::Harvesters::Adc,
-                                                      'echo' => SearchSolrTools::Harvesters::Echo,
-                                                      'nsidc' => SearchSolrTools::Harvesters::NsidcJson)
+    allow(@cli).to receive(:harvester_map).and_return('nsidc' => SearchSolrTools::Harvesters::NsidcJson)
   end
 
   describe '#get_harvester_class' do
     it 'returns the correct harvester class' do
-      expect(@cli.get_harvester_class('adc')).to eql SearchSolrTools::Harvesters::Adc
+      expect(@cli.get_harvester_class('nsidc')).to eql SearchSolrTools::Harvesters::NsidcJson
     end
   end
 
@@ -79,13 +77,12 @@ describe SolrHarvestCLI do
 
     it 'calls the selected harvester classes' do
       puts 'CLI' + @cli.harvester_map.to_s
-      [SearchSolrTools::Harvesters::Adc, SearchSolrTools::Harvesters::Echo].each do |test_harvester_class|
-        allow_any_instance_of(test_harvester_class).to receive(:ping_solr).and_return(true)
-        allow_any_instance_of(test_harvester_class).to receive(:ping_source).and_return(true)
-        allow_any_instance_of(test_harvester_class).to receive(:harvest_and_delete).and_return(true)
-        expect_any_instance_of(test_harvester_class).to receive(:harvest_and_delete)
-      end
-      @cli.options = { data_center: %w(echo adc), die_on_failure: false, environment: 'dev' }
+      allow_any_instance_of(@harvester_class).to receive(:ping_solr).and_return(true)
+      allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(true)
+      allow_any_instance_of(@harvester_class).to receive(:harvest_and_delete).and_return(true)
+      expect_any_instance_of(@harvester_class).to receive(:harvest_and_delete)
+
+      @cli.options = { data_center: %w(nsidc), die_on_failure: false, environment: 'dev' }
       @cli.harvest
     end
 
@@ -112,7 +109,7 @@ describe SolrHarvestCLI do
       allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(true)
       allow_any_instance_of(@harvester_class).to receive(:get_results).and_return(nil)
 
-      @cli.options = { data_center: ['nsidc'], environment: 'dev' }
+      @cli.options = { data_center: %w(nsidc), environment: 'dev' }
       expect { @cli.harvest }.to raise_error(SystemExit) do |error|
         expect(error.status).to eql(SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_NO_RESULTS)
       end
@@ -123,7 +120,7 @@ describe SolrHarvestCLI do
       allow_any_instance_of(@harvester_class).to receive(:ping_source).and_return(true)
       allow_any_instance_of(@harvester_class).to receive(:get_results).and_return([])
 
-      @cli.options = { data_center: ['nsidc'], environment: 'dev' }
+      @cli.options = { data_center: %w(nsidc), environment: 'dev' }
       expect { @cli.harvest }.to raise_error(SystemExit) do |error|
         expect(error.status).to eql(SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_NO_RESULTS)
       end
@@ -135,7 +132,7 @@ describe SolrHarvestCLI do
       allow_any_instance_of(@harvester_class).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
       allow_any_instance_of(@harvester_class).to receive(:insert_solr_doc).and_return(ingest_ok, ingest_invalid_doc, ingest_ok)
 
-      @cli.options = { data_center: ['nsidc'], environment: 'integration' }
+      @cli.options = { data_center: %w(nsidc), environment: 'integration' }
       expect { @cli.harvest }.to raise_error(SystemExit) do |error|
         expect(error.status).to eql(SearchSolrTools::Errors::HarvestError::ERRCODE_DOCUMENT_INVALID)
       end
@@ -147,7 +144,7 @@ describe SolrHarvestCLI do
       allow_any_instance_of(@harvester_class).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
       allow_any_instance_of(@harvester_class).to receive(:insert_solr_doc).and_return(ingest_ok, ingest_solr_err, ingest_ok)
 
-      @cli.options = { data_center: ['nsidc'], environment: 'integration' }
+      @cli.options = { data_center: %w(nsidc), environment: 'integration' }
       expect { @cli.harvest }.to raise_error(SystemExit) do |error|
         expect(error.status).to eql(SearchSolrTools::Errors::HarvestError::ERRCODE_INGEST_ERROR)
       end
@@ -159,7 +156,7 @@ describe SolrHarvestCLI do
       allow_any_instance_of(@harvester_class).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
       allow_any_instance_of(@harvester_class).to receive(:insert_solr_doc).and_return(ingest_solr_err, ingest_invalid_doc, ingest_ok)
 
-      @cli.options = { data_center: ['nsidc'], environment: 'integration' }
+      @cli.options = { data_center: %w(nsidc), environment: 'integration' }
       expect { @cli.harvest }.to raise_error(SystemExit) do |error|
         expect(error.status).to eql(SearchSolrTools::Errors::HarvestError::ERRCODE_INGEST_ERROR +
                                     SearchSolrTools::Errors::HarvestError::ERRCODE_DOCUMENT_INVALID)
@@ -172,18 +169,18 @@ describe SolrHarvestCLI do
       allow_any_instance_of(@harvester_class).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
       allow_any_instance_of(@harvester_class).to receive(:insert_solr_doc).and_return(ingest_ok)
 
-      @cli.options = { data_center: ['nsidc'], environment: 'integration' }
+      @cli.options = { data_center: %w(nsidc), environment: 'integration' }
       expect { @cli.harvest }.not_to raise_error(SystemExit)
     end
   end
 
   describe '#delete_by_data_center' do
     it 'calls delete_old_documents on the correct class' do
-      @cli.options = { timestamp: '2014-07-14T21:49:21Z', environment: 'dev', data_center: 'adc' }
-      allow_any_instance_of(SearchSolrTools::Harvesters::Adc).to receive(:delete_old_documents).and_return(true)
-      expect_any_instance_of(SearchSolrTools::Harvesters::Adc).to receive(:delete_old_documents).with(
+      @cli.options = { timestamp: '2014-07-14T21:49:21Z', environment: 'dev', data_center: 'nsidc' }
+      allow_any_instance_of(SearchSolrTools::Harvesters::NsidcJson).to receive(:delete_old_documents).and_return(true)
+      expect_any_instance_of(SearchSolrTools::Harvesters::NsidcJson).to receive(:delete_old_documents).with(
         '2014-07-14T21:49:21Z',
-        'data_centers:"NSF Arctic Data Center"',
+        'data_centers:"National Snow and Ice Data Center"',
         'nsidc_oai',
         true
       )
