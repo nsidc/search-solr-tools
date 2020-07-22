@@ -1,3 +1,3 @@
 module SearchSolrTools
-  VERSION = '5.0.1.pre.3'
+  VERSION = '5.0.1.pre.4'
 end
