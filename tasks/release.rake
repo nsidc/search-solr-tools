@@ -3,7 +3,7 @@
 namespace :release do
   desc 'Create a new prerelease, optionally publishing to rubygems.org'
   task :pre, :publish do |_t, args|
-    cmd = 'gem bump --push --version pre'
+    cmd = 'gem bump --push --version pre'.dup
     cmd.concat(' --tag --release') if args.publish == 'true'
 
     sh cmd

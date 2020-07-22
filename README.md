@@ -124,9 +124,9 @@ tagging, and publishing to RubyGems.
 |---------------------------|-------------|
 | `rake release:pre[false]` | Increase the current prerelease version number, push changes |
 | `rake release:pre[true]`  | Increase the current prerelease version number, publish release\* |
-| `rake release:none`       | Drop the prerelease version, publish release, then `pre[false]` (does a patch release) |
-| `rake release:minor`      | Increase the minor version number, publish release, then `pre[false]` |
-| `rake release:major`      | Increase the major version number, publish release, then `pre[false]` |
+| `rake release:none`       | Drop the prerelease version, publish release\*, then `pre[false]` (does a patch release) |
+| `rake release:minor`      | Increase the minor version number, publish release\*, then `pre[false]` |
+| `rake release:major`      | Increase the major version number, publish release\*, then `pre[false]` |
 
 \*"publish release" means each of the following occurs:
 

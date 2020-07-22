@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
     metadata into a working solr instance.
   EOF
   spec.homepage      = 'https://github.com/nsidc/search-solr-tools'
-  spec.license       = 'GNU GPL Version 3'
+  spec.license       = 'GPL-3.0-or-later'
 
   spec.files         = `git ls-files -z #{gem_files}`.split("\x0")
   spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
