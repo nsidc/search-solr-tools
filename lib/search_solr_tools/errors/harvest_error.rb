@@ -19,20 +19,22 @@ module SearchSolrTools
           ERRCODE_OTHER => 'General error code for non-harvest related issues'
       }.freeze
 
-      def self.describe_exit_code(code)
+      # If code is -1, it means display all error codes
+      def self.describe_exit_code(code = -1)
         code = code.to_i
         code_list = []
 
         # Loop through all bit-flag values
         [128, 64, 32, 16, 8, 4, 2, 1].each do |k|
-          if code >= k
+          if code >= k || code == -1
             code_list.prepend k
-            code -= k
+            code -= k unless code == -1
           end
         end
 
         codes = {}
         code_list.each do |k|
+          next if code == -1 && !ERRCODE_DESC.keys.include?(k)  # skip INVALID CODE if showing all codes
           codes[k] = ERRCODE_DESC.keys.include?(k) ? ERRCODE_DESC[k] : 'INVALID CODE NUMBER'
         end
 

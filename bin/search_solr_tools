@@ -13,8 +13,8 @@ class SolrHarvestCLI < Thor
     puts SearchSolrTools::VERSION
   end
 
-  desc 'errcode', 'Get a description of the specified error code'
-  def errcode(code)
+  desc 'errcode', 'Get a description of the specified error exit code.  Leave empty to see all codes'
+  def errcode(code=-1)
     codes = SearchSolrTools::Errors::HarvestError.describe_exit_code(code)
 
     puts 'CODE | DESCRIPTION'
@@ -77,7 +77,7 @@ class SolrHarvestCLI < Thor
         # If it gets here, there is an error that we aren't expecting.
         puts "harvest failed for #{target}: #{e.message}"
         puts e.backtrace
-        exit 99_999
+        exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER
       end
     end
   end
