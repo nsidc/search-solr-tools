@@ -93,16 +93,10 @@ describe SolrHarvestCLI do
       end
     end
 
-    # TODO: Not testing what it thinks it's testing! The test will pass even if
-    #  die_on_failure is set to false. die_on_failure is set in response to DCS errors,
-    #  not non-existing data center errors.
-    #  NOTE - I copied the main test logic above, as it's really testing to see if there is an
-    #  invalid datacenter.  If we want to keep the "die_on_failure", we need to change the
-    #  test logic here.
-    it 'fails on failure if die_on_failure is true' do
-      @cli.options = { data_center: ['not a real datacenter'], die_on_failure: true, environment: 'dev' }
-      expect { @cli.harvest }.to raise_exception(SystemExit)
-    end
+    # TODO: Write a test that exercises the "die on failure" flag.  That flag is
+    #  used in situations where the "ping" against the data center (ie, DCS)
+    #  worked, but attempting to get a list of identifiers to be harvested times
+    #  out or returns errors (as opposed to "successfully" returning an empty list).
 
     it 'fails when the attempt to get the identifiers times out' do
       allow_any_instance_of(@harvester_class).to receive(:ping_solr).and_return(true)
