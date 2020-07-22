@@ -14,7 +14,7 @@ class SolrHarvestCLI < Thor
   end
 
   desc 'errcode', 'Get a description of the specified error exit code.  Leave empty to see all codes'
-  def errcode(code=-1)
+  def errcode(code = -1)
     codes = SearchSolrTools::Errors::HarvestError.describe_exit_code(code)
 
     puts 'CODE | DESCRIPTION'
@@ -47,8 +47,8 @@ class SolrHarvestCLI < Thor
     end
 
     ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
-        SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => solr_success,
-        SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => source_success
+      SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => solr_success,
+      SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => source_success
     )
     raise SearchSolrTools::Errors::HarvestError, ping_status unless ping_status.ok?
   rescue SearchSolrTools::Errors::HarvestError => e
@@ -66,8 +66,8 @@ class SolrHarvestCLI < Thor
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure)
         ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
-            SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => harvester.ping_solr,
-            SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => harvester.ping_source
+          SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => harvester.ping_solr,
+          SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => harvester.ping_source
         )
         raise SearchSolrTools::Errors::HarvestError, ping_status unless ping_status.ok?
 
