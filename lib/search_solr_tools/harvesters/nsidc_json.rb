@@ -47,8 +47,7 @@ module SearchSolrTools
       rescue StandardError => e
         puts "An unexpected exception occurred while trying to harvest or insert: #{e}"
         puts e.backtrace
-        status = Helpers::HarvestStatus.new
-        status.record_document_status(e, Helpers::HarvestStatus::OTHER_ERROR)
+        status = Helpers::HarvestStatus.new(Helpers::HarvestStatus::OTHER_ERROR => e)
         raise Errors::HarvestError, status
       end
 

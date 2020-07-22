@@ -50,7 +50,7 @@ module SearchSolrTools
 
         if status == Helpers::HarvestStatus::INGEST_OK
           puts "Added #{add_docs.size} auto suggest documents in one commit"
-          return { Helpers::HarvestStatus::INGEST_OK => add_docs, Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR => [], Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC => [] }
+          return Helpers::HarvestStatus.new(Helpers::HarvestStatus::INGEST_OK => add_docs)
         else
           puts "Failed adding #{add_docs.size} documents in single commit, retrying one by one"
           new_add_docs = []

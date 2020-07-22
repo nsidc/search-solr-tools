@@ -46,9 +46,10 @@ class SolrHarvestCLI < Thor
       puts "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
     end
 
-    ping_status = SearchSolrTools::Helpers::HarvestStatus.new
-    ping_status.ping_solr = solr_success
-    ping_status.ping_source = source_success
+    ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
+        SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => solr_success,
+        SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => source_success
+    )
     raise SearchSolrTools::Errors::HarvestError, ping_status unless ping_status.ok?
   rescue SearchSolrTools::Errors::HarvestError => e
     exit e.exit_code
@@ -64,9 +65,10 @@ class SolrHarvestCLI < Thor
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure)
-        ping_status = SearchSolrTools::Helpers::HarvestStatus.new
-        ping_status.ping_solr = false unless harvester.ping_solr
-        ping_status.ping_source = false unless harvester.ping_source
+        ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
+            SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => harvester.ping_solr,
+            SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => harvester.ping_source
+        )
         raise SearchSolrTools::Errors::HarvestError, ping_status unless ping_status.ok?
 
         harvester.harvest_and_delete
