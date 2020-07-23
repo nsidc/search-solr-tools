@@ -1,4 +1,4 @@
-## Unreleased
+## v5.1.0 (2020-07-23)
 
   - Added a CLI method to "ping" the Solr and Source servers for a given 
     data center.
