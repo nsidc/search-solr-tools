@@ -19,6 +19,19 @@ module SearchSolrTools
           ERRCODE_OTHER => 'General error code for non-harvest related issues'
       }.freeze
 
+      PING_ERRCODE_MAP = {
+        'ping_solr' => ERRCODE_SOLR_PING,
+        'ping_source' => ERRCODE_SOURCE_PING,
+      }
+
+      STATUS_ERRCODE_MAP = {
+          Helpers::HarvestStatus::HARVEST_NO_DOCS => ERRCODE_SOURCE_NO_RESULTS,
+          Helpers::HarvestStatus::HARVEST_FAILURE => ERRCODE_SOURCE_HARVEST_ERROR,
+          Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC => ERRCODE_DOCUMENT_INVALID,
+          Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR => ERRCODE_INGEST_ERROR,
+          Helpers::HarvestStatus::OTHER_ERROR => ERRCODE_OTHER
+      }.freeze
+
       # If code is -1, it means display all error codes
       def self.describe_exit_code(code = -1)
         code = code.to_i
@@ -52,13 +65,15 @@ module SearchSolrTools
           return ERRCODE_OTHER
         end
 
+        puts "EXIT CODE STATUS:\n#{@status_data.status}"
+
         code = 0
         code += ERRCODE_SOLR_PING unless @status_data.ping_solr
         code += ERRCODE_SOURCE_PING unless @status_data.ping_source
-        code += ERRCODE_SOURCE_NO_RESULTS if @status_data.status[Helpers::HarvestStatus::HARVEST_NO_DOCS].size > 0
-        code += ERRCODE_SOURCE_HARVEST_ERROR if @status_data.status[Helpers::HarvestStatus::HARVEST_FAILURE].size > 0
-        code += ERRCODE_DOCUMENT_INVALID if @status_data.status[Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC].size > 0
-        code += ERRCODE_INGEST_ERROR if @status_data.status[Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR].size > 0
+        code += ERRCODE_SOURCE_NO_RESULTS if @status_data.status[Helpers::HarvestStatus::HARVEST_NO_DOCS] > 0
+        code += ERRCODE_SOURCE_HARVEST_ERROR if @status_data.status[Helpers::HarvestStatus::HARVEST_FAILURE] > 0
+        code += ERRCODE_DOCUMENT_INVALID if @status_data.status[Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC] > 0
+        code += ERRCODE_INGEST_ERROR if @status_data.status[Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR] > 0
 
         code = ERRCODE_OTHER if code == 0
 

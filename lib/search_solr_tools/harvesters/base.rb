@@ -118,7 +118,7 @@ module SearchSolrTools
 
         docs.each do |doc|
           doc_status = insert_solr_doc(doc, content_type, core)
-          status.record_status(doc_status, doc_identifier(doc))
+          status.record_status doc_status
           doc_status == Helpers::HarvestStatus::INGEST_OK ? success += 1 : failure += 1
         end
         puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
@@ -167,16 +167,6 @@ module SearchSolrTools
         else
           return doc
         end
-      end
-
-      # Return a string to help identify a document.  Can be overridden in
-      # child classes if the docs for the harvester are not in the "standard"
-      # hash format
-      def doc_identifier(doc)
-        keys = %w(authoritative_id dataset_version title)
-        return '' unless defined? doc.keys
-
-        keys.map{ |k| doc[k] || ''}.reject{ |i| i.empty? }.join(' - ')
       end
 
       # Get results from an end point specified in the request_url

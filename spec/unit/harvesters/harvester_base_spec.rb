@@ -177,31 +177,6 @@ describe SearchSolrTools::Harvesters::Base do
     end
   end
 
-  describe 'doc_identifier' do
-    let (:harvester) { described_class.new }
-    let (:auth_id) { 'ABCD123' }
-    let (:version) { '001' }
-    let (:title) { 'Dataset Title' }
-
-    it 'returns empty string if doc is not a hash' do
-      doc = 'SOME PLAINTEXT DOC'
-
-      expect(harvester.doc_identifier(doc)).to eql ''
-    end
-
-    it 'returns authoritative id only if that is all that is defined' do
-      doc = { 'authoritative_id' => auth_id }
-
-      expect(harvester.doc_identifier(doc)).to eql auth_id
-    end
-
-    it 'returns a full identifier string if all parts defined' do
-      doc = { 'authoritative_id' => auth_id, 'dataset_version' => version, 'title' => title }
-
-      expect(harvester.doc_identifier(doc)).to eql "#{auth_id} - #{version} - #{title}"
-    end
-  end
-
   describe 'ingest' do
     let (:invalid_doc) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC }
     let (:ingest_fail) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR }
@@ -214,9 +189,9 @@ describe SearchSolrTools::Harvesters::Base do
 
         res = harvester.insert_solr_docs(%w(doc1 doc2 doc3))
         expect(res.ok?).to eql(false)
-        expect(res.status[ingest_fail].size).to eql(1)
-        expect(res.status[ingest_ok].size).to eql(1)
-        expect(res.status[invalid_doc].size).to eql(1)
+        expect(res.status[ingest_fail]).to eql(1)
+        expect(res.status[ingest_ok]).to eql(1)
+        expect(res.status[invalid_doc]).to eql(1)
       end
 
       it 'returns a status object reporting no errors if all documents were successfully added' do
@@ -224,9 +199,9 @@ describe SearchSolrTools::Harvesters::Base do
 
         res = harvester.insert_solr_docs(%w(doc1 doc2 doc3))
         expect(res.ok?).to eql(true)
-        expect(res.status[ingest_fail].size).to eql(0)
-        expect(res.status[ingest_ok].size).to eql(3)
-        expect(res.status[invalid_doc].size).to eql(0)
+        expect(res.status[ingest_fail]).to eql(0)
+        expect(res.status[ingest_ok]).to eql(3)
+        expect(res.status[invalid_doc]).to eql(0)
       end
     end
 
