@@ -1,3 +1,11 @@
+## Unreleased
+
+  - Added a CLI method to "ping" the Solr and Source servers for a given 
+    data center.
+  - Added a CLI method "errcode" to get information about the various 
+    error codes that may be returned during harvest
+  - Updated the CLI harvest to return more useful error codes on failure.
+
 ## v5.0.1 (2020-07-02)
 
   - Bug fix: some requires weren't included that needed to be.

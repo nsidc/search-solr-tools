@@ -30,7 +30,7 @@ describe SearchSolrTools::Harvesters::Base do
     describe 'with @die_on_failure ' do
       let(:described_object) { described_class.new('development', true) }
 
-      def described_method(request_url, metadata_path, content_type = 'application/xml')
+      def described_method_get_results(request_url, metadata_path, content_type = 'application/xml')
         described_object.get_results(request_url, metadata_path, content_type)
       end
 
@@ -48,7 +48,7 @@ describe SearchSolrTools::Harvesters::Base do
 
         it 'returns metadata from the XML response' do
           expect do
-            described_method(
+            described_method_get_results(
               'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
               '/metadata/xpath'
             ).to eql(parsed_metadata)
@@ -67,7 +67,7 @@ describe SearchSolrTools::Harvesters::Base do
         it 'makes 3 attempts before propagating the error' do
           expect(described_object).to receive(:open).exactly(3).times
           expect do
-            described_method(
+            described_method_get_results(
               'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
               '/metadata/xpath'
             )
@@ -84,7 +84,7 @@ describe SearchSolrTools::Harvesters::Base do
           it 'makes 3 attempts before propagating the error' do
             expect(described_object).to receive(:open).exactly(3).times
             expect do
-              described_method(
+              described_method_get_results(
                 'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
                 '/metadata/xpath'
               )
@@ -114,7 +114,7 @@ describe SearchSolrTools::Harvesters::Base do
                        'Content-Type' => described_class::JSON_CONTENT_TYPE })
       .to_return(status: 200, body: 'success', headers: {})
 
-    expect(harvester.insert_solr_doc(add_doc, described_class::JSON_CONTENT_TYPE)).to eql(true)
+    expect(harvester.insert_solr_doc(add_doc, described_class::JSON_CONTENT_TYPE)).to eql(SearchSolrTools::Helpers::HarvestStatus::INGEST_OK)
   end
 
   it 'serializes an XML add document and adds it to solr in XML format' do
@@ -128,7 +128,7 @@ describe SearchSolrTools::Harvesters::Base do
                        'Content-Type' => described_class::XML_CONTENT_TYPE })
       .to_return(status: 200, body: 'success', headers: {})
 
-    expect(harvester.insert_solr_doc(add_doc)).to eql(true)
+    expect(harvester.insert_solr_doc(add_doc)).to eql(SearchSolrTools::Helpers::HarvestStatus::INGEST_OK)
   end
 
   describe 'harvest_and_delete' do
@@ -177,12 +177,74 @@ describe SearchSolrTools::Harvesters::Base do
     end
   end
 
-  describe 'insert_solr_docs' do
-    it 'raises an error if some documents are not successfully added' do
-      harvester = described_class.new 'integration'
-      allow(harvester).to receive('insert_solr_doc').and_return(false, true)
+  describe 'ingest' do
+    let (:invalid_doc) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC }
+    let (:ingest_fail) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR }
+    let (:ingest_ok)  { SearchSolrTools::Helpers::HarvestStatus::INGEST_OK }
+    let (:harvester) { described_class.new 'integration' }
 
-      expect { harvester.insert_solr_docs(%w(doc1 doc2 doc3)) }.to raise_error
+    describe 'insert_solr_docs' do
+      it 'returns a status object reporting errors if some documents are not successfully added' do
+        allow(harvester).to receive('insert_solr_doc').and_return(ingest_fail, invalid_doc, ingest_ok)
+
+        res = harvester.insert_solr_docs(%w(doc1 doc2 doc3))
+        expect(res.ok?).to eql(false)
+        expect(res.status[ingest_fail]).to eql(1)
+        expect(res.status[ingest_ok]).to eql(1)
+        expect(res.status[invalid_doc]).to eql(1)
+      end
+
+      it 'returns a status object reporting no errors if all documents were successfully added' do
+        allow(harvester).to receive('insert_solr_doc').and_return(ingest_ok)
+
+        res = harvester.insert_solr_docs(%w(doc1 doc2 doc3))
+        expect(res.ok?).to eql(true)
+        expect(res.status[ingest_fail]).to eql(0)
+        expect(res.status[ingest_ok]).to eql(3)
+        expect(res.status[invalid_doc]).to eql(0)
+      end
+    end
+
+    describe 'insert_solr_doc' do
+      before(:each) do
+        stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
+            .with{ |request| request.body.include? 'good_doc' }
+            .to_return(status: 200, body: 'success', headers: {})
+
+        stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
+            .with{ |request| request.body.include? 'bad_doc' }
+            .to_return(status: 500, body: 'failure', headers: {})
+      end
+
+      it 'returns invalid document status if validation check fails' do
+        allow(harvester).to receive('doc_valid?').and_return(false)
+
+        expect(harvester.insert_solr_doc('doc')).to eql(invalid_doc)
+      end
+
+      it 'returns solr error status if valid xml doc does not ingest correctly' do
+        allow(harvester).to receive('doc_valid?').and_return(true)
+
+        expect(harvester.insert_solr_doc('bad_doc')).to eql(ingest_fail)
+      end
+
+      it 'returns solr error status if non-xml doc does not ingest correctly' do
+        allow(harvester).to receive('doc_valid?').and_return(true)
+
+        expect(harvester.insert_solr_doc('bad_doc', SearchSolrTools::Harvesters::Base::JSON_CONTENT_TYPE)).to eql(ingest_fail)
+      end
+
+      it 'returns OK status if valid xml doc ingests correctly' do
+        allow(harvester).to receive('doc_valid?').and_return(true)
+
+        expect(harvester.insert_solr_doc('good_doc')).to eql(ingest_ok)
+      end
+
+      it 'returns OK status if valid non-xml doc ingests correctly' do
+        allow(harvester).to receive('doc_valid?').and_return(true)
+
+        expect(harvester.insert_solr_doc('good_doc', SearchSolrTools::Harvesters::Base::JSON_CONTENT_TYPE)).to eql(ingest_ok)
+      end
     end
   end
 
@@ -211,7 +273,7 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe '#valid_solr_spatial_coverage?' do
-    def described_method(north: nil, east: nil, south: nil, west: nil)
+    def described_method_valid(north: nil, east: nil, south: nil, west: nil)
       @harvester.valid_solr_spatial_coverage?([north, east, south, west])
     end
 
@@ -221,39 +283,39 @@ describe SearchSolrTools::Harvesters::Base do
 
     describe 'non-polar points' do
       it 'returns true for a random point' do
-        expect(described_method(north: 4, east: 4, south: 4, west: 4)).to eql(true)
+        expect(described_method_valid(north: 4, east: 4, south: 4, west: 4)).to eql(true)
       end
 
       it 'returns true for a line running east-west' do
-        expect(described_method(north: 0, east: 5, south: 0, west: 0)).to eql(true)
+        expect(described_method_valid(north: 0, east: 5, south: 0, west: 0)).to eql(true)
       end
 
       it 'returns true for a line running north-south' do
-        expect(described_method(north: 5, east: 0, south: 0, west: 0)).to eql(true)
+        expect(described_method_valid(north: 5, east: 0, south: 0, west: 0)).to eql(true)
       end
 
       it 'returns true for a normal bounding box' do
-        expect(described_method(north: 5, east: 5, south: 0, west: 0)).to eql(true)
+        expect(described_method_valid(north: 5, east: 5, south: 0, west: 0)).to eql(true)
       end
     end
 
     describe 'the north pole' do
       it 'returns true if east and west are equal' do
-        expect(described_method(north: 90, east: 45, south: 90, west: 45)).to eql(true)
+        expect(described_method_valid(north: 90, east: 45, south: 90, west: 45)).to eql(true)
       end
 
       it 'returns false if east and west are not equal' do
-        expect(described_method(north: 90, east: -45, south: 90, west: 45)).to eql(false)
+        expect(described_method_valid(north: 90, east: -45, south: 90, west: 45)).to eql(false)
       end
     end
 
     describe 'the south pole' do
       it 'returns true if east and west are equal' do
-        expect(described_method(north: -90, east: 45, south: -90, west: 45)).to eql(true)
+        expect(described_method_valid(north: -90, east: 45, south: -90, west: 45)).to eql(true)
       end
 
       it 'returns false if east and west are not equal' do
-        expect(described_method(north: -90, east: -45, south: -90, west: 45)).to eql(false)
+        expect(described_method_valid(north: -90, east: -45, south: -90, west: 45)).to eql(false)
       end
     end
   end

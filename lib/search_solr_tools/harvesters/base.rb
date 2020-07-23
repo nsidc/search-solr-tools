@@ -39,10 +39,40 @@ module SearchSolrTools
         url
       end
 
+      # Ping the Solr instance to ensure that it's running.
+      # The ping query is specified to manually check the title, as it's possible
+      # there is no "default" query in the solr instance.
+      def ping_solr(core = SolrEnvironments[@environment][:collection_name])
+        url = solr_url + "/#{core}/admin/ping?df=title"
+        success = false
+
+        # Some docs will cause solr to time out during the POST
+        begin
+          RestClient.get(url) do |response, _request, _result|
+            success = response.code == 200
+            puts "Error in ping request: #{response.body}" unless success
+          end
+        rescue => e
+          puts "Rest exception while pinging Solr: #{e}"
+        end
+        success
+      end
+
+      # This should be overridden by child classes to implement the ability
+      # to "ping" the data center.  Returns true if the ping is successful (or, as
+      # in this default, no ping method was defined)
+      def ping_source
+        puts "Harvester does not have ping method defined, assuming true"
+        true
+      end
+
       def harvest_and_delete(harvest_method, delete_constraints, solr_core = SolrEnvironments[@environment][:collection_name])
         start_time = Time.now.utc.iso8601
-        harvest_method.call
+
+        harvest_status = harvest_method.call
         delete_old_documents start_time, delete_constraints, solr_core
+
+        harvest_status
       end
 
       def delete_old_documents(timestamp, constraints, solr_core, force = false)
@@ -83,21 +113,31 @@ module SearchSolrTools
       def insert_solr_docs(docs, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
         success = 0
         failure = 0
+
+        status = Helpers::HarvestStatus.new
+
         docs.each do |doc|
-          insert_solr_doc(doc, content_type, core) ? success += 1 : failure += 1
+          doc_status = insert_solr_doc(doc, content_type, core)
+          status.record_status doc_status
+          doc_status == Helpers::HarvestStatus::INGEST_OK ? success += 1 : failure += 1
         end
         puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
         puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
-        fail 'Some documents failed to be inserted into Solr' if failure > 0
+
+        status
       end
 
+      # TODO Need to return a specific type of failure:
+      #   - Bad record content identified and no ingest attempted
+      #   - Solr tries to ingest document and fails (bad content not detected prior to ingest)
+      #   - Solr cannot insert document for reasons other than the document structure and content.
       def insert_solr_doc(doc, content_type = XML_CONTENT_TYPE, core = SolrEnvironments[@environment][:collection_name])
         url = solr_url + "/#{core}/update?commit=true"
-        success = false
+        status = Helpers::HarvestStatus::INGEST_OK
 
         # Some of the docs will cause Solr to crash - CPU goes to 195% with `top` and it
         # doesn't seem to recover.
-        return success if content_type == XML_CONTENT_TYPE && !doc_valid?(doc)
+        return Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC if content_type == XML_CONTENT_TYPE && !doc_valid?(doc)
 
         doc_serialized = get_serialized_doc(doc, content_type)
 
@@ -105,13 +145,18 @@ module SearchSolrTools
         begin
           RestClient.post(url, doc_serialized, content_type: content_type) do |response, _request, _result|
             success = response.code == 200
-            puts "Error for #{doc_serialized}\n\n response: #{response.body}" unless success
+            unless success
+              puts "Error for #{doc_serialized}\n\n response: #{response.body}"
+              status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
+            end
           end
         rescue => e
+          # TODO Need to provide more detail re: this failure so we know whether to
+          #  exit the job with a status != 0
           puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
+          status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
         end
-
-        success
+        status
       end
 
       def get_serialized_doc(doc, content_type)
@@ -124,7 +169,7 @@ module SearchSolrTools
         end
       end
 
-      # Get results from some ISO end point specified in the query string
+      # Get results from an end point specified in the request_url
       def get_results(request_url, metadata_path, content_type = 'application/xml')
         timeout = 300
         retries_left = 3
@@ -140,6 +185,9 @@ module SearchSolrTools
 
           retry if retries_left > 0
 
+          # TODO - Do we really need this "die_on_failure" anymore?  The empty return
+          #  will cause the "No Documents" error to be thrown in the harvester class
+          #  now, so it will pretty much always "die on failure"
           raise e if @die_on_failure
           return
         end

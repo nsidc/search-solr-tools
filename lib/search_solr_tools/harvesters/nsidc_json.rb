@@ -3,6 +3,7 @@ require 'rest-client'
 
 require 'search_solr_tools'
 
+
 module SearchSolrTools
   module Harvesters
     # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
@@ -11,6 +12,17 @@ module SearchSolrTools
         super env, die_on_failure
         @translator = Translators::NsidcJsonToSolr.new
         Helpers::FacetConfiguration.import_bin_configuration(env)
+      end
+
+      def ping_source
+        begin
+          RestClient.options(nsidc_json_url) do |response, _request, _result|
+            return response.code == 200
+          end
+        rescue => e
+          puts "Error trying to get options for #{nsidc_json_url} (ping)"
+        end
+        false
       end
 
       def harvest_and_delete
@@ -22,8 +34,22 @@ module SearchSolrTools
       # this is the main entry point for the class
       def harvest_nsidc_json_into_solr
         result = docs_with_translated_entries_from_nsidc
-        insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
-        fail 'Failed to harvest and insert some authoritative IDs' if result[:failure_ids].length > 0
+
+        status = insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
+
+        status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
+
+        # Record the number of harvest failures; note that if this is 0, thats OK, the status will stay at 0
+        status.record_status(Helpers::HarvestStatus::HARVEST_FAILURE, result[:failure_ids].length)
+
+        raise Errors::HarvestError, status unless status.ok?
+      rescue Errors::HarvestError => e
+        raise e
+      rescue StandardError => e
+        puts "An unexpected exception occurred while trying to harvest or insert: #{e}"
+        puts e.backtrace
+        status = Helpers::HarvestStatus.new(Helpers::HarvestStatus::OTHER_ERROR => e)
+        raise Errors::HarvestError, status
       end
 
       def nsidc_json_url
@@ -33,7 +59,7 @@ module SearchSolrTools
       def result_ids_from_nsidc
         url = SolrEnvironments[@environment][:nsidc_dataset_metadata_url] +
               SolrEnvironments[@environment][:nsidc_oai_identifiers_url]
-        get_results url, '//xmlns:identifier'
+        get_results(url, '//xmlns:identifier') || []
       end
 
       # Fetch a JSON representation of a dataset's metadata
@@ -48,7 +74,8 @@ module SearchSolrTools
         docs = []
         failure_ids = []
 
-        result_ids_from_nsidc.each do |r|
+        all_docs = result_ids_from_nsidc
+        all_docs.each do |r|
           # Each result looks like:
           # oai:nsidc.org/AE_L2A
           id = r.text.split('/').last
@@ -60,7 +87,7 @@ module SearchSolrTools
           end
         end
 
-        { add_docs: docs, failure_ids: failure_ids }
+        { num_docs: all_docs.size, add_docs: docs, failure_ids: failure_ids }
       end
     end
   end

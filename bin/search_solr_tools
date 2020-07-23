@@ -4,12 +4,55 @@
 require 'search_solr_tools'
 require 'thor'
 
+# rubocop:disable Metrics/AbcSize
 class SolrHarvestCLI < Thor
   map %w[--version -v] => :__print_version
 
   desc '--version, -v', 'print the version'
   def __print_version
     puts SearchSolrTools::VERSION
+  end
+
+  desc 'errcode CODE', 'Print all exit codes bundled in CODE.  Omit CODE to print all codes'
+  def errcode(code = -1)
+    codes = SearchSolrTools::Errors::HarvestError.describe_exit_code(code)
+
+    puts 'CODE | DESCRIPTION'
+    puts '-----+------------'
+    codes.each do |c, text|
+      puts format('%4<code>d | %<text>s', code: c, text: text)
+    end
+  end
+
+  desc 'ping', 'Ping the solr and harvesting endpoints related to the specified data center(s)'
+  option :data_center, type: :array, required: true
+  option :environment, required: true
+  def ping
+    solr_success = true
+    source_success = true
+    options[:data_center].each do |target|
+      begin
+        harvest_class = get_harvester_class(target)
+        harvester = harvest_class.new(options[:environment])
+        solr_status = harvester.ping_solr
+        source_status = harvester.ping_source
+      rescue StandardError => e
+        solr_status = false
+        source_status = false
+        puts "Error trying to ping for #{target}: #{e}"
+      end
+      solr_success &&= solr_status
+      source_success &&= source_status
+      puts "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
+    end
+
+    ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
+      SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => solr_success,
+      SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => source_success
+    )
+    raise SearchSolrTools::Errors::HarvestError, ping_status unless ping_status.ok?
+  rescue SearchSolrTools::Errors::HarvestError => e
+    exit e.exit_code
   end
 
   desc 'harvest', 'Harvest from the specified data centers'
@@ -22,10 +65,21 @@ class SolrHarvestCLI < Thor
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure)
+        ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
+          SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => harvester.ping_solr,
+          SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => harvester.ping_source
+        )
+        raise SearchSolrTools::Errors::HarvestError, ping_status unless ping_status.ok?
+
         harvester.harvest_and_delete
+      rescue SearchSolrTools::Errors::HarvestError => e
+        puts "THERE WERE HARVEST STATUS ERRORS:\n#{e.message}"
+        exit e.exit_code
       rescue StandardError => e
+        # If it gets here, there is an error that we aren't expecting.
         puts "harvest failed for #{target}: #{e.message}"
-        raise e
+        puts e.backtrace
+        exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER
       end
     end
   end
@@ -85,10 +139,12 @@ class SolrHarvestCLI < Thor
 
     def get_harvester_class(data_center_name)
       name = data_center_name.downcase.to_s
-      raise("Invalid data center #{name}") unless harvester_map.key?(name)
+      raise SearchSolrTools::Errors::HarvestError.new(nil, "Invalid data center #{name}") unless harvester_map.key?(name)
 
       harvester_map[name]
     end
   end
 end
+# rubocop:enable Metrics/AbcSize
+
 SolrHarvestCLI.start(ARGV)
