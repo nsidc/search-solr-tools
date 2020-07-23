@@ -27,16 +27,16 @@ describe SearchSolrTools::Errors::HarvestError do
   end
 
   it 'with No Results error reports only that issue' do
-    status.record_document_status('doc', SearchSolrTools::Helpers::HarvestStatus::HARVEST_NO_DOCS)
+    status.record_status(SearchSolrTools::Helpers::HarvestStatus::HARVEST_NO_DOCS)
 
     err = described_class.new(status)
     expect(err.exit_code).to eql(described_class::ERRCODE_SOURCE_NO_RESULTS)
   end
 
   it 'with Harvest, Invalid Document, and Ingest errors reports all those issues' do
-    status.record_document_status('doc2', SearchSolrTools::Helpers::HarvestStatus::HARVEST_FAILURE)
-    status.record_document_status('doc3', SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC)
-    status.record_document_status('doc3', SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR)
+    status.record_status(SearchSolrTools::Helpers::HarvestStatus::HARVEST_FAILURE, 'doc2')
+    status.record_status(SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC, 'doc3')
+    status.record_status(SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR, 'doc4')
 
     err = described_class.new(status)
     expect(err.exit_code).to eql(described_class::ERRCODE_SOURCE_HARVEST_ERROR +

@@ -59,7 +59,7 @@ module SearchSolrTools
       end
 
       # This should be overridden by child classes to implement the ability
-      # to "ping" the dataset.  Returns true if the ping is successful (or, as
+      # to "ping" the data center.  Returns true if the ping is successful (or, as
       # in this default, no ping method was defined)
       def ping_source
         puts "Harvester does not have ping method defined, assuming true"
@@ -117,8 +117,8 @@ module SearchSolrTools
         status = Helpers::HarvestStatus.new
 
         docs.each do |doc|
-          doc_status = insert_solr_doc(doc, content_type, core) #? success += 1 : failure += 1
-          status.record_document_status(doc, doc_status)
+          doc_status = insert_solr_doc(doc, content_type, core)
+          status.record_status(doc_status, doc_identifier(doc))
           doc_status == Helpers::HarvestStatus::INGEST_OK ? success += 1 : failure += 1
         end
         puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
@@ -167,6 +167,16 @@ module SearchSolrTools
         else
           return doc
         end
+      end
+
+      # Return a string to help identify a document.  Can be overridden in
+      # child classes if the docs for the harvester are not in the "standard"
+      # hash format
+      def doc_identifier(doc)
+        keys = %w(authoritative_id dataset_version title)
+        return '' unless defined? doc.keys
+
+        keys.map{ |k| doc[k] || ''}.reject{ |i| i.empty? }.join(' - ')
       end
 
       # Get results from an end point specified in the request_url

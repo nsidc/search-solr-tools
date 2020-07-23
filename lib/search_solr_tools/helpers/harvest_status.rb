@@ -1,7 +1,6 @@
 module SearchSolrTools
   module Helpers
     class HarvestStatus
-
       INGEST_OK = :ok
       HARVEST_NO_DOCS = :harvest_none
       HARVEST_FAILURE = :harvest_fail
@@ -12,6 +11,9 @@ module SearchSolrTools
       PING_SOURCE = :ping_source  # used for initialize only
 
       ERROR_STATUS = [HARVEST_NO_DOCS, HARVEST_FAILURE, INGEST_ERR_INVALID_DOC, INGEST_ERR_SOLR_ERROR, OTHER_ERROR]
+
+      attr_reader :status, :ping_solr, :ping_source
+      attr_writer :ping_solr, :ping_source
 
       # init_info is an optional hash that contains the various status keys and the documents to
       # associate with them
@@ -29,37 +31,17 @@ module SearchSolrTools
         @ping_source = init_info[PING_SOURCE] if init_info.include? PING_SOURCE
       end
 
-      def record_multiple_document_status(documents, doc_status)
-        documents.each { |d| record_document_status d, doc_status }
+      def record_status(status, message='')
+        @status[status] << message
       end
 
-      def record_document_status(document, doc_status)
-        @status[doc_status] << document
-      end
-
-      def ping_solr=(newval)
-        @ping_solr = newval
-      end
-
-      def ping_source=(newval)
-        @ping_source = newval
+      def record_status_multiple(doc_status, messages=[])
+        messages.each { |m| record_status doc_status, m }
       end
 
       def ok?
         ERROR_STATUS.each { |s| return false unless @status[s].empty? }
         @ping_solr && @ping_source
-      end
-
-      def ping_solr
-        @ping_solr
-      end
-
-      def ping_source
-        @ping_source
-      end
-
-      def documents_with_status(doc_status)
-        @status[doc_status]
       end
     end
   end

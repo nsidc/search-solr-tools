@@ -37,9 +37,9 @@ module SearchSolrTools
 
         status = insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
 
-        status.record_document_status('harvest', Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
-        status.record_multiple_document_status(result[:failure_ids],
-                                               Helpers::HarvestStatus::HARVEST_FAILURE) if result[:failure_ids].length > 0
+        status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
+        status.record_status_multiple(Helpers::HarvestStatus::HARVEST_FAILURE,
+                                      result[:failure_ids]) if result[:failure_ids].length > 0
 
         raise Errors::HarvestError, status unless status.ok?
       rescue Errors::HarvestError => e

@@ -55,10 +55,10 @@ module SearchSolrTools
         code = 0
         code += ERRCODE_SOLR_PING unless @status_data.ping_solr
         code += ERRCODE_SOURCE_PING unless @status_data.ping_source
-        code += ERRCODE_SOURCE_NO_RESULTS if @status_data.documents_with_status(Helpers::HarvestStatus::HARVEST_NO_DOCS).size > 0
-        code += ERRCODE_SOURCE_HARVEST_ERROR if @status_data.documents_with_status(Helpers::HarvestStatus::HARVEST_FAILURE).size > 0
-        code += ERRCODE_DOCUMENT_INVALID if @status_data.documents_with_status(Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC).size > 0
-        code += ERRCODE_INGEST_ERROR if @status_data.documents_with_status(Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR).size > 0
+        code += ERRCODE_SOURCE_NO_RESULTS if @status_data.status[Helpers::HarvestStatus::HARVEST_NO_DOCS].size > 0
+        code += ERRCODE_SOURCE_HARVEST_ERROR if @status_data.status[Helpers::HarvestStatus::HARVEST_FAILURE].size > 0
+        code += ERRCODE_DOCUMENT_INVALID if @status_data.status[Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC].size > 0
+        code += ERRCODE_INGEST_ERROR if @status_data.status[Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR].size > 0
 
         code = ERRCODE_OTHER if code == 0
 
