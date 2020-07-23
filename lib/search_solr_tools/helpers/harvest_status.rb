@@ -32,9 +32,7 @@ module SearchSolrTools
       end
 
       def record_status(status, count = 1)
-        puts "RECORDING #{status} WITH COUNT #{count}; was #{@status[status]}"
         @status[status] += count
-        puts "  NEW COUNT: #{@status[status]}"
       end
 
       def ok?

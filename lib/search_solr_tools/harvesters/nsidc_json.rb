@@ -40,7 +40,6 @@ module SearchSolrTools
         status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
 
         # Record the number of harvest failures; note that if this is 0, thats OK, the status will stay at 0
-        puts "FAILURE_IDS: #{result[:failure_ids]} (#{result[:failure_ids].length})"
         status.record_status(Helpers::HarvestStatus::HARVEST_FAILURE, result[:failure_ids].length)
 
         raise Errors::HarvestError, status unless status.ok?
