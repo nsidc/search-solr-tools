@@ -1,3 +1,9 @@
+## Unreleased
+
+  - Updated the call for identifiers for the json harvester to use the 
+    proper "metadataPrefix" parameter, and request the dif identifiers
+    instead of iso.
+
 ## v5.1.0 (2020-07-23)
 
   - Added a CLI method to "ping" the Solr and Source servers for a given 
