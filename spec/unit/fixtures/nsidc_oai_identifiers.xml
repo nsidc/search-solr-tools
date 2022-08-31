@@ -2,7 +2,7 @@
 <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
   <responseDate>2014-03-19T20:03:33Z</responseDate>
-  <request metadata_prefix="iso" verb="ListIdentifiers">http://nsidc.org/oai</request>
+  <request metadataPrefix="dif" verb="ListIdentifiers">http://nsidc.org/oai</request>
   <ListIdentifiers>
     <header>
       <identifier>oai:nsidc/G02199</identifier>
