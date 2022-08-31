@@ -1,4 +1,4 @@
-## Unreleased
+## v5.2.0 (2022-08-31)
 
   - Updated the call for identifiers for the json harvester to use the 
     proper "metadataPrefix" parameter, and request the dif identifiers
