@@ -1,3 +1,7 @@
+## v6.0.0 (2022-07-13)
+
+  - Updated Ruby to 3.2.2, updated gem dependencies to more recent versions.
+
 ## v5.2.0 (2022-08-31)
 
   - Updated the call for identifiers for the json harvester to use the 
