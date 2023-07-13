@@ -212,4 +212,4 @@ Andy Grauch, Brendan Billingsley, Chris Chalstrom, Danielle Harper, Ian
 Truslove, Jonathan Kovarik, Luis Lopez, Miao Liu, Michael Brandt, Stuart Reed,
 Julia Collins, Scott Lewis
 (2023): Arctic Data Explorer SOLR Search software tools. The National Snow and
-Ice Data Center. Software. https://doi.org/:10.7265/N5JQ0XZM
+Ice Data Center. Software.
