@@ -41,7 +41,7 @@ describe SearchSolrTools::Harvesters::Base do
 
         before(:each) do
           response = double('response')
-          allow(described_object).to receive(:open).and_return(response)
+          allow(URI).to receive(:open).and_return(response)
           allow(nokogiri).to receive(:XML).and_return(doc)
           allow(doc).to receive(:xpath).and_return(parsed_metadata)
         end
@@ -61,11 +61,11 @@ describe SearchSolrTools::Harvesters::Base do
           exception_io = double('io')
           exception_io.stub_chain(:status, :[]).with(0).and_return('302')
 
-          allow(described_object).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
+          allow(URI).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
         end
 
         it 'makes 3 attempts before propagating the error' do
-          expect(described_object).to receive(:open).exactly(3).times
+          expect(URI).to receive(:open).exactly(3).times
           expect do
             described_method_get_results(
               'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
@@ -78,11 +78,11 @@ describe SearchSolrTools::Harvesters::Base do
       [Timeout::Error, Errno::ETIMEDOUT].each do |err_type|
         describe "with error #{err_type}" do
           before(:each) do
-            allow(described_object).to receive(:open).and_raise(err_type)
+            allow(URI).to receive(:open).and_raise(err_type)
           end
 
           it 'makes 3 attempts before propagating the error' do
-            expect(described_object).to receive(:open).exactly(3).times
+            expect(URI).to receive(:open).exactly(3).times
             expect do
               described_method_get_results(
                 'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',

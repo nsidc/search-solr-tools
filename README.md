@@ -61,7 +61,7 @@ Once you have the gem built in the project directory, install the utility:
 
 ### Requirements
 
-* Ruby > 2.6.5
+* Ruby > 3.2.2
 * [Bundler](http://bundler.io/)
 * Requirements for nokogiri:
     * [libxml2/libxml2-dev](http://xmlsoft.org/)
@@ -105,7 +105,7 @@ Please be sure to run them in the `bundle exec` context if you're utilizing bund
 
 Requirements:
 
-* Ruby > 2.6.5
+* Ruby > 3.2.2
 * [Bundler](http://bundler.io/)
 * [Gem Release](https://github.com/svenfuchs/gem-release)
 * [Rake](https://github.com/ruby/rake)
@@ -209,6 +209,7 @@ license is included in the file COPYING.
 ### Citation Information
 
 Andy Grauch, Brendan Billingsley, Chris Chalstrom, Danielle Harper, Ian
-Truslove, Jonathan Kovarik, Luis Lopez, Miao Liu, Michael Brandt, Stuart Reed
-(2013): Arctic Data Explorer SOLR Search software tools. The National Snow and
-Ice Data Center. Software. http://ezid.cdlib.org/id/doi:10.7265/N5JQ0XZM
+Truslove, Jonathan Kovarik, Luis Lopez, Miao Liu, Michael Brandt, Stuart Reed,
+Julia Collins, Scott Lewis
+(2023): Arctic Data Explorer SOLR Search software tools. The National Snow and
+Ice Data Center. Software.

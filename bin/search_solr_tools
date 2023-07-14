@@ -20,7 +20,7 @@ class SolrHarvestCLI < Thor
     puts 'CODE | DESCRIPTION'
     puts '-----+------------'
     codes.each do |c, text|
-      puts format('%4<code>d | %<text>s', code: c, text: text)
+      puts format('%4<code>d | %<text>s', code: c, text:)
     end
   end
 
