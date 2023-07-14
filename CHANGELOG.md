@@ -1,4 +1,8 @@
-## v6.0.0 (2022-07-13)
+## v6.0.1 (2022-07-14)
+
+  - Updated a few other dependencies that weren't at the newest versions.
+
+## v6.0.0 (2022-07-14)
 
   - Updated Ruby to 3.2.2, updated gem dependencies to more recent versions.
 
