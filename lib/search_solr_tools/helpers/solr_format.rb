@@ -10,22 +10,7 @@ module SearchSolrTools
     # rubocop:disable Metrics/ModuleLength
     module SolrFormat
       DATA_CENTER_NAMES = {
-        BCODMO: { short_name: 'BCO-DMO', long_name: 'Biological and Chemical Oceanography Data Management Office' },
-        ADC: { short_name: 'NSF ADC', long_name: 'NSF Arctic Data Center' },
-        DATA_ONE: { short_name: 'DataONE', long_name: 'DataONE' },
-        ECHO: { short_name: 'NASA ECHO', long_name: 'NASA Earth Observing System (EOS) Clearing House (ECHO)' },
-        EOL: { short_name: 'UCAR NCAR EOL', long_name: 'UCAR NCAR - Earth Observing Laboratory' },
-        GTNP: { short_name: 'GTN-P', long_name: 'Global Terrestrial Network for Permafrost' },
-        ICES: { short_name: 'ICES', long_name: 'International Council for the Exploration of the Sea' },
-        NCDC_PALEO: { short_name: 'NOAA WDS Paleo', long_name: 'NOAA’s National Centers for Environmental Information, World Data Service for Paleoclimatology' },
-        NMI: { short_name: 'Met.no', long_name: 'Norwegian Meteorological Institute' },
-        NODC: { short_name: 'NOAA NODC', long_name: 'NOAA National Oceanographic Data Center' },
         NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
-        PDC: { short_name: 'PDC', long_name: 'Polar Data Catalogue' },
-        R2R: { short_name: 'R2R', long_name: 'Rolling Deck to Repository' },
-        RDA: { short_name: 'UCAR NCAR RDA', long_name: 'UCAR NCAR Research Data Archive' },
-        TDAR: { short_name: 'tDAR', long_name: 'tDAR: The Digital Archaeological Record' },
-        USGS: { short_name: 'USGS ScienceBase', long_name: 'U.S. Geological Survey ScienceBase' }
       }
 
       NOT_SPECIFIED = 'Not specified'

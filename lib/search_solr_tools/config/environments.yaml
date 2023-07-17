@@ -3,38 +3,6 @@
   :collection_name: nsidc_oai
   :collection_path: solr
   :port: 8983
-  :bcodmo_url: http://www.bco-dmo.org/nsidc/arctic-deployments.json
-  :adc_url: https://arcticdata.io/metacat/d1/mn/v2/query/solr/select?q=northBoundCoord:%5B45.0%20TO%2090.0%5D
-  :data_one_url: https://cn.dataone.org/cn/v1/query/solr/select?q=northBoundCoord:%5B45.0%20TO%2090.0%5D
-  :echo_url: https://api.echo.nasa.gov/catalog-rest/echo_catalog/datasets.echo10?bounding_box=-180,45,180,90
-  :gtnp:
-    - http://www.gtnpdatabase.org/rest/boreholes/json
-    - http://www.gtnpdatabase.org/rest/activelayers/json
-  :ices_url: http://geo.ices.dk/geonetwork/srv/en/csw
-  :ncdc_paleo_url: https://gis.ncdc.noaa.gov/gptpaleo/csw
-  :nmi_url: http://arcticdata.met.no/metamod/oai
-  :nodc_url: https://data.nodc.noaa.gov/geoportal/csw
-  :pdc_url: http://www.polardata.ca/oai/provider
-  :rda_url: https://rda.ucar.edu/cgi-bin/oai
-  :tdar_url: http://core.tdar.org/search/rss
-  :usgs_url: https://www.sciencebase.gov/catalog/item/527cf4ede4b0850ea05182ee/csw
-  :eol:
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SHEBA.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SBI.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.PacMARS.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BASE.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ATLAS.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARC_MIP.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.AMTS.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BOREAS.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BeringSea.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ARCSS.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BEST.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BSIERP.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.BARROW.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.DBO.thredds.xml
-    - http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.ITEX.thredds.xml
-  :r2r_url: http://get.rvdata.us/services/cruise/
 
   # Not using DCS API v2 here because not all retired datasets have their "retired"
   # flag checked. For example, GLA01.033 is retired; GLA01.018 is not, but it
