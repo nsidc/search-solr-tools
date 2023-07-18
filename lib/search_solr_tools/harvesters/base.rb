@@ -21,7 +21,7 @@ module SearchSolrTools
       XML_CONTENT_TYPE = 'text/xml; charset=utf-8'
       JSON_CONTENT_TYPE = 'application/json; charset=utf-8'
 
-      def initialize(env = 'development', die_on_failure = false)
+      def initialize(env = 'development', die_on_failure: false)
         @environment = env
         @die_on_failure = die_on_failure
       end
@@ -75,7 +75,7 @@ module SearchSolrTools
         harvest_status
       end
 
-      def delete_old_documents(timestamp, constraints, solr_core, force = false)
+      def delete_old_documents(timestamp, constraints, solr_core, force: false)
         constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
         solr = RSolr.connect url: solr_url + "/#{solr_core}"
@@ -100,6 +100,7 @@ module SearchSolrTools
         all_response_count = (solr.get 'select', params: { wt: :ruby, q: constraints, rows: 0 })['response']['numFound']
         if force || (numfound / all_response_count.to_f < DELETE_DOCUMENTS_RATIO)
           puts "Deleting #{numfound} documents for #{constraints}"
+          puts "THE DELETE QUERY IS: #{delete_query}"
           solr.delete_by_query delete_query
           solr.commit
         else
@@ -178,7 +179,7 @@ module SearchSolrTools
 
         begin
           puts "Request: #{request_url}"
-          response = URI.open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
+          response = URI.parse(request_url).open(read_timeout: timeout, 'Content-Type' => content_type)
         rescue OpenURI::HTTPError, Timeout::Error, Errno::ETIMEDOUT => e
           retries_left -= 1
           puts "## REQUEST FAILED ## #{e.class} ## Retrying #{retries_left} more times..."

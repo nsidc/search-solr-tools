@@ -39,16 +39,19 @@ Metrics/AbcSize:
   Max: 20
 
 Metrics/ClassLength:
-  Max: 125
+  Max: 200
 
 Metrics/CyclomaticComplexity:
-  Max: 8
+  Max: 10
 
 Metrics/MethodLength:
   Max: 30
 
 Metrics/ModuleLength:
-  Max: 101
+  Max: 200
+
+Metrics/PerceivedComplexity:
+  Max: 10
 
 Style/Documentation:
   Enabled: false

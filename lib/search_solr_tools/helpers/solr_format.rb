@@ -9,7 +9,6 @@ require_relative 'facet_configuration'
 module SearchSolrTools
   module Helpers
     #  Methods for generating formatted values that can be indexed by SOLR
-    # rubocop:disable Metrics/ModuleLength
     module SolrFormat
       DATA_CENTER_NAMES = {
         NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' }
@@ -89,14 +88,12 @@ module SearchSolrTools
       def self.facet_binning(type, format_string)
         binned_facet = bin(FacetConfiguration.get_facet_bin(type), format_string)
         if binned_facet.nil?
-          return format_string
+          format_string
         elsif binned_facet.eql?('exclude')
-          return nil
+          nil
         else
-          return binned_facet
+          binned_facet
         end
-
-        nil
       end
 
       def self.parameter_binning(parameter_string)
@@ -167,7 +164,6 @@ module SearchSolrTools
         nil
       end
 
-      # rubocop:disable Metrics/CyclomaticComplexity
       def self.find_index_for_single_temporal_resolution_value(string_duration)
         iso8601_duration = ISO8601::Duration.new(string_duration)
 
@@ -187,7 +183,6 @@ module SearchSolrTools
           MULTIYEARLY_INDEX
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       def self.find_index_for_single_spatial_resolution_value(string_duration)
         value, units = string_duration.split

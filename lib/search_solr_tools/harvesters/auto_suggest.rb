@@ -8,8 +8,8 @@ module SearchSolrTools
   module Harvesters
     # Use the nsidc_oai core to populate the auto_suggest core
     class AutoSuggest < Base
-      def initialize(env = 'development', die_on_failure = false)
-        super env, die_on_failure
+      def initialize(env = 'development', die_on_failure: false)
+        super
         @env_settings = SolrEnvironments[@environment] # super sets @environment.
       end
 

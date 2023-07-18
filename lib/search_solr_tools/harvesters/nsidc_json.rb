@@ -9,8 +9,8 @@ module SearchSolrTools
   module Harvesters
     # Harvests data from NSIDC OAI and inserts it into Solr after it has been translated
     class NsidcJson < Base
-      def initialize(env = 'development', die_on_failure = false)
-        super env, die_on_failure
+      def initialize(env = 'development', die_on_failure: false)
+        super
         @translator = Translators::NsidcJsonToSolr.new
         Helpers::FacetConfiguration.import_bin_configuration(env)
       end

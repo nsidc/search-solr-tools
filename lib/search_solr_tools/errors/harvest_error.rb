@@ -36,16 +36,7 @@ module SearchSolrTools
 
       # If code is -1, it means display all error codes
       def self.describe_exit_code(code = -1)
-        code = code.to_i
-        code_list = []
-
-        # Loop through all bit-flag values
-        [128, 64, 32, 16, 8, 4, 2, 1].each do |k|
-          if code >= k || code == -1
-            code_list.prepend k
-            code -= k unless code == -1
-          end
-        end
+        code_list = code_to_list(code)
 
         codes = {}
         code_list.each do |k|
@@ -57,11 +48,29 @@ module SearchSolrTools
         codes
       end
 
+      # Loop through all bit-flag values to produce a list of integers
+      def self.code_to_list(code)
+        code = code.to_i
+        code_list = []
+
+        [128, 64, 32, 16, 8, 4, 2, 1].each do |k|
+          if code >= k || code == -1
+            code_list.prepend k
+            code -= k unless code == -1
+          end
+        end
+
+        code_list
+      end
+
       def initialize(status, message = nil)
         @status_data = status
         @other_message = message
+
+        super message
       end
 
+      # rubocop:disable Metrics/AbcSize
       def exit_code
         if @status_data.nil?
           puts "OTHER ERROR REPORTED: #{@other_message}"
@@ -82,6 +91,7 @@ module SearchSolrTools
 
         code
       end
+      # rubocop:enable Metrics/AbcSize
 
       def message
         self.class.describe_exit_code(exit_code).map { |_c, v| v }.join("\n")

@@ -6,12 +6,12 @@ describe SearchSolrTools::Harvesters::Base do
   describe '#sanitize_data_centers_constraints' do
     it 'Removes all lucene chars' do
       test_string = '1+ 2  -  3&&  4| 5|6!7 8(  9)   10  11{ 12} 13[ 14]15 ' \
-                    '16+  ^17   ~18  *19  ?  20:    21'
+                    '16+  ^17   ~18  *19  ?  20:    21'.dup
       expect(described_class.new.sanitize_data_centers_constraints(test_string)).to eql [*1...22].join(' ')
     end
 
     it 'Retains the data_centers query seperator' do
-      test_string = 'data_centers:"one| {} two [three]"'
+      test_string = 'data_centers:"one| {} two [three]"'.dup
       expect(described_class.new.sanitize_data_centers_constraints(test_string)).to eql('data_centers:"one two three "')
     end
   end
@@ -29,8 +29,14 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe '#get_results' do
+    let(:test_uri) { instance_double(URI::HTTP) }
+
+    before do
+      allow(URI).to receive(:parse).and_return(test_uri)
+    end
+
     describe 'with @die_on_failure' do
-      let(:described_object) { described_class.new('development', true) }
+      let(:described_object) { described_class.new('development', die_on_failure: true) }
 
       def described_method_get_results(request_url, metadata_path, content_type = 'application/xml')
         described_object.get_results(request_url, metadata_path, content_type)
@@ -43,7 +49,7 @@ describe SearchSolrTools::Harvesters::Base do
 
         before do
           response = double('response')
-          allow(URI).to receive(:open).and_return(response)
+          allow(URI:HTTP).to receive(:open).and_return(response)
           allow(nokogiri).to receive(:XML).and_return(doc)
           allow(doc).to receive(:xpath).and_return(parsed_metadata)
         end
@@ -59,15 +65,16 @@ describe SearchSolrTools::Harvesters::Base do
       end
 
       describe 'with error OpenURI::HTTPError' do
+
         before do
           exception_io = double('io')
           exception_io.stub_chain(:status, :[]).with(0).and_return('302')
 
-          allow(URI).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
+          allow(test_uri).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
         end
 
         it 'makes 3 attempts before propagating the error' do
-          expect(URI).to receive(:open).exactly(3).times
+          expect(test_uri).to receive(:open).exactly(3).times
           expect do
             described_method_get_results(
               'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
@@ -80,11 +87,11 @@ describe SearchSolrTools::Harvesters::Base do
       [Timeout::Error, Errno::ETIMEDOUT].each do |err_type|
         describe "with error #{err_type}" do
           before do
-            allow(URI).to receive(:open).and_raise(err_type)
+            allow(test_uri).to receive(:open).and_raise(err_type)
           end
 
           it 'makes 3 attempts before propagating the error' do
-            expect(URI).to receive(:open).exactly(3).times
+            expect(test_uri).to receive(:open).exactly(3).times
             expect do
               described_method_get_results(
                 'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
@@ -141,7 +148,7 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'adds documents and then deletes documents that were not updated' do
       stubs = stub_update_and_delete(500, 10)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
+      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"'.dup)
 
       expect(stubs[:delete_stub]).to have_been_requested
       expect(stubs[:commit_stub]).to have_been_requested
@@ -149,7 +156,7 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'Does not delete documents when more then .1 of documents are not updated' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
+      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"'.dup)
 
       expect(stubs[:delete_stub]).not_to have_been_requested
       expect(stubs[:commit_stub]).not_to have_been_requested
@@ -157,7 +164,7 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'Does not delete documents when none exist' do
       stubs = stub_update_and_delete(0, 0)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
+      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"'.dup)
 
       expect(stubs[:delete_stub]).not_to have_been_requested
       expect(stubs[:commit_stub]).not_to have_been_requested
@@ -171,8 +178,8 @@ describe SearchSolrTools::Harvesters::Base do
 
     it 'Can be forced to delete with a timestamp' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.delete_old_documents('20040202', 'data_centers:"test"', SearchSolrTools::SolrEnvironments[@harvester
-.environment][:collection_name], true)
+      @harvester.delete_old_documents('20040202', 'data_centers:"test"'.dup, SearchSolrTools::SolrEnvironments[@harvester
+.environment][:collection_name], force: true)
 
       expect(stubs[:delete_stub]).to have_been_requested
       expect(stubs[:commit_stub]).to have_been_requested

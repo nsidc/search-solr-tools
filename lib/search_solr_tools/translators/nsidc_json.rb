@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 require 'rgeo/geo_json'
 
 require 'search_solr_tools'
@@ -220,6 +219,5 @@ module SearchSolrTools
         parts
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end
