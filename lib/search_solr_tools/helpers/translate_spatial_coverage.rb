@@ -1,7 +1,6 @@
 require 'rgeo/geo_json'
 
 require_relative 'bounding_box_util'
-require_relative 'iso_to_solr_format'
 
 module SearchSolrTools
   module Helpers

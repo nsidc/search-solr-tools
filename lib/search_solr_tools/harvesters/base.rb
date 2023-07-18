@@ -8,7 +8,6 @@ require 'time'
 require 'search_solr_tools'
 require_relative '../helpers/iso_namespaces'
 require_relative '../helpers/solr_format'
-require_relative '../helpers/iso_to_solr'
 
 
 module SearchSolrTools
