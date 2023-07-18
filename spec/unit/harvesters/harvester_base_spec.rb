@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe SearchSolrTools::Harvesters::Base do
   describe '#sanitize_data_centers_constraints' do
     it 'Removes all lucene chars' do
-      test_string = '1+ 2  -  3&&  4| 5|6!7 8(  9)   10  11{ 12} 13[ 14]15 '\
+      test_string = '1+ 2  -  3&&  4| 5|6!7 8(  9)   10  11{ 12} 13[ 14]15 ' \
                     '16+  ^17   ~18  *19  ?  20:    21'
       expect(described_class.new.sanitize_data_centers_constraints(test_string)).to eql [*1...22].join(' ')
     end
@@ -27,7 +29,7 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe '#get_results' do
-    describe 'with @die_on_failure ' do
+    describe 'with @die_on_failure' do
       let(:described_object) { described_class.new('development', true) }
 
       def described_method_get_results(request_url, metadata_path, content_type = 'application/xml')
@@ -39,7 +41,7 @@ describe SearchSolrTools::Harvesters::Base do
         let(:doc) { double('doc') }
         let(:parsed_metadata) { double('parsed_metadata') }
 
-        before(:each) do
+        before do
           response = double('response')
           allow(URI).to receive(:open).and_return(response)
           allow(nokogiri).to receive(:XML).and_return(doc)
@@ -57,7 +59,7 @@ describe SearchSolrTools::Harvesters::Base do
       end
 
       describe 'with error OpenURI::HTTPError' do
-        before(:each) do
+        before do
           exception_io = double('io')
           exception_io.stub_chain(:status, :[]).with(0).and_return('302')
 
@@ -77,7 +79,7 @@ describe SearchSolrTools::Harvesters::Base do
 
       [Timeout::Error, Errno::ETIMEDOUT].each do |err_type|
         describe "with error #{err_type}" do
-          before(:each) do
+          before do
             allow(URI).to receive(:open).and_raise(err_type)
           end
 
@@ -132,7 +134,7 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe 'harvest_and_delete' do
-    before :each do
+    before do
       @harvester = described_class.new 'integration'
       expect(@harvester).to receive(:harvest).at_least(:once)
     end
@@ -149,21 +151,21 @@ describe SearchSolrTools::Harvesters::Base do
       stubs = stub_update_and_delete(500, 75)
       @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
 
-      expect(stubs[:delete_stub]).to_not have_been_requested
-      expect(stubs[:commit_stub]).to_not have_been_requested
+      expect(stubs[:delete_stub]).not_to have_been_requested
+      expect(stubs[:commit_stub]).not_to have_been_requested
     end
 
     it 'Does not delete documents when none exist' do
       stubs = stub_update_and_delete(0, 0)
       @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"')
 
-      expect(stubs[:delete_stub]).to_not have_been_requested
-      expect(stubs[:commit_stub]).to_not have_been_requested
+      expect(stubs[:delete_stub]).not_to have_been_requested
+      expect(stubs[:commit_stub]).not_to have_been_requested
     end
   end
 
   describe 'delete_old_documents' do
-    before :each do
+    before do
       @harvester = described_class.new 'integration'
     end
 
@@ -178,42 +180,42 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe 'ingest' do
-    let (:invalid_doc) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC }
-    let (:ingest_fail) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR }
-    let (:ingest_ok)  { SearchSolrTools::Helpers::HarvestStatus::INGEST_OK }
-    let (:harvester) { described_class.new 'integration' }
+    let(:invalid_doc) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC }
+    let(:ingest_fail) { SearchSolrTools::Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR }
+    let(:ingest_ok) { SearchSolrTools::Helpers::HarvestStatus::INGEST_OK }
+    let(:harvester) { described_class.new 'integration' }
 
     describe 'insert_solr_docs' do
       it 'returns a status object reporting errors if some documents are not successfully added' do
         allow(harvester).to receive('insert_solr_doc').and_return(ingest_fail, invalid_doc, ingest_ok)
 
-        res = harvester.insert_solr_docs(%w(doc1 doc2 doc3))
-        expect(res.ok?).to eql(false)
-        expect(res.status[ingest_fail]).to eql(1)
-        expect(res.status[ingest_ok]).to eql(1)
-        expect(res.status[invalid_doc]).to eql(1)
+        res = harvester.insert_solr_docs(%w[doc1 doc2 doc3])
+        expect(res.ok?).to be(false)
+        expect(res.status[ingest_fail]).to be(1)
+        expect(res.status[ingest_ok]).to be(1)
+        expect(res.status[invalid_doc]).to be(1)
       end
 
       it 'returns a status object reporting no errors if all documents were successfully added' do
         allow(harvester).to receive('insert_solr_doc').and_return(ingest_ok)
 
-        res = harvester.insert_solr_docs(%w(doc1 doc2 doc3))
-        expect(res.ok?).to eql(true)
-        expect(res.status[ingest_fail]).to eql(0)
-        expect(res.status[ingest_ok]).to eql(3)
-        expect(res.status[invalid_doc]).to eql(0)
+        res = harvester.insert_solr_docs(%w[doc1 doc2 doc3])
+        expect(res.ok?).to be(true)
+        expect(res.status[ingest_fail]).to be(0)
+        expect(res.status[ingest_ok]).to be(3)
+        expect(res.status[invalid_doc]).to be(0)
       end
     end
 
     describe 'insert_solr_doc' do
-      before(:each) do
+      before do
         stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
-            .with{ |request| request.body.include? 'good_doc' }
-            .to_return(status: 200, body: 'success', headers: {})
+          .with { |request| request.body.include? 'good_doc' }
+          .to_return(status: 200, body: 'success', headers: {})
 
         stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?commit=true')
-            .with{ |request| request.body.include? 'bad_doc' }
-            .to_return(status: 500, body: 'failure', headers: {})
+          .with { |request| request.body.include? 'bad_doc' }
+          .to_return(status: 500, body: 'failure', headers: {})
       end
 
       it 'returns invalid document status if validation check fails' do
@@ -258,18 +260,18 @@ describe SearchSolrTools::Harvesters::Base do
 
     stub_request(:get, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/select?q=data_centers:%22test%22&rows=0&wt=ruby')
       .to_return(status: 200, body: all_response, headers: {})
-    stub_request(:get, %r{http:\/\/integration.search-solr.apps.int.nsidc.org:8983\/solr\/nsidc_oai\/select\?q=last_update:.*AND%20data_centers:%22test%22&rows=0&wt=ruby})
+    stub_request(:get, %r{http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/select\?q=last_update:.*AND%20data_centers:%22test%22&rows=0&wt=ruby})
       .to_return(status: 200, body: updated_response, headers: {})
     delete_stub = stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?wt=json')
-                      .with(body:    /{\"delete\":{\"query\":\"last_update:.* AND data_centers:\\\"test\\\"\"}}/,
-                            headers: { 'Content-Type' => 'application/json' })
-                      .to_return(status: 200, body: '', headers: {})
+                  .with(body: /{"delete":{"query":"last_update:.* AND data_centers:\\"test\\""}}/,
+                        headers: { 'Content-Type' => 'application/json' })
+                  .to_return(status: 200, body: '', headers: {})
     commit_stub = stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?wt=json')
-                      .with(body:    /{\"commit\":{}/,
-                            headers: { 'Content-Type' => 'application/json' })
-                      .to_return(status: 200, body: '', headers: {})
+                  .with(body: /{"commit":{}/,
+                        headers: { 'Content-Type' => 'application/json' })
+                  .to_return(status: 200, body: '', headers: {})
 
-    { delete_stub: delete_stub, commit_stub: commit_stub }
+    { delete_stub:, commit_stub: }
   end
 
   describe '#valid_solr_spatial_coverage?' do
@@ -277,45 +279,45 @@ describe SearchSolrTools::Harvesters::Base do
       @harvester.valid_solr_spatial_coverage?([north, east, south, west])
     end
 
-    before :each do
+    before do
       @harvester = described_class.new
     end
 
     describe 'non-polar points' do
       it 'returns true for a random point' do
-        expect(described_method_valid(north: 4, east: 4, south: 4, west: 4)).to eql(true)
+        expect(described_method_valid(north: 4, east: 4, south: 4, west: 4)).to be(true)
       end
 
       it 'returns true for a line running east-west' do
-        expect(described_method_valid(north: 0, east: 5, south: 0, west: 0)).to eql(true)
+        expect(described_method_valid(north: 0, east: 5, south: 0, west: 0)).to be(true)
       end
 
       it 'returns true for a line running north-south' do
-        expect(described_method_valid(north: 5, east: 0, south: 0, west: 0)).to eql(true)
+        expect(described_method_valid(north: 5, east: 0, south: 0, west: 0)).to be(true)
       end
 
       it 'returns true for a normal bounding box' do
-        expect(described_method_valid(north: 5, east: 5, south: 0, west: 0)).to eql(true)
+        expect(described_method_valid(north: 5, east: 5, south: 0, west: 0)).to be(true)
       end
     end
 
     describe 'the north pole' do
       it 'returns true if east and west are equal' do
-        expect(described_method_valid(north: 90, east: 45, south: 90, west: 45)).to eql(true)
+        expect(described_method_valid(north: 90, east: 45, south: 90, west: 45)).to be(true)
       end
 
       it 'returns false if east and west are not equal' do
-        expect(described_method_valid(north: 90, east: -45, south: 90, west: 45)).to eql(false)
+        expect(described_method_valid(north: 90, east: -45, south: 90, west: 45)).to be(false)
       end
     end
 
     describe 'the south pole' do
       it 'returns true if east and west are equal' do
-        expect(described_method_valid(north: -90, east: 45, south: -90, west: 45)).to eql(true)
+        expect(described_method_valid(north: -90, east: 45, south: -90, west: 45)).to be(true)
       end
 
       it 'returns false if east and west are not equal' do
-        expect(described_method_valid(north: -90, east: -45, south: -90, west: 45)).to eql(false)
+        expect(described_method_valid(north: -90, east: -45, south: -90, west: 45)).to be(false)
       end
     end
   end

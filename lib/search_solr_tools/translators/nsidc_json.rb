@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 require 'rgeo/geo_json'
 
@@ -10,12 +12,12 @@ module SearchSolrTools
   module Translators
     # Translates NSIDC JSON format to Solr JSON add format
     class NsidcJsonToSolr
-      PARAMETER_PARTS = %w(category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable)
+      PARAMETER_PARTS = %w[category topic term variableLevel1 variableLevel2 variableLevel3 detailedVariable].freeze
 
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/AbcSize
       def translate(json_doc)
-        copy_keys = %w(title summary keywords brokered)
+        copy_keys = %w[title summary keywords brokered]
         temporal_coverage_values = Helpers::TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
         spatial_coverages = convert_spatial_coverages(json_doc['spatialCoverages'])
 
@@ -47,7 +49,7 @@ module SearchSolrTools
           'dataset_url' => json_doc['datasetUrl'],
           'distribution_formats' => json_doc['distributionFormats'],
           'facet_format' => json_doc['distributionFormats'].empty? ? [Helpers::SolrFormat::NOT_SPECIFIED] : translate_format_to_facet_format(json_doc['distributionFormats']),
-          'source' => %w(NSIDC ADE),
+          'source' => %w[NSIDC ADE],
           'popularity' => json_doc['popularity'],
           'data_access_urls' => translate_data_access_urls(json_doc['dataAccessLinks']),
           'facet_sponsored_program' => translate_short_long_names_to_facet_value(json_doc['internalDataCenters']),
@@ -70,13 +72,14 @@ module SearchSolrTools
       def translate_sensor_to_facet_sensor(json)
         facet_values = []
         return facet_values if json.nil?
+
         json.each do |json_entry|
           sensor_bin = Helpers::SolrFormat.facet_binning('sensor', json_entry['shortName'].to_s)
-          if sensor_bin.eql? json_entry['shortName']
-            facet_values << "#{json_entry['longName']} | #{json_entry['shortName']}"
-          else
-            facet_values << " | #{sensor_bin}"
-          end
+          facet_values << if sensor_bin.eql? json_entry['shortName']
+                            "#{json_entry['longName']} | #{json_entry['shortName']}"
+                          else
+                            " | #{sensor_bin}"
+                          end
         end
         facet_values
       end
@@ -100,12 +103,13 @@ module SearchSolrTools
       end
 
       def translate_iso_topic_categories(iso_topic_categories_json)
-        iso_topic_categories_json.map { |t| t['name'] } unless iso_topic_categories_json.nil?
+        iso_topic_categories_json&.map { |t| t['name'] }
       end
 
       def translate_data_access_urls(json)
         values = []
         return values if json.nil?
+
         json.each do |json_entry|
           link_display = json_entry['displayText'].nil? ? '' : json_entry['displayText']
           link_type = json_entry['type'].nil? ? '' : json_entry['type']
@@ -120,6 +124,7 @@ module SearchSolrTools
       def translate_internal_datacenters(json)
         values = []
         return values if json.nil?
+
         json.each do |json_entry|
           short_name = json_entry['shortName'].nil? ? '' : json_entry['shortName']
           values << short_name
@@ -130,6 +135,7 @@ module SearchSolrTools
       def translate_short_long_names_to_facet_value(json)
         facet_values = []
         return facet_values if json.nil?
+
         json.each do |json_entry|
           long_name = json_entry['longName'].nil? ? '' : json_entry['longName']
           short_name = json_entry['shortName'].nil? ? '' : json_entry['shortName']
@@ -169,6 +175,7 @@ module SearchSolrTools
       def translate_parameters_to_facet_parameters(parameters_json)
         parameters_strings = translate_json_string(parameters_json, PARAMETER_PARTS)
         return [] if parameters_strings.nil?
+
         facet_params = []
         parameters_strings.each do |str|
           facet_params << Helpers::SolrFormat.parameter_binning(str)
@@ -199,8 +206,7 @@ module SearchSolrTools
       end
 
       def generate_data_citation_creators(data_citation)
-        data_citation.nil? ? creators = [] : creators = data_citation['creators']
-        creators
+        data_citation.nil? ? [] : data_citation['creators']
       end
 
       def generate_part_array(json, limit_values = nil)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'search_solr_tools/helpers/translate_spatial_coverage'
 
@@ -6,7 +8,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
     spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, 90.0], [180.0, 90.0], [180.0, 30.98], [-180.0, 30.98], [-180.0, 90.0]]]),
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -39.23], [180.0, -39.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -39.23]]])]
     spatial_display_strs = described_class.geojson_to_spatial_display_str(spatial_coverages_json)
-    expect(spatial_display_strs.length).to eql 2
+    expect(spatial_display_strs.length).to be 2
     expect(spatial_display_strs[0]).to eql '30.98 -180.0 90.0 180.0'
     expect(spatial_display_strs[1]).to eql '-90.0 -180.0 -39.23 180.0'
   end
@@ -14,7 +16,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
   it 'translates GeoJSON point to spatial display str' do
     spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'Point', 'coordinates' => [166.0, -85.0])]
     spatial_display_strs = described_class.geojson_to_spatial_display_str(spatial_coverages_json)
-    expect(spatial_display_strs.length).to eql 1
+    expect(spatial_display_strs.length).to be 1
     expect(spatial_display_strs[0]).to eql '-85.0 166.0 -85.0 166.0'
   end
 
@@ -35,7 +37,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
     spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, 90.0], [180.0, 90.0], [180.0, 30.98], [-180.0, 30.98], [-180.0, 90.0]]]),
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -39.23], [180.0, -39.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -39.23]]])]
     spatial_index_strs = described_class.geojson_to_spatial_index_str(spatial_coverages_json)
-    expect(spatial_index_strs.length).to eql 2
+    expect(spatial_index_strs.length).to be 2
     expect(spatial_index_strs[0]).to eql 'ENVELOPE(-180.0, 180.0, 90.0, 30.98)'
     expect(spatial_index_strs[1]).to eql 'ENVELOPE(-180.0, 180.0, -39.23, -90.0)'
   end
@@ -43,7 +45,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
   it 'translates GeoJSON point to spatial index str' do
     spatial_coverages_json = [RGeo::GeoJSON.decode('type' => 'Point', 'coordinates' => [166.0, -85.0])]
     spatial_display_strs = described_class.geojson_to_spatial_index_str(spatial_coverages_json)
-    expect(spatial_display_strs.length).to eql 1
+    expect(spatial_display_strs.length).to be 1
     expect(spatial_display_strs[0]).to eql '166.0 -85.0'
   end
 
@@ -62,7 +64,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -31.23], [180.0, -31.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -31.23]]]),
                               RGeo::GeoJSON.decode('type' => 'Point', 'coordinates' => [166.0, -85.0])]
     area = described_class.geojson_to_spatial_area(spatial_coverages_json)
-    expect(area.round(2)).to eql 58.77
+    expect(area.round(2)).to be 58.77
   end
 
   it 'translates GeoJSON geometries with global value to single global facet value' do
@@ -91,7 +93,7 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
                               RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -31.23], [180.0, -31.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -31.23]]]),
                               RGeo::GeoJSON.decode('type' => 'Point', 'coordinates' => [166.0, -85.0])]
     scope_facet = described_class.geojson_to_spatial_scope_facet(spatial_coverages_json)
-    expect(scope_facet.length).to eql 3
+    expect(scope_facet.length).to be 3
     expect(scope_facet).to include 'Coverage from over 85 degrees North to -85 degrees South | Global'
     expect(scope_facet).to include 'Less than 1 degree of latitude change | Local'
     expect(scope_facet).to include 'Between 1 and 170 degrees of latitude change | Regional'
@@ -100,6 +102,6 @@ describe SearchSolrTools::Helpers::TranslateSpatialCoverage do
   it 'translates GeoJSON with without geometries to nil values' do
     spatial_coverages_json = []
     scope_facet = described_class.geojson_to_spatial_scope_facet(spatial_coverages_json)
-    expect(scope_facet.length).to eql 0
+    expect(scope_facet.length).to be 0
   end
 end

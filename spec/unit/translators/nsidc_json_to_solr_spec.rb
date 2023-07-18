@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe SearchSolrTools::Translators::NsidcJsonToSolr do
-  before :each do
+  before do
     @translator = described_class.new
   end
 
@@ -72,7 +74,7 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
                       { 'role' => 'investigator', 'firstName' => 'H. Jay', 'middleName' => '', 'lastName' => 'Zwally' }]
 
     authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(nil))
-    expect(authors[0]).to_not include('NSIDC User Services')
+    expect(authors[0]).not_to include('NSIDC User Services')
     expect(authors[0]).to eql('Claire L. Parkinson')
     expect(authors[1]).to eql('Per Gloersen')
     expect(authors[2]).to eql('H. Jay Zwally')
@@ -95,7 +97,7 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     }
 
     authors = @translator.translate_personnel_and_creators_to_authors(personnel_json, @translator.generate_data_citation_creators(creator_json))
-    expect(authors.length).to eql 4
+    expect(authors.length).to be 4
     expect(authors[0]).to eql('Claire L. Parkinson')
     expect(authors[1]).to eql('Per Gloersen')
     expect(authors[2]).to eql('H. Jay Zwally')
@@ -119,7 +121,7 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     expect(params).to include('Sea Ice')
     expect(params).to include('Sea Ice Concentration')
     expect(params).to include('test detail')
-    expect(params).to_not include('')
+    expect(params).not_to include('')
   end
 
   it 'translates NSIDC parameters json to parameter strings' do
@@ -137,8 +139,8 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration > test detail')
     expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
     expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
-    expect(params).to_not include ''
-    expect(params.length).to eql 3
+    expect(params).not_to include ''
+    expect(params.length).to be 3
   end
 
   it 'translates NSIDC-0192 paramters json to parameter strings' do
@@ -152,8 +154,8 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Ice Extent')
     expect(params).to include('EARTH SCIENCE > Cryosphere > Sea Ice > Sea Ice Concentration')
     expect(params).to include('EARTH SCIENCE > Oceans > Sea Ice > Sea Ice Concentration')
-    expect(params).to_not include ''
-    expect(params.length).to eql 4
+    expect(params).not_to include ''
+    expect(params.length).to be 4
   end
 
   it 'translates G00799 parameters to parameter string' do
@@ -205,7 +207,7 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
       parameters_json = [{ 'name' => 'test1', 'temporalResolution' => { 'type' => 'single', 'resolution' => 'PT3H26M' } },
                          { 'name' => 'test2', 'temporalResolution' => { 'type' => 'range', 'min_resolution' => 'P3D', 'max_resolution' => 'P20D' } }]
       facets = @translator.translate_temporal_resolution_facet_values(parameters_json)
-      expect(facets).to eql %w(Subdaily Weekly Submonthly)
+      expect(facets).to eql %w[Subdaily Weekly Submonthly]
     end
   end
 

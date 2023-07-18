@@ -5,6 +5,8 @@ require:
 AllCops:
   Include:
     - tasks/*.rake
+    - lib/**/*.rb
+#    - spec/**/*.rb
     - Guardfile
     - Rakefile
   Exclude:

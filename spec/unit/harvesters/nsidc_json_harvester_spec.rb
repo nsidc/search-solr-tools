@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe SearchSolrTools::Harvesters::NsidcJson do
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
-  before :each do
+  before do
     stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration')
       .with(headers: { Accept: '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
       .to_return(status: 200, body: bin_configuration, headers: {})
     @harvester = described_class.new 'integration'
   end
 
-  it 'should retrieve dataset identifiers from the NSIDC OAI url' do
+  it 'retrieves dataset identifiers from the NSIDC OAI url' do
     stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/oai?verb=ListIdentifiers&metadataPrefix=dif&retired=false')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
@@ -37,8 +39,8 @@ describe SearchSolrTools::Harvesters::NsidcJson do
 
       result = @harvester.docs_with_translated_entries_from_nsidc
       expect(result[:add_docs].first['add']['doc']['authoritative_id']).to eql('G02199')
-      expect(result[:add_docs].first['add']['doc']['brokered']).to eql(false)
-      expect(result[:add_docs].first['add']['doc']['dataset_version']).to eql(2)
+      expect(result[:add_docs].first['add']['doc']['brokered']).to be(false)
+      expect(result[:add_docs].first['add']['doc']['dataset_version']).to be(2)
       expect(result[:add_docs].first['add']['doc']['data_centers']).to eql('National Snow and Ice Data Center')
       expect(result[:add_docs].first['add']['doc']['published_date']).to eql('2013-01-01T00:00:00Z')
       expect(result[:add_docs].first['add']['doc']['last_revision_date']).to eql('2013-03-12T21:18:12Z')
@@ -66,9 +68,9 @@ describe SearchSolrTools::Harvesters::NsidcJson do
 
       result = @harvester.docs_with_translated_entries_from_nsidc
       expect(result[:add_docs].first['add']['doc']['authoritative_id']).to eql('G02199')
-      expect(result[:add_docs].length).to eql 2
+      expect(result[:add_docs].length).to be 2
       expect(result[:failure_ids].first).to eql('G02199')
-      expect(result[:failure_ids].length).to eql 1
+      expect(result[:failure_ids].length).to be 1
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'SOLR format methods' do
@@ -6,69 +8,70 @@ describe 'SOLR format methods' do
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
 
   describe 'date' do
-    it 'should generate a SOLR readable ISO 8601 string using the DATE helper' do
+    it 'generates a SOLR readable ISO 8601 string using the DATE helper' do
       expect(SearchSolrTools::Helpers::SolrFormat::DATE.call(fixture.xpath('.//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'))).to eql '2004-05-10T00:00:00Z'
     end
 
-    it 'should generate a SOLR readable ISO 8601 string from a date obect' do
+    it 'generates a SOLR readable ISO 8601 string from a date obect' do
       expect(SearchSolrTools::Helpers::SolrFormat.date_str(DateTime.new(2013, 1, 1))).to eql '2013-01-01T00:00:00Z'
     end
 
-    it 'should generate a SOLR readable ISO 8601 string from a string' do
+    it 'generates a SOLR readable ISO 8601 string from a string' do
       expect(SearchSolrTools::Helpers::SolrFormat.date_str('2013-01-01')).to eql '2013-01-01T00:00:00Z'
     end
 
-    it 'should generate a SOLR readable ISO 8601 string string with extra spaces' do
+    it 'generates a SOLR readable ISO 8601 string string with extra spaces' do
       expect(SearchSolrTools::Helpers::SolrFormat.date_str('    2013-01-01 ')).to eql '2013-01-01T00:00:00Z'
     end
   end
 
   describe 'temporal' do
-    it 'should use only the maximum duration when a dataset has multiple temporal ranges' do
+    it 'uses only the maximum duration when a dataset has multiple temporal ranges' do
       durations = [27, 123, 325, 234, 19_032, 3]
-      expect(SearchSolrTools::Helpers::SolrFormat.reduce_temporal_duration(durations)).to eql 19_032
+      expect(SearchSolrTools::Helpers::SolrFormat.reduce_temporal_duration(durations)).to be 19_032
     end
   end
 
   describe 'facets' do
-    before(:each) do
+    before do
       stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration').with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY, 'User-Agent' => 'Ruby' }).to_return(status: 200, body: bin_configuration, headers: {})
     end
-    it 'should set the parameter for a variable level_1' do
+
+    it 'sets the parameter for a variable level_1' do
       node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[0].text
       expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql 'Ice Extent'
     end
 
-    it 'should bin the parameter' do
+    it 'bins the parameter' do
       node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[1].text
       expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql 'Ocean Properties (other)'
     end
 
-    it 'should not set parameters that do not have variable level_1' do
+    it 'does not set parameters that do not have variable level_1' do
       node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[2].text
-      expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql nil
+      expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to be_nil
     end
 
-    it 'should set the data format' do
+    it 'sets the data format' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[0].text
       expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('format', node)).to eql 'HTML'
     end
 
-    it 'should bin the data format' do
+    it 'bins the data format' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[1].text
       expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('format', node)).to eql 'ASCII Text'
     end
 
-    it 'should not set excluded data formats' do
+    it 'does not set excluded data formats' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[2].text
-      expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('format', node)).to eql nil
+      expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('format', node)).to be_nil
     end
 
-    it 'should set the sensor' do
+    it 'sets the sensor' do
       expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('sensor', json_fixture['instruments'][0]['shortName'])).to eql 'MODIS'
     end
 
-    it 'should bin the sensor' do
+    it 'bins the sensor' do
       expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('sensor', json_fixture['instruments'][1]['shortName'])).to eql 'TESTBIN'
     end
 
@@ -127,7 +130,7 @@ describe 'SOLR format methods' do
       end
 
       it 'bins range as range of facet values' do
-        expect(SearchSolrTools::Helpers::SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' }, :find_index_for_single_temporal_resolution_value, SearchSolrTools::Helpers::SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)).to eql %w(Subdaily Daily Weekly Submonthly)
+        expect(SearchSolrTools::Helpers::SolrFormat.resolution_value({ 'type' => 'range', 'min_resolution' => 'PT3H', 'max_resolution' => 'P10D' }, :find_index_for_single_temporal_resolution_value, SearchSolrTools::Helpers::SolrFormat::TEMPORAL_RESOLUTION_FACET_VALUES)).to eql %w[Subdaily Daily Weekly Submonthly]
       end
 
       it 'bins varies as varies' do

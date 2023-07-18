@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'nokogiri'
 require 'webmock/rspec'
@@ -12,6 +14,6 @@ GZIP_DEFLATE_IDENTITY = 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3'
 # We may consider removing `stub_chain` and using a different approach instead.
 RSpec.configure do |config|
   config.mock_with :rspec do |c|
-    c.syntax = [:should, :expect]
+    c.syntax = %i[should expect]
   end
 end

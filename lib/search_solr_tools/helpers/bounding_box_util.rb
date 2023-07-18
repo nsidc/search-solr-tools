@@ -1,4 +1,6 @@
-require_relative './iso_namespaces'
+# frozen_string_literal: true
+
+require_relative 'iso_namespaces'
 
 module SearchSolrTools
   module Helpers
@@ -8,12 +10,10 @@ module SearchSolrTools
       NORTHERN_GLOBAL_BOUNDARY = 85.0
 
       def self.bounding_box_hash_from_geo_json(geometry)
-        if geometry_is_point?(geometry)
-          return { west: geometry.x.to_s, south: geometry.y.to_s, east: geometry.x.to_s, north: geometry.y.to_s }
-        else
-          bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geometry)
-          return { west: bbox.min_x.to_s, south: bbox.min_y.to_s, east: bbox.max_x.to_s, north: bbox.max_y.to_s }
-        end
+        return { west: geometry.x.to_s, south: geometry.y.to_s, east: geometry.x.to_s, north: geometry.y.to_s } if geometry_is_point?(geometry)
+
+        bbox = RGeo::Cartesian::BoundingBox.create_from_geometry(geometry)
+        { west: bbox.min_x.to_s, south: bbox.min_y.to_s, east: bbox.max_x.to_s, north: bbox.max_y.to_s }
       end
 
       def self.geometry_is_point?(geometry)
@@ -30,7 +30,7 @@ module SearchSolrTools
       end
 
       def self.box_invalid?(box)
-        [:north, :south, :east, :west].any? { |d| box[d].to_s.empty? }
+        %i[north south east west].any? { |d| box[d].to_s.empty? }
       end
     end
   end

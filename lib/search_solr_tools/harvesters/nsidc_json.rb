@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'rest-client'
 
 require 'search_solr_tools'
-
 
 module SearchSolrTools
   module Harvesters
@@ -19,7 +20,7 @@ module SearchSolrTools
           RestClient.options(nsidc_json_url) do |response, _request, _result|
             return response.code == 200
           end
-        rescue => e
+        rescue StandardError
           puts "Error trying to get options for #{nsidc_json_url} (ping)"
         end
         false
@@ -37,7 +38,7 @@ module SearchSolrTools
 
         status = insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
 
-        status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs] == 0
+        status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if (result[:num_docs]).zero?
 
         # Record the number of harvest failures; note that if this is 0, thats OK, the status will stay at 0
         status.record_status(Helpers::HarvestStatus::HARVEST_FAILURE, result[:failure_ids].length)
@@ -66,7 +67,7 @@ module SearchSolrTools
       # @param id [String] NSIDC authoritative ID for the dataset
       # @return [Hash] Parsed version of the JSON response
       def fetch_json_from_nsidc(id)
-        json_response = RestClient.get(nsidc_json_url + id + '.json')
+        json_response = RestClient.get("#{nsidc_json_url}#{id}.json")
         JSON.parse(json_response)
       end
 
@@ -81,13 +82,13 @@ module SearchSolrTools
           id = r.text.split('/').last
           begin
             docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
-          rescue => e
+          rescue StandardError => e
             puts "Failed to fetch #{id} with error #{e}: #{e.backtrace}"
             failure_ids << id
           end
         end
 
-        { num_docs: all_docs.size, add_docs: docs, failure_ids: failure_ids }
+        { num_docs: all_docs.size, add_docs: docs, failure_ids: }
       end
     end
   end
