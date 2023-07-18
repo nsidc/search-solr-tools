@@ -1,7 +1,0 @@
-<catalog xsi:schemaLocation="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0 http://www.unidata.ucar.edu/schemas/thredds/InvCatalog.1.0.2.xsd" version="1.0.2" name="SHEBA: Surface Heat Budget of the Arctic Ocean Project" xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<dataset authority="edu.ucar.eol.codiac" ID="ucar.ncar.eol.project.SHEBA" name="SHEBA: Surface Heat Budget of the Arctic Ocean Project" harvest="true">
-<metadata xlink:href="http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.project.SHEBA.metadata.xml" metadataType="THREDDS" inherited="false"/>
-<catalogRef xlink:href="http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.dataset.13_612.thredds.xml" xlink:title="Aircraft Helicopter Aerial Photography [Perovich, D.]"/>
-<catalogRef xlink:href="http://data.eol.ucar.edu/jedi/catalog/ucar.ncar.eol.dataset.13_602.thredds.xml" xlink:title="Aircraft NCAR C-130 Documentation and Data Quality Materials (Link to NCAR/RAF) [NCAR/RAF]"/>
-</dataset>
-</catalog>

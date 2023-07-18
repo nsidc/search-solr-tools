@@ -1,8 +1,0 @@
-<csw:Record xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcmiBox="http://dublincore.org/documents/2000/07/11/dcmi-box/" xmlns:dct="http://purl.org/dc/terms/" xmlns:gml="http://www.opengis.net/gml" xmlns:ows="http://www.opengis.net/ows" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <dc:identifier scheme="urn:x-esri:specification:ServiceType:ArcIMS:Metadata:FileID">http://www.pynio.ucar.edu/newusers.shtml</dc:identifier>
-  <dc:identifier scheme="urn:x-esri:specification:ServiceType:ArcIMS:Metadata:FileID">http://www.pynio.ucar.edu/newusers.shtml</dc:identifier>
-  <dc:identifier scheme="urn:x-esri:specification:ServiceType:ArcIMS:Metadata:DocID">{BA24F713-5035-4A21-8EEA-56C162517572}</dc:identifier>
-  <dc:relation>http://www.pynio.ucar.edu/newusers.shtml</dc:relation>
-  <dc:relation>http://www.pynio.ucar.edu/newusers.shtml</dc:relation>
-  <dc:source>{B4C56A4A-3794-45D8-A52A-5C3B97EAC0AA}</dc:source>
-</csw:Record>

@@ -1,4 +1,4 @@
-## Unreleased
+## v6.2.0 (2022-07-18)
 
   - Remove deprecated harvesters and associated tests, helpers, etc.
 
