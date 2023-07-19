@@ -272,11 +272,11 @@ describe SearchSolrTools::Harvesters::Base do
     delete_stub = stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?wt=json')
                   .with(body: /{"delete":{"query":"last_update:.* AND data_centers:\\"test\\""}}/,
                         headers: { 'Content-Type' => 'application/json' })
-                  .to_return(status: 200, body: '', headers: {})
+                  .to_return(status: 200, body: ''.dup, headers: {})
     commit_stub = stub_request(:post, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/update?wt=json')
                   .with(body: /{"commit":{}/,
                         headers: { 'Content-Type' => 'application/json' })
-                  .to_return(status: 200, body: '', headers: {})
+                  .to_return(status: 200, body: ''.dup, headers: {})
 
     { delete_stub:, commit_stub: }
   end

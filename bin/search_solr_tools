@@ -64,7 +64,7 @@ class SolrHarvestCLI < Thor
       puts "Target: #{target}"
       begin
         harvest_class = get_harvester_class(target)
-        harvester = harvest_class.new(options[:environment], die_on_failure)
+        harvester = harvest_class.new(options[:environment], die_on_failure:)
         ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
           SearchSolrTools::Helpers::HarvestStatus::PING_SOLR => harvester.ping_solr,
           SearchSolrTools::Helpers::HarvestStatus::PING_SOURCE => harvester.ping_source
