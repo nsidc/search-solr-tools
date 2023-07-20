@@ -6,7 +6,7 @@ AllCops:
   Include:
     - tasks/*.rake
     - lib/**/*.rb
-#    - spec/**/*.rb
+    - spec/**/*.rb
     - Guardfile
     - Rakefile
   Exclude:
@@ -85,3 +85,17 @@ Style/RescueModifier:
 
 Style/SlicingWithRange:
   Enabled: true
+
+# RSPEC SPECIFIC
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 8
+
+RSpec/NestedGroups:
+  Max: 5

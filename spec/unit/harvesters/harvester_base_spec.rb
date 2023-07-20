@@ -43,12 +43,12 @@ describe SearchSolrTools::Harvesters::Base do
       end
 
       describe 'with a successful response' do
-        let(:nokogiri) { double(Nokogiri) }
-        let(:doc) { double('doc') }
-        let(:parsed_metadata) { double('parsed_metadata') }
+        let(:nokogiri) { class_double(Nokogiri) }
+        let(:doc) { instance_double('doc') }
+        let(:parsed_metadata) { instance_double('parsed_metadata') }
 
         before do
-          response = double('response')
+          response = instance_double('response')
           allow(URI:HTTP).to receive(:open).and_return(response)
           allow(nokogiri).to receive(:XML).and_return(doc)
           allow(doc).to receive(:xpath).and_return(parsed_metadata)
@@ -67,7 +67,7 @@ describe SearchSolrTools::Harvesters::Base do
       describe 'with error OpenURI::HTTPError' do
 
         before do
-          exception_io = double('io')
+          exception_io = instance_double('io')
           exception_io.stub_chain(:status, :[]).with(0).and_return('302')
 
           allow(test_uri).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
