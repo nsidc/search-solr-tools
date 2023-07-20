@@ -188,10 +188,17 @@ describe SolrHarvestCLI do
   end
 
   describe '#delete_by_data_center' do
+    let(:harvester_class) { SearchSolrTools::Harvesters::NsidcJson }
+    let(:harvester_instance) { harvester_class.new('dev') }
+
+    before do
+      allow(harvester_class).to receive(:new).and_return(harvester_instance)
+    end
+
     it 'calls delete_old_documents on the correct class' do
       cli.options = { timestamp: '2014-07-14T21:49:21Z', environment: 'dev', data_center: 'nsidc' }
-      allow_any_instance_of(SearchSolrTools::Harvesters::NsidcJson).to receive(:delete_old_documents).and_return(true)
-      expect_any_instance_of(SearchSolrTools::Harvesters::NsidcJson).to receive(:delete_old_documents).with(
+      allow(harvester_instance).to receive(:delete_old_documents).and_return(true)
+      expect(harvester_instance).to receive(:delete_old_documents).with(
         '2014-07-14T21:49:21Z',
         'data_centers:"National Snow and Ice Data Center"',
         'nsidc_oai',
