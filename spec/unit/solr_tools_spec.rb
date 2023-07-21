@@ -26,48 +26,53 @@ describe SolrHarvestCLI do
 
     it 'returns successful ping message and code if solr and source are up' do
       allow(harvester_instance).to receive(:ping_solr).and_return(true)
-      expect(harvester_instance).to receive(:ping_solr)
       allow(harvester_instance).to receive(:ping_source).and_return(true)
-      expect(harvester_instance).to receive(:ping_source)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
+
       expect { cli.ping }.not_to raise_error
+
+      expect(harvester_instance).to have_received(:ping_solr)
+      expect(harvester_instance).to have_received(:ping_source)
     end
 
     it 'returns error if solr is up but source is not' do
       allow(harvester_instance).to receive(:ping_solr).and_return(true)
-      expect(harvester_instance).to receive(:ping_solr)
       allow(harvester_instance).to receive(:ping_source).and_return(false)
-      expect(harvester_instance).to receive(:ping_source)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
       expect { cli.ping }.to raise_error(SystemExit) do |error|
         expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
       end
+
+      expect(harvester_instance).to have_received(:ping_solr)
+      expect(harvester_instance).to have_received(:ping_source)
     end
 
     it 'returns error if source is up but solr is not' do
       allow(harvester_instance).to receive(:ping_solr).and_return(false)
-      expect(harvester_instance).to receive(:ping_solr)
       allow(harvester_instance).to receive(:ping_source).and_return(true)
-      expect(harvester_instance).to receive(:ping_source)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
       expect { cli.ping }.to raise_error(SystemExit) do |error|
         expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING)
       end
+
+      expect(harvester_instance).to have_received(:ping_solr)
+      expect(harvester_instance).to have_received(:ping_source)
     end
 
     it 'returns error if neither solr nor source are up' do
       allow(harvester_instance).to receive(:ping_solr).and_return(false)
-      expect(harvester_instance).to receive(:ping_solr)
       allow(harvester_instance).to receive(:ping_source).and_return(false)
-      expect(harvester_instance).to receive(:ping_source)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
       expect { cli.ping }.to raise_error(SystemExit) do |error|
         expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING + SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
       end
+
+      expect(harvester_instance).to have_received(:ping_solr)
+      expect(harvester_instance).to have_received(:ping_source)
     end
   end
 
@@ -90,10 +95,11 @@ describe SolrHarvestCLI do
         allow(harvester_instance).to receive(:ping_solr).and_return(true)
         allow(harvester_instance).to receive(:ping_source).and_return(true)
         allow(harvester_instance).to receive(:harvest_and_delete).and_return(true)
-        expect(harvester_instance).to receive(:harvest_and_delete)
 
         cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
         cli.harvest
+
+        expect(harvester_instance).to have_received(:harvest_and_delete)
       end
 
       it 'fails when an invalid datacenter is provided' do
@@ -198,13 +204,15 @@ describe SolrHarvestCLI do
     it 'calls delete_old_documents on the correct class' do
       cli.options = { timestamp: '2014-07-14T21:49:21Z', environment: 'dev', data_center: 'nsidc' }
       allow(harvester_instance).to receive(:delete_old_documents).and_return(true)
-      expect(harvester_instance).to receive(:delete_old_documents).with(
+
+      cli.delete_by_data_center
+
+      expect(harvester_instance).to have_received(:delete_old_documents).with(
         '2014-07-14T21:49:21Z',
         'data_centers:"National Snow and Ice Data Center"',
         'nsidc_oai',
         true
       )
-      cli.delete_by_data_center
     end
   end
 end

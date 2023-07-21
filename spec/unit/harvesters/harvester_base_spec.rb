@@ -29,7 +29,7 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe '#get_results' do
-    let(:test_uri) { instance_double(URI::HTTP) }
+    let(:test_uri) { instance_double('uri') }
 
     before do
       allow(URI).to receive(:parse).and_return(test_uri)
@@ -43,44 +43,41 @@ describe SearchSolrTools::Harvesters::Base do
       end
 
       describe 'with a successful response' do
-        let(:nokogiri) { class_double(Nokogiri) }
         let(:doc) { instance_double('doc') }
         let(:parsed_metadata) { instance_double('parsed_metadata') }
 
-        before do
-          response = instance_double('response')
-          allow(URI:HTTP).to receive(:open).and_return(response)
-          allow(nokogiri).to receive(:XML).and_return(doc)
-          allow(doc).to receive(:xpath).and_return(parsed_metadata)
-        end
-
         it 'returns metadata from the XML response' do
+          response = instance_double('response')
+          allow(test_uri).to receive(:open).and_return(response)
+          allow(Nokogiri).to receive(:XML).and_return(doc)
+          allow(doc).to receive(:namespaces).and_return({})
+          allow(doc).to receive(:xpath).and_return(parsed_metadata)
+
           expect do
             described_method_get_results(
               'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
               '/metadata/xpath'
-            ).to eql(parsed_metadata)
-          end
+            )
+          end.not_to raise_exception
         end
       end
 
       describe 'with error OpenURI::HTTPError' do
-
         before do
           exception_io = instance_double('io')
-          exception_io.stub_chain(:status, :[]).with(0).and_return('302')
+          allow(exception_io).to receive(:status).and_return(%w[302 Found])
 
           allow(test_uri).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))
         end
 
         it 'makes 3 attempts before propagating the error' do
-          expect(test_uri).to receive(:open).exactly(3).times
           expect do
             described_method_get_results(
               'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
               '/metadata/xpath'
             )
           end.to raise_error(OpenURI::HTTPError)
+          expect(test_uri).to have_received(:open).exactly(3).times
         end
       end
 
@@ -91,13 +88,14 @@ describe SearchSolrTools::Harvesters::Base do
           end
 
           it 'makes 3 attempts before propagating the error' do
-            expect(test_uri).to receive(:open).exactly(3).times
             expect do
               described_method_get_results(
                 'http://www.polardata.ca/oai/provider?verb=ListRecords&metadataPrefix=iso',
                 '/metadata/xpath'
               )
             end.to raise_error(err_type)
+
+            expect(test_uri).to have_received(:open).exactly(3).times
           end
         end
       end
@@ -141,44 +139,46 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe 'harvest_and_delete' do
+    let(:harvester) { described_class.new 'integration' }
+
     before do
-      @harvester = described_class.new 'integration'
-      expect(@harvester).to receive(:harvest).at_least(:once)
+      allow(harvester).to receive(:harvest)
     end
 
     it 'adds documents and then deletes documents that were not updated' do
       stubs = stub_update_and_delete(500, 10)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"'.dup)
+      harvester.harvest_and_delete(harvester.method(:harvest), 'data_centers:"test"'.dup)
 
       expect(stubs[:delete_stub]).to have_been_requested
       expect(stubs[:commit_stub]).to have_been_requested
+      expect(harvester).to have_received(:harvest).at_least(:once)
     end
 
     it 'Does not delete documents when more then .1 of documents are not updated' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"'.dup)
+      harvester.harvest_and_delete(harvester.method(:harvest), 'data_centers:"test"'.dup)
 
       expect(stubs[:delete_stub]).not_to have_been_requested
       expect(stubs[:commit_stub]).not_to have_been_requested
+      expect(harvester).to have_received(:harvest).at_least(:once)
     end
 
     it 'Does not delete documents when none exist' do
       stubs = stub_update_and_delete(0, 0)
-      @harvester.harvest_and_delete(@harvester.method(:harvest), 'data_centers:"test"'.dup)
+      harvester.harvest_and_delete(harvester.method(:harvest), 'data_centers:"test"'.dup)
 
       expect(stubs[:delete_stub]).not_to have_been_requested
       expect(stubs[:commit_stub]).not_to have_been_requested
+      expect(harvester).to have_received(:harvest).at_least(:once)
     end
   end
 
   describe 'delete_old_documents' do
-    before do
-      @harvester = described_class.new 'integration'
-    end
+    let(:harvester) { described_class.new 'integration' }
 
     it 'Can be forced to delete with a timestamp' do
       stubs = stub_update_and_delete(500, 75)
-      @harvester.delete_old_documents('20040202', 'data_centers:"test"'.dup, SearchSolrTools::SolrEnvironments[@harvester
+      harvester.delete_old_documents('20040202', 'data_centers:"test"'.dup, SearchSolrTools::SolrEnvironments[harvester
 .environment][:collection_name], force: true)
 
       expect(stubs[:delete_stub]).to have_been_requested
@@ -282,12 +282,10 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe '#valid_solr_spatial_coverage?' do
-    def described_method_valid(north: nil, east: nil, south: nil, west: nil)
-      @harvester.valid_solr_spatial_coverage?([north, east, south, west])
-    end
+    let(:harvester) { described_class.new }
 
-    before do
-      @harvester = described_class.new
+    def described_method_valid(north: nil, east: nil, south: nil, west: nil)
+      harvester.valid_solr_spatial_coverage?([north, east, south, west])
     end
 
     describe 'non-polar points' do

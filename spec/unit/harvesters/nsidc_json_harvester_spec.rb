@@ -3,12 +3,13 @@
 require 'spec_helper'
 
 describe SearchSolrTools::Harvesters::NsidcJson do
+  let(:harvester) { described_class.new 'integration' }
+
   bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before do
     stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration')
       .with(headers: { Accept: '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
       .to_return(status: 200, body: bin_configuration, headers: {})
-    @harvester = described_class.new 'integration'
   end
 
   it 'retrieves dataset identifiers from the NSIDC OAI url' do
@@ -16,7 +17,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_oai_identifiers.xml'))
 
-    expect(@harvester.result_ids_from_nsidc.first.text).to eql('oai:nsidc/G02199')
+    expect(harvester.result_ids_from_nsidc.first.text).to eql('oai:nsidc/G02199')
   end
 
   describe 'Adding documents to Solr' do
@@ -37,7 +38,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
         .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
-      result = @harvester.docs_with_translated_entries_from_nsidc
+      result = harvester.docs_with_translated_entries_from_nsidc
       expect(result[:add_docs].first['add']['doc']['authoritative_id']).to eql('G02199')
       expect(result[:add_docs].first['add']['doc']['brokered']).to be(false)
       expect(result[:add_docs].first['add']['doc']['dataset_version']).to be(2)
@@ -66,7 +67,7 @@ describe SearchSolrTools::Harvesters::NsidcJson do
         .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_G02199.json'), headers: {})
 
-      result = @harvester.docs_with_translated_entries_from_nsidc
+      result = harvester.docs_with_translated_entries_from_nsidc
       expect(result[:add_docs].first['add']['doc']['authoritative_id']).to eql('G02199')
       expect(result[:add_docs].length).to be 2
       expect(result[:failure_ids].first).to eql('G02199')

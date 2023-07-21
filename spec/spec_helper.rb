@@ -2,6 +2,7 @@
 
 require 'json'
 require 'nokogiri'
+require 'open-uri'
 require 'webmock/rspec'
 
 require 'search_solr_tools'
