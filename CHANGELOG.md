@@ -1,17 +1,17 @@
-## Unreleased
+## v6.3.0 (2023-07-24)
 
   - Update Rubocop configuration to actually run against files, and make
     necessary corrections to comply with Rubocop styling.
 
-## v6.2.0 (2022-07-18)
+## v6.2.0 (2023-07-18)
 
   - Remove deprecated harvesters and associated tests, helpers, etc.
 
-## v6.1.0 (2022-07-14)
+## v6.1.0 (2023-07-14)
 
   - Updated a few other dependencies that weren't at the newest versions.
 
-## v6.0.0 (2022-07-14)
+## v6.0.0 (2023-07-14)
 
   - Updated Ruby to 3.2.2, updated gem dependencies to more recent versions.
 
