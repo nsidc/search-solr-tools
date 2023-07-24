@@ -100,7 +100,6 @@ module SearchSolrTools
         all_response_count = (solr.get 'select', params: { wt: :ruby, q: constraints, rows: 0 })['response']['numFound']
         if force || (numfound / all_response_count.to_f < DELETE_DOCUMENTS_RATIO)
           puts "Deleting #{numfound} documents for #{constraints}"
-          puts "THE DELETE QUERY IS: #{delete_query}"
           solr.delete_by_query delete_query
           solr.commit
         else
@@ -186,7 +185,7 @@ module SearchSolrTools
 
           retry if retries_left.positive?
 
-          # TODO: - Do we really need this "die_on_failure" anymore?  The empty return
+          # TODO: Do we really need this "die_on_failure" anymore?  The empty return
           #  will cause the "No Documents" error to be thrown in the harvester class
           #  now, so it will pretty much always "die on failure"
           raise e if @die_on_failure
