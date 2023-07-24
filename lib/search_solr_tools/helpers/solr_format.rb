@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'date'
 require 'iso8601'
 
@@ -7,15 +9,14 @@ require_relative 'facet_configuration'
 module SearchSolrTools
   module Helpers
     #  Methods for generating formatted values that can be indexed by SOLR
-    # rubocop:disable Metrics/ModuleLength
     module SolrFormat
       DATA_CENTER_NAMES = {
-        NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' },
-      }
+        NSIDC: { short_name: 'NSIDC', long_name: 'National Snow and Ice Data Center' }
+      }.freeze
 
       NOT_SPECIFIED = 'Not specified'
 
-      TEMPORAL_RESOLUTION_FACET_VALUES = %w(Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly)
+      TEMPORAL_RESOLUTION_FACET_VALUES = %w[Subhourly Hourly Subdaily Daily Weekly Submonthly Monthly Subyearly Yearly Multiyearly].freeze
       SUBHOURLY_INDEX = 0
       HOURLY_INDEX = 1
       SUBDAILY_INDEX = 2
@@ -27,7 +28,7 @@ module SearchSolrTools
       YEARLY_INDEX = 8
       MULTIYEARLY_INDEX = 9
 
-      SPATIAL_RESOLUTION_FACET_VALUES = ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '6 - 15 km', '16 - 30 km', '>30 km']
+      SPATIAL_RESOLUTION_FACET_VALUES = ['0 - 500 m', '501 m - 1 km', '2 - 5 km', '6 - 15 km', '16 - 30 km', '>30 km'].freeze
       SPATIAL_0_500_INDEX = 0
       SPATIAL_501_1_INDEX = 1
       SPATIAL_2_5_INDEX = 2
@@ -44,7 +45,7 @@ module SearchSolrTools
       end
 
       def self.temporal_display_str(date_range)
-        temporal_str = "#{date_range[:start]}"
+        temporal_str = (date_range[:start]).to_s
         temporal_str += ",#{date_range[:end]}" unless date_range[:end].nil?
         temporal_str
       end
@@ -67,6 +68,7 @@ module SearchSolrTools
 
       def self.get_temporal_duration_facet(duration)
         return NOT_SPECIFIED if duration.nil?
+
         years = duration.to_i / 365
         temporal_duration_range(years)
       end
@@ -86,31 +88,28 @@ module SearchSolrTools
       def self.facet_binning(type, format_string)
         binned_facet = bin(FacetConfiguration.get_facet_bin(type), format_string)
         if binned_facet.nil?
-          return format_string
+          format_string
         elsif binned_facet.eql?('exclude')
-          return nil
+          nil
         else
-          return binned_facet
+          binned_facet
         end
-
-        nil
       end
 
       def self.parameter_binning(parameter_string)
         binned_parameter = bin(FacetConfiguration.get_facet_bin('parameter'), parameter_string)
         # use variable_level_1 if no mapping exists
-        if binned_parameter.nil?
-          parts = parameter_string.split '>'
-          return parts[3].strip if parts.length >= 4
-        else
-          return binned_parameter
-        end
+        return binned_parameter unless binned_parameter.nil?
+
+        parts = parameter_string.split '>'
+        return parts[3].strip if parts.length >= 4
 
         nil
       end
 
       def self.resolution_value(resolution, find_index_method, resolution_values)
-        return NOT_SPECIFIED if self.resolution_not_specified? resolution
+        return NOT_SPECIFIED if resolution_not_specified? resolution
+
         if resolution['type'] == 'single'
           i = send(find_index_method, resolution['resolution'])
           return resolution_values[i]
@@ -120,12 +119,12 @@ module SearchSolrTools
           j = send(find_index_method, resolution['max_resolution'])
           return resolution_values[i..j]
         end
-        fail "Invalid resolution #{resolution['type']}"
+        raise "Invalid resolution #{resolution['type']}"
       end
 
       def self.resolution_not_specified?(resolution)
         return true if resolution.to_s.empty?
-        return true unless %w(single range).include? resolution['type']
+        return true unless %w[single range].include? resolution['type']
         return true if resolution['type'] == 'single' && resolution['resolution'].to_s.empty?
         return true if resolution['type'] == 'range' && resolution['min_resolution'].to_s.empty?
       end
@@ -140,6 +139,7 @@ module SearchSolrTools
         else
           facet = 'Between 1 and 170 degrees of latitude change | Regional'
         end
+
         facet
       end
 
@@ -151,8 +151,6 @@ module SearchSolrTools
             end
         "#{d.iso8601[0..-7]}Z" unless d.nil?
       end
-
-      private
 
       MIN_DATE = '00010101'
       MAX_DATE = Time.now.strftime('%Y%m%d')
@@ -166,7 +164,6 @@ module SearchSolrTools
         nil
       end
 
-      # rubocop:disable CyclomaticComplexity
       def self.find_index_for_single_temporal_resolution_value(string_duration)
         iso8601_duration = ISO8601::Duration.new(string_duration)
 
@@ -186,10 +183,9 @@ module SearchSolrTools
           MULTIYEARLY_INDEX
         end
       end
-      # rubocop:enable CyclomaticComplexity
 
       def self.find_index_for_single_spatial_resolution_value(string_duration)
-        value, units = string_duration.split(' ')
+        value, units = string_duration.split
 
         if units == 'deg'
           spatial_resolution_index_degrees(value)
@@ -234,11 +230,10 @@ module SearchSolrTools
       end
 
       def self.date?(date)
-        valid_date = if date.is_a? String
-                       d = DateTime.parse(date.strip) rescue false
-                       DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
-                     end
-        valid_date
+        return false unless date.is_a? String
+
+        d = DateTime.parse(date.strip) rescue false
+        DateTime.valid_date?(d.year, d.mon, d.day) unless d.eql?(false)
       end
 
       def self.format_date_for_index(date_str, default)

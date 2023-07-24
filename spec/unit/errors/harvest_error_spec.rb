@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'search_solr_tools/errors/harvest_error'
 
 describe SearchSolrTools::Errors::HarvestError do
-  let (:status) { SearchSolrTools::Helpers::HarvestStatus.new }
+  let(:status) { SearchSolrTools::Helpers::HarvestStatus.new }
 
   it 'with Solr Ping error reports only that issue' do
     status.ping_solr = false

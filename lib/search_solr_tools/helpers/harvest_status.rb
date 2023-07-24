@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SearchSolrTools
   module Helpers
     class HarvestStatus
@@ -7,17 +9,17 @@ module SearchSolrTools
       INGEST_ERR_INVALID_DOC = :invalid
       INGEST_ERR_SOLR_ERROR = :solr_error
       OTHER_ERROR = :other
-      PING_SOLR = :ping_solr  # used for initialize only
-      PING_SOURCE = :ping_source  # used for initialize only
+      PING_SOLR = :ping_solr # used for initialize only
+      PING_SOURCE = :ping_source # used for initialize only
 
-      ERROR_STATUS = [HARVEST_NO_DOCS, HARVEST_FAILURE, INGEST_ERR_INVALID_DOC, INGEST_ERR_SOLR_ERROR, OTHER_ERROR]
+      ERROR_STATUS = [HARVEST_NO_DOCS, HARVEST_FAILURE, INGEST_ERR_INVALID_DOC, INGEST_ERR_SOLR_ERROR, OTHER_ERROR].freeze
 
-      attr_reader :status, :ping_solr, :ping_source
-      attr_writer :ping_solr, :ping_source
+      attr_accessor :ping_solr, :ping_source
+      attr_reader :status
 
       # init_info is an optional hash that contains the various status keys and the documents to
       # associate with them
-      def initialize(init_info={})
+      def initialize(init_info = {})
         @status = { INGEST_OK => 0 }
         @ping_solr = true
         @ping_source = true
@@ -36,7 +38,7 @@ module SearchSolrTools
       end
 
       def ok?
-        ERROR_STATUS.each { |s| return false unless @status[s] == 0 }
+        ERROR_STATUS.each { |s| return false unless (@status[s]).zero? }
         @ping_solr && @ping_source
       end
     end

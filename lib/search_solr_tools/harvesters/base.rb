@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'multi_json'
 require 'nokogiri'
 require 'open-uri'
@@ -9,7 +11,6 @@ require 'search_solr_tools'
 require_relative '../helpers/iso_namespaces'
 require_relative '../helpers/solr_format'
 
-
 module SearchSolrTools
   module Harvesters
     # base class for solr harvesters
@@ -20,7 +21,7 @@ module SearchSolrTools
       XML_CONTENT_TYPE = 'text/xml; charset=utf-8'
       JSON_CONTENT_TYPE = 'application/json; charset=utf-8'
 
-      def initialize(env = 'development', die_on_failure = false)
+      def initialize(env = 'development', die_on_failure: false)
         @environment = env
         @die_on_failure = die_on_failure
       end
@@ -51,7 +52,7 @@ module SearchSolrTools
             success = response.code == 200
             puts "Error in ping request: #{response.body}" unless success
           end
-        rescue => e
+        rescue StandardError => e
           puts "Rest exception while pinging Solr: #{e}"
         end
         success
@@ -61,7 +62,7 @@ module SearchSolrTools
       # to "ping" the data center.  Returns true if the ping is successful (or, as
       # in this default, no ping method was defined)
       def ping_source
-        puts "Harvester does not have ping method defined, assuming true"
+        puts 'Harvester does not have ping method defined, assuming true'
         true
       end
 
@@ -74,12 +75,12 @@ module SearchSolrTools
         harvest_status
       end
 
-      def delete_old_documents(timestamp, constraints, solr_core, force = false)
+      def delete_old_documents(timestamp, constraints, solr_core, force: false)
         constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
         solr = RSolr.connect url: solr_url + "/#{solr_core}"
         unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
-        if unchanged_count == 0
+        if unchanged_count.zero?
           puts "All documents were updated after #{timestamp}, nothing to delete"
         else
           puts "Begin removing documents older than #{timestamp}"
@@ -90,8 +91,8 @@ module SearchSolrTools
       def sanitize_data_centers_constraints(query_string)
         # Remove lucene special characters, preserve the query parameter and compress whitespace
         query_string.gsub!(/[:&|!~\-\(\)\{\}\[\]\^\*\?\+]+/, ' ')
-        query_string.gsub!(/data_centers /, 'data_centers:')
-        query_string.gsub!(/source /, 'source:')
+        query_string.gsub!('data_centers ', 'data_centers:')
+        query_string.gsub!('source ', 'source:')
         query_string.squeeze(' ').strip
       end
 
@@ -126,7 +127,7 @@ module SearchSolrTools
         status
       end
 
-      # TODO Need to return a specific type of failure:
+      # TODO: Need to return a specific type of failure:
       #   - Bad record content identified and no ingest attempted
       #   - Solr tries to ingest document and fails (bad content not detected prior to ingest)
       #   - Solr cannot insert document for reasons other than the document structure and content.
@@ -142,15 +143,15 @@ module SearchSolrTools
 
         # Some docs will cause solr to time out during the POST
         begin
-          RestClient.post(url, doc_serialized, content_type: content_type) do |response, _request, _result|
+          RestClient.post(url, doc_serialized, content_type:) do |response, _request, _result|
             success = response.code == 200
             unless success
               puts "Error for #{doc_serialized}\n\n response: #{response.body}"
               status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
             end
           end
-        rescue => e
-          # TODO Need to provide more detail re: this failure so we know whether to
+        rescue StandardError => e
+          # TODO: Need to provide more detail re: this failure so we know whether to
           #  exit the job with a status != 0
           puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
           status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
@@ -160,11 +161,11 @@ module SearchSolrTools
 
       def get_serialized_doc(doc, content_type)
         if content_type.eql?(XML_CONTENT_TYPE)
-          return doc.respond_to?(:to_xml) ? doc.to_xml : doc
+          doc.respond_to?(:to_xml) ? doc.to_xml : doc
         elsif content_type.eql?(JSON_CONTENT_TYPE)
-          return MultiJson.dump(doc)
+          MultiJson.dump(doc)
         else
-          return doc
+          doc
         end
       end
 
@@ -177,17 +178,18 @@ module SearchSolrTools
 
         begin
           puts "Request: #{request_url}"
-          response = URI.open(request_url, read_timeout: timeout, 'Content-Type' => content_type)
+          response = URI.parse(request_url).open(read_timeout: timeout, 'Content-Type' => content_type)
         rescue OpenURI::HTTPError, Timeout::Error, Errno::ETIMEDOUT => e
           retries_left -= 1
           puts "## REQUEST FAILED ## #{e.class} ## Retrying #{retries_left} more times..."
 
-          retry if retries_left > 0
+          retry if retries_left.positive?
 
-          # TODO - Do we really need this "die_on_failure" anymore?  The empty return
+          # TODO: Do we really need this "die_on_failure" anymore?  The empty return
           #  will cause the "No Documents" error to be thrown in the harvester class
           #  now, so it will pretty much always "die on failure"
           raise e if @die_on_failure
+
           return
         end
         doc = Nokogiri.XML(response)
@@ -215,7 +217,7 @@ module SearchSolrTools
         spatial_coverages = doc.xpath(".//field[@name='spatial_coverages']").first
         return true if spatial_coverages.nil?
 
-        spatial_coverages = spatial_coverages.text.split(' ')
+        spatial_coverages = spatial_coverages.text.split
 
         # We've only seen the failure with 4 spatial coverage values
         return true if spatial_coverages.size < 4

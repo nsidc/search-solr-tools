@@ -5,6 +5,8 @@ require:
 AllCops:
   Include:
     - tasks/*.rake
+    - lib/**/*.rb
+    - spec/**/*.rb
     - Guardfile
     - Rakefile
   Exclude:
@@ -14,6 +16,10 @@ AllCops:
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
 
 Layout/LineLength:
   Enabled: false
@@ -37,16 +43,19 @@ Metrics/AbcSize:
   Max: 20
 
 Metrics/ClassLength:
-  Max: 125
+  Max: 200
 
 Metrics/CyclomaticComplexity:
-  Max: 8
+  Max: 10
 
 Metrics/MethodLength:
   Max: 30
 
 Metrics/ModuleLength:
-  Max: 101
+  Max: 200
+
+Metrics/PerceivedComplexity:
+  Max: 10
 
 Style/Documentation:
   Enabled: false
@@ -80,3 +89,26 @@ Style/RescueModifier:
 
 Style/SlicingWithRange:
   Enabled: true
+
+# RSPEC SPECIFIC
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 30
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 10
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/VerifiedDoubleReference:
+  EnforcedStyle: string

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'auto_suggest'
 
 module SearchSolrTools
@@ -16,11 +18,11 @@ module SearchSolrTools
       def fields
         {
           'authoritative_id' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) },
-          'full_title' => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
-          'copy_parameters' => { weight: 5, source: 'NSIDC', creator: method(:standard_add_creator) },
-          'full_platforms' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
-          'full_sensors' => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
-          'full_authors' => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) }
+          'full_title'       => { weight: 2, source: 'NSIDC', creator: method(:standard_add_creator) },
+          'copy_parameters'  => { weight: 5, source: 'NSIDC', creator: method(:standard_add_creator) },
+          'full_platforms'   => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
+          'full_sensors'     => { weight: 2, source: 'NSIDC', creator: method(:short_full_split_add_creator) },
+          'full_authors'     => { weight: 1, source: 'NSIDC', creator: method(:standard_add_creator) }
         }
       end
 

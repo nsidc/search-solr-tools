@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SearchSolrTools
   module Helpers
     # Helper class to provide default namespaces for XML document parsing.
@@ -25,7 +27,7 @@ module SearchSolrTools
         'srv'    => 'http://www.isotc211.org/2005/srv',
         'xlink'  => 'http://www.w3.org/1999/xlink',
         'xsi'    => 'http://www.w3.org/2001/XMLSchema-instance'
-      }
+      }.freeze
     end
   end
 end

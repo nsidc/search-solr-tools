@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Update Rubocop configuration to actually run against files, and make
+    necessary corrections to comply with Rubocop styling.
+
 ## v6.2.0 (2022-07-18)
 
   - Remove deprecated harvesters and associated tests, helpers, etc.
