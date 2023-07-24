@@ -12,12 +12,12 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
 
   it 'translates Data Access Links to data_access_links string' do
     data_access_links_json = [{ 'displayText' => 'FTP',
-                                'uri' => 'ftp://fake.nsidc.org/fake/path/to/data',
-                                'type' => 'download',
+                                'uri'         => 'ftp://fake.nsidc.org/fake/path/to/data',
+                                'type'        => 'download',
                                 'description' => 'Test Description' },
                               { 'displayText' => 'HTTP',
-                                'uri' => 'http://fake.nsidc.org/another/fake/path',
-                                'type' => 'download',
+                                'uri'         => 'http://fake.nsidc.org/another/fake/path',
+                                'type'        => 'download',
                                 'description' => 'Blah Blah' }]
     values = translator.translate_data_access_urls(data_access_links_json)
     expect(values[0]).to eql('FTP | download | ftp://fake.nsidc.org/fake/path/to/data | Test Description')
@@ -211,10 +211,10 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
 
   describe 'spatial resolution faceting' do
     it 'translates NSIDC spatial resolutions to solr facet spatial resolution values' do
-      parameters_json = [{ 'name' => 'test1',
+      parameters_json = [{ 'name'               => 'test1',
                            'spatialXResolution' => { 'type' => 'single', 'resolution' => '5000 m' },
                            'spatialYResolution' => { 'type' => 'single', 'resolution' => '100000 m' } },
-                         { 'name' => 'test2',
+                         { 'name'               => 'test2',
                            'spatialXResolution' => { 'type' => 'range', 'min_resolution' => '300 m', 'max_resolution' => '2200 m' },
                            'spatialYResolution' => { 'type' => 'range', 'min_resolution' => '300 m', 'max_resolution' => '2200 m' } }]
       facets = translator.translate_spatial_resolution_facet_values(parameters_json)

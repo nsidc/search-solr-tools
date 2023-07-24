@@ -148,12 +148,12 @@ describe 'SOLR format methods' do
     end
 
     describe 'spatial resolution facet' do
-      value_bins = { '0 - 500 m' => ['1 m', '500 m'],
+      value_bins = { '0 - 500 m'    => ['1 m', '500 m'],
                      '501 m - 1 km' => ['501 m', '1000 m'],
-                     '2 - 5 km' => ['1001 m', '5000 m', '0.01 deg', '0.05 deg'],
-                     '6 - 15 km' => ['5001 m', '15000 m'],
-                     '16 - 30 km' => ['15001 m', '30000 m', '0.06 deg', '0.25 deg', '0.49 deg'],
-                     '>30 km' => ['30001 m', '100000 m', '0.5 deg', '1 deg', '5 deg'] }
+                     '2 - 5 km'     => ['1001 m', '5000 m', '0.01 deg', '0.05 deg'],
+                     '6 - 15 km'    => ['5001 m', '15000 m'],
+                     '16 - 30 km'   => ['15001 m', '30000 m', '0.06 deg', '0.25 deg', '0.49 deg'],
+                     '>30 km'       => ['30001 m', '100000 m', '0.5 deg', '1 deg', '5 deg'] }
       value_bins.each do |bin, values|
         values.each do |val|
           it "bins #{val} as #{bin}" do

@@ -17,6 +17,10 @@ AllCops:
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
 Layout/LineLength:
   Enabled: false
 

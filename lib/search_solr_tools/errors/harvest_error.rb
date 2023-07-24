@@ -12,26 +12,26 @@ module SearchSolrTools
       ERRCODE_OTHER = 128
 
       ERRCODE_DESC = {
-        ERRCODE_SOLR_PING => 'Solr instance did not return a successful ping',
-        ERRCODE_SOURCE_PING => 'Source to be harvested did not return a successful ping',
-        ERRCODE_SOURCE_NO_RESULTS => 'Source to be harvested returned no documents matching query',
+        ERRCODE_SOLR_PING            => 'Solr instance did not return a successful ping',
+        ERRCODE_SOURCE_PING          => 'Source to be harvested did not return a successful ping',
+        ERRCODE_SOURCE_NO_RESULTS    => 'Source to be harvested returned no documents matching query',
         ERRCODE_SOURCE_HARVEST_ERROR => 'One or more source documents returned an error when trying to retrieve or translate',
-        ERRCODE_DOCUMENT_INVALID => 'One or more documents to be harvested was invalid (malformed)',
-        ERRCODE_INGEST_ERROR => 'Solr returned an error trying to ingest one or more harvested documents',
-        ERRCODE_OTHER => 'General error code for non-harvest related issues'
+        ERRCODE_DOCUMENT_INVALID     => 'One or more documents to be harvested was invalid (malformed)',
+        ERRCODE_INGEST_ERROR         => 'Solr returned an error trying to ingest one or more harvested documents',
+        ERRCODE_OTHER                => 'General error code for non-harvest related issues'
       }.freeze
 
       PING_ERRCODE_MAP = {
-        'ping_solr' => ERRCODE_SOLR_PING,
+        'ping_solr'   => ERRCODE_SOLR_PING,
         'ping_source' => ERRCODE_SOURCE_PING
       }.freeze
 
       STATUS_ERRCODE_MAP = {
-        Helpers::HarvestStatus::HARVEST_NO_DOCS => ERRCODE_SOURCE_NO_RESULTS,
-        Helpers::HarvestStatus::HARVEST_FAILURE => ERRCODE_SOURCE_HARVEST_ERROR,
+        Helpers::HarvestStatus::HARVEST_NO_DOCS        => ERRCODE_SOURCE_NO_RESULTS,
+        Helpers::HarvestStatus::HARVEST_FAILURE        => ERRCODE_SOURCE_HARVEST_ERROR,
         Helpers::HarvestStatus::INGEST_ERR_INVALID_DOC => ERRCODE_DOCUMENT_INVALID,
-        Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR => ERRCODE_INGEST_ERROR,
-        Helpers::HarvestStatus::OTHER_ERROR => ERRCODE_OTHER
+        Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR  => ERRCODE_INGEST_ERROR,
+        Helpers::HarvestStatus::OTHER_ERROR            => ERRCODE_OTHER
       }.freeze
 
       # If code is -1, it means display all error codes

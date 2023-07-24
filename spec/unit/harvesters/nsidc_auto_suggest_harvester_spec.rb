@@ -9,7 +9,7 @@ describe SearchSolrTools::Harvesters::NsidcAutoSuggest do
 
       stub_request(:get, 'http://integration.search-solr.apps.int.nsidc.org:8983/solr/nsidc_oai/select?q=*%3A*&fq=source%3ANSIDC&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1&facet.field=authoritative_id&facet.field=full_title&facet.field=copy_parameters&facet.field=full_platforms&facet.field=full_sensors&facet.field=full_authors')
         .with(headers: {
-                'Accept' => '*/*',
+                'Accept'          => '*/*',
                 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY
               })
         .to_return(status: 200, body: File.open('spec/unit/fixtures/nsidc_auto_suggest_solr_harvest_query.json'), headers: {})
