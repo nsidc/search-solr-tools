@@ -90,9 +90,9 @@ module SearchSolrTools
 
       def sanitize_data_centers_constraints(query_string)
         # Remove lucene special characters, preserve the query parameter and compress whitespace
-        query_string.gsub!(/[:&|!~\-\(\)\{\}\[\]\^\*\?\+]+/, ' ')
-        query_string.gsub!('data_centers ', 'data_centers:')
-        query_string.gsub!('source ', 'source:')
+        query_string = query_string.gsub(/[:&|!~\-\(\)\{\}\[\]\^\*\?\+]+/, ' ')
+        query_string = query_string.gsub('data_centers ', 'data_centers:')
+        query_string = query_string.gsub('source ', 'source:')
         query_string.squeeze(' ').strip
       end
 
