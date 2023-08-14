@@ -1,3 +1,9 @@
+## Unreleased
+
+  - Fixed a bug with the sanitization, which was trying to modify the
+    string directly (causing problems with frozen strings).  Changed to
+    return a new, sanitized string.
+
 ## v6.3.0 (2023-07-24)
 
   - Update Rubocop configuration to actually run against files, and make
