@@ -1,4 +1,4 @@
-## Unreleased
+## v6.4.0 (2023-08-14)
 
   - Fixed a bug with the sanitization, which was trying to modify the
     string directly (causing problems with frozen strings).  Changed to
