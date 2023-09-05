@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    search_solr_tools (6.3.0)
+    search_solr_tools (6.4.0)
       ffi-geos (~> 2.4.0)
       iso8601 (~> 0.13.0)
       multi_json (~> 1.15.0)
