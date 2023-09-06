@@ -1,3 +1,7 @@
+## Unreleased
+
+  - Adding GitHub Action workflows for continuous integration features
+
 ## v6.4.0 (2023-08-14)
 
   - Fixed a bug with the sanitization, which was trying to modify the
