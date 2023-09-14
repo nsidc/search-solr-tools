@@ -107,45 +107,68 @@ Requirements:
 
 * Ruby > 3.2.2
 * [Bundler](http://bundler.io/)
-* [Gem Release](https://github.com/svenfuchs/gem-release)
 * [Rake](https://github.com/ruby/rake)
-* A [RubyGems](https://rubygems.org) account that has
-  [ownership](http://guides.rubygems.org/publishing/) of the gem
 * RuboCop and the unit tests should all pass (`rake`)
 
-The [CHANGELOG.md](CHANGELOG.md) is not automatically updated by the
-`rake release:*` tasks. Update it manually to insert the correct version and
-date, and commit the file, before creating the release package.
+To make a release, follow theses steps:
 
-**gem release** is used by rake tasks in this project to handle version changes,
-tagging, and publishing to RubyGems.
+1. Confirm no errors are returned by `bundle exec rubocop` *
+2. Confirm all tests pass (`bundle exec rake spec:unit`) *
+3. Ensure that the `CHANGELOG.md` file is up to date with an `Unreleased`
+   header.
+4. Submit a Pull Request, and merge the branch into `main`
+5. On your local machine, ensure you are on the `main` branch (and have
+   it up-to-date), and run `bundle exec rake bump:*` (see below)
+6. This will trigger the GitHub Actions CI workflow to push a release to
+   RubyGems.
 
-| Command                   | Description |
-|---------------------------|-------------|
-| `rake release:pre[false]` | Increase the current prerelease version number, push changes |
-| `rake release:pre[true]`  | Increase the current prerelease version number, publish release\* |
-| `rake release:none`       | Drop the prerelease version, publish release\*, then `pre[false]` (does a patch release) |
-| `rake release:minor`      | Increase the minor version number, publish release\*, then `pre[false]` |
-| `rake release:major`      | Increase the major version number, publish release\*, then `pre[false]` |
+The steps marked `*` above don't need to be done manually; every time a commit
+is pushed to the GitHub repository, these tests will be run automatically.
 
-\*"publish release" means each of the following occurs:
+The first 4 steps above are self-explanatory.  More information on the last
+steps can be found below.
 
-* a new tag is created
-* the changes are pushed
-* the tagged version is built and published to RubyGems
+#### Version Bumping
 
-You will need to have a current Rubygems API key for the _NSIDC developer user_ account in
-order to publish a new version of the gem to Rubygems. To get the lastest API key:
+Running the `bundle exec rake bump:*` tasks will do the following actions:
+
+1. The gem version will be updated locally
+2. The `CHANGELOG.md` file will updated with the updated gem version and date
+3. A tag `vx.x.x` will be created (with the new gem version)
+4. The files updated by the bump will be pushed to the GitHub repository, along
+   with the newly created tag.
+
+The sub-tasks associated with bump will allow the type of bump to be determined:
+
+| Command                   | Description                                                                                        |
+|---------------------------|----------------------------------------------------------------------------------------------------|
+| `rake bump:pre`           | Increase the current prerelease version number (v1.2.3 -> v1.2.3.pre1; v1.2.3.pre1 -> v1.2.3.pre2) |
+| `rake bump:patch`         | Increase the current patch number (v1.2.0 -> v1.2.1; v1.2.4 -> v1.2.4)                             |
+| `rake bump:minor`         | Increase the minor version number (v1.2.0 -> v1.3.0; v1.2.4 -> v1.3.0)                             |
+| `rake bump:major`         | Increase the major version number (v1.2.0 _> v2.0.0; v1.2.4 -> v2.0.0)                             |
+
+Using any bump other than `pre` will remove the `pre` suffix from the version as well.
+
+#### Release to RubyGems
+
+When a tag in the format of `vx.y.z` (including a `pre` suffix) is pushed to GitHub,
+it will trigger the GitHub Actions release workflow.  This workflow will:
+
+1. Build the gem
+2. Push the gem to RubyGems
+
+The CI workflow has the credentials set up to push to RubyGems, so no user intervention
+is needed, and the workflow itself does not have to be manually triggered.
+
+If needed, the release can also be done locally by running the command
+`bundle exec gem release`. In order for this to work, you will need to have a
+local copy of current Rubygems API key for the _NSIDC developer user_ account in
+To get the lastest API key:
 
 `curl -u <username> https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials`
 
-## Release steps (summary)
-
-- Confirm no errors are returned by `bundle exec rubocop`
-- Confirm all tests pass (`bundle exec rake spec:unit`)
-- Update the version number and date manually in `CHANGELOG.md` and commit the
-  changes.
-- Run the appropriate `bundle exec rake release:*` task
+It is recommended that this not be run locally, however; use the GitHub Actions CI
+workflow instead.
 
 ### SOLR
 

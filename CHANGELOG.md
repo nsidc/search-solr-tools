@@ -1,6 +1,8 @@
 ## Unreleased
 
-  - Adding GitHub Action workflows for continuous integration features
+  - Added GitHub Action workflows for continuous integration features
+  - Updated bump rake task to use Bump gem
+  - Removed release rake task, moved it to the CI workflow
 
 ## v6.4.0 (2023-08-14)
 
