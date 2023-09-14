@@ -28,6 +28,7 @@ class SolrHarvestCLI < Thor
   option :data_center, type: :array, required: true
   option :environment, required: true
   def ping
+    logger.info('Starting ping')
     solr_success = true
     source_success = true
     options[:data_center].each do |target|
