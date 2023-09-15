@@ -185,9 +185,10 @@ describe SolrHarvestCLI do
         allow(harvester_instance).to receive(:ping_source).and_return(true)
         allow(harvester_instance).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
         allow(harvester_instance).to receive(:insert_solr_doc).and_return(ingest_ok)
+        allow(harvester_instance).to receive(:delete_old_documents)
 
         cli.options = { data_center: %w[nsidc], environment: 'integration' }
-        expect { cli.harvest }.not_to raise_error(SystemExit)
+        expect { cli.harvest }.not_to raise_error
       end
     end
   end

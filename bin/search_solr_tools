@@ -10,6 +10,10 @@ class SolrHarvestCLI < Thor
 
   map %w[--version -v] => :__print_version
 
+  def self.exit_on_failure?
+    false
+  end
+
   desc '--version, -v', 'print the version'
   def __print_version
     puts SearchSolrTools::VERSION
