@@ -15,6 +15,8 @@ module SearchSolrTools
   module Harvesters
     # base class for solr harvesters
     class Base
+      include SSTLogger
+
       attr_accessor :environment
 
       DELETE_DOCUMENTS_RATIO = 0.1
@@ -50,10 +52,10 @@ module SearchSolrTools
         begin
           RestClient.get(url) do |response, _request, _result|
             success = response.code == 200
-            puts "Error in ping request: #{response.body}" unless success
+            logger.error "Error in ping request: #{response.body}" unless success
           end
         rescue StandardError => e
-          puts "Rest exception while pinging Solr: #{e}"
+          logger.error "Rest exception while pinging Solr: #{e}"
         end
         success
       end
@@ -62,7 +64,7 @@ module SearchSolrTools
       # to "ping" the data center.  Returns true if the ping is successful (or, as
       # in this default, no ping method was defined)
       def ping_source
-        puts 'Harvester does not have ping method defined, assuming true'
+        logger.info 'Harvester does not have ping method defined, assuming true'
         true
       end
 
@@ -81,9 +83,9 @@ module SearchSolrTools
         solr = RSolr.connect url: solr_url + "/#{solr_core}"
         unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
         if unchanged_count.zero?
-          puts "All documents were updated after #{timestamp}, nothing to delete"
+          logger.info "All documents were updated after #{timestamp}, nothing to delete"
         else
-          puts "Begin removing documents older than #{timestamp}"
+          logger.info "Begin removing documents older than #{timestamp}"
           remove_documents(solr, delete_query, constraints, force, unchanged_count)
         end
       end
@@ -99,13 +101,13 @@ module SearchSolrTools
       def remove_documents(solr, delete_query, constraints, force, numfound)
         all_response_count = (solr.get 'select', params: { wt: :ruby, q: constraints, rows: 0 })['response']['numFound']
         if force || (numfound / all_response_count.to_f < DELETE_DOCUMENTS_RATIO)
-          puts "Deleting #{numfound} documents for #{constraints}"
+          logger.info "Deleting #{numfound} documents for #{constraints}"
           solr.delete_by_query delete_query
           solr.commit
         else
-          puts "Failed to delete records older than current harvest start because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
-          puts "\tTotal records: #{all_response_count}"
-          puts "\tNon-updated records: #{numfound}"
+          logger.info "Failed to delete records older than current harvest start because they exceeded #{DELETE_DOCUMENTS_RATIO} of the total records for this data center."
+          logger.info "\tTotal records: #{all_response_count}"
+          logger.info "\tNon-updated records: #{numfound}"
         end
       end
 
@@ -121,8 +123,8 @@ module SearchSolrTools
           status.record_status doc_status
           doc_status == Helpers::HarvestStatus::INGEST_OK ? success += 1 : failure += 1
         end
-        puts "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
-        puts "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
+        logger.info "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
+        logger.info "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
 
         status
       end
@@ -146,14 +148,14 @@ module SearchSolrTools
           RestClient.post(url, doc_serialized, content_type:) do |response, _request, _result|
             success = response.code == 200
             unless success
-              puts "Error for #{doc_serialized}\n\n response: #{response.body}"
+              logger.error "Error for #{doc_serialized}\n\n response: #{response.body}"
               status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
             end
           end
         rescue StandardError => e
           # TODO: Need to provide more detail re: this failure so we know whether to
           #  exit the job with a status != 0
-          puts "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
+          logger.error "Rest exception while POSTing to Solr: #{e}, for doc: #{doc_serialized}"
           status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
         end
         status
@@ -177,11 +179,11 @@ module SearchSolrTools
         request_url = encode_data_provider_url(request_url)
 
         begin
-          puts "Request: #{request_url}"
+          logger.debug "Request: #{request_url}"
           response = URI.parse(request_url).open(read_timeout: timeout, 'Content-Type' => content_type)
         rescue OpenURI::HTTPError, Timeout::Error, Errno::ETIMEDOUT => e
           retries_left -= 1
-          puts "## REQUEST FAILED ## #{e.class} ## Retrying #{retries_left} more times..."
+          logger.error "## REQUEST FAILED ## #{e.class} ## Retrying #{retries_left} more times..."
 
           retry if retries_left.positive?
 

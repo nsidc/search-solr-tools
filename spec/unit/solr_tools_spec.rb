@@ -91,7 +91,6 @@ describe SolrHarvestCLI do
       end
 
       it 'calls the selected harvester classes' do
-        puts "CLI#{cli.harvester_map}"
         allow(harvester_instance).to receive(:ping_solr).and_return(true)
         allow(harvester_instance).to receive(:ping_source).and_return(true)
         allow(harvester_instance).to receive(:harvest_and_delete).and_return(true)

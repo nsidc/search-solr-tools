@@ -6,7 +6,7 @@ module SearchSolrTools
   module Harvesters
     class NsidcAutoSuggest < AutoSuggest
       def harvest_and_delete
-        puts 'Building auto-suggest indexes for NSIDC'
+        logger.info 'Building auto-suggest indexes for NSIDC'
         super(method(:harvest), 'source:"NSIDC"', @env_settings[:auto_suggest_collection_name])
       end
 

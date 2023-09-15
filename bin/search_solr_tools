@@ -6,6 +6,8 @@ require 'thor'
 
 # rubocop:disable Metrics/AbcSize
 class SolrHarvestCLI < Thor
+  include SSTLogger
+
   map %w[--version -v] => :__print_version
 
   desc '--version, -v', 'print the version'
@@ -28,7 +30,6 @@ class SolrHarvestCLI < Thor
   option :data_center, type: :array, required: true
   option :environment, required: true
   def ping
-    logger.info('Starting ping')
     solr_success = true
     source_success = true
     options[:data_center].each do |target|
@@ -40,11 +41,12 @@ class SolrHarvestCLI < Thor
       rescue StandardError => e
         solr_status = false
         source_status = false
-        puts "Error trying to ping for #{target}: #{e}"
+        logger.error "Ping failed for #{target}: #{e}}"
       end
       solr_success &&= solr_status
       source_success &&= source_status
-      puts "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
+
+      logger.debug "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
     end
 
     ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
@@ -62,7 +64,7 @@ class SolrHarvestCLI < Thor
   option :die_on_failure, type: :boolean
   def harvest(die_on_failure = options[:die_on_failure] || false)
     options[:data_center].each do |target|
-      puts "Target: #{target}"
+      logger.info "Target: #{target}"
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure:)
@@ -74,12 +76,12 @@ class SolrHarvestCLI < Thor
 
         harvester.harvest_and_delete
       rescue SearchSolrTools::Errors::HarvestError => e
-        puts "THERE WERE HARVEST STATUS ERRORS:\n#{e.message}"
+        logger.error "THERE WERE HARVEST STATUS ERRORS:\n#{e.message}"
         exit e.exit_code
       rescue StandardError => e
         # If it gets here, there is an error that we aren't expecting.
-        puts "harvest failed for #{target}: #{e.message}"
-        puts e.backtrace
+        logger.error "harvest failed for #{target}: #{e.message}"
+        logger.error e.backtrace
         exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER
       end
     end

@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require_relative '../logging/sst_logger'
+
 module SearchSolrTools
   module Errors
     class HarvestError < StandardError
+      include SSTLogger
+
       ERRCODE_SOLR_PING = 1
       ERRCODE_SOURCE_PING = 2
       ERRCODE_SOURCE_NO_RESULTS = 4
@@ -73,11 +77,11 @@ module SearchSolrTools
       # rubocop:disable Metrics/AbcSize
       def exit_code
         if @status_data.nil?
-          puts "OTHER ERROR REPORTED: #{@other_message}"
+          logger.error "OTHER ERROR REPORTED: #{@other_message}"
           return ERRCODE_OTHER
         end
 
-        puts "EXIT CODE STATUS:\n#{@status_data.status}"
+        logger.error "EXIT CODE STATUS:\n#{@status_data.status}"
 
         code = 0
         code += ERRCODE_SOLR_PING unless @status_data.ping_solr
