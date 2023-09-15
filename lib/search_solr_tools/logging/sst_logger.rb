@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'logging'
 
 module SSTLogger
@@ -13,15 +15,15 @@ module SSTLogger
     def new_logger
       logger = Logging.logger['search_solr_tools']
 
-      unless ENV['SOLR_HARVEST_STDOUT_LEVEL'].nil?
+      unless ENV.fetch('SOLR_HARVEST_STDOUT_LEVEL').nil?
         new_stdout = Logging.appenders.stdout
-        new_stdout.level = log_level(ENV['SOLR_HARVEST_STDOUT_LEVEL'])
+        new_stdout.level = log_level(ENV.fetch('SOLR_HARVEST_STDOUT_LEVEL'))
         logger.add_appenders new_stdout
       end
 
-      unless ENV['SOLR_HARVEST_LOG_FILE'] == 'none'
+      unless ENV.fetch('SOLR_HARVEST_LOG_FILE', nil) == 'none'
         new_file = Logging.appenders.file(log_file)
-        new_file.level = log_level(ENV['SOLR_HARVEST_LOG_LEVEL'])
+        new_file.level = log_level(ENV.fetch('SOLR_HARVEST_LOG_LEVEL'))
         logger.add_appenders new_file
       end
 
@@ -29,14 +31,14 @@ module SSTLogger
     end
 
     def log_level(level)
-      case (level || '').downcase
+      case (level || 'info').downcase
       when 'debug' then :debug
       when 'info' then :info
       when 'warn' then :warn
       when 'error' then :error
       when 'fatal' then :fatal
       else
-        :info
+        :none
       end
     end
 
