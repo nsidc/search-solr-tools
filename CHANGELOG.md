@@ -1,4 +1,4 @@
-## Unreleased
+## v6.4.1 (2023-09-15)
 
   - Added GitHub Action workflows for continuous integration features
   - Updated bump rake task to use Bump gem
