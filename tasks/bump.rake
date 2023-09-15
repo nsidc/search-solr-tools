@@ -32,7 +32,7 @@ def bump_and_push(version)
 end
 
 def version_rb
-  File.join(root, 'lib', 'search_solr_tools_test', 'version.rb')
+  File.join(root, 'lib', 'search_solr_tools', 'version.rb')
 end
 
 def changelog_md
@@ -52,5 +52,5 @@ def root
 end
 
 def spec
-  Gem::Specification.find_by_name('search_solr_tools_test')
+  Gem::Specification.find_by_name('search_solr_tools')
 end
