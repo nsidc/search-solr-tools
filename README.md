@@ -110,17 +110,18 @@ Requirements:
 * [Rake](https://github.com/ruby/rake)
 * RuboCop and the unit tests should all pass (`rake`)
 
-To make a release, follow theses steps:
+To make a release, follow these steps:
 
 1. Confirm no errors are returned by `bundle exec rubocop` *
 2. Confirm all tests pass (`bundle exec rake spec:unit`) *
 3. Ensure that the `CHANGELOG.md` file is up to date with an `Unreleased`
    header.
-4. Submit a Pull Request, and merge the branch into `main`
-5. On your local machine, ensure you are on the `main` branch (and have
-   it up-to-date), and run `bundle exec rake bump:*` (see below)
-6. This will trigger the GitHub Actions CI workflow to push a release to
-   RubyGems.
+4. Submit a Pull Request
+5. Once the PR has been reviewed and approved, merge the branch into `main`
+6. On your local machine, ensure you are on the `main` branch (and have
+   it up-to-date), and run `bundle exec rake bump:<part>` (see below)
+   * This will trigger the GitHub Actions CI workflow to push a release to
+     RubyGems.
 
 The steps marked `*` above don't need to be done manually; every time a commit
 is pushed to the GitHub repository, these tests will be run automatically.
@@ -130,7 +131,7 @@ steps can be found below.
 
 #### Version Bumping
 
-Running the `bundle exec rake bump:*` tasks will do the following actions:
+Running the `bundle exec rake bump:<part>` tasks will do the following actions:
 
 1. The gem version will be updated locally
 2. The `CHANGELOG.md` file will updated with the updated gem version and date
