@@ -28,6 +28,7 @@ def bump_and_push(version)
   update_changelog(version)
   Bump::Bump.run(version, tag: true, commit: true, changelog: false)
 
+  sh %(git push)
   sh %(git push --tags)
 end
 

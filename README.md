@@ -101,6 +101,10 @@ the tests whenever the appropriate files are changed.
 
 Please be sure to run them in the `bundle exec` context if you're utilizing bundler.
 
+By default, tests are run with minimal logging - no log file and only fatal errors
+written to the console.  This can be changed by setting the environment variables 
+as described in [Logging](#logging) below.
+
 ### Creating Releases (NSIDC devs only)
 
 Requirements:
@@ -207,6 +211,35 @@ In addition to feed URLs, `environments.yaml` also defines various environments
 which can be modified, or additional environments can be added by just adding a
 new YAML stanza with the right keys; this new environment can then be used with
 the `--environment` flag when running `search_solr_tools harvest`.
+
+#### Logging
+
+By default, when running the harvest, harvest logs are written to a file called
+`search-solr-tools.log` in the current directory (set to `info` level), and no
+console logging will be done.  This behavior can be changed by setting the following
+environment variables:
+
+* `SOLR_HARVEST_LOG_FILE` - The full name and path of the file to which log output
+  will be written to.  If set to the special value `none`, no log file will be
+  written to at all.  Log output will be **appended** to the file, if it exists;
+  otherwise, the file will be created.  If not specified, it defaults to a file
+  called `search-solr-tools.log` in the current directory.
+* `SOLR_HARVEST_LOG_LEVEL` - Indicates the level of logging which should be written
+  to the log file.  Defaults to `info`
+* `SOLR_HARVEST_STDOUT_LEVEL` - Indicates the level of logging which should be written
+  to the console.  This can be different than the level written to the log file.
+  If not specified, defaults to no console logging.
+
+The following are the levels of logging that can be specified.  These levels are
+cumulative; for example, `error` will also output `fatal` log writes, and `debug`
+will output **all** log writes.
+
+* `fatal` - Only outputs errors which result in a crash.
+* `error` - Outputs any error that occurs while harvesting.
+* `warn` - Outputs warnings that occur that do not cause issues with the harvesting,
+  but might indicate things that may need to be addressed (such as deprecations, etc)
+* `info` - Outputs general information, such as harvesting status
+* `debug` - Outputs detailed information that can be used for debugging and code tracing.
 
 ## Organization Info
 
