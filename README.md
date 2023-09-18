@@ -241,6 +241,8 @@ will output **all** log writes.
 * `info` - Outputs general information, such as harvesting status
 * `debug` - Outputs detailed information that can be used for debugging and code tracing.
 
+Log files, when used, are rotated daily, or when the file size is about 10MB.
+
 ## Organization Info
 
 ### How to contact NSIDC
