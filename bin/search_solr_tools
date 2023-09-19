@@ -34,6 +34,7 @@ class SolrHarvestCLI < Thor
   option :data_center, type: :array, required: true
   option :environment, required: true
   def ping
+    set_log_environment options[:environment]
     solr_success = true
     source_success = true
     options[:data_center].each do |target|
@@ -50,7 +51,8 @@ class SolrHarvestCLI < Thor
       solr_success &&= solr_status
       source_success &&= source_status
 
-      logger.debug "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
+      msg = "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
+      puts msg
     end
 
     ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
@@ -67,6 +69,7 @@ class SolrHarvestCLI < Thor
   option :environment, required: true
   option :die_on_failure, type: :boolean
   def harvest(die_on_failure = options[:die_on_failure] || false)
+    set_log_environment options[:environment]
     options[:data_center].each do |target|
       logger.info "Target: #{target}"
       begin
@@ -99,17 +102,23 @@ class SolrHarvestCLI < Thor
   desc 'delete_all', 'Delete all documents from the index'
   option :environment, required: true
   def delete_all
+    set_log_environment options[:environment]
     env = SearchSolrTools::SolrEnvironments[options[:environment]]
+    logger.info('DELETE ALL started')
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
+    logger.info("DELETE ALL complete")
   end
 
   desc 'delete_all_auto_suggest', 'Delete all documents from the auto_suggest index'
   option :environment, required: true
   def delete_all_auto_suggest
+    set_log_environment options[:environment]
     env = SearchSolrTools::SolrEnvironments[options[:environment]]
+    logger.info('DELETE ALL AUTO_SUGGEST started')
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
+    logger.info("DELETE ALL AUTO_SUGGEST complete")
   end
 
   desc 'delete_by_data_center', 'Force deletion of documents for a specific data center with timestamps before the passed timestamp in format iso8601 (2014-07-14T21:49:21Z)'
@@ -117,11 +126,14 @@ class SolrHarvestCLI < Thor
   option :environment, required: true
   option :data_center, required: true
   def delete_by_data_center
+    set_log_environment options[:environment]
+    logger.info("DELETE ALL for data center '#{options[:data_center]}' started")
     harvester = get_harvester_class(options[:data_center]).new options[:environment]
     harvester.delete_old_documents(options[:timestamp],
                                    "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:data_center].upcase.to_sym][:long_name]}\"",
                                    SearchSolrTools::SolrEnvironments[harvester.environment][:collection_name],
                                    true)
+    logger.info("DELETE ALL for data center '#{options[:data_center]}' complete")
   end
 
   no_tasks do

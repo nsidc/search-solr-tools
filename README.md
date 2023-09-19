@@ -219,14 +219,14 @@ By default, when running the harvest, harvest logs are written to a file called
 console logging will be done.  This behavior can be changed by setting the following
 environment variables:
 
-* `SOLR_HARVEST_LOG_FILE` - The full name and path of the file to which log output
+* `SEARCH_SOLR_LOG_FILE` - The full name and path of the file to which log output
   will be written to.  If set to the special value `none`, no log file will be
   written to at all.  Log output will be **appended** to the file, if it exists;
   otherwise, the file will be created.  If not specified, it defaults to a file
   called `search-solr-tools.log` in the current directory.
-* `SOLR_HARVEST_LOG_LEVEL` - Indicates the level of logging which should be written
+* `SEARCH_SOLR_LOG_LEVEL` - Indicates the level of logging which should be written
   to the log file.  Defaults to `info`
-* `SOLR_HARVEST_STDOUT_LEVEL` - Indicates the level of logging which should be written
+* `SEARCH_SOLR_STDOUT_LEVEL` - Indicates the level of logging which should be written
   to the console.  This can be different than the level written to the log file.
   If not specified, defaults to no console logging.
 

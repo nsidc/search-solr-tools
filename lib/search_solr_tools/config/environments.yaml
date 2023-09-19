@@ -9,32 +9,47 @@
   # should be. GLA01.018 will show up if we use DCS API v2.
   :nsidc_oai_identifiers_url: oai?verb=ListIdentifiers&metadataPrefix=dif&retired=false
 
+  # Log details.  Can be overridden by environment-specific values
+  :log_file: /var/log/search-solr-tools.log
+  :log_level: warn
+  :stdout_level: none
+
 :local:
   :host: localhost
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
+  :log_file: none
+  :stdout_level: fatal
 
-:dev:
+:dev: &dev
   ## For the below, you'll need to instantiate your own search-solr instance, and point host to that.
   :host: dev.search-solr.USERNAME.dev.int.nsidc.org
   ## For the metadata content, either set up your own instance of dataset-catalog-services
   ## or change the URL below to point to integration
   :nsidc_dataset_metadata_url: http://dev.dcs.USERNAME.dev.int.nsidc.org:1580/api/dataset/metadata/
+  :log_file: /var/log/search-solr-tools-dev.log
+
+:development:
+  <<: *dev
 
 :integration:
   :host: integration.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
+  :log_file: /var/log/search-solr-tools-integration.log
 
 :qa:
   :host: qa.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://qa.nsidc.org/api/dataset/metadata/
+  :log_file: /var/log/search-solr-tools-qa.log
 
 :staging:
   :host: staging.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://staging.nsidc.org/api/dataset/metadata/
+  :log_file: /var/log/search-solr-tools-staging.log
 
 :blue:
   :host: blue.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
+  :log_file: /var/log/search-solr-tools-blue.log
 
 :production:
   :host: search-solr.apps.int.nsidc.org
