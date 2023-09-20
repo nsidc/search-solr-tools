@@ -214,34 +214,47 @@ the `--environment` flag when running `search_solr_tools harvest`.
 
 #### Logging
 
-By default, when running the harvest, harvest logs are written to a file called
-`search-solr-tools.log` in the current directory (set to `info` level), and no
-console logging will be done.  This behavior can be changed by setting the following
-environment variables:
+By default, when running the harvest, harvest logs are written to the file
+`/var/log/search-solr-tools.log` (set to `warn` level), as well as to the console
+at `info` level.  These settings are configured in the `environments.yaml` config
+file.  While these settings are configured in the `common` section of that file,
+they can be overridded for specific environments by adding the configuration
+setting to the individual environment section.  **NOTE: The environment is based
+on the environment used for harvesting as specified in the harvest CLI command.**
 
-* `SEARCH_SOLR_LOG_FILE` - The full name and path of the file to which log output
-  will be written to.  If set to the special value `none`, no log file will be
-  written to at all.  Log output will be **appended** to the file, if it exists;
-  otherwise, the file will be created.  If not specified, it defaults to a file
-  called `search-solr-tools.log` in the current directory.
-* `SEARCH_SOLR_LOG_LEVEL` - Indicates the level of logging which should be written
-  to the log file.  Defaults to `info`
-* `SEARCH_SOLR_STDOUT_LEVEL` - Indicates the level of logging which should be written
-  to the console.  This can be different than the level written to the log file.
-  If not specified, defaults to no console logging.
+The keys in the `environments.yaml` file to consider are as follows:
+
+* `log_file` - The full name and path of the file to which log output will be written
+  to.  If set to the special value `none`, no log file will be written to at all.
+  Log output will be **appended** to the file, if it exists; otherwise, the file will
+  be created.
+* `log_file_level` - Indicates the level of logging which should be written to the log file.
+* `log_stdout_level` - Indicates the level of logging which should be written to the console.
+  This can be different than the level written to the log file.
+
+You can also override the configuration file settings at the command line with the
+following environment variables:
+
+* `SEARCH_SOLR_LOG_FILE` - Overrides the `log_file` setting
+* `SEARCH_SOLR_LOG_LEVEL` - Overrides the `log_file_level` setting
+* `SEARCH_SOLR_STDOUT_LEVEL` - Overrides the `log_stdout_level` setting
+
+When running the spec tests, `SEARCH_SOLR_LOG_FILE` is set to `none` and
+`SEARCH_SOLR_STDOUT_LEVEL` is set to `fatal`, unless you manually set those
+environment variables prior to running the tests.  This is to keep the test output
+clean unless you need more detail for debugging.
 
 The following are the levels of logging that can be specified.  These levels are
-cumulative; for example, `error` will also output `fatal` log writes, and `debug`
-will output **all** log writes.
+cumulative; for example, `error` will also output `fatal` log entries, and `debug`
+will output **all** log entries.
 
+* `none` - No logging outputs will be written.
 * `fatal` - Only outputs errors which result in a crash.
 * `error` - Outputs any error that occurs while harvesting.
 * `warn` - Outputs warnings that occur that do not cause issues with the harvesting,
   but might indicate things that may need to be addressed (such as deprecations, etc)
 * `info` - Outputs general information, such as harvesting status
 * `debug` - Outputs detailed information that can be used for debugging and code tracing.
-
-Log files, when used, are rotated daily, or when the file size is about 10MB.
 
 ## Organization Info
 
