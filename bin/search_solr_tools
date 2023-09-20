@@ -51,8 +51,7 @@ class SolrHarvestCLI < Thor
       solr_success &&= solr_status
       source_success &&= source_status
 
-      msg = "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
-      puts msg
+      puts "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
     end
 
     ping_status = SearchSolrTools::Helpers::HarvestStatus.new(
