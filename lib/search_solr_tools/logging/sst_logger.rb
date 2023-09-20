@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'fileutils'
 require 'logging'
 require 'search_solr_tools'
 
@@ -46,6 +47,7 @@ module SSTLogger
     def append_file_logger(logger)
       return if log_file == 'none'
 
+      FileUtils.mkdir_p(File.dirname(log_file))
       new_file = Logging.appenders.file(
         log_file,
         layout: Logging.layouts.pattern(pattern: "[%d] %-5l : %m\n")

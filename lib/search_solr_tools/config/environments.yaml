@@ -17,7 +17,7 @@
 :local:
   :host: localhost
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
-  :log_file: none
+  :log_file: ./logs/search-solr-tools.log
 
 :dev: &dev
   ## For the below, you'll need to instantiate your own search-solr instance, and point host to that.
