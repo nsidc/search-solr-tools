@@ -2,7 +2,8 @@
 
 require 'fileutils'
 require 'logging'
-require 'search_solr_tools'
+
+require_relative '../config/environments'
 
 module SSTLogger
   LOG_LEVELS = %w[debug info warn error fatal none].freeze
@@ -11,22 +12,14 @@ module SSTLogger
     SSTLogger.logger
   end
 
-  def log_environment(new_env)
-    SSTLogger.log_environment(new_env)
-  end
-
   class << self
     def logger
       @logger ||= new_logger
     end
 
-    def log_environment(new_env)
-      @env = new_env
-      @logger = new_logger
-    end
+    private
 
     def new_logger
-      @env ||= :development
       logger = Logging.logger['search_solr_tools']
 
       append_stdout_logger(logger)
@@ -57,17 +50,17 @@ module SSTLogger
     end
 
     def log_file
-      env = SearchSolrTools::SolrEnvironments[@env]
+      env = SearchSolrTools::SolrEnvironments[]
       ENV.fetch('SEARCH_SOLR_LOG_FILE', nil) || env[:log_file]
     end
 
     def log_file_level
-      env = SearchSolrTools::SolrEnvironments[@env]
+      env = SearchSolrTools::SolrEnvironments[]
       log_level(ENV.fetch('SEARCH_SOLR_LOG_LEVEL', nil) || env[:log_file_level])
     end
 
     def log_stdout_level
-      env = SearchSolrTools::SolrEnvironments[@env]
+      env = SearchSolrTools::SolrEnvironments[]
       log_level(ENV.fetch('SEARCH_SOLR_STDOUT_LEVEL', nil) || env[:log_stdout_level])
     end
 

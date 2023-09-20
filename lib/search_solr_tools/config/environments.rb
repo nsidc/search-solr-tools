@@ -8,7 +8,7 @@ module SearchSolrTools
     YAML_ENVS = YAML.load_file(File.expand_path('environments.yaml', __dir__), aliases: true)
 
     def self.[](env = :development)
-      YAML_ENVS[:common].merge(YAML_ENVS[env.to_sym])
+      YAML_ENVS[env.to_sym]
     end
   end
 end

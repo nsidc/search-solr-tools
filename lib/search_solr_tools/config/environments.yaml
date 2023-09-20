@@ -1,4 +1,4 @@
-:common:
+:common: &common
   :auto_suggest_collection_name: auto_suggest
   :collection_name: nsidc_oai
   :collection_path: solr
@@ -15,11 +15,12 @@
   :log_stdout_level: info
 
 :local:
+  <<: *common
   :host: localhost
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
-  :log_file: ./logs/search-solr-tools.log
 
 :dev: &dev
+  <<: *common
   ## For the below, you'll need to instantiate your own search-solr instance, and point host to that.
   :host: dev.search-solr.USERNAME.dev.int.nsidc.org
   ## For the metadata content, either set up your own instance of dataset-catalog-services
@@ -30,21 +31,26 @@
   <<: *dev
 
 :integration:
+  <<: *common
   :host: integration.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://integration.nsidc.org/api/dataset/metadata/
 
 :qa:
+  <<: *common
   :host: qa.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://qa.nsidc.org/api/dataset/metadata/
 
 :staging:
+  <<: *common
   :host: staging.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://staging.nsidc.org/api/dataset/metadata/
 
 :blue:
+  <<: *common
   :host: blue.search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
 
 :production:
+  <<: *common
   :host: search-solr.apps.int.nsidc.org
   :nsidc_dataset_metadata_url: http://nsidc.org/api/dataset/metadata/
