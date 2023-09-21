@@ -217,10 +217,7 @@ the `--environment` flag when running `search_solr_tools harvest`.
 By default, when running the harvest, harvest logs are written to the file
 `/var/log/search-solr-tools.log` (set to `warn` level), as well as to the console
 at `info` level.  These settings are configured in the `environments.yaml` config
-file.  While these settings are configured in the `common` section of that file,
-they can be overridded for specific environments by adding the configuration
-setting to the individual environment section.  **NOTE: The environment is based
-on the environment used for harvesting as specified in the harvest CLI command.**
+file, in the `common` section. 
 
 The keys in the `environments.yaml` file to consider are as follows:
 
@@ -233,7 +230,7 @@ The keys in the `environments.yaml` file to consider are as follows:
   This can be different than the level written to the log file.
 
 You can also override the configuration file settings at the command line with the
-following environment variables:
+following environment variables (useful when for doing development work):
 
 * `SEARCH_SOLR_LOG_FILE` - Overrides the `log_file` setting
 * `SEARCH_SOLR_LOG_LEVEL` - Overrides the `log_file_level` setting
