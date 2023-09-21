@@ -1,4 +1,4 @@
-## Unreleased
+## v6.5.0 (2023-09-21)
 
   - Adding logging functionality to the code, including the ability
     to specify log file destination and log level for both the file and
