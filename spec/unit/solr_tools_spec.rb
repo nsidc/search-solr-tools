@@ -21,6 +21,8 @@ describe SolrHarvestCLI do
     let(:harvester_instance) { instance_double(harvester_class) }
 
     before do
+      RSpec::Matchers.define_negated_matcher :not_raise_error, :raise_error
+
       allow(harvester_class).to receive(:new).and_return(harvester_instance)
     end
 
@@ -30,7 +32,8 @@ describe SolrHarvestCLI do
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
 
-      expect { cli.ping }.not_to raise_error
+      expect { cli.ping }.to not_raise_error
+                         .and output(include('Solr ping OK? true', 'data center ping OK? true')).to_stdout
 
       expect(harvester_instance).to have_received(:ping_solr)
       expect(harvester_instance).to have_received(:ping_source)
@@ -41,9 +44,11 @@ describe SolrHarvestCLI do
       allow(harvester_instance).to receive(:ping_source).and_return(false)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
-      expect { cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
-      end
+      expect { cli.ping }
+        .to output(include('Solr ping OK? true', 'data center ping OK? false')).to_stdout
+        .and raise_error(SystemExit) do |error|
+          expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
+        end
 
       expect(harvester_instance).to have_received(:ping_solr)
       expect(harvester_instance).to have_received(:ping_source)
@@ -54,9 +59,11 @@ describe SolrHarvestCLI do
       allow(harvester_instance).to receive(:ping_source).and_return(true)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
-      expect { cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING)
-      end
+      expect { cli.ping }
+        .to output(include('Solr ping OK? false', 'data center ping OK? true')).to_stdout
+        .and raise_error(SystemExit) do |error|
+          expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING)
+        end
 
       expect(harvester_instance).to have_received(:ping_solr)
       expect(harvester_instance).to have_received(:ping_source)
@@ -67,9 +74,13 @@ describe SolrHarvestCLI do
       allow(harvester_instance).to receive(:ping_source).and_return(false)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
-      expect { cli.ping }.to raise_error(SystemExit) do |error|
-        expect(error.status).to eq(SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING + SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING)
-      end
+      expect { cli.ping }.to output(include('Solr ping OK? false', 'data center ping OK? false'))
+        .to_stdout
+        .and raise_error(SystemExit) do |error|
+          expect(error.status).to eq(
+            SearchSolrTools::Errors::HarvestError::ERRCODE_SOLR_PING + SearchSolrTools::Errors::HarvestError::ERRCODE_SOURCE_PING
+          )
+        end
 
       expect(harvester_instance).to have_received(:ping_solr)
       expect(harvester_instance).to have_received(:ping_source)
@@ -91,7 +102,6 @@ describe SolrHarvestCLI do
       end
 
       it 'calls the selected harvester classes' do
-        puts "CLI#{cli.harvester_map}"
         allow(harvester_instance).to receive(:ping_solr).and_return(true)
         allow(harvester_instance).to receive(:ping_source).and_return(true)
         allow(harvester_instance).to receive(:harvest_and_delete).and_return(true)
@@ -186,9 +196,10 @@ describe SolrHarvestCLI do
         allow(harvester_instance).to receive(:ping_source).and_return(true)
         allow(harvester_instance).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
         allow(harvester_instance).to receive(:insert_solr_doc).and_return(ingest_ok)
+        allow(harvester_instance).to receive(:delete_old_documents)
 
         cli.options = { data_center: %w[nsidc], environment: 'integration' }
-        expect { cli.harvest }.not_to raise_error(SystemExit)
+        expect { cli.harvest }.not_to raise_error
       end
     end
   end

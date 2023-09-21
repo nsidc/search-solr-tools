@@ -6,7 +6,13 @@ require 'thor'
 
 # rubocop:disable Metrics/AbcSize
 class SolrHarvestCLI < Thor
+  include SSTLogger
+
   map %w[--version -v] => :__print_version
+
+  def self.exit_on_failure?
+    false
+  end
 
   desc '--version, -v', 'print the version'
   def __print_version
@@ -39,10 +45,11 @@ class SolrHarvestCLI < Thor
       rescue StandardError => e
         solr_status = false
         source_status = false
-        puts "Error trying to ping for #{target}: #{e}"
+        logger.error "Ping failed for #{target}: #{e}}"
       end
       solr_success &&= solr_status
       source_success &&= source_status
+
       puts "Target: #{target}, Solr ping OK? #{solr_status}, data center ping OK? #{source_status}"
     end
 
@@ -61,7 +68,7 @@ class SolrHarvestCLI < Thor
   option :die_on_failure, type: :boolean
   def harvest(die_on_failure = options[:die_on_failure] || false)
     options[:data_center].each do |target|
-      puts "Target: #{target}"
+      logger.info "Target: #{target}"
       begin
         harvest_class = get_harvester_class(target)
         harvester = harvest_class.new(options[:environment], die_on_failure:)
@@ -73,12 +80,12 @@ class SolrHarvestCLI < Thor
 
         harvester.harvest_and_delete
       rescue SearchSolrTools::Errors::HarvestError => e
-        puts "THERE WERE HARVEST STATUS ERRORS:\n#{e.message}"
+        logger.error "THERE WERE HARVEST STATUS ERRORS:\n#{e.message}"
         exit e.exit_code
       rescue StandardError => e
         # If it gets here, there is an error that we aren't expecting.
-        puts "harvest failed for #{target}: #{e.message}"
-        puts e.backtrace
+        logger.error "harvest failed for #{target}: #{e.message}"
+        logger.error e.backtrace
         exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER
       end
     end
@@ -93,16 +100,20 @@ class SolrHarvestCLI < Thor
   option :environment, required: true
   def delete_all
     env = SearchSolrTools::SolrEnvironments[options[:environment]]
+    logger.info('DELETE ALL started')
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
+    logger.info('DELETE ALL complete')
   end
 
   desc 'delete_all_auto_suggest', 'Delete all documents from the auto_suggest index'
   option :environment, required: true
   def delete_all_auto_suggest
     env = SearchSolrTools::SolrEnvironments[options[:environment]]
+    logger.info('DELETE ALL AUTO_SUGGEST started')
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
     `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
+    logger.info('DELETE ALL AUTO_SUGGEST complete')
   end
 
   desc 'delete_by_data_center', 'Force deletion of documents for a specific data center with timestamps before the passed timestamp in format iso8601 (2014-07-14T21:49:21Z)'
@@ -110,11 +121,13 @@ class SolrHarvestCLI < Thor
   option :environment, required: true
   option :data_center, required: true
   def delete_by_data_center
+    logger.info("DELETE ALL for data center '#{options[:data_center]}' started")
     harvester = get_harvester_class(options[:data_center]).new options[:environment]
     harvester.delete_old_documents(options[:timestamp],
                                    "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:data_center].upcase.to_sym][:long_name]}\"",
                                    SearchSolrTools::SolrEnvironments[harvester.environment][:collection_name],
                                    true)
+    logger.info("DELETE ALL for data center '#{options[:data_center]}' complete")
   end
 
   no_tasks do

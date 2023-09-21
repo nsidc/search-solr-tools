@@ -51,10 +51,10 @@ module SearchSolrTools
         status = insert_solr_doc add_docs, Base::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
 
         if status == Helpers::HarvestStatus::INGEST_OK
-          puts "Added #{add_docs.size} auto suggest documents in one commit"
+          logger.info "Added #{add_docs.size} auto suggest documents in one commit"
           Helpers::HarvestStatus.new(Helpers::HarvestStatus::INGEST_OK => add_docs)
         else
-          puts "Failed adding #{add_docs.size} documents in single commit, retrying one by one"
+          logger.error "Failed adding #{add_docs.size} documents in single commit, retrying one by one"
           new_add_docs = []
           add_docs.each do |doc|
             new_add_docs << { 'add' => { 'doc' => doc } }

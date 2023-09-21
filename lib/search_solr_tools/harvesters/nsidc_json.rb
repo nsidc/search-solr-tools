@@ -21,13 +21,13 @@ module SearchSolrTools
             return response.code == 200
           end
         rescue StandardError
-          puts "Error trying to get options for #{nsidc_json_url} (ping)"
+          logger.error "Error trying to get options for #{nsidc_json_url} (ping)"
         end
         false
       end
 
       def harvest_and_delete
-        puts "Running harvest of NSIDC catalog from #{nsidc_json_url}"
+        logger.info "Running harvest of NSIDC catalog from #{nsidc_json_url}"
         super(method(:harvest_nsidc_json_into_solr), "data_centers:\"#{Helpers::SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]}\"")
       end
 
@@ -47,8 +47,8 @@ module SearchSolrTools
       rescue Errors::HarvestError => e
         raise e
       rescue StandardError => e
-        puts "An unexpected exception occurred while trying to harvest or insert: #{e}"
-        puts e.backtrace
+        logger.error "An unexpected exception occurred while trying to harvest or insert: #{e}"
+        logger.error e.backtrace
         status = Helpers::HarvestStatus.new(Helpers::HarvestStatus::OTHER_ERROR => e)
         raise Errors::HarvestError, status
       end
@@ -83,7 +83,7 @@ module SearchSolrTools
           begin
             docs << { 'add' => { 'doc' => @translator.translate(fetch_json_from_nsidc(id)) } }
           rescue StandardError => e
-            puts "Failed to fetch #{id} with error #{e}: #{e.backtrace}"
+            logger.error "Failed to fetch #{id} with error #{e}: #{e.backtrace}"
             failure_ids << id
           end
         end

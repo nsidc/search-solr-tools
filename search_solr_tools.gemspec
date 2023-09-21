@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'ffi-geos', '~> 2.4.0'
   spec.add_runtime_dependency 'iso8601', '~> 0.13.0'
+  spec.add_runtime_dependency 'logging', '~> 2.3.1'
   spec.add_runtime_dependency 'multi_json', '~> 1.15.0'
   spec.add_runtime_dependency 'nokogiri', '~> 1.15.4'
   spec.add_runtime_dependency 'rest-client', '~> 2.1.0'
