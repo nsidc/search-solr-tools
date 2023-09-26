@@ -1,4 +1,4 @@
-## Unreleased
+## v6.5.1 (2023-09-26)
 
   - Updating logging default configuration
 
