@@ -11,7 +11,7 @@
 
   # Log details.  Can be overridden by environment-specific values
   :log_file: /var/log/search-solr-tools.log
-  :log_file_level: warn
+  :log_file_level: debug
   :log_stdout_level: info
 
 :local:
