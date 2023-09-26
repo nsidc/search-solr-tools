@@ -1,3 +1,7 @@
+## Unreleased
+
+  - Updating logging default configuration
+
 ## v6.5.0 (2023-09-21)
 
   - Adding logging functionality to the code, including the ability
