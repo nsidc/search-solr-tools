@@ -222,7 +222,7 @@ describe SolrHarvestCLI do
         '2014-07-14T21:49:21Z',
         'data_centers:"National Snow and Ice Data Center"',
         'nsidc_oai',
-        true
+        force: true
       )
     end
   end

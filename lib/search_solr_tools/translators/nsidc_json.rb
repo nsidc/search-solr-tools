@@ -26,7 +26,7 @@ module SearchSolrTools
           'dataset_version'           => json_doc['majorVersion']['version'],
           'data_centers'              => Helpers::SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name],
           'facet_data_center'         => "#{Helpers::SolrFormat::DATA_CENTER_NAMES[:NSIDC][:long_name]} | #{Helpers::SolrFormat::DATA_CENTER_NAMES[:NSIDC][:short_name]}",
-          'cumulus'                   => json.doc['cumulus'],
+          'cumulus'                   => json_doc['cumulus'],
           'authors'                   => translate_personnel_and_creators_to_authors(json_doc['personnel'], generate_data_citation_creators(json_doc['dataCitation'])),
           'topics'                    => translate_iso_topic_categories(json_doc['isoTopicCategories']),
           'parameters'                => translate_parameters(json_doc['parameters']),
@@ -55,7 +55,8 @@ module SearchSolrTools
           'facet_sponsored_program'   => translate_short_long_names_to_facet_value(json_doc['internalDataCenters']),
           'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters']),
           'facet_spatial_resolution'  => translate_spatial_resolution_facet_values(json_doc['parameters']),
-          'sponsored_programs'        => translate_internal_datacenters(json_doc['internalDataCenters'])
+          'sponsored_programs'        => translate_internal_datacenters(json_doc['internalDataCenters']),
+          'facet_featured'            => translate_featured(json_doc, spatial_coverages)
         )
       end
       # rubocop:enable Metrics/MethodLength
@@ -203,6 +204,20 @@ module SearchSolrTools
         end
 
         json_strings.uniq
+      end
+
+      def translate_featured(json, spatial_coverages)
+        facet_featured = []
+
+        # Add the Earthdata Cloud feature
+        # facet_featured << 'Available in NASA Earthdata Cloud' if json['cumulus']
+        facet_featured << 'In Earthdata Cloud' if json['cumulus']
+
+        # Add the "Global" spatial coverage to this facet
+        global = Helpers::TranslateSpatialCoverage.geojson_to_global_facet(spatial_coverages)
+        facet_featured << global unless global.nil?
+
+        facet_featured
       end
 
       def generate_data_citation_creators(data_citation)
