@@ -26,7 +26,7 @@
   ## For the metadata content, either set up your own instance of dataset-catalog-services
   ## or change the URL below to point to integration
   :nsidc_dataset_metadata_url: http://dev.dcs.USERNAME.dev.int.nsidc.org:11580/api/dataset/metadata/
-  
+
 :development:
   <<: *dev
 
