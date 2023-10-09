@@ -1,3 +1,9 @@
+## v7.0.0 (2023-10-09)
+
+  - Updating harvesting to include cumulus value
+  - Adding a new facet that will cover both cumulus and global spatial
+    coverage.
+
 ## v6.5.1 (2023-09-26)
 
   - Updating logging default configuration

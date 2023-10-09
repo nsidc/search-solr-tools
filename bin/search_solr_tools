@@ -126,7 +126,7 @@ class SolrHarvestCLI < Thor
     harvester.delete_old_documents(options[:timestamp],
                                    "data_centers:\"#{SearchSolrTools::Helpers::SolrFormat::DATA_CENTER_NAMES[options[:data_center].upcase.to_sym][:long_name]}\"",
                                    SearchSolrTools::SolrEnvironments[harvester.environment][:collection_name],
-                                   true)
+                                   force: true)
     logger.info("DELETE ALL for data center '#{options[:data_center]}' complete")
   end
 
