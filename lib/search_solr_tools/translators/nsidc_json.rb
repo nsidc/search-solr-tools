@@ -209,7 +209,6 @@ module SearchSolrTools
         facet_featured = []
 
         # Add the Earthdata Cloud feature
-        # facet_featured << 'Available in NASA Earthdata Cloud' if json['cumulus']
         facet_featured << 'In Earthdata Cloud' if json['cumulus']
 
         # Add the "Global" spatial coverage to this facet
