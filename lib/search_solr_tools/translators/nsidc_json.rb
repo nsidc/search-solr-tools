@@ -39,7 +39,6 @@ module SearchSolrTools
           'spatial_coverages'         => Helpers::TranslateSpatialCoverage.geojson_to_spatial_display_str(spatial_coverages),
           'spatial'                   => Helpers::TranslateSpatialCoverage.geojson_to_spatial_index_str(spatial_coverages),
           'spatial_area'              => Helpers::TranslateSpatialCoverage.geojson_to_spatial_area(spatial_coverages),
-          'facet_spatial_coverage'    => Helpers::TranslateSpatialCoverage.geojson_to_global_facet(spatial_coverages),
           'facet_spatial_scope'       => Helpers::TranslateSpatialCoverage.geojson_to_spatial_scope_facet(spatial_coverages),
           'temporal_coverages'        => temporal_coverage_values['temporal_coverages'],
           'temporal_duration'         => temporal_coverage_values['temporal_duration'],
