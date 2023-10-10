@@ -56,7 +56,7 @@ module SearchSolrTools
           'facet_spatial_resolution'  => translate_spatial_resolution_facet_values(json_doc['parameters']),
           'sponsored_programs'        => translate_internal_datacenters(json_doc['internalDataCenters']),
           'facet_storage_location'    => translate_storage_location(json_doc),
-          'facet_spatial_coverage'    => Helpers::TranslateSpatialCoverage.geojson_to_global_facet(spatial_coverages),
+          'facet_spatial_coverage'    => Helpers::TranslateSpatialCoverage.geojson_to_global_facet(spatial_coverages)
         )
       end
       # rubocop:enable Metrics/MethodLength
