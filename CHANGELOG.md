@@ -1,3 +1,7 @@
+## Unreleased
+
+  - Force parameter facets based on GCMD keywords to be upper-case.
+
 ## v7.0.0 (2023-10-09)
 
   - Updating harvesting to include cumulus value
