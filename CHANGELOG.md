@@ -1,4 +1,4 @@
-## Unreleased
+## v7.1.0 (2023-10-11)
 
   - Updating harvesting to harvest storage system and spatial coverage
     into separate facets, instead of a combined facet_featured facet
