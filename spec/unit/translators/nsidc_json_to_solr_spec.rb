@@ -230,50 +230,26 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     end
   end
 
-  describe 'featured faceting' do
-    it 'translates true cumulus value to featured facet value' do
+  describe 'storage location faceting' do
+    it 'translates true cumulus value to storage location facet value' do
       json_doc = { 'cumulus' => true }
-      facet = translator.translate_featured(json_doc, nil)
+      facet = translator.translate_storage_location(json_doc)
       expect(facet).to include('In Earthdata Cloud')
       expect(facet).not_to include('Show Global Only')
     end
 
-    it 'does not translate false cumulus value to featured facet value' do
+    it 'does not translate false cumulus value to storage location facet value' do
       json_doc = { 'cumulus' => false }
-      facet = translator.translate_featured(json_doc, nil)
+      facet = translator.translate_storage_location(json_doc)
       expect(facet).not_to include('In Earthdata Cloud')
       expect(facet).not_to include('Show Global Only')
     end
 
-    it 'does not translate missing cumulus value to featured facet value' do
+    it 'does not translate missing cumulus value to storage location facet value' do
       json_doc = {}
-      facet = translator.translate_featured(json_doc, nil)
+      facet = translator.translate_storage_location(json_doc)
       expect(facet).not_to include('In Earthdata Cloud')
       expect(facet).not_to include('Show Global Only')
-    end
-
-    it 'translates global spatial coverage to featured facet value' do
-      json_doc = {}
-      spatial = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, 86.0], [180.0, 86.0], [180.0, -86.0], [-180.0, -86.0], [-180.0, 86.0]]])]
-      facet = translator.translate_featured(json_doc, spatial)
-      expect(facet).not_to include('In Earthdata Cloud')
-      expect(facet).to include('Show Global Only')
-    end
-
-    it 'does not translate non-global coverage to featured facet value' do
-      json_doc = {}
-      spatial = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, -31.23], [180.0, -31.23], [180.0, -90.0], [-180.0, -90.0], [-180.0, -31.23]]])]
-      facet = translator.translate_featured(json_doc, spatial)
-      expect(facet).not_to include('In Earthdata Cloud')
-      expect(facet).not_to include('Show Global Only')
-    end
-
-    it 'translates both true cumulus value and global spatial coverage to featured facet value' do
-      json_doc = { 'cumulus' => true }
-      spatial = [RGeo::GeoJSON.decode('type' => 'Polygon', 'coordinates' => [[[-180.0, 86.0], [180.0, 86.0], [180.0, -86.0], [-180.0, -86.0], [-180.0, 86.0]]])]
-      facet = translator.translate_featured(json_doc, spatial)
-      expect(facet).to include('In Earthdata Cloud')
-      expect(facet).to include('Show Global Only')
     end
   end
 end

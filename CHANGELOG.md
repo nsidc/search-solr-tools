@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Updating harvesting to harvest storage system and spatial coverage
+    into separate facets, instead of a combined facet_featured facet
+
 ## v7.0.0 (2023-10-09)
 
   - Updating harvesting to include cumulus value
