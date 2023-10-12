@@ -55,7 +55,8 @@ module SearchSolrTools
           'facet_temporal_resolution' => translate_temporal_resolution_facet_values(json_doc['parameters']),
           'facet_spatial_resolution'  => translate_spatial_resolution_facet_values(json_doc['parameters']),
           'sponsored_programs'        => translate_internal_datacenters(json_doc['internalDataCenters']),
-          'facet_featured'            => translate_featured(json_doc, spatial_coverages)
+          'facet_storage_location'    => translate_storage_location(json_doc),
+          'facet_spatial_coverage'    => Helpers::TranslateSpatialCoverage.geojson_to_global_facet(spatial_coverages)
         )
       end
       # rubocop:enable Metrics/MethodLength
@@ -206,17 +207,13 @@ module SearchSolrTools
         json_strings.uniq
       end
 
-      def translate_featured(json, spatial_coverages)
-        facet_featured = []
+      def translate_storage_location(json)
+        facet_storage = []
 
         # Add the Earthdata Cloud feature
-        facet_featured << 'In Earthdata Cloud' if json['cumulus']
+        facet_storage << 'In Earthdata Cloud' if json['cumulus']
 
-        # Add the "Global" spatial coverage to this facet
-        global = Helpers::TranslateSpatialCoverage.geojson_to_global_facet(spatial_coverages)
-        facet_featured << global unless global.nil?
-
-        facet_featured
+        facet_storage
       end
 
       def generate_data_citation_creators(data_citation)
