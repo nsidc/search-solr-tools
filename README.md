@@ -204,7 +204,7 @@ the `--environment` flag when running `search_solr_tools harvest`.
 
 #### Logging
 
-Solr logs are in /var/solr/logs
+_Note: Logs for Solr itself are in /var/solr/logs_
 
 By default, when running the harvest, harvest logs are written to the file
 `/var/log/search-solr-tools.log` (set to `warn` level), as well as to the console
