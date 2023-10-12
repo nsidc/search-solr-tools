@@ -89,7 +89,7 @@ module SearchSolrTools
         binned_facet = bin(FacetConfiguration.get_facet_bin(type), format_string)
         if binned_facet.nil?
           format_string
-        elsif binned_facet.eql?('exclude')
+        elsif binned_facet.match?(/\Aexclude\z/i)
           nil
         else
           binned_facet
