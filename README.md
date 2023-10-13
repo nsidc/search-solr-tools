@@ -40,6 +40,10 @@ Once you have the gem built in the project directory, install it:
 
   `gem install --local ./search_solr_tools-version.gem`
 
+See _Harvesting Data_ (below) for usage examples.
+
+Harvesting Data
+
 ## Working on the Project
 
 1. Create your feature branch (`git checkout -b my-new-feature`)
@@ -183,7 +187,7 @@ Outside of NSIDC, setup solr using the instructions found in the
 
 ### Harvesting Data
 
-The harvester requires additional metadata from services that may not yet be
+The harvester requires additional metadata from services that may not be
 publicly available, which are referenced in
 `lib/search_solr_tools/config/environments.yaml`.
 
@@ -202,9 +206,14 @@ which can be modified, or additional environments can be added by just adding a
 new YAML stanza with the right keys; this new environment can then be used with
 the `--environment` flag when running `search_solr_tools harvest`.
 
-#### Logging
+An example harvest of NSIDC metadata into a developer instance of Solr:
 
-_Note: Logs for Solr itself are in /var/solr/logs_
+    bundle exec search_solr_tools harvest --data-center=nsidc --environment=dev
+
+In this example, the `host` value in the `environments.yaml` `dev` entry
+must reference a valid Solr instance.
+
+#### Logging
 
 By default, when running the harvest, harvest logs are written to the file
 `/var/log/search-solr-tools.log` (set to `warn` level), as well as to the console
