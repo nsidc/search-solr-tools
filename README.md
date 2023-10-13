@@ -42,8 +42,6 @@ Once you have the gem built in the project directory, install it:
 
 See _Harvesting Data_ (below) for usage examples.
 
-Harvesting Data
-
 ## Working on the Project
 
 1. Create your feature branch (`git checkout -b my-new-feature`)
