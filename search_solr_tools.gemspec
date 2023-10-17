@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'search_solr_tools'
   spec.version       = SearchSolrTools::VERSION
   spec.authors       = ['Chris Chalstrom', 'Michael Brandt', 'Jonathan Kovarik', 'Luis Lopez', 'Stuart Reed', 'Julia Collins', 'Scott Lewis']
-  spec.email         = ['cchalstr@nsidc.org', 'mbrandt@colorado.edu', 'Jonathan.Kovarik@colorado.edu', 'luis.lopezespinosa@colorado.edu', 'stuart.reed@colorado
-.edu', 'collinsj@colorado.edu', 'scott.lewis@colorado.edu']
+  spec.email         = ['Jonathan.Kovarik@colorado.edu', 'luis.lopezespinosa@colorado.edu', 'collinsj@colorado.edu', 'scott.lewis@colorado.edu']
   spec.summary       = 'Tools to harvest and manage various scientific dataset feeds in a Solr instance.'
   spec.description   = <<-EOF
     Ruby translators to transform various metadata feeds into solr documents and
