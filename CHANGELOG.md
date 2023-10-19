@@ -1,4 +1,4 @@
-## Unreleased
+## v7.2.0 (2023-10-19)
 
   - Force parameter facets based on GCMD keywords to be upper-case.
   - Only use short name for sensor facets in which the short name and long name are identical.
