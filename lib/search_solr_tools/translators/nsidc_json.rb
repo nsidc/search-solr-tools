@@ -75,9 +75,10 @@ module SearchSolrTools
         return facet_values if json.nil?
 
         json.each do |json_entry|
+          long_name = json_entry['shortName'].eql?(json_entry['longName']) ? '' : json_entry['longName']
           sensor_bin = Helpers::SolrFormat.facet_binning('sensor', json_entry['shortName'].to_s)
           facet_values << if sensor_bin.eql? json_entry['shortName']
-                            "#{json_entry['longName']} | #{json_entry['shortName']}"
+                            "#{long_name} | #{json_entry['shortName']}"
                           else
                             " | #{sensor_bin}"
                           end

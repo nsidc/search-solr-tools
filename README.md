@@ -4,7 +4,7 @@
 
 This is a gem that contains:
 
-* Ruby translators to transform various metadata feeds into solr documents
+* Ruby translators to transform NSIDC metadata feeds into solr documents
 * A command-line utility to access/utilize the gem's translators to harvest
    metadata into a working solr instance.
 
@@ -25,29 +25,22 @@ Clone the repository, and install all requirements as noted below.
 #### Configuration
 
 Once you have the code and requirements, edit the configuration file in
-`lib/search_solr_tools/config/environments.yaml` to match your environment. The
-configuration values are set by environment for each harvester (or specified in
-the `common` settings list), with the environment overriding `common` if a
-different setting is specified for a given environment.
-
-Each harvester has its own configuration settings. Most are the target endpoint;
-EOL, however, has a list of THREDDS project endpoints and NSIDC has its own
-oai/metadata endpoint settings.
-
-Most users should not need to change the harvester configuration unless they
-establish a local test node, or if a provider changes available endpoints;
-however, the `host` option for each environment must specify the configured SOLR
+`lib/search_solr_tools/config/environments.yaml` to match your environment. 
+Environment settings take precedence over `common` settings.
+The `host` option for each environment must specify the configured SOLR
 instance you intend to use these tools with.
 
 #### Build and Install Gem
 
-Then run:
+Run:
 
   `bundle exec gem build ./search_solr_tools.gemspec`
 
-Once you have the gem built in the project directory, install the utility:
+Once you have the gem built in the project directory, install it:
 
   `gem install --local ./search_solr_tools-version.gem`
+
+See _Harvesting Data_ (below) for usage examples.
 
 ## Working on the Project
 
@@ -177,8 +170,7 @@ workflow instead.
 
 ### SOLR
 
-To harvest data utilizing the gem, you will need an installed instance of [Solr
-8.5.3](https://lucene.apache.org/solr/guide/)
+To harvest data utilizing the gem, you will need an installed instance of [Solr](https://solr.apache.org/guide/solr/latest/index.html)
 
 #### NSIDC
 
@@ -193,7 +185,7 @@ Outside of NSIDC, setup solr using the instructions found in the
 
 ### Harvesting Data
 
-The harvester requires additional metadata from services that may not yet be
+The harvester requires additional metadata from services that may not be
 publicly available, which are referenced in
 `lib/search_solr_tools/config/environments.yaml`.
 
@@ -204,13 +196,20 @@ overview of what's available, simply run `search_solr_tools`.
 
 Harvesting of data can be done using the `harvest` task, giving it a list of
 harvesters and an environment. Deletion is possible via the `delete_all` and/or
-`delete_by_data_center'`tasks. `list harvesters` will list the valid harvest
+`delete_by_data_center'`tasks. `list_harvesters` will list the valid harvest
 targets.
 
 In addition to feed URLs, `environments.yaml` also defines various environments
 which can be modified, or additional environments can be added by just adding a
 new YAML stanza with the right keys; this new environment can then be used with
 the `--environment` flag when running `search_solr_tools harvest`.
+
+An example harvest of NSIDC metadata into a developer instance of Solr:
+
+    bundle exec search_solr_tools harvest --data-center=nsidc --environment=dev
+
+In this example, the `host` value in the `environments.yaml` `dev` entry
+must reference a valid Solr instance.
 
 #### Logging
 

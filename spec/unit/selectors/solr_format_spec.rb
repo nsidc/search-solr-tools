@@ -39,12 +39,12 @@ describe 'SOLR format methods' do
 
     it 'sets the parameter for a variable level_1' do
       node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[0].text
-      expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql 'Ice Extent'
+      expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql 'ICE EXTENT'
     end
 
     it 'bins the parameter' do
       node = fixture.xpath('.//gmd:MD_Keywords[.//gmd:MD_KeywordTypeCode="discipline"]//gmd:keyword/gco:CharacterString')[1].text
-      expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql 'Ocean Properties (other)'
+      expect(SearchSolrTools::Helpers::SolrFormat.parameter_binning(node)).to eql 'OCEAN PROPERTIES (OTHER)'
     end
 
     it 'does not set parameters that do not have variable level_1' do
@@ -59,7 +59,7 @@ describe 'SOLR format methods' do
 
     it 'bins the data format' do
       node = fixture.xpath('.//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString')[1].text
-      expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('format', node)).to eql 'ASCII Text'
+      expect(SearchSolrTools::Helpers::SolrFormat.facet_binning('format', node)).to eql 'ASCII TEXT'
     end
 
     it 'does not set excluded data formats' do

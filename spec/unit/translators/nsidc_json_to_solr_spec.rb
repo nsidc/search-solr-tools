@@ -197,7 +197,7 @@ describe SearchSolrTools::Translators::NsidcJsonToSolr do
     formats = translator.translate_format_to_facet_format(format_json)
 
     expect(formats).to include('.dat')
-    expect(formats).to include('Documents')
+    expect(formats).to include('DOCUMENTS')
   end
 
   describe 'temporal resolution faceting' do

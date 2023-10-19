@@ -89,7 +89,7 @@ module SearchSolrTools
         binned_facet = bin(FacetConfiguration.get_facet_bin(type), format_string)
         if binned_facet.nil?
           format_string
-        elsif binned_facet.eql?('exclude')
+        elsif binned_facet.match?(/\Aexclude\z/i)
           nil
         else
           binned_facet
@@ -98,11 +98,14 @@ module SearchSolrTools
 
       def self.parameter_binning(parameter_string)
         binned_parameter = bin(FacetConfiguration.get_facet_bin('parameter'), parameter_string)
-        # use variable_level_1 if no mapping exists
         return binned_parameter unless binned_parameter.nil?
 
+        # if no mapping exists, use variable_level_1.
+        # Force it to all upper case for consistency. This is a hacky workaround to
+        # deal with deprecated GCMD keywords still in use by some datasets that result
+        # in duplicate, case-sensitive entries in the search interface facet list.
         parts = parameter_string.split '>'
-        return parts[3].strip if parts.length >= 4
+        return parts[3].strip.upcase if parts.length >= 4
 
         nil
       end
@@ -158,7 +161,7 @@ module SearchSolrTools
       def self.bin(mappings, term)
         mappings.each do |mapping|
           term.match(mapping['pattern']) do
-            return mapping['mapping']
+            return mapping['mapping'].upcase
           end
         end
         nil

@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Force parameter facets based on GCMD keywords to be upper-case.
+  - Only use short name for sensor facets in which the short name and long name are identical.
+
 ## v7.1.0 (2023-10-11)
 
   - Updating harvesting to harvest storage system and spatial coverage
@@ -50,15 +55,15 @@
 
 ## v5.2.0 (2022-08-31)
 
-  - Updated the call for identifiers for the json harvester to use the 
+  - Updated the call for identifiers for the json harvester to use the
     proper "metadataPrefix" parameter, and request the dif identifiers
     instead of iso.
 
 ## v5.1.0 (2020-07-23)
 
-  - Added a CLI method to "ping" the Solr and Source servers for a given 
+  - Added a CLI method to "ping" the Solr and Source servers for a given
     data center.
-  - Added a CLI method "errcode" to get information about the various 
+  - Added a CLI method "errcode" to get information about the various
     error codes that may be returned during harvest
   - Updated the CLI harvest to return more useful error codes on failure.
 

@@ -24,12 +24,11 @@ namespace :bump do
   end
 end
 
-def bump_and_push(version)
-  update_changelog(version)
-  Bump::Bump.run(version, tag: true, commit: true, changelog: false)
+def bump_and_push(version_part)
+  update_changelog(Bump::Bump.next_version(version_part))
+  Bump::Bump.run(version_part, tag: true, commit: true, changelog: false)
 
-  sh %(git push)
-  sh %(git push --tags)
+  sh %(git push --atomic)
 end
 
 def version_rb
@@ -42,8 +41,7 @@ end
 
 def update_changelog(version)
   date = Time.now.strftime('%Y-%m-%d')
-  next_ver = Bump::Bump.next_version(version)
-  sh %(sed -i "s/^## Unreleased$/## v#{next_ver} (#{date})/" #{changelog_md})
+  sh %(sed -i "s/^## Unreleased$/## v#{version} (#{date})/" #{changelog_md})
   sh %(git add #{changelog_md})
 end
 
