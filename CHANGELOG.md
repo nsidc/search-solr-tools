@@ -1,3 +1,7 @@
+## Unreleased
+
+  - Tidy up deployment tagging.
+
 ## v7.2.0 (2023-10-19)
 
   - Force parameter facets based on GCMD keywords to be upper-case.
