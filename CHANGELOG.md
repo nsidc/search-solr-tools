@@ -1,6 +1,7 @@
 ## Unreleased
 
-  - Tidy up deployment tagging in an effort to eliminate duplicate action workflows.
+  - Revert deployment tagging changes, since they didn't solve the duplicate
+    workflow trigger problem.
 
 ## v7.2.0 (2023-10-19)
 

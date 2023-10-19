@@ -28,7 +28,7 @@ def bump_and_push(version_part)
   update_changelog(Bump::Bump.next_version(version_part))
   Bump::Bump.run(version_part, tag: true, commit: true, changelog: false)
 
-  sh %(git push origin HEAD --tags --atomic)
+  sh %(git push origin HEAD --tags)
 end
 
 def version_rb
