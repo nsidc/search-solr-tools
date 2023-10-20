@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Revert deployment tagging changes, since they didn't solve the duplicate
+    workflow trigger problem.
+
 ## v7.2.0 (2023-10-19)
 
   - Force parameter facets based on GCMD keywords to be upper-case.
