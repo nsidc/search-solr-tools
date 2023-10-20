@@ -1,4 +1,4 @@
-## Unreleased
+## v7.2.1 (2023-10-20)
 
   - Revert deployment tagging changes, since they didn't solve the duplicate
     workflow trigger problem.
