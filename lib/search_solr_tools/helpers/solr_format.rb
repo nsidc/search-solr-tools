@@ -45,7 +45,7 @@ module SearchSolrTools
       end
 
       def self.temporal_display_str(date_range)
-        temporal_str = (date_range[:start]).to_s
+        temporal_str = date_range[:start].to_s
         temporal_str += ",#{date_range[:end]}" unless date_range[:end].nil?
         temporal_str
       end
@@ -82,7 +82,7 @@ module SearchSolrTools
       end
 
       def self.reduce_temporal_duration(values)
-        values.map { |v| Integer(v) rescue nil }.compact.max
+        values.map { |v| Integer(v, exception: false) }.compact.max
       end
 
       def self.facet_binning(type, format_string)
@@ -129,7 +129,8 @@ module SearchSolrTools
         return true if resolution.to_s.empty?
         return true unless %w[single range].include? resolution['type']
         return true if resolution['type'] == 'single' && resolution['resolution'].to_s.empty?
-        return true if resolution['type'] == 'range' && resolution['min_resolution'].to_s.empty?
+
+        true if resolution['type'] == 'range' && resolution['min_resolution'].to_s.empty?
       end
 
       def self.get_spatial_scope_facet_with_bounding_box(bbox)

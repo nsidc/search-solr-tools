@@ -92,7 +92,7 @@ module SearchSolrTools
 
       def sanitize_data_centers_constraints(query_string)
         # Remove lucene special characters, preserve the query parameter and compress whitespace
-        query_string = query_string.gsub(/[:&|!~\-\(\)\{\}\[\]\^\*\?\+]+/, ' ')
+        query_string = query_string.gsub(/[:&|!~\-(){}\[\]^*?+]+/, ' ')
         query_string = query_string.gsub('data_centers ', 'data_centers:')
         query_string = query_string.gsub('source ', 'source:')
         query_string.squeeze(' ').strip
@@ -123,8 +123,8 @@ module SearchSolrTools
           status.record_status doc_status
           doc_status == Helpers::HarvestStatus::INGEST_OK ? success += 1 : failure += 1
         end
-        logger.info "#{success} document#{success == 1 ? '' : 's'} successfully added to Solr."
-        logger.info "#{failure} document#{failure == 1 ? '' : 's'} not added to Solr."
+        logger.info "#{success} document#{'s' if success == 1} successfully added to Solr."
+        logger.info "#{failure} document#{'s' if failure == 1} not added to Solr."
 
         status
       end

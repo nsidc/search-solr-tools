@@ -71,7 +71,7 @@ module SearchSolrTools
         @status_data = status
         @other_message = message
 
-        super message
+        super(message)
       end
 
       # rubocop:disable Metrics/AbcSize

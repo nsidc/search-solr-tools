@@ -29,7 +29,7 @@ describe SearchSolrTools::Harvesters::Base do
   end
 
   describe '#get_results' do
-    let(:test_uri) { instance_double('uri') }
+    let(:test_uri) { class_double(URI) }
 
     before do
       allow(URI).to receive(:parse).and_return(test_uri)
@@ -43,15 +43,19 @@ describe SearchSolrTools::Harvesters::Base do
       end
 
       describe 'with a successful response' do
-        let(:doc) { instance_double('doc') }
+        # rubocop:disable RSpec/VerifiedDoubleReference
+        let(:doc) { instance_double('document') }
         let(:parsed_metadata) { instance_double('parsed_metadata') }
+        # rubocop:enable RSpec/VerifiedDoubleReference
 
         it 'returns metadata from the XML response' do
-          response = instance_double('response')
+          response = instance_double(Net::HTTPResponse)
           allow(test_uri).to receive(:open).and_return(response)
           allow(Nokogiri).to receive(:XML).and_return(doc)
-          allow(doc).to receive(:namespaces).and_return({})
-          allow(doc).to receive(:xpath).and_return(parsed_metadata)
+          allow(doc).to receive_messages(
+            namespaces: {},
+            xpath:      parsed_metadata
+          )
 
           expect do
             described_method_get_results(
@@ -64,7 +68,7 @@ describe SearchSolrTools::Harvesters::Base do
 
       describe 'with error OpenURI::HTTPError' do
         before do
-          exception_io = instance_double('io')
+          exception_io = instance_double(OpenURI::Meta)
           allow(exception_io).to receive(:status).and_return(%w[302 Found])
 
           allow(test_uri).to receive(:open).and_raise(OpenURI::HTTPError.new('', exception_io))

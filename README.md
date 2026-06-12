@@ -102,7 +102,7 @@ as described in [Logging](#logging) below.
 
 Requirements:
 
-* Ruby > 3.2.2
+* Ruby > 3.4.9
 * [Bundler](http://bundler.io/)
 * [Rake](https://github.com/ruby/rake)
 * RuboCop and the unit tests should all pass (`rake`)

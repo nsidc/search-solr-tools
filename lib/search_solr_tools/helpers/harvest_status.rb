@@ -38,7 +38,7 @@ module SearchSolrTools
       end
 
       def ok?
-        ERROR_STATUS.each { |s| return false unless (@status[s]).zero? }
+        ERROR_STATUS.each { |s| return false unless @status[s].zero? }
         @ping_solr && @ping_source
       end
     end

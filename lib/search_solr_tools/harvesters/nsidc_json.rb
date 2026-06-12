@@ -38,7 +38,7 @@ module SearchSolrTools
 
         status = insert_solr_docs result[:add_docs], Base::JSON_CONTENT_TYPE
 
-        status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if (result[:num_docs]).zero?
+        status.record_status(Helpers::HarvestStatus::HARVEST_NO_DOCS) if result[:num_docs].zero?
 
         # Record the number of harvest failures; note that if this is 0, that's OK, the status will stay at 0
         status.record_status(Helpers::HarvestStatus::HARVEST_FAILURE, result[:failure_ids].length)

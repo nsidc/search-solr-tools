@@ -20,7 +20,7 @@ module SearchSolrTools
         temporal_coverage_values = Helpers::TranslateTemporalCoverage.translate_coverages json_doc['temporalCoverages']
         spatial_coverages = convert_spatial_coverages(json_doc['spatialCoverages'])
 
-        solr_add_hash = json_doc.select { |k, _v| copy_keys.include?(k) }
+        solr_add_hash = json_doc.slice(*copy_keys)
         solr_add_hash.merge!(
           'authoritative_id'          => json_doc['authoritativeId'],
           'dataset_version'           => json_doc['majorVersion']['version'],
@@ -63,11 +63,7 @@ module SearchSolrTools
       # rubocop:enable Metrics/AbcSize
 
       def convert_spatial_coverages(nsidc_geom)
-        geometries = []
-        nsidc_geom.each do |entry|
-          geometries << RGeo::GeoJSON.decode(entry['geom4326'])
-        end
-        geometries
+        nsidc_geom.map { |entry| RGeo::GeoJSON.decode(entry['geom4326']) }
       end
 
       def translate_sensor_to_facet_sensor(json)
@@ -178,22 +174,13 @@ module SearchSolrTools
         parameters_strings = translate_json_string(parameters_json, PARAMETER_PARTS)
         return [] if parameters_strings.nil?
 
-        facet_params = []
-        parameters_strings.each do |str|
-          facet_params << Helpers::SolrFormat.parameter_binning(str)
-        end
-        facet_params
+        parameters_strings.map { |str| Helpers::SolrFormat.parameter_binning(str) }
       end
 
       def translate_format_to_facet_format(format_json)
         return [] if format_json.nil?
 
-        facet_format = []
-
-        format_json.each do |format|
-          facet_format << Helpers::SolrFormat.facet_binning('format', format)
-        end
-        facet_format
+        format_json.map { |format| Helpers::SolrFormat.facet_binning('format', format) }
       end
 
       def translate_json_string(json, limit_values = nil)
@@ -222,9 +209,9 @@ module SearchSolrTools
 
       def generate_part_array(json, limit_values = nil)
         parts = []
-        json = json.select { |k, _v| limit_values.include?(k) } unless limit_values.nil? || limit_values.empty?
+        json = json.slice(*limit_values) unless limit_values.nil? || limit_values.empty?
 
-        json.each do |_k, v|
+        json.each_value do |v|
           parts << v unless v.to_s.empty?
         end
 

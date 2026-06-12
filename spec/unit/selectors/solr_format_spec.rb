@@ -3,9 +3,9 @@
 require 'spec_helper'
 
 describe 'SOLR format methods' do
-  fixture = Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml')
-  json_fixture = JSON.parse(File.read('spec/unit/fixtures/nsidc_G02199.json'))
-  bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
+  let(:fixture) { Nokogiri.XML File.open('spec/unit/fixtures/nsidc_iso.xml') }
+  let(:json_fixture) { JSON.parse(File.read('spec/unit/fixtures/nsidc_G02199.json')) }
+  let(:bin_configuration) { File.read('spec/unit/fixtures/bin_configuration.json') }
 
   describe 'date' do
     it 'generates a SOLR readable ISO 8601 string using the DATE helper' do

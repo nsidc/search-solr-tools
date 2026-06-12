@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rake
   - rubocop-rspec
 
@@ -57,6 +57,9 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 10
 
+Naming/PredicateMethod:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
@@ -98,7 +101,10 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
   Max: 30
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
+RSpec/SpecFilePathSuffix:
   Enabled: false
 
 RSpec/MultipleExpectations:
@@ -111,4 +117,4 @@ RSpec/NestedGroups:
   Max: 5
 
 RSpec/VerifiedDoubleReference:
-  EnforcedStyle: string
+  Enabled: true
