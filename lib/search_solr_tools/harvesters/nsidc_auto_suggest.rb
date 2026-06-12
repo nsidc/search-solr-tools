@@ -12,7 +12,7 @@ module SearchSolrTools
 
       def harvest
         url = "#{solr_url}/#{@env_settings[:collection_name]}/select?q=*%3A*&fq=source%3ANSIDC&rows=0&wt=json&indent=true&facet=true&facet.mincount=1&facet.sort=count&facet.limit=-1"
-        super url, fields
+        super(url, fields)
       end
 
       def fields

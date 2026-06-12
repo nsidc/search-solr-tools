@@ -27,8 +27,10 @@ describe SolrHarvestCLI do
     end
 
     it 'returns successful ping message and code if solr and source are up' do
-      allow(harvester_instance).to receive(:ping_solr).and_return(true)
-      allow(harvester_instance).to receive(:ping_source).and_return(true)
+      allow(harvester_instance).to receive_messages(
+        ping_solr:   true,
+        ping_source: true
+      )
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
 
@@ -40,8 +42,10 @@ describe SolrHarvestCLI do
     end
 
     it 'returns error if solr is up but source is not' do
-      allow(harvester_instance).to receive(:ping_solr).and_return(true)
-      allow(harvester_instance).to receive(:ping_source).and_return(false)
+      allow(harvester_instance).to receive_messages(
+        ping_solr:   true,
+        ping_source: false
+      )
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
       expect { cli.ping }
@@ -55,8 +59,10 @@ describe SolrHarvestCLI do
     end
 
     it 'returns error if source is up but solr is not' do
-      allow(harvester_instance).to receive(:ping_solr).and_return(false)
-      allow(harvester_instance).to receive(:ping_source).and_return(true)
+      allow(harvester_instance).to receive_messages(
+        ping_solr:   false,
+        ping_source: true
+      )
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
       expect { cli.ping }
@@ -70,8 +76,7 @@ describe SolrHarvestCLI do
     end
 
     it 'returns error if neither solr nor source are up' do
-      allow(harvester_instance).to receive(:ping_solr).and_return(false)
-      allow(harvester_instance).to receive(:ping_source).and_return(false)
+      allow(harvester_instance).to receive_messages(ping_solr: false, ping_source: false)
 
       cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
       expect { cli.ping }.to output(include('Solr ping OK? false', 'data center ping OK? false'))
@@ -102,9 +107,11 @@ describe SolrHarvestCLI do
       end
 
       it 'calls the selected harvester classes' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:harvest_and_delete).and_return(true)
+        allow(harvester_instance).to receive_messages(
+          ping_solr:          true,
+          ping_source:        true,
+          harvest_and_delete: true
+        )
 
         cli.options = { data_center: %w[nsidc], die_on_failure: false, environment: 'dev' }
         cli.harvest
@@ -125,9 +132,11 @@ describe SolrHarvestCLI do
       #  out or returns errors (as opposed to "successfully" returning an empty list).
 
       it 'fails when the attempt to get the identifiers times out' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:get_results).and_return(nil)
+        allow(harvester_instance).to receive_messages(
+          ping_solr:   true,
+          ping_source: true,
+          get_results: nil
+        )
 
         cli.options = { data_center: %w[nsidc], environment: 'dev' }
         expect { cli.harvest }.to raise_error(SystemExit) do |error|
@@ -136,9 +145,11 @@ describe SolrHarvestCLI do
       end
 
       it 'fails when the attempt to get the identifier list is empty' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:get_results).and_return([])
+        allow(harvester_instance).to receive_messages(
+          ping_solr:   true,
+          ping_source: true,
+          get_results: []
+        )
 
         cli.options = { data_center: %w[nsidc], environment: 'dev' }
         expect { cli.harvest }.to raise_error(SystemExit) do |error|
@@ -155,9 +166,11 @@ describe SolrHarvestCLI do
       end
 
       it 'fails when an invalid document is detected before ingest' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
+        allow(harvester_instance).to receive_messages(
+          ping_solr:                               true,
+          ping_source:                             true,
+          docs_with_translated_entries_from_nsidc: doc_result
+        )
         allow(harvester_instance).to receive(:insert_solr_doc).and_return(ingest_ok, ingest_invalid_doc, ingest_ok)
 
         cli.options = { data_center: %w[nsidc], environment: 'integration' }
@@ -167,9 +180,11 @@ describe SolrHarvestCLI do
       end
 
       it 'fails when there is an error ingesting into solr' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
+        allow(harvester_instance).to receive_messages(
+          ping_solr:                               true,
+          ping_source:                             true,
+          docs_with_translated_entries_from_nsidc: doc_result
+        )
         allow(harvester_instance).to receive(:insert_solr_doc).and_return(ingest_ok, ingest_solr_err, ingest_ok)
 
         cli.options = { data_center: %w[nsidc], environment: 'integration' }
@@ -179,9 +194,11 @@ describe SolrHarvestCLI do
       end
 
       it 'fails when there is an invalid document and ingest errors' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
+        allow(harvester_instance).to receive_messages(
+          ping_solr:                               true,
+          ping_source:                             true,
+          docs_with_translated_entries_from_nsidc: doc_result
+        )
         allow(harvester_instance).to receive(:insert_solr_doc).and_return(ingest_solr_err, ingest_invalid_doc, ingest_ok)
 
         cli.options = { data_center: %w[nsidc], environment: 'integration' }
@@ -192,10 +209,12 @@ describe SolrHarvestCLI do
       end
 
       it 'does not fail when documents are found and all ingest properly' do
-        allow(harvester_instance).to receive(:ping_solr).and_return(true)
-        allow(harvester_instance).to receive(:ping_source).and_return(true)
-        allow(harvester_instance).to receive(:docs_with_translated_entries_from_nsidc).and_return(doc_result)
-        allow(harvester_instance).to receive(:insert_solr_doc).and_return(ingest_ok)
+        allow(harvester_instance).to receive_messages(
+          ping_solr:                               true,
+          ping_source:                             true,
+          docs_with_translated_entries_from_nsidc: doc_result,
+          insert_solr_doc:                         ingest_ok
+        )
         allow(harvester_instance).to receive(:delete_old_documents)
 
         cli.options = { data_center: %w[nsidc], environment: 'integration' }

@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe SearchSolrTools::Harvesters::NsidcJson do
   let(:harvester) { described_class.new 'integration' }
+  let(:bin_configuration) { File.read('spec/unit/fixtures/bin_configuration.json') }
 
-  bin_configuration = File.read('spec/unit/fixtures/bin_configuration.json')
   before do
     stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration')
       .with(headers: { Accept: '*/*', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY })

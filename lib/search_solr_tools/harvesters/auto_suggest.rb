@@ -28,7 +28,7 @@ module SearchSolrTools
       end
 
       def fetch_auto_suggest_facet_data(url, fields)
-        fields.each do |name, _config|
+        fields.each_key do |name|
           url += "&facet.field=#{name}"
         end
 
@@ -55,10 +55,7 @@ module SearchSolrTools
           Helpers::HarvestStatus.new(Helpers::HarvestStatus::INGEST_OK => add_docs)
         else
           logger.error "Failed adding #{add_docs.size} documents in single commit, retrying one by one"
-          new_add_docs = []
-          add_docs.each do |doc|
-            new_add_docs << { 'add' => { 'doc' => doc } }
-          end
+          new_add_docs = add_docs.map { |doc| { 'add' => { 'doc' => doc } } }
           insert_solr_docs new_add_docs, Base::JSON_CONTENT_TYPE, @env_settings[:auto_suggest_collection_name]
         end
       end

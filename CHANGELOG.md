@@ -1,3 +1,8 @@
+## Unreleased
+
+  - Update to use ruby 3.4.9 and latest gem dependencies
+  - Modify code to meet latest rubocop specifcations
+
 ## v7.2.1 (2023-10-20)
 
   - Revert deployment tagging changes, since they didn't solve the duplicate
