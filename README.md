@@ -54,7 +54,7 @@ See _Harvesting Data_ (below) for usage examples.
 
 ### Requirements
 
-* Ruby > 3.2.2
+* Ruby > 3.4.9
 * [Bundler](http://bundler.io/)
 * Requirements for nokogiri:
     * [libxml2/libxml2-dev](http://xmlsoft.org/)
