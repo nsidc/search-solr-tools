@@ -32,7 +32,7 @@ module SearchSolrTools
           url += "&facet.field=#{name}"
         end
 
-        serialized_facet_response = RestClient.get url
+        serialized_facet_response = RestClient.get(url, verify_ssl: OpenSSL::SSL::VERIFY_NONE)
         JSON.parse(serialized_facet_response)
       end
 
