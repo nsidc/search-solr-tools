@@ -17,7 +17,10 @@ module SearchSolrTools
 
       def ping_source
         begin
-          RestClient.options(nsidc_json_url) do |response, _request, _result|
+          # RestClient.options(nsidc_json_url) do |response, _request, _result|
+          RestClient::Request.execute(
+            method: :options, url: url, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+          ) do |response, _request, _result|
             return [200, 204].include? response.code
           end
         rescue StandardError
