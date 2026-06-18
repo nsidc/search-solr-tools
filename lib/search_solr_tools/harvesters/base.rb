@@ -85,13 +85,17 @@ module SearchSolrTools
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
         full_solr_url = "#{solr_url}/#{solr_core}"
 
+        logger.info "SOLR_URL: #{solr_url}"
+        logger.info "SOLR_CORE: #{solr_core}"
+        logger.info "FULL_SOLR_URL: #{full_solr_url}"
+
         faraday_connection = Faraday.new(url: full_solr_url, ssl: { verify: false }) do |conn|
           conn.request :url_encoded
           conn.adapter Faraday.default_adapter
         end
 
         # solr = RSolr.connect url: solr_url + "/#{solr_core}", connection_options: { ssl: { verify: false } }
-        solr = RSolr.connect(faraday_connection)
+        solr = RSolr.connect(faraday_connection, url: full_solr_url)
 
         unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
         if unchanged_count.zero?
