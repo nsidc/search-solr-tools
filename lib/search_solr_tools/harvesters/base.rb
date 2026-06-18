@@ -30,7 +30,7 @@ module SearchSolrTools
 
       def solr_url
         env = SolrEnvironments[@environment]
-        "http://#{env[:host]}:#{env[:port]}/#{env[:collection_path]}"
+        "https://#{env[:host]}/#{env[:collection_path]}"
       end
 
       # Some data providers require encoding (such as URI.encode),
@@ -51,7 +51,7 @@ module SearchSolrTools
         # Some docs will cause solr to time out during the POST
         begin
           RestClient.get(url) do |response, _request, _result|
-            success = response.code == 200
+            success = [200, 204].include?(response.code)
             logger.error "Error in ping request: #{response.body}" unless success
           end
         rescue StandardError => e
@@ -146,7 +146,7 @@ module SearchSolrTools
         # Some docs will cause solr to time out during the POST
         begin
           RestClient.post(url, doc_serialized, content_type:) do |response, _request, _result|
-            success = response.code == 200
+            success = [200, 204].include?(response.code)
             unless success
               logger.error "Error for #{doc_serialized}\n\n response: #{response.body}"
               status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR

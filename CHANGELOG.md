@@ -1,3 +1,7 @@
+## Unreleased
+
+  - Updating configurartion to use https: protocol for DCS
+
 ## v8.0.0 (2026-06-12)
 
   - Update to use ruby 3.4.9 and latest gem dependencies

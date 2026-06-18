@@ -18,7 +18,7 @@ module SearchSolrTools
       def ping_source
         begin
           RestClient.options(nsidc_json_url) do |response, _request, _result|
-            return response.code == 200
+            return [200, 204].include? response.code
           end
         rescue StandardError
           logger.error "Error trying to get options for #{nsidc_json_url} (ping)"
