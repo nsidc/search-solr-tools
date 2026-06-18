@@ -55,6 +55,7 @@ module SearchSolrTools
             logger.error "Error in ping request: #{response.body}" unless success
           end
         rescue StandardError => e
+          logger.error "Here's where I tried to do it: #{url}"
           logger.error "Rest exception while pinging Solr: #{e}"
         end
         success
