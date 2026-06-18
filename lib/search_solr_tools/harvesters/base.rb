@@ -82,7 +82,7 @@ module SearchSolrTools
       def delete_old_documents(timestamp, constraints, solr_core, force: false)
         constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
-        solr = RSolr.connect url: solr_url + "/#{solr_core}"
+        solr = RSolr.connect url: solr_url + "/#{solr_core}", ssl: { verify: false }
         unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
         if unchanged_count.zero?
           logger.info "All documents were updated after #{timestamp}, nothing to delete"
