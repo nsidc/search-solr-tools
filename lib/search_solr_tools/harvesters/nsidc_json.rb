@@ -45,6 +45,7 @@ module SearchSolrTools
 
         raise Errors::HarvestError, status unless status.ok?
       rescue Errors::HarvestError => e
+        logger.error "A HarvestError occurred"
         raise e
       rescue StandardError => e
         logger.error "An unexpected exception occurred while trying to harvest or insert: #{e}"

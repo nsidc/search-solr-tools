@@ -85,6 +85,8 @@ class SolrHarvestCLI < Thor
       rescue StandardError => e
         # If it gets here, there is an error that we aren't expecting.
         logger.error "harvest failed for #{target}: #{e.message}"
+        logger.error "  Status Code: #{e.response[:status]}"
+        logger.error "  Error body: #{e.response[:body]}"
         logger.error e.backtrace
         exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER
       end
