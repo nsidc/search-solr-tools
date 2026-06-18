@@ -50,7 +50,8 @@ module SearchSolrTools
 
         # Some docs will cause solr to time out during the POST
         begin
-          RestClient.get(url, verify_ssl: OpenSSL::SSL::VERIFY_NONE) do |response, _request, _result|
+          # RestClient.get(url, verify_ssl: OpenSSL::SSL::VERIFY_NONE) do |response, _request, _result|
+          RestClient::Request.execute(method: :get, url: url, verify_ssl: OpenSSL::SSL::VERIFY_NONE) do |response, _request, _result|
             success = [200, 204].include?(response.code)
             logger.error "Error in ping request: #{response.body}" unless success
           end
