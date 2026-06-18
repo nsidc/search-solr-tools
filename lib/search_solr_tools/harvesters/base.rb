@@ -5,6 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'rest-client'
 require 'rsolr'
+require 'faraday'
 require 'time'
 
 require 'search_solr_tools'
@@ -82,7 +83,16 @@ module SearchSolrTools
       def delete_old_documents(timestamp, constraints, solr_core, force: false)
         constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
-        solr = RSolr.connect url: solr_url + "/#{solr_core}", connection_options: { ssl: { verify: false } }
+        full_solr_url = "#{solr_url}/#{solr_core}"
+
+        faraday_connection = Faraday.new(url: full_solr_url, ssl: { verify: false }) do |conn|
+          conn.request :url_encoded
+          conn.adapter Faraday.default_adapter
+        end
+
+        # solr = RSolr.connect url: solr_url + "/#{solr_core}", connection_options: { ssl: { verify: false } }
+        solr = RSolr.connect(faraday_connection)
+
         unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
         if unchanged_count.zero?
           logger.info "All documents were updated after #{timestamp}, nothing to delete"
