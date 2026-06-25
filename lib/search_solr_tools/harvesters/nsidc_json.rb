@@ -18,7 +18,7 @@ module SearchSolrTools
       def ping_source
         begin
           RestClient.options(nsidc_json_url) do |response, _request, _result|
-            return response.code == 200
+            return (200..299).include? response.code
           end
         rescue StandardError
           logger.error "Error trying to get options for #{nsidc_json_url} (ping)"
@@ -45,6 +45,7 @@ module SearchSolrTools
 
         raise Errors::HarvestError, status unless status.ok?
       rescue Errors::HarvestError => e
+        logger.error 'A HarvestError occurred'
         raise e
       rescue StandardError => e
         logger.error "An unexpected exception occurred while trying to harvest or insert: #{e}"

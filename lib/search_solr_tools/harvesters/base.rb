@@ -5,6 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'rest-client'
 require 'rsolr'
+require 'faraday'
 require 'time'
 
 require 'search_solr_tools'
@@ -30,7 +31,7 @@ module SearchSolrTools
 
       def solr_url
         env = SolrEnvironments[@environment]
-        "http://#{env[:host]}:#{env[:port]}/#{env[:collection_path]}"
+        "https://#{env[:host]}/#{env[:collection_path]}"
       end
 
       # Some data providers require encoding (such as URI.encode),
@@ -50,12 +51,12 @@ module SearchSolrTools
 
         # Some docs will cause solr to time out during the POST
         begin
-          RestClient.get(url) do |response, _request, _result|
-            success = response.code == 200
+          RestClient::Request.execute(method: :get, url: url, verify_ssl: OpenSSL::SSL::VERIFY_NONE) do |response, _request, _result|
+            success = (200..299).include?(response.code)
             logger.error "Error in ping request: #{response.body}" unless success
           end
         rescue StandardError => e
-          logger.error "Rest exception while pinging Solr: #{e}"
+          logger.error "Rest exception while pinging Solr at #{url}: #{e}"
         end
         success
       end
@@ -80,7 +81,15 @@ module SearchSolrTools
       def delete_old_documents(timestamp, constraints, solr_core, force: false)
         constraints = sanitize_data_centers_constraints(constraints)
         delete_query = "last_update:[* TO #{timestamp}] AND #{constraints}"
-        solr = RSolr.connect url: solr_url + "/#{solr_core}"
+        full_solr_url = "#{solr_url}/#{solr_core}"
+
+        faraday_connection = Faraday.new(url: full_solr_url, ssl: { verify: false }) do |conn|
+          conn.request :url_encoded
+          conn.adapter Faraday.default_adapter
+        end
+
+        solr = RSolr.connect(faraday_connection, url: full_solr_url)
+
         unchanged_count = (solr.get 'select', params: { wt: :ruby, q: delete_query, rows: 0 })['response']['numFound'].to_i
         if unchanged_count.zero?
           logger.info "All documents were updated after #{timestamp}, nothing to delete"
@@ -145,8 +154,10 @@ module SearchSolrTools
 
         # Some docs will cause solr to time out during the POST
         begin
-          RestClient.post(url, doc_serialized, content_type:) do |response, _request, _result|
-            success = response.code == 200
+          RestClient::Request.execute(
+            method: :post, url: url, payload: doc_serialized, headers: { content_type: }, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+          ) do |response, _request, _result|
+            success = (200..299).include?(response.code)
             unless success
               logger.error "Error for #{doc_serialized}\n\n response: #{response.body}"
               status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR

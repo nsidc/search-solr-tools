@@ -74,7 +74,6 @@ module SearchSolrTools
         super(message)
       end
 
-      # rubocop:disable Metrics/AbcSize
       def exit_code
         if @status_data.nil?
           logger.error "OTHER ERROR REPORTED: #{@other_message}"
@@ -95,7 +94,6 @@ module SearchSolrTools
 
         code
       end
-      # rubocop:enable Metrics/AbcSize
 
       def message
         self.class.describe_exit_code(exit_code).map { |_c, v| v }.join("\n")

@@ -11,7 +11,11 @@ module SearchSolrTools
       include Singleton
 
       def self.import_bin_configuration(env)
-        @bin_configuration = JSON.parse(RestClient.get("#{SolrEnvironments[env][:nsidc_dataset_metadata_url]}binConfiguration")) if @bin_configuration.nil?
+        return unless @bin_configuration.nil?
+
+        @bin_configuration = JSON.parse(
+          RestClient::Request.execute(method: :get, url: "#{SolrEnvironments[env][:nsidc_dataset_metadata_url]}binConfiguration", verify_ssl: OpenSSL::SSL::VERIFY_NONE)
+        )
       end
 
       def self.get_facet_bin(facet_name)

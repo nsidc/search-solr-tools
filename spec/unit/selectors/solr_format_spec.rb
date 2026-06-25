@@ -34,7 +34,7 @@ describe 'SOLR format methods' do
 
   describe 'facets' do
     before do
-      stub_request(:get, 'http://integration.nsidc.org/api/dataset/metadata/binConfiguration').with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY, 'User-Agent' => 'Ruby' }).to_return(status: 200, body: bin_configuration, headers: {})
+      stub_request(:get, 'https://integration.nsidc.org/api/dataset/metadata/binConfiguration').with(headers: { 'Accept' => '*/*; q=0.5, application/xml', 'Accept-Encoding' => GZIP_DEFLATE_IDENTITY, 'User-Agent' => 'Ruby' }).to_return(status: 200, body: bin_configuration, headers: {})
     end
 
     it 'sets the parameter for a variable level_1' do

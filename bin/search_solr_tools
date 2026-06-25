@@ -85,6 +85,15 @@ class SolrHarvestCLI < Thor
       rescue StandardError => e
         # If it gets here, there is an error that we aren't expecting.
         logger.error "harvest failed for #{target}: #{e.message}"
+        if e.response
+          logger.error "  Status Code: #{e.response[:status]}"
+          logger.error "  Error body: #{e.response[:body]}"
+        end
+        if e.respond_to?(:cause) && e.cause
+          logger.error "  Underlying System Error: #{e.cause.class} - #{e.cause.message}"
+        else
+          logger.error '  Underlying System Error: Cause unknown...'
+        end
         logger.error e.backtrace
         exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER
       end
@@ -101,8 +110,8 @@ class SolrHarvestCLI < Thor
   def delete_all
     env = SearchSolrTools::SolrEnvironments[options[:environment]]
     logger.info('DELETE ALL started')
-    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
-    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
+    `curl -k 'https://#{env[:host]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
+    `curl -k 'https://#{env[:host]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
     logger.info('DELETE ALL complete')
   end
 
@@ -111,8 +120,8 @@ class SolrHarvestCLI < Thor
   def delete_all_auto_suggest
     env = SearchSolrTools::SolrEnvironments[options[:environment]]
     logger.info('DELETE ALL AUTO_SUGGEST started')
-    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
-    `curl 'http://#{env[:host]}:#{env[:port]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
+    `curl -k 'https://#{env[:host]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<delete><query>*:*</query></delete>'`
+    `curl -k 'https://#{env[:host]}/solr/update' -H 'Content-Type: text/xml; charset=utf-8' --data '<commit/>'`
     logger.info('DELETE ALL AUTO_SUGGEST complete')
   end
 
