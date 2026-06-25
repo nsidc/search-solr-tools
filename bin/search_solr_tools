@@ -92,7 +92,7 @@ class SolrHarvestCLI < Thor
         if e.respond_to?(:cause) && e.cause
           logger.error "  Underlying System Error: #{e.cause.class} - #{e.cause.message}"
         else
-          logger.error "  Underlying System Error: Cause unknown..."
+          logger.error '  Underlying System Error: Cause unknown...'
         end
         logger.error e.backtrace
         exit SearchSolrTools::Errors::HarvestError::ERRCODE_OTHER

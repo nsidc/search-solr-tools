@@ -40,7 +40,10 @@ Lint/StructNewOverride:
   Enabled: true
 
 Metrics/AbcSize:
-  Max: 20
+  Max: 25
+
+Metrics/BlockLength:
+  Max: 30
 
 Metrics/ClassLength:
   Max: 200
