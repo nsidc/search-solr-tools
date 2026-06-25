@@ -52,7 +52,7 @@ module SearchSolrTools
         # Some docs will cause solr to time out during the POST
         begin
           RestClient::Request.execute(method: :get, url: url, verify_ssl: OpenSSL::SSL::VERIFY_NONE) do |response, _request, _result|
-            success = [200, 204].include?(response.code)
+            success = (200..299).include?(response.code)
             logger.error "Error in ping request: #{response.body}" unless success
           end
         rescue StandardError => e
@@ -157,7 +157,7 @@ module SearchSolrTools
           RestClient::Request.execute(
             method: :post, url: url, payload: doc_serialized, headers: { content_type: }, verify_ssl: OpenSSL::SSL::VERIFY_NONE
           ) do |response, _request, _result|
-            success = [200, 204].include?(response.code)
+            success = (200..299).include?(response.code)
             unless success
               logger.error "Error for #{doc_serialized}\n\n response: #{response.body}"
               status = Helpers::HarvestStatus::INGEST_ERR_SOLR_ERROR
