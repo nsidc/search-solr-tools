@@ -1,4 +1,4 @@
-## Unreleased
+## v9.0.0 (2026-06-25)
 
   - Updating configuration to use https: protocol for DCS
 
